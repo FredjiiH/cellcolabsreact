@@ -1,0 +1,81 @@
+[
+  {
+    "name": "fragment_url",
+    "label": "Fragment CDN URL",
+    "type": "text",
+    "default": "http://localhost:8080",
+    "help_text": "Base URL where fragments are hosted",
+    "required": false
+  },
+  {
+    "name": "theme",
+    "label": "Brand Theme",
+    "type": "choice",
+    "choices": [
+      ["cellcolabs", "Cellcolabs"],
+      ["cellcolabsclinical", "Cellcolabs Clinical"]
+    ],
+    "default": "cellcolabs",
+    "display": "select",
+    "required": true
+  },
+  {
+    "name": "brand_text_bold",
+    "label": "Brand Text (Bold Part)",
+    "type": "text",
+    "default": "Cellcolabs",
+    "required": true
+  },
+  {
+    "name": "brand_text_regular",
+    "label": "Brand Text (Regular Part)",
+    "type": "text",
+    "default": "Clinical",
+    "required": false
+  },
+  {
+    "name": "menu_items",
+    "label": "Navigation Menu Items",
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 10,
+      "default": 4
+    },
+    "children": [
+      {
+        "name": "label",
+        "label": "Menu Label",
+        "type": "text",
+        "default": "Menu Item",
+        "required": true
+      },
+      {
+        "name": "href",
+        "label": "Menu Link",
+        "type": "url",
+        "default": "#",
+        "supported_types": ["EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG"],
+        "required": true
+      }
+    ],
+    "default": [
+      {
+        "label": "Treatments",
+        "href": "#treatments"
+      },
+      {
+        "label": "About",
+        "href": "#about"
+      },
+      {
+        "label": "Partners",
+        "href": "#partners"
+      },
+      {
+        "label": "Contact",
+        "href": "#contact"
+      }
+    ]
+  }
+]

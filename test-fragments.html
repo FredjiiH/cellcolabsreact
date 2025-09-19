@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fragment Test - Cellcolabs</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Fragment Styles -->
+  <link rel="stylesheet" href="./dist/fragments/navigation/v1/styles.css">
+  <link rel="stylesheet" href="./dist/fragments/content-section/v1/styles.css">
+  <link rel="stylesheet" href="./dist/fragments/footer/v1/styles.css">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .test-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .fragment-loader {
+      padding: 20px;
+      background: #f0f0f0;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      border: 1px dashed #ccc;
+      margin: 10px;
+    }
+
+    /* Override for testing */
+    [data-theme="cellcolabs"] {
+      --color-primary: #0066CC;
+    }
+
+    [data-theme="cellcolabsclinical"] {
+      --color-primary: #2C3E50;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <!-- Navigation Fragment -->
+    <div id="nav-fragment"></div>
+
+    <!-- Content Section Fragment -->
+    <div id="content-fragment"></div>
+
+    <!-- Footer Fragment -->
+    <div id="footer-fragment"></div>
+  </div>
+
+  <script>
+    // Simulate HubSpot's fragment loading and content injection
+    async function loadFragment(fragmentId, containerId, placeholders = {}) {
+      try {
+        const response = await fetch(`./dist/fragments/${fragmentId}/v1/fragment.html`);
+        let html = await response.text();
+
+        // Simulate HubSpot placeholder replacement
+        Object.keys(placeholders).forEach(key => {
+          const regex = new RegExp(`{{${key}}}`, 'g');
+          html = html.replace(regex, placeholders[key]);
+        });
+
+        // Insert into container
+        document.getElementById(containerId).innerHTML = html;
+
+        // Re-run any inline scripts
+        const scripts = document.getElementById(containerId).getElementsByTagName('script');
+        for (let script of scripts) {
+          eval(script.innerHTML);
+        }
+
+      } catch (error) {
+        document.getElementById(containerId).innerHTML =
+          `<div class="fragment-loader">Failed to load fragment: ${fragmentId}</div>`;
+      }
+    }
+
+    // Load fragments with sample data (simulating HubSpot field values)
+    window.addEventListener('DOMContentLoaded', () => {
+      // Navigation
+      loadFragment('navigation', 'nav-fragment', {
+        theme: 'cellcolabsclinical',
+        brand_text_bold: 'Cellcolabs',
+        brand_text_regular: 'Clinical',
+        '#menu_items': '' // This would be handled by HubSpot's repeater
+      });
+
+      // Content Section
+      loadFragment('content-section', 'content-fragment', {
+        theme: 'cellcolabs',
+        title: 'Our clinical research programs',
+        subtitle: 'We conduct patient-funded clinical trials exploring stem cell treatments with potential to protect your heart, restore mobility, and support healthy aging.',
+        '#cards': '' // This would be handled by HubSpot's repeater
+      });
+
+      // Footer
+      loadFragment('footer', 'footer-fragment', {
+        theme: 'cellcolabsclinical',
+        brand_text: 'Cellcolabs Clinical',
+        brand_description: 'World-leading stem cell research and clinical trials using GMP-certified, donor-derived mesenchymal stem cells.',
+        copyright_text: '© 2025 Cellcolabs Clinical',
+        contact_title: 'Contact',
+        contact_address: 'Registered office Dominion<br>House, 60 Montrose Avenue<br>P.O. Box N-9932<br>Nassau, New Providence, The Bahamas',
+        '#sections': '' // This would be handled by HubSpot's repeater
+      });
+    });
+  </script>
+</body>
+</html>

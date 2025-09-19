@@ -1,99 +1,107 @@
-# CellcoLabs Next-Gen Architecture Guide
+# CellcoLabs Component Architecture
 
 ## Objectives
-- Assemble the entire public experience (marketing + main flows) in HubSpot using a shared component library.
-- Serve cellcolabs.com and cellcolabsclinical.com from a single design system with domain-based themes.
-- Deliver fast global performance via Google Cloud Storage + Cloud CDN, with minimal backend footprint.
-- Maintain theme tokens and component manifests centrally so React previews and HubSpot pages stay in sync while letting HubSpot own day-to-day content updates.
+- Build a unified design system serving both cellcolabs.com and cellcolabsclinical.com from a single HubSpot portal.
+- Maintain consistent components across brands with automatic domain-based theming.
+- Enable marketing team to edit content without developer intervention.
+- Leverage HubSpot's infrastructure for hosting, CDN, and content management.
 
 ## High-Level System
-- **Component Factory**: React (Next.js/Vite) used for component development, QA, and authenticated preview (not for public runtime rendering).
-- **HubSpot CMS**: Hosts all production pages (marketing surfaces, main flows, blog) via custom modules that hydrate with CDN-hosted fragments and HubSpot-managed content.
-- **Component Publishing**: Every React block exports both a runtime preview component and a static HTML/CSS snapshot stored on Cloud Storage/CDN for HubSpot to consume.
-- **Hosting**: Google Cloud Storage bucket(s) fronted by Cloud CDN using HTTPS load balancer per domain for fragments, assets, and preview app builds.
-- **Assets**: Brand-specific media and generated component fragments stored in Cloud Storage with CDN caching.
-- **(Optional) Serverless Functions**: Only if future workflows need protected APIs or dynamic content.
+- **Component Development**: React (Vite) used for component development, testing, and design system maintenance.
+- **HubSpot CMS**: Single portal hosts all production pages via custom theme and modules with automatic brand detection.
+- **Component Integration**: React components are manually copied to HubSpot custom modules after development and testing.
+- **Content Management**: HubSpot manages all content, menus, and assets via built-in editing tools.
+- **Multi-Brand Support**: Automatic theme switching based on domain with separate navigation menus per brand.
 
 ## Frontend & Component Architecture
-- Monorepo (e.g., Turborepo) with `apps/preview` for the React QA site and `packages/design-system` for shared primitives.
-- Theme tokens stored in JSON (colors, typography, spacing) and mapped to CSS variables; build emits one bundle per domain.
-- Components defined via JSON schema so the same contract powers React preview usage and HubSpot modules.
-- Domain-aware logic selects the correct theme bundle (host-based check in preview app; HubSpot theme setting for production).
-- React fragments ship layout, styling, and placeholders; HubSpot fills dynamic fields (text, menus, imagery) at render time.
+- Simple React app (Vite) with TypeScript for component development and testing.
+- Theme tokens stored in JSON files (`src/themes/cellcolabs.json`, `src/themes/cellcolabsclinical.json`) and mapped to CSS variables.
+- Components built with CSS Modules for scoped styling and responsive design (breakpoints: 768px tablet, 1024px desktop).
+- Domain-based theme detection via JavaScript for automatic brand switching in HubSpot custom theme.
+- Components manually copied from React development to HubSpot custom modules after testing.
 
-## Component Publishing Pipeline
-1. Design system exports tokens and shared assets during the build.
-2. Each React block renders to static HTML/CSS (and optional JS) using representative JSON data; artifacts written to `dist/components/<component>/<version>`.
-3. A manifest (`components-manifest.json`) maps component IDs to fragment URLs, required assets, and schema metadata, including placeholder IDs for HubSpot field injection.
-4. CI uploads the manifest, fragments, and theme bundles to Cloud Storage/CDN and purges relevant cache keys.
-5. HubSpot modules fetch the manifest to locate the latest fragment and merge marketing-provided content before rendering.
+## Component Development Workflow
+1. Develop and test React components locally at `http://localhost:5173`.
+2. Use built-in theme switcher and responsive preview to validate both brands.
+3. Generate static HTML/CSS fragments using `npm run build:fragments` for testing HubSpot integration.
+4. Test fragments locally at `http://localhost:8081/test-fragments.html`.
+5. Manually copy component code to HubSpot custom modules in Design Manager.
+6. Configure module fields to match component props for content editing.
 
 ## HubSpot Integration & Custom Theme
-- Maintain a lightweight custom HubSpot theme that loads the shared base CSS plus the brand-specific bundle for the current domain.
-- Use HubSpot CLI to version-control theme files and custom modules alongside this repo (deploy via CI when fragments change).
-- Custom modules expose fields mapped to the component schema (text, imagery, toggles) and hydrate placeholders inside the fragment.
-- Forms, CRM submissions, and marketing analytics continue to run natively inside HubSpot to reduce backend complexity.
+- Create a lightweight custom HubSpot theme with JavaScript-based domain detection for automatic brand switching.
+- Custom modules contain HTML/CSS/JS copied from React components with HubL templating for content fields.
+- Module fields (text, images, repeaters) allow marketing team to edit content without developer intervention.
+- Theme variables and styles embedded directly in modules for simplicity and reliability.
+- Forms, CRM submissions, and marketing analytics continue to run natively inside HubSpot.
 
-## Shared Navigation, Footer & Structured Content
-- Header/footer layout and styling ship as fragments from the React build; menu, utility links, and legal copy are sourced from HubSpot Menu Builder, HubDB, or module fields.
-- Document placeholder IDs for nav/footer fragments so HubSpot modules can inject menu structures server-side with HubL.
-- Keep any shared system copy (e.g., legal disclaimers used across channels) in repo-managed JSON; allow marketers to override brand-specific items inside HubSpot.
-- Provide a staging fixture so the React preview app mimics HubSpot menu data for QA.
+## Navigation & Content Management
+- Navigation and footer components integrated with HubSpot's native menu system and module fields.
+- Brand-specific menus managed through HubSpot Menu Builder, automatically displayed based on domain detection.
+- Content fields (headlines, descriptions, images) fully editable through HubSpot's page editor interface.
+- React preview app includes theme switcher and sample data to mimic HubSpot content structure during development.
 
 ## Theme & Domain Strategy
-- Keep brand token files in the repo (e.g., `config/themes/cellcolabs.json`, `config/themes/cellcolabsclinical.json`).
-- Build step emits `theme-cellcolabs.css` and `theme-cellcolabsclinical.css`; both published to the CDN.
-- React preview selects the bundle based on the request host or environment toggle; HubSpot theme loads the appropriate bundle via domain check or theme setting.
-- Future-friendly: tokens can later move into HubSpot (HubDB/theme settings) with a sync script that writes out JSON before builds.
+- Brand token files stored in repo (`src/themes/cellcolabs.json`, `src/themes/cellcolabsclinical.json`).
+- CSS variables automatically applied based on domain detection in HubSpot custom theme.
+- Single HubSpot portal serves both brands with automatic theme switching.
+- React preview includes theme switcher for local development and testing.
+- Brand-specific menus and content managed separately in HubSpot for each domain.
 
-## Asset & Fragment Strategy
-- Organize Cloud Storage buckets or prefixes by domain and artifact type (e.g., `gs://cellcolabs-web-assets/components/...`).
-- Version fragments by hash or semantic version to leverage immutable caching while allowing rollbacks.
-- Serve all assets and fragments via CDN URLs referenced by React manifests and HubSpot modules.
+## Component Assets & Testing
+- Components tested as static HTML/CSS fragments before integration (`npm run build:fragments`).
+- Local fragment server at `http://localhost:8080` for testing HubSpot integration locally.
+- Test page at `http://localhost:8081/test-fragments.html` validates responsive behavior and theming.
+- All styling and JavaScript embedded directly in HubSpot modules for simplicity and reliability.
 
-## Authenticated Preview & QA App
-- Deploy the React preview app behind basic auth or SSO (e.g., `preview.cellcolabs.com`) to review components before publishing.
-- Surface a component gallery/Storybook within the preview app so design, engineering, and marketing stakeholders can validate behavior outside HubSpot.
-- Optional visual regression tests run against the preview app to catch layout breaks before fragments are regenerated.
-- Preview app consumes the same theme tokens, structured JSON, and sample data used for fragment generation to guarantee parity.
+## Development & QA Environment
+- React development server at `http://localhost:5173` with component gallery and theme switcher.
+- Preview app serves as design system documentation and testing environment for stakeholders.
+- Fragment testing server simulates HubSpot integration locally before deployment.
+- Both brands testable locally with accurate responsive breakpoints and theme variables.
 
 ## Environments
-- **Development**: Local React dev server; JSON configs stored in repo; optional mock manifest/fragments for HubSpot module testing.
-- **Preview/Staging**: Separate GCS bucket + staging domain (e.g., `preview.cellcolabs.com` behind auth). CI publishes draft fragments and redeploys the preview app for QA.
-- **Production**: Dedicated buckets/domains with Cloud CDN and managed HTTPS certificates; HubSpot serves all public traffic using CDN-hosted fragments.
-- Use Google Cloud Build or GitHub Actions pipelines to build React preview, generate fragments, run tests/linting, and sync artifacts.
+- **Development**: Local React server (`localhost:5173`), fragment server (`localhost:8080`), and test page (`localhost:8081`).
+- **HubSpot Integration**: Custom modules created in HubSpot Design Manager with manually copied component code.
+- **Production**: Single HubSpot portal hosting both cellcolabs.com and cellcolabsclinical.com with domain-based theme detection.
+- Manual deployment process: develop locally → test fragments → copy to HubSpot modules → configure fields → publish.
 
-## Deployment Flow
-1. Developer merges to main/feature branch.
-2. CI runs lint/tests, builds the React preview app, and executes the component snapshot generator.
-3. Generated `dist/` preview assets, theme bundles, shared JSON, and component fragments upload to environment-specific GCS buckets.
-4. HubSpot modules/theme deployed via HubSpot CLI if source changes; CDN caches invalidated (`gcloud compute url-maps invalidate-cdn-cache`).
-5. HubSpot pages automatically render new layout/styling because modules pull the latest fragments while preserving editor-entered content; preview app updates simultaneously for QA.
+## Deployment Workflow
+1. **Component Development**: Build and test components in React development environment.
+2. **Fragment Testing**: Generate static fragments and test locally before HubSpot integration.
+3. **HubSpot Module Creation**: Manually copy HTML/CSS/JS to custom modules in Design Manager.
+4. **Field Configuration**: Set up module fields to match component props for content editing.
+5. **Theme Integration**: Apply domain-based brand detection in custom theme.
+6. **Content Management**: Marketing team manages all content through HubSpot's native editing interface.
 
 ## HubSpot Page Authoring
-- Page editors stack custom modules that reference CDN fragments; content fields stay editable inside HubSpot.
-- Header/footer modules pull structure from fragments and inject menu data from HubSpot Menu Builder or HubDB tables so marketers manage navigation without code changes.
-- Provide preview URLs or Storybook-like gallery so marketing can see the React version of each component before using it in HubSpot.
+- Marketing team drags custom modules onto pages through HubSpot's drag-and-drop page editor.
+- All content (text, images, menu items) editable through intuitive HubSpot field interfaces.
+- Navigation integrates with HubSpot Menu Builder for brand-specific menu management.
+- React preview app serves as component documentation and testing environment for stakeholders.
 
 ## Content & Governance
-- Version control theme tokens, fragment manifests, and any shared JSON copy in this repo.
-- Document a release checklist: update tokens/JSON, regenerate fragments locally, run CI pipeline, verify staging (React preview + HubSpot), invalidate CDN, spot-check production.
-- Maintain `/docs/design-system.md` with brand guidelines, component usage, and placeholder IDs to onboard new contributors quickly.
+- Theme tokens and component code version controlled in this repository.
+- Simple release process: develop → test locally → copy to HubSpot → configure → publish.
+- Marketing team manages all content through HubSpot without developer intervention.
+- Component documentation available through React preview app and HubSpot integration guides.
 
-## Optional Future Enhancements
-- Introduce serverless Cloud Run endpoints for authenticated experiences (e.g., partner portals) when needed.
-- Add automation to sync HubSpot theme settings or HubDB tables back into the repo for audit/versioning.
-- Expand the fragment generator to emit web components when interactive modules are required inside HubSpot.
-- Move theme tokens into HubSpot-managed data sources with a build-time sync once governance/validation is in place.
+## Future Enhancements
+- Automate component copying to HubSpot modules through HubSpot CLI integration.
+- Add CI/CD pipeline for automated testing and deployment workflows.
+- Expand component library with additional Figma-based components.
+- Implement automated theme sync between repository and HubSpot theme settings.
 
 ## Quick Start Checklist
-- [ ] Bootstrap the React preview app with Next.js or Vite + routing.
-- [ ] Stand up design tokens and block catalog in `packages/design-system`.
-- [ ] Implement fragment generator + manifest writer for React components, including placeholder metadata.
-- [ ] Configure GCP project (Storage buckets, Cloud CDN, HTTPS load balancer, DNS).
-- [ ] Set up CI/CD pipeline for preview build + fragment publish + cache invalidation + HubSpot CLI deploy.
-- [ ] Scaffold HubSpot custom theme and modules wired to the manifest schema and HubSpot data sources (menus, HubDB).
-- [ ] Align analytics/tracking IDs and consent tooling across HubSpot and the preview environment.
+- [x] Bootstrap React app with Vite and TypeScript
+- [x] Create theme token files for both brands
+- [x] Build responsive components (Navigation, ContentSection, Footer)
+- [x] Implement fragment generation for HubSpot testing
+- [x] Create HubSpot custom modules with proper field configuration
+- [x] Test multi-brand theming and responsive design
+- [ ] Create custom HubSpot theme with domain-based brand detection
+- [ ] Set up brand-specific menu systems in HubSpot
+- [ ] Document component usage and HubSpot integration process
 
 ## Design System & Figma Workflow
 - Treat Figma as the single source of truth for shared layouts, theme tokens, and the component catalog across both domains.
@@ -101,8 +109,100 @@
 - Capture component variants, responsive states, and content fields inside Figma annotations; mirror naming in React components and module schemas.
 - Use Claude (or other tooling) to assist with design-to-code translation, followed by manual review to enforce accessibility, token usage, and data contracts.
 
-### Collaboration Practices
-- Keep a changelog of component releases (date, branch, fragment version) in `docs/` so design, engineering, and marketing track what shipped.
-- Run a QA pass with design for every major component update; validate both the React preview and the rendered HubSpot fragment.
-- When tokens change in Figma, update JSON theme files, regenerate fragments locally, and ensure HubSpot theme loads the refreshed bundle before committing.
-- Document expected JSON contracts and HubSpot field mappings in Figma for HubSpot-targeted modules so marketers understand which fields stay synchronized from this repo.
+### Collaboration Workflow
+- Design team creates components in Figma with proper annotations for responsive states and content fields.
+- Development team builds React components locally with theme switcher for immediate brand validation.
+- Components tested as static fragments before manual integration into HubSpot custom modules.
+- Marketing team manages all content through HubSpot's native interface without developer involvement.
+- Documentation maintained in React preview app and HubSpot integration guides.
+
+## Current Implementation Status
+
+### ✅ Completed Components
+- **Navigation Component** (`src/components/Navigation/`)
+  - Responsive design with mobile hamburger menu
+  - Figma-based dotted menu icon (3x5 grid)
+  - Brand text with bold/regular styling
+  - HubSpot module created and tested
+
+- **Content Section Component** (`src/components/ContentSection/`)
+  - Three-card responsive layout (1→2→3 columns)
+  - Expandable descriptions with "Read more/less"
+  - Dynamic header layout (stacked→side-by-side)
+  - HubSpot module with repeater fields for cards
+
+- **Footer Component** (`src/components/Footer/`)
+  - Multi-column responsive layout
+  - Brand information and contact details
+  - Ready for HubSpot integration
+
+### ✅ Infrastructure Complete
+- **React Development Environment**
+  - Local server: `http://localhost:5173`
+  - Theme switcher for brand testing
+  - Responsive breakpoints: 768px (tablet), 1024px (desktop)
+
+- **Fragment Testing System**
+  - Fragment generator: `npm run build:fragments`
+  - Local fragment server: `http://localhost:8080`
+  - Test page: `http://localhost:8081/test-fragments.html`
+
+- **Theme System**
+  - Brand token files: `src/themes/cellcolabs.json` & `cellcolabsclinical.json`
+  - CSS Variables for automatic theme switching
+  - Domain-based detection ready for HubSpot
+
+### ✅ HubSpot Integration Proven
+- **Custom Modules Created**
+  - Navigation module with menu integration
+  - Content section module with card repeaters
+  - Field configurations tested and working
+
+- **Testing & Documentation**
+  - Integration guides: `HUBSPOT_INTEGRATION.md`, `QUICK_HUBSPOT_SETUP.md`
+  - Step-by-step HubSpot setup instructions
+  - Troubleshooting guides for common issues
+
+### 🚀 Next Steps
+1. **Create Custom HubSpot Theme**
+   - Implement domain-based brand detection (`window.location.hostname`)
+   - Set up automatic CSS variable switching
+   - Configure separate menu systems for each brand
+
+2. **Brand-Specific Menu Setup**
+   - Create cellcolabs.com menu in HubSpot Menu Builder
+   - Create cellcolabsclinical.com menu structure
+   - Test automatic menu switching based on domain
+
+3. **Complete Footer Integration**
+   - Copy footer component to HubSpot custom module
+   - Configure footer fields and content structure
+   - Test footer responsive behavior
+
+4. **Production Deployment**
+   - Set up domain routing in HubSpot
+   - Configure DNS for both domains
+   - Test full multi-brand experience
+
+### 📁 Key Files & Commands
+```bash
+# Development
+npm run dev              # React preview at localhost:5173
+
+# Fragment Testing
+npm run build:fragments  # Generate static fragments
+npm run serve:fragments  # Serve at localhost:8080
+
+# Testing
+open http://localhost:8081/test-fragments.html  # Full fragment test
+```
+
+**Repository Structure:**
+- `src/components/` - React component library
+- `src/themes/` - Brand token definitions
+- `hubspot-modules/` - HubSpot module templates
+- `dist/fragments/` - Generated static fragments
+- `scripts/` - Build and fragment generation tools
+
+### 🎯 Current Focus
+The architecture is fully proven with working components in both React and HubSpot environments. The immediate priority is creating the custom HubSpot theme with domain-based brand detection to enable automatic switching between cellcolabs.com and cellcolabsclinical.com experiences within a single portal.

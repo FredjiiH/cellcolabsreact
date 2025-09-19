@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "build:fragments": "node scripts/fragment-generator.js",
+    "build:fragments": "node scripts/generate-fragments-simple.js",
     "serve:fragments": "npx http-server dist/fragments -p 8080",
     "lint": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,10 +16,13 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/node": "^24.5.2",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.3",
+    "cheerio": "^1.1.2",
     "fs-extra": "^11.3.2",
+    "prettier": "^3.6.2",
     "typescript": "^5.9.2",
     "vite": "^7.1.6"
   },

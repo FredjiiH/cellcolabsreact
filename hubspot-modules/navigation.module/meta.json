@@ -1,0 +1,15 @@
+{
+  "global": false,
+  "host_template_types": ["PAGE", "BLOG_POST", "BLOG_LISTING"],
+  "module_id": "cellcolabs_navigation",
+  "label": "Cellcolabs Navigation",
+  "is_available_for_new_content": true,
+  "categories": ["navigation"],
+  "icon": "navigation",
+  "help_text": "Navigation component with responsive mobile menu and brand theming",
+  "smart_type": "NOT_SMART",
+  "tags": [],
+  "css_assets": [],
+  "external_js": [],
+  "js_assets": []
+}
