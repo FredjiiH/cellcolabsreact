@@ -1,0 +1,255 @@
+.footer {
+  background-color: #4f65be;
+  color: var(--color-text-inverse);
+  padding: var(--spacing-xxl) 0;
+  width: 100%;
+}
+
+.container {
+  max-width: var(--breakpoint-wide);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxl);
+}
+
+/* Mobile Brand Section */
+.mobileBrandSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.brandTitle {
+  font-family: 'Bricolage Grotesque', var(--font-heading);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.15;
+  margin: 0;
+  color: var(--color-text-inverse);
+}
+
+.brandDescription {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.35;
+  margin: 0;
+  color: var(--color-text-inverse);
+  opacity: 0.9;
+}
+
+/* Desktop Logo */
+.desktopLogo {
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  width: 114px;
+  height: 80px;
+}
+
+.logoText {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-text-inverse);
+}
+
+.logoSubtext {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--color-text-inverse);
+  opacity: 0.9;
+}
+
+/* Sections Grid */
+.sectionsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xxl) var(--spacing-md);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.sectionTitle {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  margin: 0;
+  color: var(--color-text-inverse);
+  opacity: 0.4;
+  text-transform: capitalize;
+}
+
+.sectionLinks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--color-text-inverse);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* Mobile Contact Section */
+.mobileContactSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.contactTitle {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  margin: 0;
+  color: var(--color-text-inverse);
+  opacity: 0.4;
+}
+
+.address {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.35;
+  font-style: normal;
+  color: var(--color-text-inverse);
+}
+
+/* Copyright */
+.copyright {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--color-text-inverse);
+  opacity: 0.9;
+  margin-top: var(--spacing-lg);
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--spacing-lg);
+  }
+
+  .sectionsGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xl);
+  }
+
+  .mobileBrandSection {
+    max-width: 60%;
+  }
+
+  .brandTitle {
+    font-size: 36px;
+  }
+
+  .brandDescription {
+    font-size: 16px;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .footer {
+    padding: calc(var(--spacing-xxl) * 1.5) 0;
+  }
+
+  .container {
+    padding: 0 var(--spacing-xl);
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    position: relative;
+    padding-top: var(--spacing-xxl);
+  }
+
+  /* Hide mobile sections on desktop */
+  .mobileBrandSection,
+  .mobileContactSection {
+    display: none;
+  }
+
+  /* Show desktop logo */
+  .desktopLogo {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .sectionsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-xl);
+    margin-left: calc(114px + var(--spacing-xxl));
+  }
+
+  .section {
+    gap: var(--spacing-lg);
+  }
+
+  .sectionTitle {
+    font-size: 16px;
+    opacity: 0.5;
+  }
+
+  .sectionLinks {
+    gap: var(--spacing-sm);
+  }
+
+  .link {
+    font-size: 16px;
+  }
+
+  .copyright {
+    grid-column: 1 / -1;
+    margin-top: calc(var(--spacing-xxl) * 2);
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.7;
+  }
+}
+
+/* Wide Desktop Styles */
+@media (min-width: 1440px) {
+  .container {
+    padding: 0 var(--spacing-xxl);
+  }
+
+  .sectionsGrid {
+    gap: calc(var(--spacing-xxl) * 1.5);
+  }
+}
