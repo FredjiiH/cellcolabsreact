@@ -228,6 +228,89 @@
           "help_text": "Select the brand theme to use"
         }
       ]
+    },
+    {
+      "name": "navigation_settings",
+      "label": "Navigation Settings",
+      "children": [
+        {
+          "name": "primary_menu",
+          "label": "Primary Menu",
+          "type": "menu",
+          "default": null,
+          "help_text": "Select the primary navigation menu. Configure menus in Content > Menus."
+        },
+        {
+          "name": "logo_type",
+          "label": "Logo Type",
+          "type": "choice",
+          "choices": [
+            ["text", "Text Logo"],
+            ["image", "Image Logo"]
+          ],
+          "default": "text",
+          "help_text": "Choose whether to use a text logo or upload an image"
+        },
+        {
+          "name": "logo_image",
+          "label": "Logo Image",
+          "type": "image",
+          "default": {
+            "src": "",
+            "alt": "Logo"
+          },
+          "help_text": "Upload your logo image (recommended size: 200x50px)",
+          "visibility": {
+            "controlling_field": "logo_type",
+            "controlling_value_regex": "image",
+            "operator": "EQUAL"
+          }
+        },
+        {
+          "name": "brand_text_bold",
+          "label": "Brand Text (Bold)",
+          "type": "text",
+          "default": "Cellcolabs",
+          "help_text": "The bold part of the text logo",
+          "visibility": {
+            "controlling_field": "logo_type",
+            "controlling_value_regex": "text",
+            "operator": "EQUAL"
+          }
+        },
+        {
+          "name": "brand_text_light",
+          "label": "Brand Text (Light)",
+          "type": "text",
+          "default": "Clinical",
+          "help_text": "The light part of the text logo",
+          "visibility": {
+            "controlling_field": "logo_type",
+            "controlling_value_regex": "text",
+            "operator": "EQUAL"
+          }
+        }
+      ]
+    },
+    {
+      "name": "typography_settings",
+      "label": "Typography Settings",
+      "children": [
+        {
+          "name": "heading_font_url",
+          "label": "Heading Font URL",
+          "type": "text",
+          "default": "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,650;12..96,700&display=swap",
+          "help_text": "Google Fonts URL for heading font (Bricolage Grotesque)"
+        },
+        {
+          "name": "body_font_url",
+          "label": "Body Font URL",
+          "type": "text",
+          "default": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400..700&display=swap",
+          "help_text": "Google Fonts URL for body font (Inter Variable)"
+        }
+      ]
     }
   ]
 }

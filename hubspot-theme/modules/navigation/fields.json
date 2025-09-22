@@ -1,0 +1,53 @@
+[
+  {
+    "id": "brand_style",
+    "name": "brand_style",
+    "label": "Brand Style",
+    "required": false,
+    "locked": false,
+    "type": "choice",
+    "choices": [
+      ["cellcolabs", "Cellcolabs"],
+      ["cellcolabsclinical", "Cellcolabs Clinical"]
+    ],
+    "default": "cellcolabsclinical",
+    "help_text": "Select the brand style for the navigation"
+  },
+  {
+    "id": "logo_type",
+    "name": "logo_type",
+    "label": "Logo Type",
+    "required": false,
+    "locked": false,
+    "type": "choice",
+    "choices": [
+      ["text", "Text Logo"],
+      ["image", "Image Logo"]
+    ],
+    "default": "text",
+    "help_text": "Choose whether to use a text logo or upload an image"
+  },
+  {
+    "id": "logo_image",
+    "name": "logo_image",
+    "label": "Logo Image",
+    "required": false,
+    "locked": false,
+    "type": "image",
+    "default": {
+      "src": "",
+      "alt": "Logo"
+    },
+    "help_text": "Upload your logo image (recommended size: 200x50px)"
+  },
+  {
+    "id": "show_divider",
+    "name": "show_divider",
+    "label": "Show Mobile Divider",
+    "required": false,
+    "locked": false,
+    "type": "boolean",
+    "default": true,
+    "help_text": "Show a divider line below the navigation on mobile and tablet"
+  }
+]

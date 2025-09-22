@@ -10,8 +10,366 @@
     <meta name="description" content="{{ page_meta.meta_description }}">
     {{ standard_header_includes }}
 
+    <!-- Google Fonts -->
+    {% if theme.typography_settings.heading_font_url %}
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="{{ theme.typography_settings.heading_font_url }}" rel="stylesheet">
+    {% endif %}
+    {% if theme.typography_settings.body_font_url %}
+      <link href="{{ theme.typography_settings.body_font_url }}" rel="stylesheet">
+    {% endif %}
+
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{ get_asset_url('./css/main.css') }}">
+    <link rel="stylesheet" href="{{ get_asset_url('./css/theme-variables.css') }}">
+
+    <!-- Navigation CSS -->
+    <style>
+      /* Body and container fixes for sticky */
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      .site-header {
+        position: -webkit-sticky !important; /* Safari support */
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 9999 !important;
+        background-color: var(--color-bg-primary) !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+        transition: box-shadow 0.2s ease !important;
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+      }
+
+      /* Navigation Base Styles */
+      .site-navigation {
+        background-color: var(--color-bg-primary);
+        position: relative;
+        z-index: 1001;
+        width: 100%;
+      }
+
+      .nav-container {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 var(--spacing-lg);
+      }
+
+      .nav-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--spacing-md) 0;
+      }
+
+      /* Logo Styles */
+      .nav-logo {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-logo-text {
+        font-family: var(--font-heading);
+        font-size: 1.125rem;
+        line-height: 1.2;
+        color: var(--color-text-primary);
+        white-space: nowrap;
+        display: flex;
+        align-items: baseline;
+      }
+
+      .nav-logo-bold {
+        font-weight: var(--font-weight-bold);
+      }
+
+      .nav-logo-light {
+        font-weight: 300;
+        margin-left: 0.25em;
+      }
+
+      .nav-logo-image-mobile {
+        height: 40px;
+        width: auto;
+        max-width: 58px;
+      }
+
+      /* Logo responsive display */
+      .nav-logo-desktop {
+        display: none;
+      }
+
+      .nav-logo-mobile {
+        display: block;
+      }
+
+      /* Desktop Menu Styles */
+      .nav-menu-desktop {
+        display: none;
+      }
+
+      /* HubSpot Menu Styles */
+      .nav-menu-desktop .hs-menu-wrapper {
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-menu-desktop .hs-menu-wrapper > ul {
+        display: flex;
+        gap: var(--spacing-sm);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+      }
+
+      .nav-menu-desktop .hs-menu-item {
+        position: relative;
+      }
+
+      .nav-menu-desktop .hs-menu-item > a {
+        font-family: var(--font-body);
+        font-size: 0.875rem;
+        font-weight: var(--font-weight-medium);
+        line-height: 1rem;
+        color: var(--color-text-primary);
+        text-decoration: none;
+        padding: var(--spacing-sm) var(--spacing-md);
+        display: block;
+        transition: color 0.2s ease;
+      }
+
+      .nav-menu-desktop .hs-menu-item > a:hover {
+        color: var(--color-primary);
+      }
+
+      .nav-menu-desktop .hs-menu-item.active-branch > a,
+      .nav-menu-desktop .hs-menu-item.current-page > a {
+        color: var(--color-primary);
+      }
+
+      /* Submenu Styles */
+      .nav-menu-desktop .hs-menu-item .hs-menu-children-wrapper {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 200px;
+        background-color: var(--color-bg-primary);
+        box-shadow: var(--shadow-lg);
+        border-radius: var(--radius-md);
+        padding: var(--spacing-sm) 0;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        z-index: 1001;
+      }
+
+      .nav-menu-desktop .hs-menu-item:hover .hs-menu-children-wrapper {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .nav-menu-desktop .hs-menu-children-wrapper ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-menu-desktop .hs-menu-children-wrapper .hs-menu-item > a {
+        font-family: var(--font-body);
+        font-size: 0.875rem;
+        font-weight: var(--font-weight-regular);
+        line-height: 1.2;
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        padding: var(--spacing-sm) var(--spacing-lg);
+        display: block;
+        transition: all 0.2s ease;
+      }
+
+      .nav-menu-desktop .hs-menu-children-wrapper .hs-menu-item > a:hover {
+        color: var(--color-text-primary);
+        background-color: var(--color-bg-secondary);
+      }
+
+      /* Mobile Menu Button */
+      .nav-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--color-text-primary);
+      }
+
+      .nav-toggle-icon,
+      .nav-toggle-close {
+        width: 24px;
+        height: 24px;
+      }
+
+      .nav-toggle-close {
+        display: none;
+      }
+
+      .nav-toggle[aria-expanded="true"] .nav-toggle-icon {
+        display: none;
+      }
+
+      .nav-toggle[aria-expanded="true"] .nav-toggle-close {
+        display: block;
+      }
+
+      /* Mobile Menu */
+      .nav-menu-mobile {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--color-bg-primary);
+        box-shadow: var(--shadow-lg);
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+      }
+
+      .nav-menu-mobile.is-active {
+        display: block;
+      }
+
+      .nav-menu-mobile-wrapper {
+        padding: var(--spacing-lg);
+      }
+
+      /* HubSpot Mobile Menu Styles */
+      .nav-menu-mobile .hs-menu-wrapper > ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-menu-mobile .hs-menu-item > a {
+        font-family: var(--font-body);
+        font-size: 1rem;
+        font-weight: var(--font-weight-regular);
+        line-height: 1.5;
+        color: var(--color-text-primary);
+        text-decoration: none;
+        padding: var(--spacing-md) 0;
+        display: block;
+        border-bottom: 1px solid var(--color-bg-section);
+        transition: color 0.2s ease;
+      }
+
+      .nav-menu-mobile .hs-menu-item > a:hover {
+        color: var(--color-primary);
+      }
+
+      .nav-menu-mobile .hs-menu-item.active-branch > a,
+      .nav-menu-mobile .hs-menu-item.current-page > a {
+        color: var(--color-primary);
+        font-weight: var(--font-weight-medium);
+      }
+
+      /* Mobile Submenu */
+      .nav-menu-mobile .hs-menu-children-wrapper {
+        padding-left: var(--spacing-lg);
+      }
+
+      .nav-menu-mobile .hs-menu-children-wrapper ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-menu-mobile .hs-menu-children-wrapper .hs-menu-item > a {
+        font-family: var(--font-body);
+        font-size: 0.875rem;
+        font-weight: var(--font-weight-regular);
+        line-height: 1.5;
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        padding: var(--spacing-sm) 0;
+        display: block;
+        border-bottom: none;
+      }
+
+      /* Mobile Divider */
+      .nav-divider-mobile {
+        display: none;
+        height: 1px;
+        background-color: var(--color-bg-section);
+        opacity: 0.2;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 767px) {
+        .nav-container {
+          padding: 0 var(--spacing-md);
+        }
+
+        .nav-divider-mobile {
+          display: block;
+        }
+      }
+
+      @media (min-width: 768px) and (max-width: 1023px) {
+        .nav-container {
+          padding: 0 var(--spacing-lg);
+        }
+
+        .nav-divider-mobile {
+          display: block;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .nav-container {
+          padding: 0 var(--spacing-lg);
+        }
+
+        .nav-menu-desktop {
+          display: block;
+        }
+
+        .nav-toggle {
+          display: none;
+        }
+
+        .nav-menu-mobile {
+          display: none !important;
+        }
+
+        .nav-divider-mobile {
+          display: none;
+        }
+      }
+
+      @media (min-width: 1440px) {
+        .nav-container {
+          padding: 0 152px;
+        }
+
+        /* 1440px+: Show text logo, hide image logo */
+        .nav-logo-desktop {
+          display: inline;
+        }
+
+        .nav-logo-mobile {
+          display: none;
+        }
+      }
+    </style>
 
     <!-- Brand Detection and Application -->
     <script>
@@ -42,32 +400,103 @@
     {% endif %}
   </head>
 
-  <body class="page-wrapper">
+  <body class="page-wrapper" style="margin: 0; padding: 0; overflow-x: hidden;">
     <!-- Header -->
     <header class="site-header">
-      {% module "navigation"
-        path="../modules/navigation",
-        brand_text_bold="{{ theme.brand_settings.active_brand == 'cellcolabsclinical' ? 'Cellcolabs' : 'Cellcolabs' }}",
-        brand_text_regular="{{ theme.brand_settings.active_brand == 'cellcolabsclinical' ? 'Clinical' : '' }}",
-        theme="{{ theme.brand_settings.active_brand }}"
-      %}
+      <!-- Navigation -->
+      <nav class="site-navigation" data-brand="cellcolabsclinical">
+        <div class="nav-container">
+          <div class="nav-wrapper">
+            <!-- Logo -->
+            <a href="/" class="nav-logo">
+              <!-- Desktop Text Logo -->
+              <span class="nav-logo-text nav-logo-desktop">
+                <span class="nav-logo-bold">Cellcolabs</span>
+                <span class="nav-logo-light">Clinical</span>
+              </span>
+              <!-- Mobile/Tablet Logo Image -->
+              <img src="https://144549987.fs1.hubspotusercontent-eu1.net/hubfs/144549987/Cellcolabs%20Clinical%20Logo.png" alt="Cellcolabs Clinical" class="nav-logo-image-mobile nav-logo-mobile">
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="nav-menu-desktop">
+              {% menu "main_navigation"
+                id="main_navigation",
+                site_map_name="main_navigation",
+                overrideable=False,
+                root_type="site_root",
+                flyouts="true",
+                max_levels="2",
+                flow="horizontal",
+                menu_class="nav-menu-list",
+                item_class="nav-menu-item",
+                link_class="nav-menu-link",
+                active_class="nav-menu-item--active",
+                child_ul_class="nav-submenu",
+                child_li_class="nav-submenu-item",
+                child_a_class="nav-submenu-link"
+              %}
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+              <svg class="nav-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="4" cy="4" r="1.5" fill="currentColor"/>
+                <circle cx="12" cy="4" r="1.5" fill="currentColor"/>
+                <circle cx="20" cy="4" r="1.5" fill="currentColor"/>
+                <circle cx="4" cy="12" r="1.5" fill="currentColor"/>
+                <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                <circle cx="20" cy="12" r="1.5" fill="currentColor"/>
+                <circle cx="4" cy="20" r="1.5" fill="currentColor"/>
+                <circle cx="12" cy="20" r="1.5" fill="currentColor"/>
+                <circle cx="20" cy="20" r="1.5" fill="currentColor"/>
+              </svg>
+              <svg class="nav-toggle-close" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="nav-menu-mobile">
+          <div class="nav-menu-mobile-wrapper">
+            {% menu "main_navigation_mobile"
+              id="main_navigation",
+              site_map_name="main_navigation",
+              overrideable=False,
+              root_type="site_root",
+              flyouts="false",
+              max_levels="2",
+              flow="vertical",
+              menu_class="nav-mobile-list",
+              item_class="nav-mobile-item",
+              link_class="nav-mobile-link",
+              active_class="nav-mobile-item--active",
+              child_ul_class="nav-mobile-submenu",
+              child_li_class="nav-mobile-submenu-item",
+              child_a_class="nav-mobile-submenu-link"
+            %}
+          </div>
+        </div>
+
+        <!-- Mobile Divider -->
+        <div class="nav-divider-mobile"></div>
+      </nav>
     </header>
 
     <!-- Main Content -->
     <main class="main-content">
       {% block body %}
-        {% module_attribute "data_attributes" %}
-          data-brand="{{ theme.brand_settings.active_brand }}"
-        {% end_module_attribute %}
       {% endblock body %}
     </main>
 
     <!-- Footer -->
     <footer class="site-footer">
-      {% module "footer"
-        path="../modules/footer",
-        theme="{{ theme.brand_settings.active_brand }}"
-      %}
+      <div class="container">
+        <p>&copy; {{ current_year }} Cellcolabs Clinical. All rights reserved.</p>
+      </div>
     </footer>
 
     {{ standard_footer_includes }}
@@ -83,6 +512,82 @@
           document.documentElement.className = document.documentElement.className.replace(/brand-\w+/, 'brand-' + theme);
         }
       }
+
+      // Navigation JavaScript
+      (function() {
+        // Force sticky navigation - aggressive approach
+        const header = document.querySelector('.site-header');
+        if (header) {
+          let headerTop = header.offsetTop;
+          let isSticky = false;
+
+          function makeSticky() {
+            if (window.scrollY > headerTop && !isSticky) {
+              header.style.position = 'fixed';
+              header.style.top = '0';
+              header.style.left = '0';
+              header.style.right = '0';
+              header.style.width = '100%';
+              header.style.zIndex = '9999';
+              header.style.backgroundColor = 'var(--color-bg-primary)';
+              header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+              isSticky = true;
+
+              // Add body padding to prevent content jump
+              document.body.style.paddingTop = header.offsetHeight + 'px';
+            } else if (window.scrollY <= headerTop && isSticky) {
+              header.style.position = 'sticky';
+              header.style.top = '0';
+              header.style.left = 'auto';
+              header.style.right = 'auto';
+              header.style.width = '100%';
+              isSticky = false;
+
+              // Remove body padding
+              document.body.style.paddingTop = '0';
+            }
+          }
+
+          // Run on scroll
+          window.addEventListener('scroll', makeSticky);
+
+          // Run once on load
+          makeSticky();
+        }
+
+        // Mobile menu toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMobile = document.querySelector('.nav-menu-mobile');
+
+        if (navToggle && navMobile) {
+          navToggle.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !isExpanded);
+            navMobile.classList.toggle('is-active');
+            document.body.style.overflow = !isExpanded ? 'hidden' : '';
+          });
+        }
+
+        // Close mobile menu on escape key
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && navMobile && navMobile.classList.contains('is-active')) {
+            navToggle.setAttribute('aria-expanded', 'false');
+            navMobile.classList.remove('is-active');
+            document.body.style.overflow = '';
+          }
+        });
+
+        // Close mobile menu on click outside
+        document.addEventListener('click', function(e) {
+          if (navMobile && navMobile.classList.contains('is-active')) {
+            if (!e.target.closest('.site-navigation')) {
+              navToggle.setAttribute('aria-expanded', 'false');
+              navMobile.classList.remove('is-active');
+              document.body.style.overflow = '';
+            }
+          }
+        });
+      })();
     </script>
   </body>
 </html>
