@@ -1,0 +1,29 @@
+{
+  "label": "Cellcolabs Multi-Brand Theme",
+  "preview_path": "./templates/page.html",
+  "screenshot_path": "./images/template-preview.png",
+  "template_types": ["PAGE", "BLOG_POST", "BLOG_LISTING", "SEARCH_RESULTS", "ERROR"],
+  "version": "1.0.0",
+  "author": "Cellcolabs Development Team",
+  "author_email": "dev@cellcolabs.com",
+  "description": "Multi-brand theme supporting both cellcolabs.com and cellcolabsclinical.com with automatic domain-based theming",
+  "responsive_breakpoints": [
+    {
+      "name": "mobile",
+      "mediaQuery": "(max-width: 767px)",
+      "previewWidth": 375
+    },
+    {
+      "name": "tablet",
+      "mediaQuery": "(min-width: 768px) and (max-width: 1023px)",
+      "previewWidth": 768
+    },
+    {
+      "name": "desktop",
+      "mediaQuery": "(min-width: 1024px)",
+      "previewWidth": 1440
+    }
+  ],
+  "enable_domain_stylesheets": false,
+  "supported_brands": ["cellcolabs", "cellcolabsclinical"]
+}

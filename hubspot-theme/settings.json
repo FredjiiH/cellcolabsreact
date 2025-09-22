@@ -1,0 +1,233 @@
+{
+  "globals": {
+    "colors": {
+      "cellcolabs": {
+        "primary": {
+          "value": "#0066CC",
+          "label": "Cellcolabs Primary Blue"
+        },
+        "secondary": {
+          "value": "#00A86B",
+          "label": "Cellcolabs Secondary Green"
+        },
+        "accent": {
+          "value": "#FF6B35",
+          "label": "Cellcolabs Accent Orange"
+        },
+        "text_primary": {
+          "value": "#161616",
+          "label": "Primary Text"
+        },
+        "text_secondary": {
+          "value": "#666666",
+          "label": "Secondary Text"
+        },
+        "background_primary": {
+          "value": "#FFFFFF",
+          "label": "Primary Background"
+        },
+        "background_secondary": {
+          "value": "#F8F9FA",
+          "label": "Secondary Background"
+        }
+      },
+      "cellcolabsclinical": {
+        "primary": {
+          "value": "#5385b0",
+          "label": "Clinical Primary Blue"
+        },
+        "primary_dark": {
+          "value": "#205077",
+          "label": "Clinical Dark Blue"
+        },
+        "primary_darkest": {
+          "value": "#122d4e",
+          "label": "Clinical Darkest Blue"
+        },
+        "primary_light": {
+          "value": "#abc4db",
+          "label": "Clinical Light Blue"
+        },
+        "primary_lightest": {
+          "value": "#d1deed",
+          "label": "Clinical Lightest Blue"
+        },
+        "accent": {
+          "value": "#f3cc3c",
+          "label": "Clinical Accent Yellow"
+        },
+        "text_primary": {
+          "value": "#161616",
+          "label": "Primary Text"
+        },
+        "text_secondary": {
+          "value": "#525252",
+          "label": "Secondary Text"
+        },
+        "text_light": {
+          "value": "#6f6f6f",
+          "label": "Light Text"
+        },
+        "background_primary": {
+          "value": "#FFFFFF",
+          "label": "Primary Background"
+        },
+        "background_secondary": {
+          "value": "#f4f4f4",
+          "label": "Secondary Background"
+        },
+        "background_light": {
+          "value": "#e0e0e0",
+          "label": "Light Background"
+        },
+        "border_light": {
+          "value": "#c6c6c6",
+          "label": "Light Border"
+        },
+        "border_medium": {
+          "value": "#a8a8a8",
+          "label": "Medium Border"
+        }
+      },
+      "grayscale": {
+        "black": {
+          "value": "#161616",
+          "label": "Black"
+        },
+        "gray_900": {
+          "value": "#262626",
+          "label": "Gray 900"
+        },
+        "gray_800": {
+          "value": "#393939",
+          "label": "Gray 800"
+        },
+        "gray_700": {
+          "value": "#525252",
+          "label": "Gray 700"
+        },
+        "gray_600": {
+          "value": "#6f6f6f",
+          "label": "Gray 600"
+        },
+        "gray_500": {
+          "value": "#8d8d8d",
+          "label": "Gray 500"
+        },
+        "gray_400": {
+          "value": "#a8a8a8",
+          "label": "Gray 400"
+        },
+        "gray_300": {
+          "value": "#c6c6c6",
+          "label": "Gray 300"
+        },
+        "gray_200": {
+          "value": "#e0e0e0",
+          "label": "Gray 200"
+        },
+        "gray_100": {
+          "value": "#f4f4f4",
+          "label": "Gray 100"
+        },
+        "white": {
+          "value": "#ffffff",
+          "label": "White"
+        }
+      }
+    },
+    "typography": {
+      "font_heading": {
+        "value": "'Barlow', sans-serif",
+        "label": "Heading Font"
+      },
+      "font_body": {
+        "value": "'Inter', sans-serif",
+        "label": "Body Font"
+      },
+      "size_h1_desktop": {
+        "value": "48px",
+        "label": "H1 Desktop"
+      },
+      "size_h1_mobile": {
+        "value": "32px",
+        "label": "H1 Mobile"
+      },
+      "size_h2_desktop": {
+        "value": "36px",
+        "label": "H2 Desktop"
+      },
+      "size_h2_mobile": {
+        "value": "24px",
+        "label": "H2 Mobile"
+      },
+      "size_body_desktop": {
+        "value": "18px",
+        "label": "Body Desktop"
+      },
+      "size_body_mobile": {
+        "value": "16px",
+        "label": "Body Mobile"
+      }
+    },
+    "spacing": {
+      "xs": {
+        "value": "4px",
+        "label": "Extra Small"
+      },
+      "sm": {
+        "value": "8px",
+        "label": "Small"
+      },
+      "md": {
+        "value": "16px",
+        "label": "Medium"
+      },
+      "lg": {
+        "value": "24px",
+        "label": "Large"
+      },
+      "xl": {
+        "value": "32px",
+        "label": "Extra Large"
+      },
+      "xxl": {
+        "value": "48px",
+        "label": "2X Large"
+      }
+    },
+    "breakpoints": {
+      "mobile": {
+        "value": "768px",
+        "label": "Mobile Breakpoint"
+      },
+      "tablet": {
+        "value": "1024px",
+        "label": "Tablet Breakpoint"
+      },
+      "desktop": {
+        "value": "1440px",
+        "label": "Desktop Breakpoint"
+      }
+    }
+  },
+  "groups": [
+    {
+      "name": "brand_settings",
+      "label": "Brand Settings",
+      "children": [
+        {
+          "name": "active_brand",
+          "label": "Active Brand",
+          "type": "choice",
+          "choices": [
+            ["cellcolabs", "Cellcolabs"],
+            ["cellcolabsclinical", "Cellcolabs Clinical"]
+          ],
+          "default": "cellcolabs",
+          "help_text": "Select the brand theme to use"
+        }
+      ]
+    }
+  ]
+}

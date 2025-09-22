@@ -1,66 +1,181 @@
 {
   "name": "cellcolabsclinical",
   "colors": {
-    "primary": "#2C3E50",
-    "secondary": "#3498DB",
-    "accent": "#E74C3C",
     "text": {
       "primary": "#161616",
-      "secondary": "#666666",
-      "inverse": "#FFFFFF"
+      "secondary": "#525252",
+      "tertiary": "#8D8D8D",
+      "disabled": "#C6C6C6",
+      "inverse": "#FFFFFF",
+      "link": "#4F65BE"
+    },
+    "gray": {
+      "0": "#161616",
+      "100": "#262626",
+      "200": "#393939",
+      "300": "#525252",
+      "400": "#6F6F6F",
+      "500": "#8D8D8D",
+      "600": "#A8A8A8",
+      "700": "#C6C6C6",
+      "800": "#E0E0E0",
+      "900": "#F4F4F4",
+      "1000": "#FFFFFF"
     },
     "background": {
-      "primary": "#FFFFFF",
-      "secondary": "#ECF0F1",
-      "section": "#F5F7FA",
-      "dark": "#2C3E50"
+      "white": "#FFFFFF",
+      "beige": "#EDE9E1",
+      "blue": "#D1DEED"
     },
-    "border": {
-      "light": "#E0E5E9",
-      "medium": "#BDC3C7"
+    "dividers": {
+      "dark": "#161616",
+      "light": "#FFFFFF"
+    },
+    "brand": {
+      "100": "#BECFFF",
+      "300": "#879ADF",
+      "500": "#4F65BE",
+      "700": "#2F4283",
+      "900": "#0F2047"
+    },
+    "functional": {
+      "error": "#F94400",
+      "warning": "#F9D400"
     }
   },
   "typography": {
     "fontFamily": {
-      "heading": "'Barlow', sans-serif",
-      "body": "'Inter', sans-serif"
+      "heading": "'Bricolage Grotesque', sans-serif",
+      "body": "'Inter Variable', 'Inter', sans-serif"
     },
     "fontSize": {
-      "mobile": {
-        "h1": "32px",
-        "h2": "24px",
-        "h3": "20px",
-        "body": "16px",
-        "small": "14px"
-      },
       "desktop": {
-        "h1": "48px",
-        "h2": "36px",
-        "h3": "24px",
-        "body": "18px",
-        "small": "14px"
+        "display": "5rem",
+        "h1": "3.5rem",
+        "h2": "3rem",
+        "h3": "2.25rem",
+        "h4": "1rem",
+        "bodyLarge": "1.125rem",
+        "bodyMedium": "1rem",
+        "bodySmall": "0.875rem",
+        "button": "1rem",
+        "link": "1rem",
+        "eyebrow": "0.875rem"
+      },
+      "tablet": {
+        "display": "3rem",
+        "h1": "2.25rem",
+        "h2": "2rem",
+        "h3": "1.75rem",
+        "h4": "1rem",
+        "bodyLarge": "1.125rem",
+        "bodyMedium": "1rem",
+        "bodySmall": "0.875rem",
+        "button": "1rem",
+        "link": "1rem",
+        "eyebrow": "0.875rem"
+      },
+      "mobile": {
+        "display": "2.5rem",
+        "h1": "2.25rem",
+        "h2": "2rem",
+        "h3": "1.75rem",
+        "h4": "1rem",
+        "bodyLarge": "1.125rem",
+        "bodyMedium": "1rem",
+        "bodySmall": "0.875rem",
+        "button": "1.125rem",
+        "link": "1.125rem",
+        "eyebrow": "0.875rem"
+      }
+    },
+    "fontSizePx": {
+      "desktop": {
+        "display": "80px",
+        "h1": "56px",
+        "h2": "48px",
+        "h3": "36px",
+        "h4": "16px",
+        "bodyLarge": "18px",
+        "bodyMedium": "16px",
+        "bodySmall": "14px",
+        "button": "16px",
+        "link": "16px",
+        "eyebrow": "14px"
+      },
+      "tablet": {
+        "display": "48px",
+        "h1": "36px",
+        "h2": "32px",
+        "h3": "28px",
+        "h4": "16px",
+        "bodyLarge": "18px",
+        "bodyMedium": "16px",
+        "bodySmall": "14px",
+        "button": "16px",
+        "link": "16px",
+        "eyebrow": "14px"
+      },
+      "mobile": {
+        "display": "40px",
+        "h1": "36px",
+        "h2": "32px",
+        "h3": "28px",
+        "h4": "16px",
+        "bodyLarge": "18px",
+        "bodyMedium": "16px",
+        "bodySmall": "14px",
+        "button": "18px",
+        "link": "18px",
+        "eyebrow": "14px"
       }
     },
     "fontWeight": {
-      "regular": "400",
+      "regular": "450",
       "medium": "500",
+      "semiBold": "650",
       "bold": "700"
     },
     "lineHeight": {
-      "tight": "1.2",
-      "normal": "1.5",
-      "relaxed": "1.7"
+      "display": "1.0",
+      "displayTablet": "1.15",
+      "heading": "1.15",
+      "body": "1.35",
+      "button": "1.5",
+      "eyebrow": "2.0"
+    },
+    "letterSpacing": {
+      "display": "-0.02em",
+      "default": "0"
     }
   },
   "spacing": {
-    "unit": "8px",
-    "xs": "4px",
-    "sm": "8px",
-    "md": "16px",
-    "lg": "24px",
-    "xl": "32px",
-    "xxl": "48px",
+    "space4": "0.25rem",
+    "space8": "0.5rem",
+    "space16": "1rem",
+    "space24": "1.5rem",
+    "space32": "2rem",
+    "space48": "3rem",
+    "space64": "4rem",
+    "space96": "6rem",
+    "space128": "7.5rem",
+    "spacePx": {
+      "space4": "4px",
+      "space8": "8px",
+      "space16": "16px",
+      "space24": "24px",
+      "space32": "32px",
+      "space48": "48px",
+      "space64": "64px",
+      "space96": "96px",
+      "space128": "120px"
+    },
     "containerPadding": {
+      "mobile": "1rem",
+      "tablet": "1.5rem",
+      "desktop": "2rem"
+    },
+    "containerPaddingPx": {
       "mobile": "16px",
       "tablet": "24px",
       "desktop": "32px"

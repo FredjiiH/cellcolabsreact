@@ -1,0 +1,82 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Standard Page
+  screenshotPath: ../images/page-template.png
+-->
+{% extends "./base.html" %}
+
+{% block body %}
+<div class="page-content">
+  <!-- Hero Section -->
+  {% dnd_area "hero"
+    label="Hero Section",
+    class="hero-section"
+  %}
+    {% dnd_section %}
+      {% dnd_column %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../modules/hero-block",
+            heading="Welcome to {{ theme.brand_settings.active_brand == 'cellcolabsclinical' ? 'Cellcolabs Clinical' : 'Cellcolabs' }}",
+            subheading="Innovative Cell Therapy Solutions",
+            theme="{{ theme.brand_settings.active_brand }}"
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}
+  {% end_dnd_area %}
+
+  <!-- Main Content Area -->
+  {% dnd_area "main"
+    label="Main Content",
+    class="main-content-area section"
+  %}
+    {% dnd_section
+      background_color={{ theme.globals.colors.grayscale.gray_100.value }}
+    %}
+      {% dnd_column %}
+        {% dnd_row %}
+          {% dnd_module
+            path="@hubspot/rich_text",
+            html="<h2>Your Content Here</h2><p>Add your page content using the drag and drop editor.</p>"
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}
+  {% end_dnd_area %}
+
+  <!-- Additional Content Sections -->
+  {% dnd_area "additional"
+    label="Additional Content",
+    class="additional-content-area"
+  %}
+  {% end_dnd_area %}
+
+  <!-- CTA Section -->
+  {% dnd_area "cta"
+    label="Call to Action",
+    class="cta-section"
+  %}
+    {% dnd_section
+      background_color={{ theme.brand_settings.active_brand == 'cellcolabsclinical' ? theme.globals.colors.cellcolabsclinical.primary.value : theme.globals.colors.cellcolabs.primary.value }}
+    %}
+      {% dnd_column %}
+        {% dnd_row %}
+          {% dnd_module
+            path="@hubspot/rich_text",
+            html="<div class='text-center text-white p-5'>
+              <h2>Ready to Get Started?</h2>
+              <p>Contact us today to learn more about our solutions.</p>
+              <a href='/contact' class='btn btn-outline'>Contact Us</a>
+            </div>"
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}
+  {% end_dnd_area %}
+</div>
+{% endblock body %}

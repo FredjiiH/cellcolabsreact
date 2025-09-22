@@ -1,0 +1,88 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="{{ html_lang }}" {{ html_lang_dir }}> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="{{ html_lang }}" {{ html_lang_dir }}>        <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="{{ html_lang }}" {{ html_lang_dir }}>               <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ html_lang }}" {{ html_lang_dir }}>              <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <title>{{ page_meta.html_title }}</title>
+    {% if site_settings.favicon_src %}<link rel="shortcut icon" href="{{ site_settings.favicon_src }}" />{% endif %}
+    <meta name="description" content="{{ page_meta.meta_description }}">
+    {{ standard_header_includes }}
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{{ get_asset_url('./css/main.css') }}">
+
+    <!-- Brand Detection and Application -->
+    <script>
+      (function() {
+        // Detect brand based on domain
+        var hostname = window.location.hostname;
+        var brand = 'cellcolabs'; // Default brand
+
+        if (hostname.includes('cellcolabsclinical')) {
+          brand = 'cellcolabsclinical';
+        }
+
+        // Apply brand as data attribute and class
+        document.documentElement.setAttribute('data-brand', brand);
+        document.documentElement.className += ' brand-' + brand;
+
+        // Store in localStorage for persistence
+        localStorage.setItem('active-brand', brand);
+      })();
+    </script>
+
+    <!-- HubSpot Theme Settings -->
+    {% if theme.brand_settings.active_brand %}
+      <script>
+        document.documentElement.setAttribute('data-brand', '{{ theme.brand_settings.active_brand }}');
+        document.documentElement.className += ' brand-{{ theme.brand_settings.active_brand }}';
+      </script>
+    {% endif %}
+  </head>
+
+  <body class="page-wrapper">
+    <!-- Header -->
+    <header class="site-header">
+      {% module "navigation"
+        path="../modules/navigation",
+        brand_text_bold="{{ theme.brand_settings.active_brand == 'cellcolabsclinical' ? 'Cellcolabs' : 'Cellcolabs' }}",
+        brand_text_regular="{{ theme.brand_settings.active_brand == 'cellcolabsclinical' ? 'Clinical' : '' }}",
+        theme="{{ theme.brand_settings.active_brand }}"
+      %}
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      {% block body %}
+        {% module_attribute "data_attributes" %}
+          data-brand="{{ theme.brand_settings.active_brand }}"
+        {% end_module_attribute %}
+      {% endblock body %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      {% module "footer"
+        path="../modules/footer",
+        theme="{{ theme.brand_settings.active_brand }}"
+      %}
+    </footer>
+
+    {{ standard_footer_includes }}
+
+    <!-- Custom Scripts -->
+    <script>
+      // Theme switcher for development/preview
+      if (window.location.search.includes('theme=')) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const theme = urlParams.get('theme');
+        if (theme === 'cellcolabs' || theme === 'cellcolabsclinical') {
+          document.documentElement.setAttribute('data-brand', theme);
+          document.documentElement.className = document.documentElement.className.replace(/brand-\w+/, 'brand-' + theme);
+        }
+      }
+    </script>
+  </body>
+</html>

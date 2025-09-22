@@ -43,6 +43,11 @@
 
 ## Theme & Domain Strategy
 - Brand token files stored in repo (`src/themes/cellcolabs.json`, `src/themes/cellcolabsclinical.json`).
+- Cellcolabs Clinical theme aligned with Figma design system:
+  - **Typography**: Bricolage Grotesque for headings, Inter Variable for body
+  - **Type scale**: Display through Eyebrow with responsive rem units
+  - **Spacing**: 9-step scale from space-4 (0.25rem) to space-128 (7.5rem)
+  - **Colors**: Comprehensive system with text, gray scale, backgrounds, brand colors, and functional states
 - CSS variables automatically applied based on domain detection in HubSpot custom theme.
 - Single HubSpot portal serves both brands with automatic theme switching.
 - React preview includes theme switcher for local development and testing.
@@ -105,9 +110,12 @@
 
 ## Design System & Figma Workflow
 - Treat Figma as the single source of truth for shared layouts, theme tokens, and the component catalog across both domains.
+- Design tokens extracted directly from Figma using MCP integration:
+  - Typography specifications: [Figma Typography](https://www.figma.com/design/bqAkpCKE3msElSGDuVqIz2/Website-2.0?node-id=825-3231)
+  - Spacing system: [Figma Spacing](https://www.figma.com/design/bqAkpCKE3msElSGDuVqIz2/Website-2.0?node-id=825-4897)
 - Maintain separate brand pages for exploration, but publish reusable primitives from a shared Figma library so repo tokens stay aligned.
 - Capture component variants, responsive states, and content fields inside Figma annotations; mirror naming in React components and module schemas.
-- Use Claude (or other tooling) to assist with design-to-code translation, followed by manual review to enforce accessibility, token usage, and data contracts.
+- Use Claude with Figma MCP for automated design-to-code translation, ensuring perfect alignment with design specifications.
 
 ### Collaboration Workflow
 - Design team creates components in Figma with proper annotations for responsive states and content fields.

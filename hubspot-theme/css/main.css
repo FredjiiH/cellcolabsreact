@@ -1,0 +1,370 @@
+/* ===================================
+   Cellcolabs Multi-Brand Main Theme CSS
+   =================================== */
+
+/* Import theme variables */
+@import url('theme-variables.css');
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,650;12..96,700&family=Inter:wght@400..700&display=swap');
+
+/* ===================================
+   Reset & Base Styles
+   =================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-normal);
+  min-height: 100vh;
+}
+
+/* ===================================
+   Layout Components
+   =================================== */
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.container-fluid {
+  width: 100%;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+/* Section Spacing */
+.section {
+  padding: var(--space-48) 0;
+}
+
+.section-sm {
+  padding: var(--space-32) 0;
+}
+
+.section-lg {
+  padding: var(--space-64) 0;
+}
+
+.section-xl {
+  padding: var(--space-96) 0;
+}
+
+/* ===================================
+   Grid System
+   =================================== */
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(var(--space-16) * -1);
+  margin-right: calc(var(--space-16) * -1);
+}
+
+.col {
+  flex: 1;
+  padding-left: var(--space-16);
+  padding-right: var(--space-16);
+}
+
+.col-12 { flex: 0 0 100%; max-width: 100%; }
+.col-6 { flex: 0 0 50%; max-width: 50%; }
+.col-4 { flex: 0 0 33.333%; max-width: 33.333%; }
+.col-3 { flex: 0 0 25%; max-width: 25%; }
+
+@media (max-width: 767px) {
+  .col-sm-12 { flex: 0 0 100%; max-width: 100%; }
+  .col-sm-6 { flex: 0 0 50%; max-width: 50%; }
+}
+
+@media (min-width: 768px) {
+  .col-md-12 { flex: 0 0 100%; max-width: 100%; }
+  .col-md-6 { flex: 0 0 50%; max-width: 50%; }
+  .col-md-4 { flex: 0 0 33.333%; max-width: 33.333%; }
+  .col-md-3 { flex: 0 0 25%; max-width: 25%; }
+}
+
+@media (min-width: 1024px) {
+  .col-lg-12 { flex: 0 0 100%; max-width: 100%; }
+  .col-lg-6 { flex: 0 0 50%; max-width: 50%; }
+  .col-lg-4 { flex: 0 0 33.333%; max-width: 33.333%; }
+  .col-lg-3 { flex: 0 0 25%; max-width: 25%; }
+}
+
+/* ===================================
+   Components
+   =================================== */
+
+/* Cards */
+.card {
+  background-color: var(--color-bg-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-24);
+  margin-bottom: var(--space-24);
+}
+
+.card-header {
+  margin-bottom: var(--space-16);
+  padding-bottom: var(--space-16);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.card-body {
+  padding: var(--space-16) 0;
+}
+
+.card-footer {
+  margin-top: var(--space-16);
+  padding-top: var(--space-16);
+  border-top: 1px solid var(--color-border-light);
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: var(--space-24);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-8);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.form-control {
+  width: 100%;
+  padding: var(--space-8) var(--space-16);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(83, 133, 176, 0.1);
+}
+
+/* Tables */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--space-24);
+}
+
+.table th {
+  padding: var(--space-16);
+  text-align: left;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-secondary);
+  border-bottom: 2px solid var(--color-border-medium);
+}
+
+.table td {
+  padding: var(--space-16);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.table tbody tr:hover {
+  background-color: var(--color-bg-secondary);
+}
+
+/* ===================================
+   Utilities
+   =================================== */
+
+/* Display */
+.d-none { display: none; }
+.d-block { display: block; }
+.d-inline-block { display: inline-block; }
+.d-flex { display: flex; }
+.d-inline-flex { display: inline-flex; }
+
+/* Flexbox */
+.flex-row { flex-direction: row; }
+.flex-column { flex-direction: column; }
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+.align-start { align-items: flex-start; }
+.align-center { align-items: center; }
+.align-end { align-items: flex-end; }
+
+/* Text Alignment */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+/* Text Colors */
+.text-primary { color: var(--color-primary); }
+.text-secondary { color: var(--color-secondary); }
+.text-accent { color: var(--color-accent); }
+.text-muted { color: var(--color-text-secondary); }
+.text-white { color: var(--color-white); }
+
+/* Background Colors */
+.bg-primary { background-color: var(--color-primary); }
+.bg-secondary { background-color: var(--color-secondary); }
+.bg-accent { background-color: var(--color-accent); }
+.bg-light { background-color: var(--color-bg-secondary); }
+.bg-dark { background-color: var(--color-bg-dark); }
+
+/* Spacing */
+.m-0 { margin: 0; }
+.m-05 { margin: var(--space-4); }
+.m-1 { margin: var(--space-8); }
+.m-2 { margin: var(--space-16); }
+.m-3 { margin: var(--space-24); }
+.m-4 { margin: var(--space-32); }
+.m-5 { margin: var(--space-48); }
+.m-6 { margin: var(--space-64); }
+
+.mt-0 { margin-top: 0; }
+.mt-05 { margin-top: var(--space-4); }
+.mt-1 { margin-top: var(--space-8); }
+.mt-2 { margin-top: var(--space-16); }
+.mt-3 { margin-top: var(--space-24); }
+.mt-4 { margin-top: var(--space-32); }
+.mt-5 { margin-top: var(--space-48); }
+.mt-6 { margin-top: var(--space-64); }
+
+.mb-0 { margin-bottom: 0; }
+.mb-05 { margin-bottom: var(--space-4); }
+.mb-1 { margin-bottom: var(--space-8); }
+.mb-2 { margin-bottom: var(--space-16); }
+.mb-3 { margin-bottom: var(--space-24); }
+.mb-4 { margin-bottom: var(--space-32); }
+.mb-5 { margin-bottom: var(--space-48); }
+.mb-6 { margin-bottom: var(--space-64); }
+
+.p-0 { padding: 0; }
+.p-05 { padding: var(--space-4); }
+.p-1 { padding: var(--space-8); }
+.p-2 { padding: var(--space-16); }
+.p-3 { padding: var(--space-24); }
+.p-4 { padding: var(--space-32); }
+.p-5 { padding: var(--space-48); }
+.p-6 { padding: var(--space-64); }
+
+/* Borders */
+.border { border: 1px solid var(--color-border-light); }
+.border-top { border-top: 1px solid var(--color-border-light); }
+.border-bottom { border-bottom: 1px solid var(--color-border-light); }
+.border-left { border-left: 1px solid var(--color-border-light); }
+.border-right { border-right: 1px solid var(--color-border-light); }
+
+/* Border Radius */
+.rounded { border-radius: var(--radius-md); }
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-full { border-radius: var(--radius-full); }
+
+/* Shadows */
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+
+/* ===================================
+   Responsive Utilities
+   =================================== */
+
+@media (max-width: 767px) {
+  .hide-mobile { display: none; }
+  .show-mobile { display: block; }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hide-tablet { display: none; }
+  .show-tablet { display: block; }
+}
+
+@media (min-width: 1024px) {
+  .hide-desktop { display: none; }
+  .show-desktop { display: block; }
+}
+
+/* ===================================
+   Brand-Specific Overrides
+   =================================== */
+
+/* Apply brand-specific styles based on domain or class */
+.brand-cellcolabsclinical .btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.brand-cellcolabsclinical .btn-primary:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
+
+.brand-cellcolabsclinical .accent-element {
+  background-color: var(--color-accent);
+  color: var(--color-text-primary);
+}
+
+/* Clinical brand specific gradient */
+.brand-cellcolabsclinical .gradient-primary {
+  background: linear-gradient(135deg,
+    var(--color-primary-darkest) 0%,
+    var(--color-primary) 50%,
+    var(--color-primary-light) 100%);
+}
+
+/* ===================================
+   Print Styles
+   =================================== */
+
+@media print {
+  body {
+    font-size: 12pt;
+    color: #000;
+    background: #fff;
+  }
+
+  .no-print {
+    display: none;
+  }
+
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+}
