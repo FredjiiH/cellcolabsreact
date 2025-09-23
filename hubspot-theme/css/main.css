@@ -719,77 +719,152 @@ body {
 
 /* HIGH PRIORITY MODULES */
 
-/* Button Module */
+/* Button Module - Figma Design System */
 .hs-button {
   display: inline-block;
   font-family: var(--font-body);
   font-size: var(--font-size-button);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-button);
-  padding: var(--space-8) var(--space-24);
-  border-radius: var(--radius-md);
-  border: 2px solid var(--color-primary);
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-button);
+  border: 1px solid transparent;
   text-decoration: none;
   text-align: center;
   transition: var(--transition-default);
   cursor: pointer;
-  /* Default button style - acts as primary */
-  background-color: var(--color-primary);
-  color: var(--color-white);
+  /* Default button = Primary button style */
+  background-color: var(--color-brand-100);
+  color: var(--color-text-primary);
 }
 
 .hs-button:hover {
-  background-color: var(--color-brand-700, var(--color-primary));
-  border-color: var(--color-brand-700, var(--color-primary));
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  background-color: var(--color-brand-300);
+  color: var(--color-text-primary);
+}
+
+.hs-button:active {
+  background-color: var(--color-brand-500);
   color: var(--color-white);
 }
 
+.hs-button:disabled {
+  background-color: var(--color-gray-700);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* Primary Button - Blue background */
 .hs-button-primary {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  border-color: var(--color-primary);
+  background-color: var(--color-brand-100);
+  color: var(--color-text-primary);
+  border-color: transparent;
 }
 
 .hs-button-primary:hover {
-  background-color: var(--color-brand-700, var(--color-primary));
-  border-color: var(--color-brand-700, var(--color-primary));
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  background-color: var(--color-brand-300);
+  color: var(--color-text-primary);
 }
 
-.hs-button-secondary {
-  background-color: var(--color-secondary);
+.hs-button-primary:active {
+  background-color: var(--color-brand-500);
   color: var(--color-white);
-  border-color: var(--color-secondary);
+}
+
+.hs-button-primary:disabled {
+  background-color: var(--color-gray-700);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* Secondary Button - White background with darken effect */
+.hs-button-secondary {
+  background-color: var(--color-white);
+  color: var(--color-text-primary);
+  border-color: transparent;
+  mix-blend-mode: darken;
 }
 
 .hs-button-secondary:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  background-color: var(--color-gray-800);
+  color: var(--color-text-primary);
 }
 
+.hs-button-secondary:active {
+  background-color: var(--color-gray-700);
+  color: var(--color-text-primary);
+}
+
+.hs-button-secondary:disabled {
+  background-color: var(--color-gray-700);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* Outline Button - Transparent with border */
 .hs-button-outline {
   background-color: transparent;
-  color: var(--color-primary);
-  border-color: var(--color-primary);
+  color: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+  border-width: 1px;
+  border-style: solid;
 }
 
 .hs-button-outline:hover {
-  background-color: var(--color-primary);
-  color: var(--color-white);
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border-color: var(--color-text-secondary);
 }
 
-/* Button sizes */
+.hs-button-outline:active {
+  background-color: transparent;
+  color: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+}
+
+.hs-button-outline:disabled {
+  background-color: transparent;
+  color: var(--color-text-disabled);
+  border-color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* Outline Button White Variant */
+.hs-button-outline-white {
+  background-color: transparent;
+  color: var(--color-white);
+  border-color: var(--color-white);
+  border-width: 1px;
+  border-style: solid;
+}
+
+.hs-button-outline-white:hover {
+  background-color: transparent;
+  color: var(--color-gray-300);
+  border-color: var(--color-gray-300);
+}
+
+.hs-button-outline-white:active {
+  background-color: transparent;
+  color: var(--color-white);
+  border-color: var(--color-white);
+}
+
+.hs-button-outline-white:disabled {
+  background-color: transparent;
+  color: var(--color-gray-500);
+  border-color: var(--color-gray-500);
+  cursor: not-allowed;
+}
+
+/* Button sizes - maintaining Figma proportions */
 .hs-button-small {
-  padding: var(--space-4) var(--space-16);
+  padding: var(--space-8) var(--space-12);
   font-size: var(--font-size-body-small);
 }
 
 .hs-button-large {
-  padding: var(--space-16) var(--space-32);
+  padding: var(--space-16) var(--space-24);
   font-size: var(--font-size-body-large);
 }
 
@@ -893,12 +968,32 @@ body {
   color: var(--color-text-primary);
 }
 
+/* Fix for HubSpot Module Wrappers */
+.hs_cos_wrapper_type_rich_text,
+.hs_cos_wrapper_type_header {
+  font-family: var(--font-body);
+  line-height: var(--line-height-body);
+  color: var(--color-text-primary);
+}
+
 .hs-rich-text h1,
 .hs-rich-text h2,
 .hs-rich-text h3,
 .hs-rich-text h4,
 .hs-rich-text h5,
-.hs-rich-text h6 {
+.hs-rich-text h6,
+.hs_cos_wrapper_type_rich_text h1,
+.hs_cos_wrapper_type_rich_text h2,
+.hs_cos_wrapper_type_rich_text h3,
+.hs_cos_wrapper_type_rich_text h4,
+.hs_cos_wrapper_type_rich_text h5,
+.hs_cos_wrapper_type_rich_text h6,
+.hs_cos_wrapper_type_header h1,
+.hs_cos_wrapper_type_header h2,
+.hs_cos_wrapper_type_header h3,
+.hs_cos_wrapper_type_header h4,
+.hs_cos_wrapper_type_header h5,
+.hs_cos_wrapper_type_header h6 {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-heading);
@@ -907,37 +1002,60 @@ body {
   margin-bottom: var(--space-16);
 }
 
-.hs-rich-text h1 { font-size: var(--font-size-h1); }
-.hs-rich-text h2 { font-size: var(--font-size-h2); }
-.hs-rich-text h3 { font-size: var(--font-size-h3); }
-.hs-rich-text h4 { font-size: var(--font-size-h4); }
-.hs-rich-text h5 { font-size: var(--font-size-body-large); }
-.hs-rich-text h6 { font-size: var(--font-size-body); }
+.hs-rich-text h1,
+.hs_cos_wrapper_type_rich_text h1,
+.hs_cos_wrapper_type_header h1 { font-size: var(--font-size-h1); }
 
-.hs-rich-text p {
+.hs-rich-text h2,
+.hs_cos_wrapper_type_rich_text h2,
+.hs_cos_wrapper_type_header h2 { font-size: var(--font-size-h2); }
+
+.hs-rich-text h3,
+.hs_cos_wrapper_type_rich_text h3,
+.hs_cos_wrapper_type_header h3 { font-size: var(--font-size-h3); }
+
+.hs-rich-text h4,
+.hs_cos_wrapper_type_rich_text h4,
+.hs_cos_wrapper_type_header h4 { font-size: var(--font-size-h4); }
+
+.hs-rich-text h5,
+.hs_cos_wrapper_type_rich_text h5,
+.hs_cos_wrapper_type_header h5 { font-size: var(--font-size-body-large); }
+
+.hs-rich-text h6,
+.hs_cos_wrapper_type_rich_text h6,
+.hs_cos_wrapper_type_header h6 { font-size: var(--font-size-body); }
+
+.hs-rich-text p,
+.hs_cos_wrapper_type_rich_text p {
   font-family: var(--font-body);
   font-size: var(--font-size-body);
   margin-bottom: var(--space-16);
 }
 
-.hs-rich-text a {
+.hs-rich-text a,
+.hs_cos_wrapper_type_rich_text a {
   color: var(--color-text-link);
   text-decoration: none;
   transition: var(--transition-default);
 }
 
-.hs-rich-text a:hover {
+.hs-rich-text a:hover,
+.hs_cos_wrapper_type_rich_text a:hover {
   color: var(--color-brand-700, var(--color-text-link));
   text-decoration: underline;
 }
 
 .hs-rich-text ul,
-.hs-rich-text ol {
+.hs-rich-text ol,
+.hs_cos_wrapper_type_rich_text ul,
+.hs_cos_wrapper_type_rich_text ol {
   margin-bottom: var(--space-16);
   padding-left: var(--space-24);
 }
 
-.hs-rich-text li {
+.hs-rich-text li,
+.hs_cos_wrapper_type_rich_text li {
   margin-bottom: var(--space-4);
   line-height: var(--line-height-body);
 }

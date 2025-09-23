@@ -138,7 +138,7 @@
     },
     "typography": {
       "font_heading": {
-        "value": "'Barlow', sans-serif",
+        "value": "'Bricolage Grotesque', sans-serif",
         "label": "Heading Font"
       },
       "font_body": {

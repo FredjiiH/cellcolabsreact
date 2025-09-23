@@ -59,16 +59,16 @@
   --font-size-eyebrow-mobile: 0.875rem;
 
   /* Font Weights */
-  --font-weight-regular: 450;
+  --font-weight-regular: 400;
   --font-weight-medium: 500;
-  --font-weight-semibold: 650;
+  --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
   /* Line Heights */
   --line-height-display: 1.0;
   --line-height-heading: 1.15;
   --line-height-body: 1.35;
-  --line-height-button: 1.5;
+  --line-height-button: 1.0;
   --line-height-eyebrow: 2.0;
   --line-height-normal: 1.35;
 
@@ -79,6 +79,7 @@
   /* Spacing System */
   --space-4: 0.25rem;
   --space-8: 0.5rem;
+  --space-12: 0.75rem;
   --space-16: 1rem;
   --space-24: 1.5rem;
   --space-32: 2rem;
@@ -103,6 +104,7 @@
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-full: 9999px;
+  --radius-button: 64px;
 
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);

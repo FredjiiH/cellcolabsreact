@@ -1,445 +1,183 @@
-# HubSpot Standard Module Styling Guide
-*How to Style Standard Modules in Custom Themes*
+# HubSpot Module Styling Documentation
 
 ## Overview
+This document explains how typography and styling works for HubSpot standard modules (Rich Text and Header modules) in our multi-brand theme system.
 
-When using a custom HubSpot theme, you have control over how standard HubSpot modules (buttons, forms, rich text, etc.) are styled. This guide explains the integration between HubSpot's standard modules and your custom theme.
+## Font Loading System
 
-## How It Works
-
-### Theme vs Module Styling
-- **HubSpot provides:** Base module structure and default styles
-- **Your theme controls:** Visual appearance through CSS
-- **Content creators get:** Easy customization through the content editor
-
-### CSS Class Hierarchy
-```
-HubSpot Module Classes (provided by HubSpot)
-└── Your Theme Styles (in main.css)
-    └── Content Creator Overrides (via content editor)
-```
-
-## Standard Modules to Style
-
-### 1. Button Module
-
-**HubSpot generates:**
+### Google Fonts Integration
+Fonts are loaded in `hubspot-theme/templates/base.html`:
 ```html
-<div class="hs-button-wrapper">
-  <a href="#" class="hs-button hs-button-primary">
-    Button Text
-  </a>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+```
+
+### Font Variables
+Font families are defined in `hubspot-theme/css/shared-variables.css`:
+```css
+--font-heading: 'Bricolage Grotesque', sans-serif;
+--font-body: 'Inter Variable', 'Inter', sans-serif;
+```
+
+## HubSpot Module HTML Structure
+
+### Rich Text Module
+HubSpot generates HTML with these wrapper classes:
+```html
+<div class="hs_cos_wrapper hs_cos_wrapper_type_rich_text">
+  <h1>Heading Text</h1>
+  <p>Body text content</p>
+  <a href="#">Link text</a>
 </div>
 ```
 
-**Your CSS should include:**
-```css
-/* Button base styles */
-.hs-button {
-  display: inline-block;
-  font-family: var(--font-body);
-  font-size: var(--font-size-button);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-button);
-  padding: var(--space-8) var(--space-24);
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  text-align: center;
-  border: 2px solid transparent;
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-
-/* Button variants */
-.hs-button-primary {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  border-color: var(--color-primary);
-}
-
-.hs-button-primary:hover {
-  background-color: var(--color-brand-700, var(--color-primary));
-  border-color: var(--color-brand-700, var(--color-primary));
-}
-
-.hs-button-secondary {
-  background-color: var(--color-secondary);
-  color: var(--color-white);
-  border-color: var(--color-secondary);
-}
-
-.hs-button-outline {
-  background-color: transparent;
-  color: var(--color-primary);
-  border-color: var(--color-primary);
-}
-
-.hs-button-outline:hover {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-}
-
-/* Button sizes */
-.hs-button-small {
-  padding: var(--space-4) var(--space-16);
-  font-size: var(--font-size-body-small);
-}
-
-.hs-button-large {
-  padding: var(--space-16) var(--space-32);
-  font-size: var(--font-size-body-large);
-}
-```
-
-### 2. Form Module
-
-**HubSpot generates:**
+### Header Module
+HubSpot generates HTML with these wrapper classes:
 ```html
-<div class="hs-form">
-  <form>
-    <div class="hs-field-wrapper">
-      <label class="hs-label">
-        <span>Field Label</span>
-        <input class="hs-input" type="text">
-      </label>
-    </div>
-    <div class="hs-submit">
-      <input type="submit" class="hs-button hs-button-primary">
-    </div>
-  </form>
+<div class="hs_cos_wrapper hs_cos_wrapper_type_header">
+  <h1>Header Content</h1>
 </div>
 ```
 
-**Your CSS should include:**
+## CSS Targeting Strategy
+
+### Multi-Class Targeting
+Our CSS in `hubspot-theme/css/main.css` targets multiple classes to ensure styling applies across all contexts:
+
 ```css
-/* Form container */
-.hs-form {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* Form fields */
-.hs-field-wrapper {
-  margin-bottom: var(--space-16);
-}
-
-.hs-label {
-  display: block;
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-4);
-}
-
-.hs-input,
-.hs-input[type="text"],
-.hs-input[type="email"],
-.hs-input[type="tel"],
-.hs-textarea {
-  width: 100%;
-  padding: var(--space-8) var(--space-16);
-  font-family: var(--font-body);
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
-  color: var(--color-text-primary);
-  background-color: var(--color-bg-primary);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-sm);
-  transition: border-color 0.2s ease;
-}
-
-.hs-input:focus,
-.hs-textarea:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(79, 101, 190, 0.1);
-}
-
-/* Error states */
-.hs-input.error,
-.hs-textarea.error {
-  border-color: var(--color-error);
-}
-
-.hs-error-msgs {
-  color: var(--color-error);
-  font-size: var(--font-size-body-small);
-  margin-top: var(--space-4);
-}
-
-/* Submit button inherits button styles */
-.hs-submit .hs-button {
-  width: 100%;
-}
-
-@media (min-width: 768px) {
-  .hs-submit .hs-button {
-    width: auto;
-    min-width: 150px;
-  }
-}
-```
-
-### 3. Rich Text Module
-
-**HubSpot generates:**
-```html
-<div class="hs-rich-text">
-  <h2>Heading</h2>
-  <p>Paragraph text with <a href="#">links</a></p>
-  <ul>
-    <li>List items</li>
-  </ul>
-</div>
-```
-
-**Your CSS should include:**
-```css
-/* Rich text container */
-.hs-rich-text {
-  line-height: var(--line-height-body);
-  color: var(--color-text-primary);
-}
-
-/* Typography hierarchy */
+/* Headings - targets rich text, header modules, and general content */
 .hs-rich-text h1,
-.hs-rich-text h2,
-.hs-rich-text h3,
-.hs-rich-text h4,
-.hs-rich-text h5,
-.hs-rich-text h6 {
+.hs_cos_wrapper_type_rich_text h1,
+.hs_cos_wrapper_type_header h1,
+h1 {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-h1);
   line-height: var(--line-height-heading);
   color: var(--color-text-primary);
-  margin-bottom: var(--space-16);
 }
 
-.hs-rich-text h1 { font-size: var(--font-size-h1); }
-.hs-rich-text h2 { font-size: var(--font-size-h2); }
-.hs-rich-text h3 { font-size: var(--font-size-h3); }
-.hs-rich-text h4 { font-size: var(--font-size-h4); }
-
-.hs-rich-text p {
+/* Body text - targets rich text modules and general content */
+.hs-rich-text p,
+.hs_cos_wrapper_type_rich_text p,
+p {
   font-family: var(--font-body);
   font-size: var(--font-size-body);
-  margin-bottom: var(--space-16);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  color: var(--color-text-primary);
 }
 
-.hs-rich-text a {
+/* Links - targets rich text modules and general content */
+.hs-rich-text a,
+.hs_cos_wrapper_type_rich_text a,
+a {
   color: var(--color-text-link);
   text-decoration: none;
   transition: color 0.2s ease;
 }
-
-.hs-rich-text a:hover {
-  color: var(--color-brand-700, var(--color-text-link));
-  text-decoration: underline;
-}
-
-/* Lists */
-.hs-rich-text ul,
-.hs-rich-text ol {
-  margin-bottom: var(--space-16);
-  padding-left: var(--space-24);
-}
-
-.hs-rich-text li {
-  margin-bottom: var(--space-4);
-}
-
-/* Images */
-.hs-rich-text img {
-  max-width: 100%;
-  height: auto;
-  border-radius: var(--radius-sm);
-}
-
-/* Tables */
-.hs-rich-text table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: var(--space-16);
-}
-
-.hs-rich-text th,
-.hs-rich-text td {
-  padding: var(--space-8) var(--space-16);
-  border: 1px solid var(--color-border-light);
-  text-align: left;
-}
-
-.hs-rich-text th {
-  background-color: var(--color-bg-secondary);
-  font-weight: var(--font-weight-medium);
-}
 ```
 
-### 4. Image Module
+## Typography Specifications
 
-**HubSpot generates:**
-```html
-<div class="hs-image-widget">
-  <img src="image.jpg" alt="Alt text" class="hs-image">
-</div>
-```
+### Current Font Setup
+- **Heading Font**: Bricolage Grotesque (weights: 200-800)
+- **Body Font**: Inter Variable (weights: 100-900)
 
-**Your CSS should include:**
+### Font Weights
 ```css
-.hs-image-widget {
-  text-align: center;
-  margin-bottom: var(--space-24);
-}
-
-.hs-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-}
-
-/* Image alignment classes */
-.hs-image-widget.align-left {
-  text-align: left;
-}
-
-.hs-image-widget.align-right {
-  text-align: right;
-}
-
-.hs-image-widget.align-center {
-  text-align: center;
-}
+--font-weight-regular: 400;
+--font-weight-medium: 500;
+--font-weight-semibold: 600;
+--font-weight-bold: 700;
 ```
 
-### 5. CTA Module
-
-**HubSpot generates:**
-```html
-<div class="hs-cta-wrapper">
-  <div class="hs-cta-embed">
-    <a href="#" class="hs-cta-button">
-      CTA Text
-    </a>
-  </div>
-</div>
-```
-
-**Your CSS should include:**
+### Font Sizes (Desktop)
 ```css
-.hs-cta-wrapper {
-  text-align: center;
-  margin: var(--space-24) 0;
-}
-
-.hs-cta-button {
-  display: inline-block;
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  font-family: var(--font-body);
-  font-size: var(--font-size-button);
-  font-weight: var(--font-weight-medium);
-  padding: var(--space-12) var(--space-32);
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  transition: all 0.2s ease;
-  box-shadow: var(--shadow-sm);
-}
-
-.hs-cta-button:hover {
-  background-color: var(--color-brand-700, var(--color-primary));
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
+--font-size-h1-desktop: 3.5rem;
+--font-size-h2-desktop: 3rem;
+--font-size-h3-desktop: 2.25rem;
+--font-size-h4-desktop: 1rem;
+--font-size-body-medium-desktop: 1rem;
 ```
 
-## Theme Integration Strategy
+## Multi-Brand Theme System
 
-### 1. Add Module Styles to main.css
+### Brand Detection
+Brands are detected and applied via JavaScript in `base.html`:
+```javascript
+// Detect brand based on domain
+var hostname = window.location.hostname;
+var brand = 'cellcolabs'; // Default brand
 
-Add all HubSpot module styles to your `main.css` file in a dedicated section:
-
-```css
-/* ===================================
-   HubSpot Module Styles
-   =================================== */
-
-/* Button Module */
-.hs-button { /* ... */ }
-
-/* Form Module */
-.hs-form { /* ... */ }
-
-/* Rich Text Module */
-.hs-rich-text { /* ... */ }
-
-/* Image Module */
-.hs-image-widget { /* ... */ }
-
-/* CTA Module */
-.hs-cta-wrapper { /* ... */ }
-```
-
-### 2. Use Your CSS Variables
-
-All module styles should use your existing CSS variables for consistency:
-
-```css
-.hs-button {
-  background-color: var(--color-primary);    /* From brand CSS */
-  font-family: var(--font-body);             /* From shared CSS */
-  padding: var(--space-8) var(--space-24);   /* From shared CSS */
-  border-radius: var(--radius-md);           /* From shared CSS */
+if (hostname.includes('cellcolabsclinical')) {
+  brand = 'cellcolabsclinical';
 }
+
+// Apply brand as data attribute and class
+document.documentElement.setAttribute('data-brand', brand);
+document.documentElement.className += ' brand-' + brand;
 ```
 
-### 3. Responsive Design
+### Brand-Specific Variables
+Each brand has its own CSS file with brand-specific color variables:
+- `cellcolabs-theme-variables.css`
+- `cellcolabsclinical-theme-variables.css`
 
-Ensure all module styles work across your breakpoints:
+## HubSpot Design Manager Integration
 
-```css
-@media (max-width: 767px) {
-  .hs-button {
-    width: 100%;
-    padding: var(--space-12) var(--space-16);
-  }
-
-  .hs-form {
-    margin: 0 var(--space-16);
+### Settings Configuration
+Typography settings are defined in `hubspot-theme/settings.json`:
+```json
+"typography": {
+  "font_heading": {
+    "value": "'Bricolage Grotesque', sans-serif",
+    "label": "Heading Font"
+  },
+  "font_body": {
+    "value": "'Inter', sans-serif",
+    "label": "Body Font"
   }
 }
 ```
 
-## Content Creator Experience
+### Typography Selector Availability
+For fonts to appear in HubSpot's typography selector:
+1. Fonts must be loaded via Google Fonts link
+2. Font families must be defined in settings.json
+3. CSS variables must reference the correct font names
+4. Standard font weights must be used (400, 500, 600, 700)
 
-With proper styling, content creators can:
+## Troubleshooting
 
-1. **Add standard modules** through the content editor
-2. **Customize content** (text, links, images) easily
-3. **Choose from predefined styles** (button variants, etc.)
-4. **Get consistent design** that matches your brand automatically
+### Common Issues
+1. **Fonts not loading**: Check Google Fonts link in base.html
+2. **Styling not applying**: Verify CSS targets correct wrapper classes
+3. **Wrong font weights**: Ensure standard font weights (avoid custom weights like 650)
+4. **Fonts not in typography selector**: Check settings.json configuration
 
-## Testing Checklist
+### CSS Validation
+The theme includes CSS loading validation:
+```javascript
+// Check if main CSS loaded properly
+const computedStyle = window.getComputedStyle(testElement);
+const cssLoaded = computedStyle.fontFamily && computedStyle.fontFamily.includes('Inter');
+```
 
-When styling HubSpot modules:
+## File Structure
+```
+hubspot-theme/
+├── templates/
+│   └── base.html (font loading, brand detection)
+├── css/
+│   ├── shared-variables.css (typography variables)
+│   ├── main.css (module targeting styles)
+│   ├── cellcolabs-theme-variables.css
+│   └── cellcolabsclinical-theme-variables.css
+└── settings.json (HubSpot design manager config)
+```
 
-- [ ] Test button module with different variants (primary, secondary, outline)
-- [ ] Test form module with various field types
-- [ ] Test rich text with all formatting options (headings, lists, links, tables)
-- [ ] Test image module with different sizes and alignments
-- [ ] Test CTA module styling
-- [ ] Verify responsive behavior on all devices
-- [ ] Check that styles work with brand switching
-- [ ] Test in HubSpot content editor preview mode
-
-## Best Practices
-
-1. **Use CSS variables** for all colors, fonts, and spacing
-2. **Follow your existing design system** patterns
-3. **Test thoroughly** in HubSpot's content editor
-4. **Provide multiple button/CTA styles** for content creator flexibility
-5. **Ensure accessibility** with proper contrast and focus states
-6. **Document the available styles** for content creators
-
----
-
-*This guide ensures HubSpot standard modules integrate seamlessly with your custom theme while maintaining design consistency and content creator flexibility.*
+## Recent Fixes Applied
+1. Added missing Google Fonts loading link in base.html
+2. Extended CSS selectors to target HubSpot wrapper classes
+3. Fixed font weights from custom (650) to standard (600) values
+4. Corrected heading font definition in settings.json from "Barlow" to "Bricolage Grotesque"
