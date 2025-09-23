@@ -1,33 +1,9 @@
 /* ===================================
-   Cellcolabs Multi-Brand Theme Variables
+   Shared Multi-Brand Variables
    =================================== */
 
-/* Default to Cellcolabs theme */
 :root {
-  /* Cellcolabs Brand Colors */
-  --color-primary: #0066CC;
-  --color-secondary: #00A86B;
-  --color-accent: #FF6B35;
-
-  /* Text Colors */
-  --color-text-primary: #161616;
-  --color-text-secondary: #525252;
-  --color-text-tertiary: #8D8D8D;
-  --color-text-disabled: #C6C6C6;
-  --color-text-inverse: #FFFFFF;
-  --color-text-link: #4F65BE;
-
-  /* Background Colors */
-  --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #F8F9FA;
-  --color-bg-section: #F5F5F5;
-  --color-bg-dark: #161616;
-
-  /* Border Colors */
-  --color-border-light: #E0E0E0;
-  --color-border-medium: #CCCCCC;
-
-  /* Grayscale Palette */
+  /* Grayscale Palette - Shared across brands */
   --color-gray-0: #161616;
   --color-gray-100: #262626;
   --color-gray-200: #393939;
@@ -94,12 +70,13 @@
   --line-height-body: 1.35;
   --line-height-button: 1.5;
   --line-height-eyebrow: 2.0;
+  --line-height-normal: 1.35;
 
   /* Letter Spacing */
   --letter-spacing-display: -0.02em;
   --letter-spacing-default: 0;
 
-  /* Spacing */
+  /* Spacing System */
   --space-4: 0.25rem;
   --space-8: 0.5rem;
   --space-16: 1rem;
@@ -114,6 +91,7 @@
   --container-padding-mobile: 1rem;
   --container-padding-tablet: 1.5rem;
   --container-padding-desktop: 2rem;
+  --container-padding: var(--container-padding-mobile);
 
   /* Breakpoints */
   --breakpoint-mobile: 768px;
@@ -130,60 +108,22 @@
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
 
-/* Cellcolabs Clinical Theme Override */
-[data-brand="cellcolabsclinical"],
-.brand-cellcolabsclinical {
-  /* Text Colors */
-  --color-text-primary: #161616;
-  --color-text-secondary: #525252;
-  --color-text-tertiary: #8D8D8D;
-  --color-text-disabled: #C6C6C6;
-  --color-text-inverse: #FFFFFF;
-  --color-text-link: #4F65BE;
+  /* Form & Input Specific */
+  --input-focus-shadow: 0 0 0 2px rgba(79, 101, 190, 0.1);
+  --transition-default: all 0.2s ease;
+  --transition-fast: all 0.15s ease;
 
-  /* Gray Scale */
-  --color-gray-0: #161616;
-  --color-gray-100: #262626;
-  --color-gray-200: #393939;
-  --color-gray-300: #525252;
-  --color-gray-400: #6F6F6F;
-  --color-gray-500: #8D8D8D;
-  --color-gray-600: #A8A8A8;
-  --color-gray-700: #C6C6C6;
-  --color-gray-800: #E0E0E0;
-  --color-gray-900: #F4F4F4;
-  --color-gray-1000: #FFFFFF;
+  /* Gallery & Image Specific */
+  --image-aspect-ratio: 16/9;
+  --gallery-gap: var(--space-16);
 
-  /* Background Colors */
-  --color-bg-white: #FFFFFF;
-  --color-bg-beige: #EDE9E1;
-  --color-bg-blue: #D1DEED;
+  /* Divider Specific */
+  --divider-width: 1px;
+  --divider-opacity: 0.2;
 
-  /* Dividers */
-  --color-divider-dark: #161616;
-  --color-divider-light: #FFFFFF;
-
-  /* Brand Colors */
-  --color-brand-100: #BECFFF;
-  --color-brand-300: #879ADF;
-  --color-brand-500: #4F65BE;
-  --color-brand-700: #2F4283;
-  --color-brand-900: #0F2047;
-
-  /* Functional Colors */
-  --color-error: #F94400;
-  --color-warning: #F9D400;
-
-  /* Legacy mappings for compatibility */
-  --color-primary: #4F65BE;
-  --color-secondary: #879ADF;
-  --color-accent: #F9D400;
-  --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #F4F4F4;
-  --color-border-light: #C6C6C6;
-  --color-border-medium: #A8A8A8;
+  /* Derived values */
+  --font-size-body: var(--font-size-body-medium-desktop);
 }
 
 /* Responsive Typography */

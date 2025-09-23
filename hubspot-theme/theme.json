@@ -3,11 +3,17 @@
   "preview_path": "./templates/page.html",
   "screenshot_path": "./images/template-preview.png",
   "template_types": ["PAGE", "BLOG_POST", "BLOG_LISTING", "SEARCH_RESULTS", "ERROR"],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Cellcolabs Development Team",
     "email": "dev@cellcolabs.com"
   },
   "description": "Multi-brand theme supporting both cellcolabs.com and cellcolabsclinical.com with automatic domain-based theming",
-  "enable_domain_stylesheets": false
+  "enable_domain_stylesheets": false,
+  "head": {
+    "stylesheets": [
+      "./css/theme-variables.css",
+      "./css/main.css"
+    ]
+  }
 }
