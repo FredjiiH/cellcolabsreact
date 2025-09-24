@@ -78,44 +78,382 @@ body {
 }
 
 /* ===================================
-   Grid System
+   Custom Figma Grid System
+
+   Strategy:
+   - Override HubSpot's default grid with Figma specifications
+   - Perfect pixel alignment with design system
+   - Works with both DND layouts and custom modules
    =================================== */
 
+/* Figma Container - matches design system exactly */
+.row-fluid-wrapper.dnd-section,
+.figma-container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--space-32) 16px; /* Mobile: 16px margins */
+  box-sizing: border-box;
+}
+
+/* Figma Row - replaces HubSpot's row-fluid */
+.row-fluid,
+.figma-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Figma gutter size */
+  width: 100%;
+}
+
+/* Mobile First: All columns stack */
+.span1, .span2, .span3, .span4, .span5, .span6,
+.span7, .span8, .span9, .span10, .span11, .span12,
+.figma-col-1, .figma-col-2, .figma-col-3, .figma-col-4,
+.figma-col-6, .figma-col-8, .figma-col-12 {
+  flex: 0 0 100%; /* Full width on mobile - no grow/shrink */
+  min-width: 0;
+  width: 100%;
+}
+
+/* Force mobile stacking behavior */
+@media (max-width: 767px) {
+  .row-fluid {
+    flex-direction: column; /* Stack vertically on mobile */
+    gap: 16px; /* Maintain vertical spacing */
+  }
+
+  .span1, .span2, .span3, .span4, .span5, .span6,
+  .span7, .span8, .span9, .span10, .span11, .span12 {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Tablet: 8-column grid (768px - 1023px) */
+@media (min-width: 768px) {
+  .row-fluid-wrapper.dnd-section,
+  .figma-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .row-fluid,
+  .figma-row {
+    gap: 16px; /* Maintain gutters */
+  }
+
+  /* Map HubSpot spans to Figma tablet grid */
+  .span3, .figma-col-3 { flex: 0 0 calc(25% - 12px); } /* 2/8 columns */
+  .span4, .figma-col-4 { flex: 0 0 calc(37.5% - 10px); } /* 3/8 columns */
+  .span6, .figma-col-6 { flex: 0 0 calc(50% - 8px); } /* 4/8 columns */
+  .span8, .figma-col-8 { flex: 0 0 calc(75% - 4px); } /* 6/8 columns */
+  .span12, .figma-col-12 { flex: 0 0 100%; } /* 8/8 columns */
+}
+
+/* Desktop: 12-column grid (1024px+) */
+@media (min-width: 1024px) {
+  .row-fluid-wrapper.dnd-section,
+  .figma-container {
+    padding-left: 152px; /* Figma desktop margins */
+    padding-right: 152px;
+  }
+
+  .row-fluid,
+  .figma-row {
+    flex-direction: row; /* Ensure horizontal layout */
+    flex-wrap: wrap; /* Allow wrapping if needed */
+    gap: 16px; /* Figma gutters */
+  }
+
+  /* Map HubSpot spans to exact Figma desktop grid */
+  .span1, .figma-col-1 { flex: 0 0 calc(8.333% - 14.67px); }
+  .span2, .figma-col-2 { flex: 0 0 calc(16.667% - 13.33px); }
+  .span3, .figma-col-3 { flex: 0 0 calc(25% - 12px); } /* 4-column layout */
+  .span4, .figma-col-4 { flex: 0 0 calc(33.333% - 10.67px); } /* 3-column layout */
+  .span6, .figma-col-6 { flex: 0 0 calc(50% - 8px); } /* 2-column layout */
+  .span8, .figma-col-8 { flex: 0 0 calc(66.667% - 5.33px); } /* 2/3 width */
+  .span12, .figma-col-12 { flex: 0 0 100%; } /* Full width */
+}
+
+/* Remove any HubSpot default styling */
+.row-fluid-wrapper:not(.dnd-section) {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Reset HubSpot span styling */
+.row-fluid [class*="span"] {
+  margin: 0;
+  padding: 0;
+  float: none;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Nested rows within columns should not have gaps */
+.dnd-column > .row-fluid-wrapper.dnd-row > .row-fluid {
+  width: 100%;
+  gap: 0 !important;
+  column-gap: 0 !important;
+  row-gap: 0 !important;
+}
+
+/* Exception: Don't interfere with custom modules that have their own styling */
+.dnd-module .content-section__container,
+.dnd-module [class*="content-section__"],
+.widget-type-custom_widget [class*="content-section__"] {
+  /* Reset any grid interference */
+  display: block;
+  flex: none;
+  width: auto;
+  max-width: none;
+}
+
+/* Center images within their containers */
+.hs-image-widget {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ===================================
+   Utility Classes for Custom Modules
+   Use these within HubSpot spans for Figma alignment
+   =================================== */
+
+/* Component spacing utilities */
+.figma-component {
+  padding: var(--space-24);
+  box-sizing: border-box;
+}
+
+.figma-component-sm {
+  padding: var(--space-16);
+  box-sizing: border-box;
+}
+
+.figma-component-lg {
+  padding: var(--space-32);
+  box-sizing: border-box;
+}
+
+/* Content alignment utilities - work within any span */
+.content-center {
+  text-align: center;
+}
+
+.content-left {
+  text-align: left;
+}
+
+.content-right {
+  text-align: right;
+}
+
+/* Vertical spacing utilities */
+.v-space-sm { margin-bottom: var(--space-16); }
+.v-space-md { margin-bottom: var(--space-24); }
+.v-space-lg { margin-bottom: var(--space-32); }
+.v-space-xl { margin-bottom: var(--space-48); }
+
+/* Semantic layout helpers - map to HubSpot spans */
+.layout-third {
+  /* Use with span4 for 1/3 width layouts */
+  width: 100%;
+}
+
+.layout-half {
+  /* Use with span6 for 1/2 width layouts */
+  width: 100%;
+}
+
+.layout-two-thirds {
+  /* Use with span8 for 2/3 width layouts */
+  width: 100%;
+}
+
+.layout-full {
+  /* Use with span12 for full width layouts */
+  width: 100%;
+}
+
+/* ===================================
+   Grid System - Based on Figma Design System
+   =================================== */
+
+/* Grid Container - Constrains content to design system */
+.grid-container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* Desktop Grid: 12 columns, 152px margins */
+@media (min-width: 1024px) {
+  .grid-container {
+    padding-left: 152px;
+    padding-right: 152px;
+  }
+}
+
+/* Tablet Grid: Simplified layout */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .grid-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+/* Row with proper gutters */
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin-left: calc(var(--space-16) * -1);
-  margin-right: calc(var(--space-16) * -1);
+  margin-left: -8px;
+  margin-right: -8px;
 }
 
+/* Column base with proper gutters */
 .col {
   flex: 1;
-  padding-left: var(--space-16);
-  padding-right: var(--space-16);
+  padding-left: 8px;
+  padding-right: 8px;
+  min-width: 0; /* Prevent overflow */
 }
 
-.col-12 { flex: 0 0 100%; max-width: 100%; }
-.col-6 { flex: 0 0 50%; max-width: 50%; }
-.col-4 { flex: 0 0 33.333%; max-width: 33.333%; }
-.col-3 { flex: 0 0 25%; max-width: 25%; }
+/* Desktop: 12-column system */
+.col-1 { flex: 0 0 calc(8.333% - 16px); max-width: calc(8.333% - 16px); }
+.col-2 { flex: 0 0 calc(16.666% - 16px); max-width: calc(16.666% - 16px); }
+.col-3 { flex: 0 0 calc(25% - 16px); max-width: calc(25% - 16px); }
+.col-4 { flex: 0 0 calc(33.333% - 16px); max-width: calc(33.333% - 16px); }
+.col-5 { flex: 0 0 calc(41.666% - 16px); max-width: calc(41.666% - 16px); }
+.col-6 { flex: 0 0 calc(50% - 16px); max-width: calc(50% - 16px); }
+.col-7 { flex: 0 0 calc(58.333% - 16px); max-width: calc(58.333% - 16px); }
+.col-8 { flex: 0 0 calc(66.666% - 16px); max-width: calc(66.666% - 16px); }
+.col-9 { flex: 0 0 calc(75% - 16px); max-width: calc(75% - 16px); }
+.col-10 { flex: 0 0 calc(83.333% - 16px); max-width: calc(83.333% - 16px); }
+.col-11 { flex: 0 0 calc(91.666% - 16px); max-width: calc(91.666% - 16px); }
+.col-12 { flex: 0 0 calc(100% - 16px); max-width: calc(100% - 16px); }
 
+/* Mobile: 4-column system (stacks to single column) */
 @media (max-width: 767px) {
-  .col-sm-12 { flex: 0 0 100%; max-width: 100%; }
-  .col-sm-6 { flex: 0 0 50%; max-width: 50%; }
+  .col-sm-1 { flex: 0 0 calc(25% - 16px); max-width: calc(25% - 16px); }
+  .col-sm-2 { flex: 0 0 calc(50% - 16px); max-width: calc(50% - 16px); }
+  .col-sm-3 { flex: 0 0 calc(75% - 16px); max-width: calc(75% - 16px); }
+  .col-sm-4,
+  .col-sm-12 { flex: 0 0 calc(100% - 16px); max-width: calc(100% - 16px); }
+
+  /* Stack columns on mobile by default */
+  .col-1, .col-2, .col-3, .col-4, .col-5, .col-6,
+  .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+    flex: 0 0 calc(100% - 16px);
+    max-width: calc(100% - 16px);
+  }
 }
 
-@media (min-width: 768px) {
-  .col-md-12 { flex: 0 0 100%; max-width: 100%; }
-  .col-md-6 { flex: 0 0 50%; max-width: 50%; }
-  .col-md-4 { flex: 0 0 33.333%; max-width: 33.333%; }
-  .col-md-3 { flex: 0 0 25%; max-width: 25%; }
+/* Tablet: 8-column system */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .col-md-1 { flex: 0 0 calc(12.5% - 16px); max-width: calc(12.5% - 16px); }
+  .col-md-2 { flex: 0 0 calc(25% - 16px); max-width: calc(25% - 16px); }
+  .col-md-3 { flex: 0 0 calc(37.5% - 16px); max-width: calc(37.5% - 16px); }
+  .col-md-4 { flex: 0 0 calc(50% - 16px); max-width: calc(50% - 16px); }
+  .col-md-5 { flex: 0 0 calc(62.5% - 16px); max-width: calc(62.5% - 16px); }
+  .col-md-6 { flex: 0 0 calc(75% - 16px); max-width: calc(75% - 16px); }
+  .col-md-7 { flex: 0 0 calc(87.5% - 16px); max-width: calc(87.5% - 16px); }
+  .col-md-8,
+  .col-md-12 { flex: 0 0 calc(100% - 16px); max-width: calc(100% - 16px); }
 }
 
+/* Desktop: Use full 12-column system */
 @media (min-width: 1024px) {
-  .col-lg-12 { flex: 0 0 100%; max-width: 100%; }
-  .col-lg-6 { flex: 0 0 50%; max-width: 50%; }
-  .col-lg-4 { flex: 0 0 33.333%; max-width: 33.333%; }
-  .col-lg-3 { flex: 0 0 25%; max-width: 25%; }
+  .col-lg-1 { flex: 0 0 calc(8.333% - 16px); max-width: calc(8.333% - 16px); }
+  .col-lg-2 { flex: 0 0 calc(16.666% - 16px); max-width: calc(16.666% - 16px); }
+  .col-lg-3 { flex: 0 0 calc(25% - 16px); max-width: calc(25% - 16px); }
+  .col-lg-4 { flex: 0 0 calc(33.333% - 16px); max-width: calc(33.333% - 16px); }
+  .col-lg-5 { flex: 0 0 calc(41.666% - 16px); max-width: calc(41.666% - 16px); }
+  .col-lg-6 { flex: 0 0 calc(50% - 16px); max-width: calc(50% - 16px); }
+  .col-lg-7 { flex: 0 0 calc(58.333% - 16px); max-width: calc(58.333% - 16px); }
+  .col-lg-8 { flex: 0 0 calc(66.666% - 16px); max-width: calc(66.666% - 16px); }
+  .col-lg-9 { flex: 0 0 calc(75% - 16px); max-width: calc(75% - 16px); }
+  .col-lg-10 { flex: 0 0 calc(83.333% - 16px); max-width: calc(83.333% - 16px); }
+  .col-lg-11 { flex: 0 0 calc(91.666% - 16px); max-width: calc(91.666% - 16px); }
+  .col-lg-12 { flex: 0 0 calc(100% - 16px); max-width: calc(100% - 16px); }
+}
+
+/* ===================================
+   HubSpot Drag-and-Drop Additional Styling
+   =================================== */
+
+/* Note: Core layout grid is handled by layout.css */
+
+/* Ensure modules within columns behave properly */
+.hs_cos_wrapper {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* DND Section spacing */
+.dnd-section {
+  padding: var(--space-32) 0;
+}
+
+/* Widget type cell minimum heights */
+.widget-type-cell {
+  min-height: 30px;
+}
+
+/* ===================================
+   Typography - Override HubSpot Defaults
+   =================================== */
+
+/* Base heading styles - override any HubSpot defaults */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Bricolage Grotesque', sans-serif !important;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  margin-top: 0;
+  margin-bottom: var(--space-16);
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: 600;
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  font-weight: 600;
+}
+
+h4 {
+  font-size: var(--font-size-h4);
+  font-weight: 500;
+}
+
+/* Override any HubSpot module heading styles */
+.hs_cos_wrapper h1,
+.hs_cos_wrapper h2,
+.hs_cos_wrapper h3,
+.hs_cos_wrapper h4,
+.hs_cos_wrapper h5,
+.hs_cos_wrapper h6 {
+  font-family: 'Bricolage Grotesque', sans-serif !important;
+}
+
+/* Body text */
+p, body {
+  font-family: 'Inter Variable', 'Inter', sans-serif !important;
 }
 
 /* ===================================

@@ -222,6 +222,24 @@ const COMPONENT_TEMPLATES = {
       { id: 'copyright_text', type: 'text', default: '© 2025 Cellcolabs Clinical', label: 'Copyright Text' },
       { id: 'theme', type: 'choice', default: 'cellcolabsclinical', options: ['cellcolabs', 'cellcolabsclinical'], label: 'Theme' }
     ]
+  },
+
+  button: {
+    id: 'button',
+    name: 'Button',
+    html: `<div class="button__buttonWrapper" data-component="button" data-theme="{{theme}}" style="text-align: {{alignment}};">
+  <a href="{{url}}" class="button__button button__button-{{style}} button__button-{{size}}" target="_self">{{text}}</a>
+</div>`,
+    cssPath: 'Button/Button.module.css',
+    placeholders: [
+      { id: 'text', type: 'text', default: 'Click here', label: 'Button Text' },
+      { id: 'url', type: 'url', default: '#', label: 'Button URL' },
+      { id: 'style', type: 'choice', default: 'primary', options: ['primary', 'secondary', 'outline', 'outline-white'], label: 'Button Style' },
+      { id: 'size', type: 'choice', default: 'default', options: ['small', 'default', 'large'], label: 'Button Size' },
+      { id: 'alignment', type: 'choice', default: 'left', options: ['left', 'center', 'right'], label: 'Button Alignment' },
+      { id: 'open_in_new_tab', type: 'boolean', default: false, label: 'Open in new tab' },
+      { id: 'theme', type: 'choice', default: 'cellcolabsclinical', options: ['cellcolabs', 'cellcolabsclinical'], label: 'Theme' }
+    ]
   }
 };
 
