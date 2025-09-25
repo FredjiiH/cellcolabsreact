@@ -1,0 +1,16 @@
+{
+  "label": "Social follow",
+  "host_template_types": [
+    "PAGE",
+    "BLOG_POST",
+    "BLOG_LISTING",
+    "CASE_STUDY"
+  ],
+  "icon": "../../images/module-icons/social-posts.svg",
+  "extra_classes": "",
+  "smart_type": "NOT_SMART",
+  "master_language": "en",
+  "categories": [
+    "social"
+  ]
+}

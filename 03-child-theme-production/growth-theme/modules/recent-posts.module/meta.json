@@ -1,0 +1,19 @@
+{
+  "label": "Recent posts",
+  "host_template_types": [
+    "PAGE",
+    "BLOG_LISTING",
+    "BLOG_POST"
+  ],
+  "icon": "../../images/module-icons/blog.svg",
+  "extra_classes": "",
+  "smart_type": "NOT_SMART",
+  "master_language": "en",
+  "placeholder": {
+    "title": "There are no posts for the selected blog",
+    "description": "Select a blog in the sidebar"
+  },
+  "categories": [
+    "blog"
+  ]
+}

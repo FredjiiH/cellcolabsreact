@@ -1,0 +1,209 @@
+
+/* Theme Variables - will be set by HubSpot */
+:root {
+  --color-primary: #0066CC;
+  --color-secondary: #00A86B;
+  --color-text-primary: #161616;
+  --color-text-secondary: #666666;
+  --color-text-inverse: #FFFFFF;
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F8F9FA;
+  --color-bg-section: #F5F5F5;
+  --font-heading: 'Barlow', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-wide: 1440px;
+}
+    
+
+.navigation__navigation {
+  background-color: var(--color-bg-primary);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navigation__container {
+  max-width: var(--breakpoint-wide);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.navigation__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  position: relative;
+}
+
+.navigation__brand {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.navigation__brandBold {
+  font-weight: var(--font-weight-bold);
+}
+
+.navigation__brandRegular {
+  font-weight: var(--font-weight-medium);
+}
+
+.navigation__mobileToggle {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.navigation__mobileToggle:hover {
+  opacity: 0.7;
+}
+
+.navigation__dotsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 2px);
+  grid-template-rows: repeat(3, 2px);
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation__dot {
+  display: block;
+  width: 2px;
+  height: 2px;
+  background-color: var(--color-text-primary);
+  border-radius: 50%;
+}
+
+.navigation__menu {
+  display: flex;
+  gap: var(--spacing-sm);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation__menuItem {
+  padding: 0;
+}
+
+.navigation__menuLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border-radius: var(--radius-sm);
+}
+
+.navigation__menuLink:hover {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-primary);
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .navigation__container {
+    padding: 0 var(--spacing-lg);
+  }
+
+  .navigation__menuLink {
+    padding: var(--spacing-sm) var(--spacing-sm);
+    font-size: 15px;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 767px) {
+  .navigation__container {
+    padding: 0 var(--spacing-md);
+  }
+
+  .navigation__content {
+    height: 56px;
+  }
+
+  .navigation__mobileToggle {
+    display: flex;
+  }
+
+  .navigation__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: var(--color-bg-primary);
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-md);
+    gap: 0;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 999;
+  }
+
+  .navigation__menuOpen {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navigation__menuItem {
+    width: 100%;
+  }
+
+  .navigation__menuLink {
+    width: 100%;
+    justify-content: flex-start;
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .navigation__menuItem:last-child .navigation__menuLink {
+    border-bottom: none;
+  }
+}
+
+/* Wide Desktop Styles */
+@media (min-width: 1440px) {
+  .navigation__container {
+    padding: 0 var(--spacing-xl);
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "label": "Pagination",
+  "host_template_types": [
+    "BLOG_LISTING"
+  ],
+  "icon": "../../images/module-icons/ellipses.svg",
+  "smart_type": "NOT_SMART",
+  "master_language": "en",
+  "categories": [
+    "blog"
+  ]
+}

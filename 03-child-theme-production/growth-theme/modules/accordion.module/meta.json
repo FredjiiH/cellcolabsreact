@@ -1,0 +1,16 @@
+{
+  "label": "Accordion",
+  "host_template_types": [
+    "PAGE",
+    "BLOG_LISTING",
+    "BLOG_POST",
+    "CASE_STUDY"
+  ],
+  "icon": "../../images/module-icons/down.svg",
+  "extra_classes": "",
+  "smart_type": "NOT_SMART",
+  "master_language": "en",
+  "categories": [
+    "design"
+  ]
+}

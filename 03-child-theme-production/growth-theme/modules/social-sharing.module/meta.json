@@ -1,0 +1,17 @@
+{
+  "label": "Social sharing",
+  "global": true,
+  "host_template_types": [
+    "PAGE",
+    "BLOG_LISTING",
+    "BLOG_POST",
+    "CASE_STUDY"
+  ],
+  "icon": "../../images/module-icons/social-posts.svg",
+  "extra_classes": "",
+  "smart_type": "NOT_SMART",
+  "master_language": "en",
+  "categories": [
+    "social"
+  ]
+}

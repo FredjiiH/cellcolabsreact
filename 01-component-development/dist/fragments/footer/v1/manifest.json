@@ -1,0 +1,85 @@
+{
+  "id": "footer",
+  "name": "Footer",
+  "version": "1.0.0",
+  "generated": "2025-09-23T11:40:45.389Z",
+  "placeholders": [
+    {
+      "id": "brand_text",
+      "type": "text",
+      "default": "Cellcolabs Clinical",
+      "label": "Brand Text"
+    },
+    {
+      "id": "brand_description",
+      "type": "richtext",
+      "default": "World-leading stem cell research...",
+      "label": "Brand Description"
+    },
+    {
+      "id": "sections",
+      "type": "repeater",
+      "label": "Footer Sections",
+      "fields": [
+        {
+          "id": "title",
+          "type": "text",
+          "default": "Section Title"
+        },
+        {
+          "id": "links",
+          "type": "repeater",
+          "fields": [
+            {
+              "id": "label",
+              "type": "text",
+              "default": "Link"
+            },
+            {
+              "id": "href",
+              "type": "url",
+              "default": "#"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contact_title",
+      "type": "text",
+      "default": "Contact",
+      "label": "Contact Title"
+    },
+    {
+      "id": "contact_address",
+      "type": "richtext",
+      "default": "Address here...",
+      "label": "Contact Address"
+    },
+    {
+      "id": "copyright_text",
+      "type": "text",
+      "default": "© 2025 Cellcolabs Clinical",
+      "label": "Copyright Text"
+    },
+    {
+      "id": "theme",
+      "type": "choice",
+      "default": "cellcolabsclinical",
+      "options": [
+        "cellcolabs",
+        "cellcolabsclinical"
+      ],
+      "label": "Theme"
+    }
+  ],
+  "files": {
+    "html": "fragment.html",
+    "css": "styles.css"
+  },
+  "responsive": true,
+  "themes": [
+    "cellcolabs",
+    "cellcolabsclinical"
+  ]
+}

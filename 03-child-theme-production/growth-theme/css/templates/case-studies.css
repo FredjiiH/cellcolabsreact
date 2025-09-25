@@ -1,0 +1,49 @@
+/* Layout */
+.content-wrapper--sm {
+  max-width: 750px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+/* Spacing */
+.cs-title-container {
+  margin-bottom: 50px;
+}
+
+.cs-logo-wrapper {
+  margin-bottom: 32px;
+}
+
+.cs-testimonials-wrapper,
+.cs-about-company-wrapper,
+.cs-body-wrapper,
+.cs-metrics-wrapper,
+.cs-feature-wrapper {
+  margin-bottom: 5rem;
+}
+
+/* Colors */
+.cs-background--off-white {
+  background-color: var(--color--bg-gray, #fafafa);
+}
+
+/* Helpers */
+*[data-module-hidden='true'] {
+  display: none;
+}
+
+/* Listing page */
+
+.cs-listing-wrapper {
+  padding: 80px 0;
+}
+
+.cs-listing__heading {
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.cs-listing__subheading {
+  font-size: 18px;
+  text-align: center;
+}

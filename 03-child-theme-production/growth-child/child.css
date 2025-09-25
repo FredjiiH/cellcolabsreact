@@ -1,0 +1,1044 @@
+/* Dual Brand Child Theme CSS - Growth Theme Extension */
+
+/* Import Inter font directly - UI settings don't work for child themes */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..900;1,14..32,400..900&display=swap');
+
+/***********************************************/
+/* Shared Variables - Common to Both Brands  */
+/***********************************************/
+
+:root {
+  /* Spacing System - Maps to HubSpot's UI settings */
+  --space-4: 0.25rem;    /* 4px */
+  --space-8: 0.5rem;     /* 8px */
+  --space-12: 0.75rem;   /* 12px */
+  --space-16: 1rem;      /* 16px */
+  --space-24: 1.5rem;    /* 24px */
+  --space-32: 2rem;      /* 32px */
+  --space-48: 3rem;      /* 48px */
+  --space-64: 4rem;      /* 64px */
+  --space-96: 6rem;      /* 96px */
+
+  /* Typography - All fonts in code (Inter for both brands) */
+  --font-heading: 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-weight-regular: 450;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 650;
+  --font-weight-bold: 700;
+
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+
+  /* Responsive Font Sizes - Desktop */
+  --font-size-display-desktop: 5rem;      /* 80px */
+  --font-size-h1-desktop: 3.5rem;         /* 56px */
+  --font-size-h2-desktop: 3rem;           /* 48px */
+  --font-size-h3-desktop: 2.25rem;        /* 36px */
+  --font-size-h4-desktop: 1.5rem;         /* 24px */
+  --font-size-body-large-desktop: 1.125rem; /* 18px */
+  --font-size-body-medium-desktop: 1rem;    /* 16px */
+  --font-size-body-small-desktop: 0.875rem; /* 14px */
+  --font-size-button-desktop: 1rem;         /* 16px */
+
+  /* Responsive Font Sizes - Mobile */
+  --font-size-display-mobile: 2.5rem;     /* 40px */
+  --font-size-h1-mobile: 2.25rem;         /* 36px */
+  --font-size-h2-mobile: 2rem;            /* 32px */
+  --font-size-h3-mobile: 1.75rem;         /* 28px */
+  --font-size-h4-mobile: 1.25rem;         /* 20px */
+  --font-size-body-large-mobile: 1.125rem; /* 18px */
+  --font-size-body-medium-mobile: 1rem;    /* 16px */
+  --font-size-body-small-mobile: 0.875rem; /* 14px */
+  --font-size-button-mobile: 1rem;         /* 16px */
+
+  /* Active Font Sizes (Mobile First) */
+  --font-size-display: var(--font-size-display-mobile);
+  --font-size-h1: var(--font-size-h1-mobile);
+  --font-size-h2: var(--font-size-h2-mobile);
+  --font-size-h3: var(--font-size-h3-mobile);
+  --font-size-h4: var(--font-size-h4-mobile);
+  --font-size-body-large: var(--font-size-body-large-mobile);
+  --font-size-body: var(--font-size-body-medium-mobile);
+  --font-size-body-small: var(--font-size-body-small-mobile);
+  --font-size-button: var(--font-size-button-mobile);
+
+  /* Grayscale System - Shared */
+  --color-gray-0: #161616;
+  --color-gray-100: #262626;
+  --color-gray-200: #393939;
+  --color-gray-300: #525252;
+  --color-gray-400: #6F6F6F;
+  --color-gray-500: #8D8D8D;
+  --color-gray-600: #A8A8A8;
+  --color-gray-700: #C6C6C6;
+  --color-gray-800: #E0E0E0;
+  --color-gray-900: #F4F4F4;
+  --color-white: #FFFFFF;
+  --color-black: #161616;
+
+  /* Border Radius - Shared */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-full: 9999px;
+
+  /* Shadows - Shared */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Desktop Font Sizes */
+@media (min-width: 1024px) {
+  :root {
+    --font-size-display: var(--font-size-display-desktop);
+    --font-size-h1: var(--font-size-h1-desktop);
+    --font-size-h2: var(--font-size-h2-desktop);
+    --font-size-h3: var(--font-size-h3-desktop);
+    --font-size-h4: var(--font-size-h4-desktop);
+    --font-size-body-large: var(--font-size-body-large-desktop);
+    --font-size-body: var(--font-size-body-medium-desktop);
+    --font-size-body-small: var(--font-size-body-small-desktop);
+    --font-size-button: var(--font-size-button-desktop);
+  }
+}
+
+/***********************************************/
+/* Brand-Specific Variables                   */
+/***********************************************/
+
+/* Cellcolabs Clinical Theme (Current Production) */
+:root,
+[data-brand="cellcolabsclinical"],
+.brand-cellcolabsclinical {
+  /* Brand Colors - From cellcolabsclinical.json */
+  --color-brand-100: #BECFFF;
+  --color-brand-300: #879ADF;
+  --color-brand-500: #4F65BE;
+  --color-brand-700: #2F4283;
+  --color-brand-900: #0F2047;
+
+  /* Primary Brand Colors */
+  --color-primary: #4F65BE;
+  --color-secondary: #879ADF;
+  --color-accent: #F9D400;
+
+  /* Text Colors */
+  --color-text-primary: #161616;
+  --color-text-secondary: #525252;
+  --color-text-tertiary: #8D8D8D;
+  --color-text-disabled: #C6C6C6;
+  --color-text-inverse: #FFFFFF;
+  --color-text-link: #4F65BE;
+
+  /* Background Colors */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F4F4F4;
+  --color-bg-section: #F5F5F5;
+  --color-bg-dark: #161616;
+  --color-bg-white: #FFFFFF;
+  --color-bg-beige: #EDE9E1;
+  --color-bg-blue: #D1DEED;
+
+  /* Border Colors */
+  --color-border-light: #C6C6C6;
+  --color-border-medium: #A8A8A8;
+
+  /* Dividers */
+  --color-divider-dark: #161616;
+  --color-divider-light: #FFFFFF;
+
+  /* Functional Colors */
+  --color-error: #F94400;
+  --color-warning: #F9D400;
+}
+
+/* Cellcolabs Theme (Placeholder Data for Testing) */
+[data-brand="cellcolabs"],
+.brand-cellcolabs {
+  /* Brand Colors */
+  --color-primary: #00A651;      /* Green */
+  --color-secondary: #004225;    /* Dark green */
+  --color-accent: #F9D400;       /* Yellow */
+
+  /* Text Colors */
+  --color-text-primary: #161616;
+  --color-text-secondary: #666666;
+  --color-text-tertiary: #8D8D8D;
+  --color-text-inverse: #FFFFFF;
+  --color-text-link: #00A651;
+
+  /* Background Colors */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F8F9FA;
+  --color-bg-section: #F0F8F0;   /* Light green tint */
+  --color-bg-dark: #004225;
+
+  /* Border Colors */
+  --color-border-light: #E0E0E0;
+  --color-border-medium: #CCCCCC;
+}
+
+/***********************************************/
+/* HubSpot Spacing System Integration        */
+/***********************************************/
+
+/* Map our spacing variables to HubSpot's UI controls */
+.dnd-section[data-section-padding="none"] {
+  padding: 0 !important;
+}
+.dnd-section[data-section-padding="small"] {
+  padding: var(--space-32) 0 !important;
+}
+.dnd-section[data-section-padding="medium"] {
+  padding: var(--space-48) 0 !important;
+}
+.dnd-section[data-section-padding="large"] {
+  padding: var(--space-64) 0 !important;
+}
+.dnd-section[data-section-padding="xlarge"] {
+  padding: var(--space-96) 0 !important;
+}
+
+/* Module spacing controls */
+.dnd-module[data-module-margin-top="small"] {
+  margin-top: var(--space-16) !important;
+}
+.dnd-module[data-module-margin-top="medium"] {
+  margin-top: var(--space-24) !important;
+}
+.dnd-module[data-module-margin-top="large"] {
+  margin-top: var(--space-32) !important;
+}
+
+.dnd-module[data-module-margin-bottom="small"] {
+  margin-bottom: var(--space-16) !important;
+}
+.dnd-module[data-module-margin-bottom="medium"] {
+  margin-bottom: var(--space-24) !important;
+}
+.dnd-module[data-module-margin-bottom="large"] {
+  margin-bottom: var(--space-32) !important;
+}
+
+/***********************************************/
+/* Typography Override - Force Inter Font     */
+/***********************************************/
+
+/* Override Growth theme's hardcoded fonts with !important */
+body,
+p,
+a,
+button,
+input,
+textarea,
+select,
+div,
+span,
+li,
+td,
+th {
+  font-family: var(--font-body) !important;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading) !important;
+  font-weight: var(--font-weight-bold) !important;
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: var(--font-size-h1) !important;
+}
+
+h2 {
+  font-size: var(--font-size-h2) !important;
+}
+
+h3 {
+  font-size: var(--font-size-h3) !important;
+  font-weight: var(--font-weight-semibold) !important;
+}
+
+h4 {
+  font-size: var(--font-size-h4) !important;
+  font-weight: var(--font-weight-semibold) !important;
+  line-height: var(--line-height-normal);
+}
+
+h5,
+h6 {
+  font-weight: var(--font-weight-semibold) !important;
+}
+
+/* Utility classes */
+.text-large {
+  font-size: var(--font-size-body-large);
+}
+
+.text-small {
+  font-size: var(--font-size-body-small);
+}
+
+/* Buttons - Override Growth theme button fonts */
+button,
+.btn,
+input[type="submit"],
+input[type="button"] {
+  font-family: var(--font-body) !important;
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Links */
+a {
+  color: var(--color-text-link);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Ensure HubSpot modules use our fonts */
+.hs_cos_wrapper,
+.hs-richtext,
+.hs-richtext *,
+.dnd-module *,
+.widget-type-rich_text * {
+  font-family: inherit !important;
+}
+
+/***********************************************/
+/* Container Width Implementation             */
+/***********************************************/
+
+/* Override Growth theme container to 1440px */
+.content-wrapper,
+.container,
+.dnd-section > .row-fluid,
+.row-fluid-wrapper .row-fluid {
+  max-width: var(--container-max-width) !important;
+  margin: 0 auto;
+}
+
+/* Apply Figma design system padding at wide screens */
+@media (min-width: 1440px) {
+  .content-wrapper,
+  .container,
+  .dnd-section > .row-fluid,
+  .row-fluid-wrapper .row-fluid {
+    padding-left: var(--container-padding-wide);
+    padding-right: var(--container-padding-wide);
+  }
+}
+
+/* Responsive padding for smaller screens */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .content-wrapper,
+  .container,
+  .dnd-section > .row-fluid,
+  .row-fluid-wrapper .row-fluid {
+    padding-left: var(--container-padding-desktop);
+    padding-right: var(--container-padding-desktop);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .content-wrapper,
+  .container,
+  .dnd-section > .row-fluid,
+  .row-fluid-wrapper .row-fluid {
+    padding-left: var(--container-padding-tablet);
+    padding-right: var(--container-padding-tablet);
+  }
+}
+
+@media (max-width: 767px) {
+  .content-wrapper,
+  .container,
+  .dnd-section > .row-fluid,
+  .row-fluid-wrapper .row-fluid {
+    padding-left: var(--container-padding-mobile);
+    padding-right: var(--container-padding-mobile);
+  }
+}
+
+/* Ensure drag-and-drop sections respect container width */
+.dnd-section,
+.dnd-module {
+  width: 100%;
+}
+
+/* Override any Growth theme width constraints */
+body .body-wrapper .container-fluid > .row-fluid {
+  max-width: var(--container-max-width) !important;
+}
+
+/***********************************************/
+/* Header Styles - Match Custom Theme Design */
+/***********************************************/
+
+/* Clean header styling - Based on working custom theme */
+.header,
+.site-header {
+  background-color: var(--color-bg-white);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: box-shadow 0.2s ease;
+}
+
+.header.is-scrolled,
+.site-header.is-scrolled {
+  box-shadow: var(--shadow-md);
+}
+
+.site-navigation {
+  background-color: var(--color-bg-white);
+  position: relative;
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1460px; /* Match Figma desktop width */
+  margin: 0 auto;
+  padding: 0 var(--space-24); /* Desktop default: 24px */
+}
+
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-16) 0; /* 16px vertical padding */
+  min-height: 72px; /* Ensure consistent height */
+}
+
+/* Logo Styles - Simplified for same logo across all breakpoints */
+.nav-logo {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo-image {
+  height: 40px; /* Match Figma: 40px height */
+  width: 58px; /* Match Figma: 58px width */
+  object-fit: contain; /* Maintain aspect ratio */
+}
+
+/* Desktop Menu Styles - Based on working custom theme */
+.nav-menu-desktop {
+  display: none; /* Hidden on mobile, shown on desktop */
+}
+
+.nav-menu-list {
+  display: flex;
+  gap: var(--space-8);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-menu-item {
+  position: relative;
+  margin: 0 !important; /* Override any theme margins */
+}
+
+.nav-menu-link,
+.header .nav-menu-desktop .hs-menu-item > a,
+.site-header .nav-menu-desktop .hs-menu-item > a {
+  font-family: var(--font-body) !important;
+  font-size: 16px !important; /* Match Figma: 16px */
+  font-weight: var(--font-weight-medium) !important; /* Inter Medium */
+  line-height: 1 !important; /* Match Figma leading-[0] */
+  color: var(--color-text-primary) !important; /* #161616 */
+  text-decoration: none !important;
+  padding: 12px 16px !important; /* Match Figma: py-[12px] px-[16px] */
+  display: block !important;
+  transition: color 0.2s ease;
+}
+
+.nav-menu-link:hover,
+.header .nav-menu-desktop .hs-menu-item > a:hover,
+.site-header .nav-menu-desktop .hs-menu-item > a:hover {
+  color: var(--color-text-link) !important;
+}
+
+.nav-menu-item--active > .nav-menu-link,
+.header .nav-menu-desktop .hs-menu-item.active-branch > a,
+.header .nav-menu-desktop .hs-menu-item.current-page > a,
+.site-header .nav-menu-desktop .hs-menu-item.active-branch > a,
+.site-header .nav-menu-desktop .hs-menu-item.current-page > a {
+  color: var(--color-text-link) !important;
+}
+
+/* HubSpot Menu Integration - Match React component */
+.nav-menu-desktop .hs-menu-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+/* Target the actual generated menu structure */
+.nav-menu-desktop .hs-menu-wrapper > ul {
+  display: flex;
+  gap: var(--space-8); /* Match React component gap */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+/* Target HubSpot's actual menu item class */
+.nav-menu-desktop .hs-menu-item.hs-menu-depth-1 {
+  position: relative;
+  padding: 0;
+  margin: 0 !important; /* Override Growth theme margin */
+}
+
+/* Target menu links directly */
+.nav-menu-desktop .hs-menu-item.hs-menu-depth-1 > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-16);
+  font-family: var(--font-body) !important;
+  font-size: 16px !important;
+  font-weight: var(--font-weight-medium) !important;
+  color: var(--color-text-primary) !important;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border-radius: var(--border-radius-sm);
+}
+
+.nav-menu-desktop .hs-menu-item.hs-menu-depth-1 > a:hover {
+  background-color: var(--color-bg-secondary) !important;
+  color: var(--color-primary) !important;
+}
+
+.nav-menu-desktop .hs-menu-item.active-branch > a,
+.nav-menu-desktop .hs-menu-item.current-page > a {
+  color: var(--color-primary) !important;
+  background-color: var(--color-bg-secondary);
+}
+
+/* Override Growth theme's header color overrides - be more specific */
+.header .nav-menu-desktop .hs-menu-item a,
+.site-header .nav-menu-desktop .hs-menu-item a {
+  color: var(--color-text-primary) !important;
+  font-family: var(--font-body) !important;
+  font-weight: var(--font-weight-medium) !important;
+}
+
+.header .nav-menu-desktop .hs-menu-item a:hover,
+.site-header .nav-menu-desktop .hs-menu-item a:hover {
+  color: var(--color-primary) !important;
+}
+
+/* Override any Growth theme li styles */
+.header .nav-menu-desktop li.hs-menu-item,
+.site-header .nav-menu-desktop li.hs-menu-item {
+  margin: 0 !important;
+  color: inherit !important;
+}
+
+/* Mobile Menu Button - Updated for Figma 6-dot design */
+.nav-toggle {
+  display: flex; /* Show by default, hide on desktop */
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-primary);
+}
+
+.nav-toggle-icon,
+.nav-toggle-close {
+  width: 24px;
+  height: 24px;
+}
+
+.nav-toggle-close {
+  display: none;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-icon {
+  display: none;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-close {
+  display: block;
+}
+
+/* Mobile Menu - Based on working custom theme */
+.nav-menu-mobile {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--color-bg-white);
+  box-shadow: var(--shadow-lg);
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+.nav-menu-mobile.is-active {
+  display: block;
+}
+
+.nav-menu-mobile-wrapper {
+  padding: var(--space-24);
+}
+
+/* Mobile Menu Items - Using custom theme class names that work */
+.nav-mobile-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-mobile-link {
+  font-family: var(--font-body) !important;
+  font-size: 1rem !important;
+  font-weight: var(--font-weight-regular) !important;
+  line-height: 1.5 !important;
+  color: var(--color-text-primary) !important;
+  text-decoration: none;
+  padding: var(--space-16) 0;
+  display: block;
+  border-bottom: 1px solid var(--color-border-light);
+  transition: color 0.2s ease;
+}
+
+.nav-mobile-link:hover {
+  color: var(--color-text-link) !important;
+}
+
+.nav-mobile-item--active > .nav-mobile-link {
+  color: var(--color-text-link) !important;
+  font-weight: var(--font-weight-medium) !important;
+}
+
+/* Skip link for accessibility */
+.header__skip {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--color-text-primary);
+  color: var(--color-text-inverse);
+  padding: 8px 12px;
+  text-decoration: none;
+  border-radius: var(--border-radius-sm);
+  z-index: 100;
+  transition: top 0.3s ease;
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+}
+
+.header__skip:focus {
+  top: 6px;
+}
+
+/* Submenu styles for desktop dropdowns */
+.nav-submenu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+  min-width: 200px;
+  padding: var(--spacing-sm) 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  list-style: none;
+}
+
+.nav-menu-item:hover .nav-submenu,
+.nav-menu-item:focus-within .nav-submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-submenu-item {
+  list-style: none;
+}
+
+.nav-submenu-link {
+  display: block;
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.nav-submenu-link:hover {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-accent);
+}
+
+/***********************************************/
+/* Responsive Design - Match React Component  */
+/***********************************************/
+
+/* Tablet Styles (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .nav-container {
+    padding: 0 var(--space-24); /* 24px */
+  }
+
+  .nav-menu-desktop .hs-menu-item > a,
+  .nav-menu-link {
+    padding: var(--space-8) var(--space-8);
+    font-size: 15px;
+  }
+
+  /* Keep mobile menu on tablet */
+  .nav-menu-desktop {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+}
+
+/* Mobile Styles (max-width: 767px) */
+@media (max-width: 767px) {
+  .nav-container {
+    padding: 0 var(--space-16); /* 16px */
+  }
+
+  .nav-wrapper {
+    height: 56px; /* Match React component mobile height */
+  }
+
+  /* Hide desktop menu */
+  .nav-menu-desktop {
+    display: none;
+  }
+
+  /* Show mobile elements */
+  .nav-toggle {
+    display: flex;
+  }
+
+  /* Show mobile logo, hide text logo */
+  .nav-logo-text {
+    display: none;
+  }
+
+  .nav-logo-image-mobile {
+    display: block;
+  }
+
+  /* Mobile menu gets flex display */
+  .nav-menu-mobile .hs-menu-wrapper > ul,
+  .nav-mobile-list {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Responsive Styles - Match Figma exactly */
+@media (max-width: 767px) {
+  .nav-container {
+    padding: 6px 16px; /* Match Figma mobile: px-[16px] py-[6px] */
+  }
+
+  .nav-wrapper {
+    padding: 0; /* Remove extra padding on mobile */
+    min-height: 52px; /* Smaller height on mobile */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .nav-container {
+    padding: 6px 16px; /* Match Figma tablet: px-[16px] py-[6px] */
+  }
+
+  .nav-wrapper {
+    padding: 0; /* Remove extra padding on tablet */
+    min-height: 52px; /* Smaller height on tablet */
+  }
+}
+
+@media (min-width: 1024px) {
+  .nav-container {
+    padding: 0 24px; /* Match Figma desktop: px-[24px] py-0 */
+  }
+
+  .nav-wrapper {
+    padding: 16px 0; /* Match Figma: py-[16px] */
+    min-height: 72px; /* Match Figma total height */
+  }
+
+  /* Show desktop menu */
+  .nav-menu-desktop {
+    display: block;
+  }
+
+  /* Hide mobile elements */
+  .nav-toggle {
+    display: none;
+  }
+
+  .nav-menu-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1460px) {
+  .nav-container {
+    padding: 0 24px; /* Keep 24px padding even on wide screens */
+  }
+}
+
+/***********************************************/
+/* Typography Overrides                       */
+/***********************************************/
+
+/* Apply Cellcolabs Clinical typography to Growth theme elements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+}
+
+body,
+p,
+a,
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-body);
+  color: var(--color-text-primary);
+}
+
+/***********************************************/
+/* Additional Growth Theme Overrides          */
+/***********************************************/
+
+/* Override Growth theme container styles if needed */
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--container-padding-desktop);
+}
+
+/* Ensure proper spacing after header */
+.main-content,
+main {
+  padding-top: var(--spacing-lg);
+}
+
+/* Button styles to match Clinical theme */
+.btn,
+button {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-sm);
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-text-inverse);
+  border: 1px solid var(--color-accent);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/***********************************************/
+/* Start additional custom styles below       */
+/***********************************************/
+
+/***********************************************/
+/* AGGRESSIVE OVERRIDES FOR GROWTH THEME      */
+/* These ensure our styles win over parent    */
+/***********************************************/
+
+/* ULTIMATE OVERRIDE - Highest specificity for Growth theme */
+.header .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a,
+.site-header .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a {
+  color: var(--color-text-primary) !important;
+  font-family: var(--font-body) !important;
+  font-weight: var(--font-weight-medium) !important;
+  font-size: 16px !important;
+  padding: 12px 16px !important;
+  text-decoration: none !important;
+  line-height: 1 !important;
+}
+
+.header .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a:hover,
+.site-header .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a:hover {
+  color: var(--color-text-link) !important;
+}
+
+/* Mobile menu specific overrides */
+.header .hs-menu-flow-vertical a,
+.site-header .hs-menu-flow-vertical a {
+  color: var(--color-text-primary) !important;
+  font-family: var(--font-body) !important;
+  font-weight: var(--font-weight-regular) !important;
+  font-size: 1rem !important;
+}
+
+/* Remove all list item margins in menus */
+.header .hs-menu-item,
+.site-header .hs-menu-item {
+  margin: 0 !important;
+}
+
+/* Ensure horizontal menu items display correctly */
+.hs-menu-flow-horizontal > ul {
+  display: flex !important;
+  gap: var(--space-8) !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.hs-menu-flow-horizontal .hs-menu-item {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/***********************************************/
+/* FINAL NUCLEAR OVERRIDES - MAXIMUM POWER!  */
+/* These absolutely MUST override everything   */
+/***********************************************/
+
+/* Force Navigation Structure - Override Everything */
+html body .header .site-navigation .nav-container {
+  max-width: 1460px !important;
+  margin: 0 auto !important;
+  padding: 0 24px !important;
+}
+
+html body .header .site-navigation .nav-wrapper {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 16px 0 !important;
+  min-height: 72px !important;
+}
+
+/* Force Menu Item Styling - ULTIMATE Nuclear Override */
+html body .header .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item.hs-menu-depth-1 > a[role="menuitem"],
+html body .header .site-navigation .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a,
+html body .header .site-navigation .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item.hs-menu-depth-1 > a,
+html body .header .site-navigation .nav-menu-desktop .hs-menu-wrapper > ul > li > a,
+html body .header .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item a,
+html body .header .site-navigation .nav-menu-desktop .hs-menu-item > a,
+html body .header .nav-menu-desktop .hs-menu-item > a,
+html body .header .nav-menu-desktop a,
+html body .site-header .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a,
+html body .site-header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a,
+html body .site-header .nav-menu-desktop .hs-menu-item > a,
+html body .site-header .nav-menu-desktop a {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  color: #161616 !important;
+  text-decoration: none !important;
+  padding: 12px 16px !important;
+  display: block !important;
+  transition: color 0.2s ease !important;
+  background: transparent !important;
+  border: none !important;
+  margin: 0 !important;
+}
+
+html body .header .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item.hs-menu-depth-1 > a[role="menuitem"]:hover,
+html body .header .site-navigation .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a:hover,
+html body .header .site-navigation .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item.hs-menu-depth-1 > a:hover,
+html body .header .site-navigation .nav-menu-desktop .hs-menu-wrapper > ul > li > a:hover,
+html body .header .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item a:hover,
+html body .header .site-navigation .nav-menu-desktop .hs-menu-item > a:hover,
+html body .header .nav-menu-desktop .hs-menu-item > a:hover,
+html body .header .nav-menu-desktop a:hover,
+html body .site-header .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a:hover,
+html body .site-header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a:hover,
+html body .site-header .nav-menu-desktop .hs-menu-item > a:hover,
+html body .site-header .nav-menu-desktop a:hover {
+  color: #4f65be !important;
+}
+
+/* Logo Override */
+html body .header .site-navigation .nav-logo .nav-logo-image {
+  height: 40px !important;
+  width: 58px !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+/* Mobile Button Override */
+html body .header .site-navigation .nav-toggle {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 48px !important;
+  height: 48px !important;
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  color: #161616 !important;
+}
+
+/* Responsive - Force Desktop Menu Display */
+@media (min-width: 1024px) {
+  html body .header .site-navigation .nav-menu-desktop {
+    display: block !important;
+  }
+  html body .header .site-navigation .nav-toggle {
+    display: none !important;
+  }
+  html body .header .site-navigation .nav-container {
+    padding: 0 24px !important;
+  }
+  html body .header .site-navigation .nav-wrapper {
+    padding: 16px 0 !important;
+    min-height: 72px !important;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 767px) {
+  html body .header .site-navigation .nav-container {
+    padding: 6px 16px !important;
+  }
+  html body .header .site-navigation .nav-wrapper {
+    padding: 0 !important;
+    min-height: 52px !important;
+  }
+}

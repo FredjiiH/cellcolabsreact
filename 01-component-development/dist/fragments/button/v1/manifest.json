@@ -1,0 +1,79 @@
+{
+  "id": "button",
+  "name": "Button",
+  "version": "1.0.0",
+  "generated": "2025-09-23T11:40:45.392Z",
+  "placeholders": [
+    {
+      "id": "text",
+      "type": "text",
+      "default": "Click here",
+      "label": "Button Text"
+    },
+    {
+      "id": "url",
+      "type": "url",
+      "default": "#",
+      "label": "Button URL"
+    },
+    {
+      "id": "style",
+      "type": "choice",
+      "default": "primary",
+      "options": [
+        "primary",
+        "secondary",
+        "outline",
+        "outline-white"
+      ],
+      "label": "Button Style"
+    },
+    {
+      "id": "size",
+      "type": "choice",
+      "default": "default",
+      "options": [
+        "small",
+        "default",
+        "large"
+      ],
+      "label": "Button Size"
+    },
+    {
+      "id": "alignment",
+      "type": "choice",
+      "default": "left",
+      "options": [
+        "left",
+        "center",
+        "right"
+      ],
+      "label": "Button Alignment"
+    },
+    {
+      "id": "open_in_new_tab",
+      "type": "boolean",
+      "default": false,
+      "label": "Open in new tab"
+    },
+    {
+      "id": "theme",
+      "type": "choice",
+      "default": "cellcolabsclinical",
+      "options": [
+        "cellcolabs",
+        "cellcolabsclinical"
+      ],
+      "label": "Theme"
+    }
+  ],
+  "files": {
+    "html": "fragment.html",
+    "css": "styles.css"
+  },
+  "responsive": true,
+  "themes": [
+    "cellcolabs",
+    "cellcolabsclinical"
+  ]
+}

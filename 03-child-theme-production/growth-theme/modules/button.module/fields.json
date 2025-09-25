@@ -1,0 +1,326 @@
+[
+  {
+    "label": "Button text",
+    "name": "button_text",
+    "type": "text",
+    "required": true,
+    "default": "Learn more"
+  },
+  {
+    "label": "Copy link to clipboard?",
+    "name": "copy_to_clipboard",
+    "type": "boolean",
+    "help_text": "Copies the link provided to the visitor's clipboard instead of navigating them to the link provided.",
+    "default": false
+  },
+  {
+    "label": "Button link",
+    "name": "button_link",
+    "type": "link",
+    "supported_types": [
+      "EXTERNAL",
+      "CONTENT",
+      "FILE",
+      "EMAIL_ADDRESS",
+      "BLOG",
+      "CALL_TO_ACTION",
+      "PAYMENT"
+    ],
+    "default": {
+      "url": {
+        "href": "",
+        "type": "EXTERNAL"
+      }
+    }
+  },
+  {
+    "label": "Add icon",
+    "name": "add_icon",
+    "id": "add_icon",
+    "type": "boolean",
+    "default": false
+  },
+  {
+    "label": "Icon",
+    "name": "icon",
+    "type": "group",
+    "visibility": {
+      "controlling_field": "add_icon",
+      "controlling_value_regex": "true",
+      "operator": "EQUAL"
+    },
+    "expanded": true,
+    "children": [
+      {
+        "label": "Icon",
+        "name": "icon",
+        "type": "icon",
+        "required": true,
+        "default": {
+          "name": "arrow-alt-circle-up",
+          "type": "SOLID",
+          "unicode": "f35b"
+        }
+      },
+      {
+        "label": "Position",
+        "name": "position",
+        "type": "choice",
+        "choices": [
+          [
+            "left",
+            "Left"
+          ],
+          [
+            "right",
+            "Right"
+          ]
+        ],
+        "display": "select",
+        "required": true,
+        "default": "left"
+      }
+    ]
+  },
+  {
+    "label": "Styles",
+    "name": "styles",
+    "type": "group",
+    "tab": "STYLE",
+    "children": [
+      {
+        "label": "Presets",
+        "name": "presets",
+        "type": "group",
+        "help_text": "Use presets to quickly adjust the appearance of the selected item to predefined values.",
+        "children": [
+          {
+            "label": "Button style",
+            "name": "button_style",
+            "type": "choice",
+            "choices": [
+              [
+                "primary",
+                "Primary"
+              ],
+              [
+                "secondary",
+                "Secondary"
+              ],
+              [
+                "simple",
+                "Simple"
+              ]
+            ],
+            "display": "select",
+            "required": true,
+            "default": "primary"
+          },
+          {
+            "label": "Button size",
+            "name": "button_size",
+            "type": "choice",
+            "choices": [
+              [
+                "small",
+                "Small"
+              ],
+              [
+                "regular",
+                "Regular"
+              ],
+              [
+                "large",
+                "Large"
+              ]
+            ],
+            "display": "select",
+            "required": true,
+            "default": "regular"
+          }
+        ]
+      },
+      {
+        "label": "Text",
+        "name": "text",
+        "type": "group",
+        "children": [
+          {
+            "label": "Font",
+            "name": "font",
+            "type": "font",
+            "default": {
+              "size_unit": "px"
+            }
+          },
+          {
+            "label": "Transform",
+            "name": "transform",
+            "type": "choice",
+            "choices": [
+              [
+                "none",
+                "None"
+              ],
+              [
+                "capitalize",
+                "Capitalize"
+              ],
+              [
+                "uppercase",
+                "Uppercase"
+              ],
+              [
+                "lowercase",
+                "Lowercase"
+              ]
+            ],
+            "display": "select"
+          }
+        ]
+      },
+      {
+        "label": "Background",
+        "name": "background",
+        "type": "group",
+        "children": [
+          {
+            "label": "Color",
+            "name": "color",
+            "type": "color"
+          }
+        ]
+      },
+      {
+        "label": "Border",
+        "name": "border",
+        "type": "group",
+        "children": [
+          {
+            "label": "Border",
+            "name": "border",
+            "type": "border"
+          }
+        ]
+      },
+      {
+        "label": "Corner",
+        "name": "corner",
+        "type": "group",
+        "children": [
+          {
+            "label": "Radius",
+            "name": "radius",
+            "type": "number",
+            "display": "text",
+            "max": 100,
+            "step": 1,
+            "suffix": "px"
+          }
+        ]
+      },
+      {
+        "label": "Spacing",
+        "name": "spacing",
+        "type": "group",
+        "children": [
+          {
+            "label": "Force full width",
+            "name": "force_full_width",
+            "type": "boolean",
+            "help_text": "Forces the button to take up all of the horizontal space that it can. The button will still honor the padding and margin set below.",
+            "default": false
+          },
+          {
+            "label": "Spacing",
+            "name": "spacing",
+            "type": "spacing"
+          }
+        ]
+      },
+      {
+        "label": "Hover",
+        "name": "hover",
+        "type": "group",
+        "children": [
+          {
+            "label": "Text",
+            "name": "text",
+            "type": "group",
+            "children": [
+              {
+                "label": "Font",
+                "name": "font",
+                "type": "font",
+                "visibility": {
+                  "hidden_subfields": {
+                    "size": true
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "label": "Background",
+            "name": "background",
+            "type": "group",
+            "children": [
+              {
+                "label": "Color",
+                "name": "color",
+                "type": "color"
+              }
+            ]
+          },
+          {
+            "label": "Border",
+            "name": "border",
+            "type": "group",
+            "children": [
+              {
+                "label": "Border",
+                "name": "border",
+                "type": "border"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Alignment",
+        "name": "alignment",
+        "type": "group",
+        "children": [
+          {
+            "label": "Alignment",
+            "name": "alignment",
+            "type": "alignment",
+            "alignment_direction": "HORIZONTAL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "Default text",
+    "name": "default_text",
+    "type": "group",
+    "locked": true,
+    "children": [
+      {
+        "label": "Copied to clipboard",
+        "name": "copied_to_clipboard",
+        "type": "text",
+        "locked": true,
+        "default": "Copied to clipboard"
+      },
+      {
+        "label": "Failed to copy to clipboard",
+        "name": "failed_to_copy",
+        "type": "text",
+        "locked": true,
+        "default": "Failed to copy to clipboard"
+      }
+    ]
+  }
+]

@@ -1,0 +1,78 @@
+<!--
+  templateType: case_study
+  isAvailableForNewContent: false
+  label: Case study acceptance test
+  screenshotPath: ../images/template-previews/case-studies-detail.png
+-->
+{% set template_css = "../../css/templates/case-studies.css" %}
+{% import "../macros/color-palette/macros.html" as color_macros %}
+{% extends "./layouts/base.html" %}
+
+{% block body %}
+<div class="content-wrapper">
+  {% set template_gray_vars = [{
+      "name": "color--bg-gray",
+      "value": "#FAFAFA"
+    },
+    {
+      "name": "color--gray-dark-accent",
+      "value": "#999999"
+    },
+    {
+      "name": "color--gray-light-accent",
+      "value": "#e1e1e1"
+    }
+  ]%}
+
+  {% set hsl_string = color_macros.to_hsl_string() %}
+  {% set hsl_array = hsl_string|split(",")|map("float") %}
+  {{ color_macros.generate_color_palette(hsl_array, template_gray_vars) }}
+
+  {% set case_study = dynamic_page_hubdb_row %}
+
+  <div class="content-wrapper">
+    <div class="cs-logo-wrapper">
+      {% module "cs-logo" path="@hubspot/cs_company_logo" %}
+    </div>
+
+    <div class="cs-title-wrapper">
+      {% module "cs-name" path="@hubspot/cs_title" %}
+    </div>
+
+    <div class="cs-feature-wrapper">
+      {% module "cs-feature" path="@hubspot/cs_featured_details" %}
+    </div>
+  </div>
+
+  <div class="cs-metrics-wrapper">
+    {% module "cs-metrics" path="@hubspot/cs_metrics" %}
+  </div>
+
+  <div class="cs-testimonials-wrapper">
+    {% module "cs-testimonials" path="@hubspot/cs_testimonial_slider" %}
+  </div>
+
+  <div class="content-wrapper--sm">
+    <div class="cs-about-company-wrapper">
+      {% module "cs-about-company" path="@hubspot/cs_about_company" %}
+    </div>
+    <div class="cs-body-wrapper">
+      {% module "cs-body" path="@hubspot/cs_body" %}
+    </div>
+  </div>
+</div>
+
+<div class="cs-cta-banner-wrapper">
+  {% module "cs-cta-banner" path="@hubspot/cs_full_width_cta_banner" %}
+</div>
+
+<div class="cs-background--off-white">
+  <div class="content-wrapper">
+      <div class="cs-related-articles-wrapper">
+        {% module "cs-related-case-studies" path="@hubspot/cs_related_case_studies" %}
+      </div>
+  </div>
+</div>
+
+
+{% endblock body %}

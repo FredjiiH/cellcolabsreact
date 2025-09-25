@@ -1,0 +1,66 @@
+{
+  "id": "content-section",
+  "name": "Content Section",
+  "version": "1.0.0",
+  "generated": "2025-09-23T11:40:45.382Z",
+  "placeholders": [
+    {
+      "id": "title",
+      "type": "text",
+      "default": "Our clinical research programs",
+      "label": "Section Title"
+    },
+    {
+      "id": "subtitle",
+      "type": "richtext",
+      "default": "We conduct patient-funded clinical trials...",
+      "label": "Section Subtitle"
+    },
+    {
+      "id": "cards",
+      "type": "repeater",
+      "label": "Content Cards",
+      "fields": [
+        {
+          "id": "headline",
+          "type": "text",
+          "default": "Headline"
+        },
+        {
+          "id": "description",
+          "type": "richtext",
+          "default": "Description text..."
+        },
+        {
+          "id": "imageUrl",
+          "type": "image",
+          "default": "https://via.placeholder.com/343x228"
+        },
+        {
+          "id": "imageAlt",
+          "type": "text",
+          "default": "Image description"
+        }
+      ]
+    },
+    {
+      "id": "theme",
+      "type": "choice",
+      "default": "cellcolabs",
+      "options": [
+        "cellcolabs",
+        "cellcolabsclinical"
+      ],
+      "label": "Theme"
+    }
+  ],
+  "files": {
+    "html": "fragment.html",
+    "css": "styles.css"
+  },
+  "responsive": true,
+  "themes": [
+    "cellcolabs",
+    "cellcolabsclinical"
+  ]
+}

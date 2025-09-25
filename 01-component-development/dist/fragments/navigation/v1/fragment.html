@@ -1,0 +1,67 @@
+<!-- Fragment: Navigation -->
+<!-- Generated: 2025-09-23T11:40:45.372Z -->
+<nav class="navigation__navigation" data-component="navigation" data-theme="{{theme}}">
+  <div class="navigation__container">
+    <div class="navigation__content">
+      <div class="navigation__brand" data-placeholder="brand_text">
+        <span class="navigation__brandBold">{{brand_text_bold}}</span>
+        <span class="navigation__brandRegular">{{brand_text_regular}}</span>
+      </div>
+
+      <button class="navigation__mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+        <div class="navigation__dotsGrid">
+          <span class="navigation__dot"></span>
+          <span class="navigation__dot"></span>
+          <span class="navigation__dot"></span>
+          <span class="navigation__dot"></span>
+          <span class="navigation__dot"></span>
+          <span class="navigation__dot"></span>
+          <span class="navigation__dot"></span>
+          <span class="navigation__dot"></span>
+          <span class="navigation__dot"></span>
+          <span class="navigation__dot"></span>
+          <span class="navigation__dot"></span>
+          <span class="navigation__dot"></span>
+          <span class="navigation__dot"></span>
+          <span class="navigation__dot"></span>
+          <span class="navigation__dot"></span>
+        </div>
+      </button>
+
+      <ul class="navigation__menu" data-placeholder="menu_items">
+        {{#menu_items}}
+        <li class="navigation__menuItem">
+          <a href="{{href}}" class="navigation__menuLink">{{label}}</a>
+        </li>
+        {{/menu_items}}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<script>
+(function() {
+  // Mobile menu toggle
+  document.querySelectorAll('.navigation__mobileToggle').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var menu = btn.parentElement.querySelector('.navigation__menu');
+      var isOpen = menu.classList.contains('navigation__menuOpen');
+      menu.classList.toggle('navigation__menuOpen');
+      btn.setAttribute('aria-expanded', !isOpen);
+    });
+  });
+
+  // Read more/less toggle
+  document.querySelectorAll('.content-section__readMoreButton').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var desc = btn.parentElement.querySelector('.content-section__cardDescription');
+      var isExpanded = desc.classList.contains('content-section__expanded');
+      desc.classList.toggle('content-section__expanded');
+      btn.textContent = isExpanded ? 'Read more' : 'Read less';
+    });
+  });
+})();
+</script>
+
+<!-- End Fragment: Navigation -->

@@ -1,0 +1,32 @@
+<!-- Fragment: Button -->
+<!-- Generated: 2025-09-23T11:40:45.391Z -->
+<div class="button__buttonWrapper" data-component="button" data-theme="{{theme}}" style="text-align: {{alignment}};">
+  <a href="{{url}}" class="button__button button__button-{{style}} button__button-{{size}}" target="_self">{{text}}</a>
+</div>
+
+
+<script>
+(function() {
+  // Mobile menu toggle
+  document.querySelectorAll('.navigation__mobileToggle').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var menu = btn.parentElement.querySelector('.navigation__menu');
+      var isOpen = menu.classList.contains('navigation__menuOpen');
+      menu.classList.toggle('navigation__menuOpen');
+      btn.setAttribute('aria-expanded', !isOpen);
+    });
+  });
+
+  // Read more/less toggle
+  document.querySelectorAll('.content-section__readMoreButton').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var desc = btn.parentElement.querySelector('.content-section__cardDescription');
+      var isExpanded = desc.classList.contains('content-section__expanded');
+      desc.classList.toggle('content-section__expanded');
+      btn.textContent = isExpanded ? 'Read more' : 'Read less';
+    });
+  });
+})();
+</script>
+
+<!-- End Fragment: Button -->

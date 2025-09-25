@@ -1,0 +1,56 @@
+{
+  "id": "navigation",
+  "name": "Navigation",
+  "version": "1.0.0",
+  "generated": "2025-09-23T11:40:45.375Z",
+  "placeholders": [
+    {
+      "id": "brand_text_bold",
+      "type": "text",
+      "default": "Cellcolabs",
+      "label": "Brand Text (Bold)"
+    },
+    {
+      "id": "brand_text_regular",
+      "type": "text",
+      "default": "Clinical",
+      "label": "Brand Text (Regular)"
+    },
+    {
+      "id": "menu_items",
+      "type": "repeater",
+      "label": "Menu Items",
+      "fields": [
+        {
+          "id": "label",
+          "type": "text",
+          "default": "Menu Item"
+        },
+        {
+          "id": "href",
+          "type": "url",
+          "default": "#"
+        }
+      ]
+    },
+    {
+      "id": "theme",
+      "type": "choice",
+      "default": "cellcolabs",
+      "options": [
+        "cellcolabs",
+        "cellcolabsclinical"
+      ],
+      "label": "Theme"
+    }
+  ],
+  "files": {
+    "html": "fragment.html",
+    "css": "styles.css"
+  },
+  "responsive": true,
+  "themes": [
+    "cellcolabs",
+    "cellcolabsclinical"
+  ]
+}

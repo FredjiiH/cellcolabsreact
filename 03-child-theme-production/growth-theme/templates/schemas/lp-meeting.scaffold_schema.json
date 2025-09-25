@@ -1,0 +1,194 @@
+[
+  {
+    "name": "banner",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "A heading about booking a meeting with a representative from the company."
+      },
+      {
+        "name": "content",
+        "type": "text",
+        "description": "A brief description (2-3 sentences) about booking a meeting with a representative from the company."
+      },
+      {
+        "name": "list",
+        "type": "group",
+        "children": [
+          {
+            "name": "heading",
+            "type": "text",
+            "description": "A heading that describes a list of benefits for booking a meeting."
+          },
+          {
+            "name": "item_one",
+            "type": "text",
+            "description": "The first benefit for booking a meeting."
+          },
+          {
+            "name": "item_two",
+            "type": "text",
+            "description": "The second benefit for booking a meeting."
+          },
+          {
+            "name": "item_three",
+            "type": "text",
+            "description": "The third benefit for booking a meeting."
+          }
+        ]
+      },
+      {
+        "name": "meeting",
+        "type": "meeting",
+        "description": "A meeting link that will go in the banner of the page where someone can schedule a meeting with someone from the company."
+      }
+    ]
+  },
+  {
+    "name": "customers",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "A heading that shows above logos of some of the company's customers."
+      }
+    ]
+  },
+  {
+    "name": "features",
+    "type": "group",
+    "children": [
+      {
+        "name": "feature_one",
+        "type": "group",
+        "children": [
+          {
+            "name": "image",
+            "type": "image",
+            "description": "An image related to the main feature of this section. Will be used on a website as a feature's supporting image. Should either be a graphic design or realistic. But it cannot contain any text or text-like elements.",
+            "width": 497,
+            "height": 284
+          },
+          {
+            "name": "heading",
+            "type": "text",
+            "description": "A featured point of the focus of the page. Should be related to the following content section."
+          },
+          {
+            "name": "content",
+            "type": "text",
+            "description": "A description of a feature or highlight related to the focus of the page. Should be about two to three sentences long."
+          }
+        ]
+      },
+      {
+        "name": "feature_two",
+        "type": "group",
+        "children": [
+          {
+            "name": "image",
+            "type": "image",
+            "description": "An image related to the main feature of this section. Will be used on a website as a feature's supporting image. Should either be a graphic design or realistic. But it cannot contain any text or text-like elements.",
+            "width": 497,
+            "height": 284
+          },
+          {
+            "name": "heading",
+            "type": "text",
+            "description": "A featured point of the focus of the page. Should be related to the following content section"
+          },
+          {
+            "name": "content",
+            "type": "text",
+            "description": "A description of a feature or highlight related to the focus of the page. Should be about two to three sentences long."
+          }
+        ]
+      },
+      {
+        "name": "feature_three",
+        "type": "group",
+        "children": [
+          {
+            "name": "image",
+            "type": "image",
+            "description": "An image related to the main feature of this section. Will be used on a website as a feature's supporting image. Should either be a graphic design or realistic. But it cannot contain any text or text-like elements.",
+            "width": 497,
+            "height": 284
+          },
+          {
+            "name": "heading",
+            "type": "text",
+            "description": "A featured point of the focus of the page. Should be related to the following content section"
+          },
+          {
+            "name": "content",
+            "type": "text",
+            "description": "A description of a feature or highlight related to the focus of the page. Should be about two to three sentences long."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "testimonial",
+    "type": "group",
+    "children": [
+      {
+        "name": "text",
+        "type": "text",
+        "description": "A testimonial that a customer wrote about the business."
+      }
+    ]
+  },
+  {
+    "name": "faq",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "A heading that shows above a frequently asked questions section."
+      },
+      {
+        "name": "subheading",
+        "type": "text",
+        "description": "A subheading that shows above a frequently asked questions section."
+      },
+      {
+        "name": "accordion_one",
+        "type": "group",
+        "children": [
+          {
+            "name": "question",
+            "type": "text",
+            "description": "The first frequently asked question that people have about the company."
+          },
+          {
+            "name": "answer",
+            "type": "text",
+            "description": "The answer to the first frequently asked question that people have about the company."
+          }
+        ]
+      },
+      {
+        "name": "accordion_two",
+        "type": "group",
+        "children": [
+          {
+            "name": "question",
+            "type": "text",
+            "description": "The second frequently asked question that people have about the company."
+          },
+          {
+            "name": "answer",
+            "type": "text",
+            "description": "The answer to the second frequently asked question that people have about the company."
+          }
+        ]
+      }
+    ]
+  }
+]

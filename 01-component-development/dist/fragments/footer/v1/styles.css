@@ -1,0 +1,289 @@
+
+/* Theme Variables - will be set by HubSpot */
+:root {
+  --color-primary: #0066CC;
+  --color-secondary: #00A86B;
+  --color-text-primary: #161616;
+  --color-text-secondary: #666666;
+  --color-text-inverse: #FFFFFF;
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F8F9FA;
+  --color-bg-section: #F5F5F5;
+  --font-heading: 'Barlow', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-wide: 1440px;
+}
+    
+
+.footer__footer {
+  background-color: #4f65be;
+  color: var(--color-text-inverse);
+  padding: var(--spacing-xxl) 0;
+  width: 100%;
+}
+
+.footer__container {
+  max-width: var(--breakpoint-wide);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.footer__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxl);
+}
+
+/* Mobile Brand Section */
+.footer__mobileBrandSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.footer__brandTitle {
+  font-family: 'Bricolage Grotesque', var(--font-heading);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.15;
+  margin: 0;
+  color: var(--color-text-inverse);
+}
+
+.footer__brandDescription {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.35;
+  margin: 0;
+  color: var(--color-text-inverse);
+  opacity: 0.9;
+}
+
+/* Desktop Logo */
+.footer__desktopLogo {
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  width: 114px;
+  height: 80px;
+}
+
+.footer__logoText {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-text-inverse);
+}
+
+.footer__logoSubtext {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--color-text-inverse);
+  opacity: 0.9;
+}
+
+/* Sections Grid */
+.footer__sectionsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xxl) var(--spacing-md);
+}
+
+.footer__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.footer__sectionTitle {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  margin: 0;
+  color: var(--color-text-inverse);
+  opacity: 0.4;
+  text-transform: capitalize;
+}
+
+.footer__sectionLinks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer__link {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--color-text-inverse);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.footer__link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* Mobile Contact Section */
+.footer__mobileContactSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.footer__contactTitle {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  margin: 0;
+  color: var(--color-text-inverse);
+  opacity: 0.4;
+}
+
+.footer__address {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.35;
+  font-style: normal;
+  color: var(--color-text-inverse);
+}
+
+/* Copyright */
+.footer__copyright {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--color-text-inverse);
+  opacity: 0.9;
+  margin-top: var(--spacing-lg);
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) {
+  .footer__container {
+    padding: 0 var(--spacing-lg);
+  }
+
+  .footer__sectionsGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xl);
+  }
+
+  .footer__mobileBrandSection {
+    max-width: 60%;
+  }
+
+  .footer__brandTitle {
+    font-size: 36px;
+  }
+
+  .footer__brandDescription {
+    font-size: 16px;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .footer__footer {
+    padding: calc(var(--spacing-xxl) * 1.5) 0;
+  }
+
+  .footer__container {
+    padding: 0 var(--spacing-xl);
+  }
+
+  .footer__content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    position: relative;
+    padding-top: var(--spacing-xxl);
+  }
+
+  /* Hide mobile sections on desktop */
+  .footer__mobileBrandSection,
+  .footer__mobileContactSection {
+    display: none;
+  }
+
+  /* Show desktop logo */
+  .footer__desktopLogo {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .footer__sectionsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-xl);
+    margin-left: calc(114px + var(--spacing-xxl));
+  }
+
+  .footer__section {
+    gap: var(--spacing-lg);
+  }
+
+  .footer__sectionTitle {
+    font-size: 16px;
+    opacity: 0.5;
+  }
+
+  .footer__sectionLinks {
+    gap: var(--spacing-sm);
+  }
+
+  .footer__link {
+    font-size: 16px;
+  }
+
+  .footer__copyright {
+    grid-column: 1 / -1;
+    margin-top: calc(var(--spacing-xxl) * 2);
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.7;
+  }
+}
+
+/* Wide Desktop Styles */
+@media (min-width: 1440px) {
+  .footer__container {
+    padding: 0 var(--spacing-xxl);
+  }
+
+  .footer__sectionsGrid {
+    gap: calc(var(--spacing-xxl) * 1.5);
+  }
+}

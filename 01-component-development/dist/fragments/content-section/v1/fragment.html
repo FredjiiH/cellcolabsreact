@@ -1,0 +1,53 @@
+<!-- Fragment: Content Section -->
+<!-- Generated: 2025-09-23T11:40:45.380Z -->
+<section class="content-section__contentSection" data-component="content-section" data-theme="{{theme}}">
+  <div class="content-section__container">
+    <div class="content-section__header">
+      <h2 class="content-section__title" data-placeholder="title">{{title}}</h2>
+      <p class="content-section__subtitle" data-placeholder="subtitle">{{subtitle}}</p>
+    </div>
+    <div class="content-section__cardsGrid">
+      {{#cards}}
+      <div class="content-section__card">
+        <div class="content-section__cardImage">
+          <img src="{{imageUrl}}" alt="{{imageAlt}}" />
+        </div>
+        <div class="content-section__cardContent">
+          <div class="content-section__cardTextContent">
+            <h3 class="content-section__cardHeadline">{{headline}}</h3>
+            <p class="content-section__cardDescription">{{description}}</p>
+          </div>
+          <button class="content-section__readMoreButton" data-expand="false">Read more</button>
+        </div>
+      </div>
+      {{/cards}}
+    </div>
+  </div>
+</section>
+
+
+<script>
+(function() {
+  // Mobile menu toggle
+  document.querySelectorAll('.navigation__mobileToggle').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var menu = btn.parentElement.querySelector('.navigation__menu');
+      var isOpen = menu.classList.contains('navigation__menuOpen');
+      menu.classList.toggle('navigation__menuOpen');
+      btn.setAttribute('aria-expanded', !isOpen);
+    });
+  });
+
+  // Read more/less toggle
+  document.querySelectorAll('.content-section__readMoreButton').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var desc = btn.parentElement.querySelector('.content-section__cardDescription');
+      var isExpanded = desc.classList.contains('content-section__expanded');
+      desc.classList.toggle('content-section__expanded');
+      btn.textContent = isExpanded ? 'Read more' : 'Read less';
+    });
+  });
+})();
+</script>
+
+<!-- End Fragment: Content Section -->

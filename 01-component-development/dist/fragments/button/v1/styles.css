@@ -1,0 +1,217 @@
+
+/* Theme Variables - will be set by HubSpot */
+:root {
+  --color-primary: #0066CC;
+  --color-secondary: #00A86B;
+  --color-text-primary: #161616;
+  --color-text-secondary: #666666;
+  --color-text-inverse: #FFFFFF;
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F8F9FA;
+  --color-bg-section: #F5F5F5;
+  --font-heading: 'Barlow', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-wide: 1440px;
+}
+    
+
+/* Button Component - Figma Design System */
+
+.button__buttonWrapper {
+  margin: var(--spacing-md) 0;
+}
+
+.button__alignLeft {
+  text-align: left;
+}
+
+.button__alignCenter {
+  text-align: center;
+}
+
+.button__alignRight {
+  text-align: right;
+}
+
+/* Base Button Styles */
+.button__button {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.0;
+  padding: var(--spacing-xs-3) var(--spacing-md);
+  border-radius: 64px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  /* Default = Primary Button */
+  background-color: #BECFFF;
+  color: #161616;
+}
+
+.button__button:hover {
+  background-color: #879ADF;
+  color: #161616;
+}
+
+.button__button:active {
+  background-color: #4F65BE;
+  color: #FFFFFF;
+}
+
+.button__button:disabled {
+  background-color: #C6C6C6;
+  color: #8D8D8D;
+  cursor: not-allowed;
+}
+
+/* Button Style Variants */
+.button__button-primary {
+  background-color: #BECFFF;
+  color: #161616;
+  border-color: transparent;
+}
+
+.button__button-primary:hover {
+  background-color: #879ADF;
+  color: #161616;
+}
+
+.button__button-primary:active {
+  background-color: #4F65BE;
+  color: #FFFFFF;
+}
+
+.button__button-primary:disabled {
+  background-color: #C6C6C6;
+  color: #8D8D8D;
+  cursor: not-allowed;
+}
+
+.button__button-secondary {
+  background-color: #FFFFFF;
+  color: #161616;
+  border-color: transparent;
+  mix-blend-mode: darken;
+}
+
+.button__button-secondary:hover {
+  background-color: #E0E0E0;
+  color: #161616;
+}
+
+.button__button-secondary:active {
+  background-color: #C6C6C6;
+  color: #161616;
+}
+
+.button__button-secondary:disabled {
+  background-color: #C6C6C6;
+  color: #8D8D8D;
+  cursor: not-allowed;
+}
+
+.button__button-outline {
+  background-color: transparent;
+  color: #161616;
+  border-color: #161616;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.button__button-outline:hover {
+  background-color: transparent;
+  color: #525252;
+  border-color: #525252;
+}
+
+.button__button-outline:active {
+  background-color: transparent;
+  color: #161616;
+  border-color: #161616;
+}
+
+.button__button-outline:disabled {
+  background-color: transparent;
+  color: #8D8D8D;
+  border-color: #8D8D8D;
+  cursor: not-allowed;
+}
+
+.button__button-outline-white {
+  background-color: transparent;
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.button__button-outline-white:hover {
+  background-color: transparent;
+  color: #393939;
+  border-color: #393939;
+}
+
+.button__button-outline-white:active {
+  background-color: transparent;
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+}
+
+.button__button-outline-white:disabled {
+  background-color: transparent;
+  color: #6F6F6F;
+  border-color: #6F6F6F;
+  cursor: not-allowed;
+}
+
+/* Button Size Variants */
+.button__button-small {
+  padding: var(--spacing-xs-2) var(--spacing-xs-3);
+  font-size: 0.875rem;
+}
+
+.button__button-large {
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: 1.125rem;
+}
+
+/* CSS Variables for spacing (matching Figma specs) */
+:root {
+  --spacing-xs-2: 8px;   /* For small button */
+  --spacing-xs-3: 12px;  /* For default button vertical padding */
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .button__button {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .button__alignLeft,
+  .button__alignCenter,
+  .button__alignRight {
+    text-align: center;
+  }
+}

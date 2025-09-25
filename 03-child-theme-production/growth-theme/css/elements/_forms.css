@@ -1,0 +1,184 @@
+/* Form title */
+
+.form-title {
+  margin: 0;
+}
+
+.form-title ~ div > form {
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Labels */
+
+form label {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+:root {
+  --hsf-module__vertical-spacing: 0.35rem;
+}
+
+/* Form fields */
+
+form .hs-form-field {
+  margin-bottom: 1.4rem;
+}
+
+:root {
+  --hsf-row__vertical-spacing: 1.4rem;
+}
+
+.form-columns-1 .hs-fieldtype-intl-phone,
+form input[type='text'],
+form input[type='email'],
+form input[type='password'],
+form input[type='tel'],
+form input[type='number'],
+form input[type='file'],
+form input[type='search'],
+form select,
+form textarea {
+  display: inline-block;
+  width: 100% !important; /* stylelint-disable-line declaration-no-important */
+}
+
+/* International phone number field */
+
+form .hs-fieldtype-intl-phone {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+form fieldset {
+  max-width: 100% !important; /* stylelint-disable-line declaration-no-important */
+}
+
+/* Form fields - checkbox/radio */
+
+form .inputs-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+form .inputs-list > li {
+  display: block;
+  margin: 0.7rem 0;
+}
+
+form .inputs-list input,
+form .inputs-list span {
+  vertical-align: middle;
+}
+
+form input[type='checkbox'],
+form input[type='radio'] {
+  margin-right: 0.35rem;
+  cursor: pointer;
+}
+
+/* Form fields - date picker */
+
+form .hs-dateinput {
+  position: relative;
+}
+
+form .hs-dateinput:before {
+  position: absolute;
+  top: 50%;
+  content: '\01F4C5';
+  transform: translateY(-50%);
+}
+
+form select.hs-input {
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='25' viewBox='0 0 24 25' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.9407 19.5595C11.5267 20.1454 12.4782 20.1454 13.0642 19.5595L22.0642 10.5595C22.6501 9.97354 22.6501 9.02197 22.0642 8.43604C21.4782 7.8501 20.5267 7.8501 19.9407 8.43604L12.0001 16.3767L4.05947 8.44072C3.47354 7.85478 2.52197 7.85478 1.93604 8.44072C1.3501 9.02666 1.3501 9.97822 1.93604 10.5642L10.936 19.5642L10.9407 19.5595Z' fill='%2309152B'/%3E%3C/svg%3E%0A");
+  background-position: right 16px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+
+form .is-selected .pika-button {
+  border-radius: 0 !important; /* stylelint-disable-line declaration-no-important */
+  box-shadow: none !important; /* stylelint-disable-line declaration-no-important */
+}
+
+form .fn-date-picker .pika-button:hover,
+form .fn-date-picker .pika-button:focus {
+  border-radius: 0 !important; /* stylelint-disable-line declaration-no-important */
+}
+
+/* Form fields - file picker */
+
+form input[type='file'] {
+  padding: initial;
+  border: initial;
+  background-color: transparent;
+}
+
+/* Headings and text */
+
+form .hs-richtext,
+form .hs-richtext p {
+  margin: 0 0 1.4rem;
+  font-size: 0.8rem;
+}
+
+form .hs-richtext img {
+  height: auto;
+  max-width: 100% !important; /* stylelint-disable-line declaration-no-important */
+}
+
+/* GDPR */
+
+form .legal-consent-container .hs-form-booleancheckbox-display > span {
+  margin-left: 1rem !important; /* stylelint-disable-line declaration-no-important */
+}
+
+/* Validation */
+
+form .hs-form-required {
+  color: #ef6b51;
+}
+
+form .hs-input.error {
+  border-color: #ef6b51;
+}
+
+form .hs-error-msg,
+form .hs-error-msgs {
+  margin-top: 0.35rem;
+  color: #ef6b51;
+}
+
+:root {
+  --hsf-global-error__color: #ef6b51;
+  --hsf-field-label-requiredindicator__color: var(--hsf-global-error__color);
+  --hsf-erroralert__color: var(--hsf-global-error__color);
+}
+
+/* Submit button */
+
+form input[type='submit'],
+form .hs-button {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s linear;
+  white-space: normal !important; /* stylelint-disable-line declaration-no-important */
+}
+
+:root {
+  --hsf-button__width: 100%;
+}
+
+/* Captcha */
+
+.grecaptcha-badge {
+  margin: 0 auto;
+}

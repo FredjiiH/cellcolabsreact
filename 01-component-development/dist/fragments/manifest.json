@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "generated": "2025-09-23T11:40:45.393Z",
+  "components": [
+    {
+      "id": "navigation",
+      "name": "Navigation",
+      "path": "navigation/v1/manifest.json"
+    },
+    {
+      "id": "content-section",
+      "name": "Content Section",
+      "path": "content-section/v1/manifest.json"
+    },
+    {
+      "id": "footer",
+      "name": "Footer",
+      "path": "footer/v1/manifest.json"
+    },
+    {
+      "id": "button",
+      "name": "Button",
+      "path": "button/v1/manifest.json"
+    }
+  ]
+}
