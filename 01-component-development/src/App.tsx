@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Navigation } from './components/Navigation/Navigation';
 import { ContentSection } from './components/ContentSection/ContentSection';
+import { FocusAreas } from './components/FocusAreas/FocusAreas';
 import { Footer } from './components/Footer/Footer';
 import { applyThemeToCSS, getTheme, ThemeName } from './utils/theme-loader';
 import './App.css';
@@ -66,6 +67,9 @@ function App() {
         ]}
         theme={currentTheme}
       />
+
+      {/* Focus Areas Grid */}
+      <FocusAreas />
 
       {/* Footer */}
       <Footer

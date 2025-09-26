@@ -1,0 +1,175 @@
+/* Focus Areas Component */
+.focusAreas {
+  width: 100%;
+  padding: 80px 0;
+}
+
+.container {
+  max-width: 1136px; /* Figma shows 1136px total width for the grid */
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px; /* Figma shows 16px gap both horizontal and vertical */
+}
+
+.card {
+  position: relative;
+  border-radius: 16px; /* Using top-right radius (16px) for all corners */
+  overflow: hidden;
+  aspect-ratio: 1; /* Square cards: 560x560px */
+  width: 100%;
+  max-width: 560px; /* Figma target size */
+}
+
+.cardImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.cardOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2); /* Figma shows solid 20% black overlay */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  color: white;
+  text-align: center;
+}
+
+.cardBadge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border-radius: 8px; /* Figma shows 8px radius */
+  padding: 8px 12px; /* Figma shows 8px vertical, 12px horizontal */
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; /* Figma specifies 14px */
+  font-weight: 450; /* Figma specifies 450 weight */
+  line-height: 1.35; /* Figma line height */
+  margin-bottom: 24px; /* Figma shows 24px gap */
+  width: fit-content;
+}
+
+.cardTitle {
+  font-family: 'Season Mix TRIAL', sans-serif; /* Figma specifies Season Mix TRIAL */
+  font-size: 28px; /* Figma specifies 28px */
+  font-weight: 580; /* Figma specifies Medium weight (580) */
+  line-height: 1.15; /* Figma line height */
+  margin: 0 0 24px 0; /* 24px gap below title */
+  color: white;
+  text-align: center;
+  max-width: 400px; /* Figma shows constrained width */
+}
+
+.cardDescription {
+  font-family: 'Inter', sans-serif; /* Figma specifies Inter */
+  font-size: 16px; /* Figma specifies 16px */
+  font-weight: 450; /* Figma specifies 450 weight */
+  line-height: 1.35; /* Figma line height */
+  margin: 0 0 24px 0; /* 24px gap below description */
+  color: white;
+  text-align: center;
+  max-width: 400px; /* Figma shows constrained width */
+}
+
+.cardLink {
+  color: white;
+  text-decoration: underline; /* Figma shows underlined link */
+  text-underline-position: from-font; /* Figma setting */
+  font-family: 'Inter', sans-serif; /* Figma specifies Inter */
+  font-size: 16px; /* Figma specifies 16px */
+  font-weight: 450; /* Figma specifies 450 weight */
+  line-height: 1.35; /* Figma line height */
+  display: inline-block;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.cardLink:hover {
+  color: var(--color-primary);
+  transform: translateX(4px);
+}
+
+/* Tablet breakpoint */
+@media (max-width: 1023px) {
+  .focusAreas {
+    padding: 60px 0;
+  }
+
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .grid {
+    gap: 20px;
+  }
+
+  .cardOverlay {
+    padding: 24px;
+  }
+
+  .cardTitle {
+    font-size: 32px; /* Figma mobile shows 32px for titles */
+  }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 767px) {
+  .focusAreas {
+    padding: 40px 0;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .card {
+    aspect-ratio: 0.8; /* Mobile cards are taller: 343px wide, 428px tall */
+  }
+
+  .cardOverlay {
+    padding: 20px;
+  }
+
+  .cardTitle {
+    font-size: 32px; /* Figma mobile consistently shows 32px for h2 */
+    margin-bottom: 24px; /* Keep consistent spacing */
+  }
+
+  .cardDescription {
+    font-size: 16px; /* Figma mobile shows 16px for body text */
+    margin-bottom: 24px; /* Keep consistent spacing */
+  }
+
+  .cardBadge {
+    font-size: 14px; /* Keep consistent with desktop */
+    padding: 8px 12px; /* Keep consistent with desktop */
+    margin-bottom: 24px; /* Keep consistent spacing */
+  }
+
+  .cardLink {
+    font-size: 16px; /* Ensure proper mobile link size */
+    font-weight: 450; /* Match Figma specs */
+  }
+}

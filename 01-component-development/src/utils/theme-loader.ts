@@ -90,31 +90,24 @@ export interface Theme {
   };
 }
 
-const themes: Record<ThemeName, Theme> = {
-  cellcolabs: cellcolabsTheme as Theme,
-  cellcolabsclinical: cellcolabsclinicalTheme as Theme
+const themes: Record<ThemeName, any> = {
+  cellcolabs: cellcolabsTheme as any,
+  cellcolabsclinical: cellcolabsclinicalTheme as any
 };
 
-export function getTheme(themeName: ThemeName): Theme {
+export function getTheme(themeName: ThemeName): any {
   return themes[themeName];
 }
 
-export function applyThemeToCSS(theme: Theme): void {
+export function applyThemeToCSS(theme: any): void {
   const root = document.documentElement;
 
-  // Colors
-  root.style.setProperty('--color-primary', theme.colors.primary);
-  root.style.setProperty('--color-secondary', theme.colors.secondary);
-  root.style.setProperty('--color-accent', theme.colors.accent);
+  // Colors - using actual theme structure
+  root.style.setProperty('--color-primary', theme.colors.brand[500] || '#00A651');
   root.style.setProperty('--color-text-primary', theme.colors.text.primary);
   root.style.setProperty('--color-text-secondary', theme.colors.text.secondary);
-  root.style.setProperty('--color-text-inverse', theme.colors.text.inverse);
-  root.style.setProperty('--color-bg-primary', theme.colors.background.primary);
-  root.style.setProperty('--color-bg-secondary', theme.colors.background.secondary);
-  root.style.setProperty('--color-bg-section', theme.colors.background.section);
-  root.style.setProperty('--color-bg-dark', theme.colors.background.dark);
-  root.style.setProperty('--color-border-light', theme.colors.border.light);
-  root.style.setProperty('--color-border-medium', theme.colors.border.medium);
+  root.style.setProperty('--color-text-link', theme.colors.text.link);
+  root.style.setProperty('--color-bg-white', theme.colors.background.white);
 
   // Typography
   root.style.setProperty('--font-heading', theme.typography.fontFamily.heading);
@@ -124,12 +117,12 @@ export function applyThemeToCSS(theme: Theme): void {
   root.style.setProperty('--font-weight-bold', theme.typography.fontWeight.bold);
 
   // Spacing
-  root.style.setProperty('--spacing-xs', theme.spacing.xs);
-  root.style.setProperty('--spacing-sm', theme.spacing.sm);
-  root.style.setProperty('--spacing-md', theme.spacing.md);
-  root.style.setProperty('--spacing-lg', theme.spacing.lg);
-  root.style.setProperty('--spacing-xl', theme.spacing.xl);
-  root.style.setProperty('--spacing-xxl', theme.spacing.xxl);
+  root.style.setProperty('--spacing-xs', theme.spacing.space8);
+  root.style.setProperty('--spacing-sm', theme.spacing.space16);
+  root.style.setProperty('--spacing-md', theme.spacing.space24);
+  root.style.setProperty('--spacing-lg', theme.spacing.space32);
+  root.style.setProperty('--spacing-xl', theme.spacing.space48);
+  root.style.setProperty('--spacing-xxl', theme.spacing.space64);
 
   // Border Radius
   root.style.setProperty('--radius-sm', theme.borderRadius.sm);
@@ -142,7 +135,7 @@ export function applyThemeToCSS(theme: Theme): void {
   root.style.setProperty('--shadow-md', theme.shadows.md);
   root.style.setProperty('--shadow-lg', theme.shadows.lg);
 
-  // Breakpoints (for CSS custom media queries)
+  // Breakpoints
   root.style.setProperty('--breakpoint-tablet', theme.breakpoints.tablet);
   root.style.setProperty('--breakpoint-desktop', theme.breakpoints.desktop);
   root.style.setProperty('--breakpoint-wide', theme.breakpoints.wide);
