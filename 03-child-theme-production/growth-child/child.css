@@ -344,8 +344,26 @@ a {
   padding: 0 var(--space-16) !important; /* Mobile: 16px - matches design system */
 }
 
+/* Force max-width on ALL row-fluid elements at ultra-wide screens */
+@media (min-width: 1920px) {
+  .row-fluid-wrapper .row-fluid,
+  .dnd-section .row-fluid,
+  .dnd-row .row-fluid,
+  .dnd_area-row-3-max-width-section-centering .row-fluid {
+    max-width: var(--content-max-width) !important; /* 1400px */
+    margin: 0 auto !important;
+  }
+
+  /* Ensure nested row-fluids in columns don't exceed parent width */
+  .span6 .row-fluid,
+  .span4 .row-fluid,
+  .span3 .row-fluid {
+    max-width: 100% !important;
+  }
+}
+
 /* Apply Figma design system padding at wide screens */
-@media (min-width: 1440px) {
+@media (min-width: 1441px) {
   .content-wrapper,
   .container,
   .dnd-section > .row-fluid,
@@ -420,7 +438,7 @@ body .body-wrapper .container-fluid > .row-fluid {
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1441px) {
   .dnd-section .row-fluid,
   .dnd-row .row-fluid {
     padding: 0 var(--space-48) !important; /* Wide: 48px - matches design system */
@@ -854,7 +872,7 @@ body .body-wrapper .container-fluid > .row-fluid {
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1441px) {
   .nav-container {
     padding: 0 24px; /* Keep 24px padding even on wide screens */
   }
@@ -920,6 +938,36 @@ button {
 }
 
 /***********************************************/
+/* Nuclear Width Override - Force ALL Sections */
+/***********************************************/
+
+/* ABSOLUTE MAXIMUM WIDTH ENFORCEMENT */
+/* This should override ANY HubSpot setting */
+body .body-wrapper [class*="row-fluid"] {
+  max-width: var(--content-max-width) !important; /* 1400px */
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Specific overrides for known problematic patterns */
+body .body-wrapper .dnd-section > .row-fluid,
+body .body-wrapper .dnd_area-row-0-background-layers > .row-fluid,
+body .body-wrapper .dnd_area-row-1-background-layers > .row-fluid,
+body .body-wrapper .dnd_area-row-2-background-layers > .row-fluid,
+body .body-wrapper .dnd_area-row-3-max-width-section-centering > .row-fluid,
+body .body-wrapper [class*="dnd_area"] > .row-fluid {
+  max-width: var(--content-max-width) !important; /* 1400px */
+  width: 100% !important;
+  margin: 0 auto !important;
+}
+
+/* Exception: nested row-fluids in columns should use parent width */
+body .body-wrapper [class*="span"] .row-fluid {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/***********************************************/
 /* Custom Module Width Alignment Fixes       */
 /***********************************************/
 
@@ -954,7 +1002,7 @@ button {
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1441px) {
   .dnd-module .content-section__container {
     padding: 0 !important;
   }

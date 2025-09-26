@@ -210,30 +210,56 @@ If navigation items don't appear:
 **Active Issues**: None
 **Portal ID**: 144549987
 
-## 🔧 Custom Module Integration
+## 🔧 Custom Module Integration & Width System
 
-### **Width Alignment System**
-Custom modules now seamlessly align with HubSpot UI-built modules:
+### **Universal Width Alignment System**
+All modules (custom, UI-built, and marketplace) now follow a consistent 1400px width system:
 
-- **Problem Solved**: Custom modules previously used 1440px container width while UI modules used 1400px content width, causing vertical misalignment
-- **Solution**: Added CSS overrides (lines 923-965 in child.css) that force custom modules to respect HubSpot's content width system
-- **Result**: Perfect vertical alignment between all module types while maintaining Figma design proportions
+- **Problem Solved**: Inconsistent widths across different module types and viewing modes
+- **Solution**: Nuclear CSS override approach that enforces maximum width on all sections
+- **Result**: Perfect vertical alignment across all content, regardless of module type or HubSpot settings
+
+### **Width System Rules**
+
+#### **Default Behavior (Automatic)**
+- **All sections**: Maximum 1400px width, centered
+- **All modules**: Inherit parent width automatically
+- **Custom modules**: Use 100% width of parent container
+- **Downloaded modules**: Automatically comply with width system
+
+#### **Special Cases**
+- **Narrower content**: Use HubSpot's "center content" setting in UI
+- **Full-bleed sections**: Add class `full-bleed-section` for edge-to-edge layouts
+- **Column layouts**: Automatically adjust to appropriate column widths
+
+#### **No Action Needed For**
+- ✅ New HubSpot modules
+- ✅ New custom modules
+- ✅ Downloaded marketplace modules
+- ✅ Existing content
 
 ### **Technical Implementation**
 ```css
-.dnd-module .content-section__container {
-  max-width: 100% !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
+/* Nuclear width enforcement - lines 946-968 in child.css */
+body .body-wrapper [class*="row-fluid"] {
+  max-width: var(--content-max-width) !important; /* 1400px */
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 ```
 
-This ensures custom modules:
-- Use full available width within HubSpot's 1400px content system
-- Remove conflicting 1440px container constraints
-- Maintain responsive behavior across all breakpoints
-- Preserve design integrity within the standardized width
+### **Design Guidelines**
+- **Figma designs**: Create at 1440px container width
+- **Content area**: Design for 1400px maximum content width
+- **Padding/margins**: Handled automatically by the theme
+- **Responsive**: System maintains alignment across all breakpoints
+
+### **Why This Approach Works**
+1. **Consistency**: Guarantees alignment across ALL content types
+2. **Future-proof**: New modules automatically comply
+3. **Maintainable**: Single rule controls all widths
+4. **Override-able**: Can create exceptions when specifically needed
+5. **Team-friendly**: No special setup or knowledge required
 
 ## 🔮 Future Enhancements
 
