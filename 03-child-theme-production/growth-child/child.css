@@ -8,6 +8,11 @@
 /***********************************************/
 
 :root {
+  /* Container Width System - Aligns with Figma and HubSpot */
+  --container-max-width: 1440px;  /* Figma design frame width */
+  --content-max-width: 1400px;     /* HubSpot theme setting for content */
+  --nav-max-width: 1440px;         /* Navigation container width */
+
   /* Spacing System - Maps to HubSpot's UI settings */
   --space-4: 0.25rem;    /* 4px */
   --space-8: 0.5rem;     /* 8px */
@@ -323,13 +328,20 @@ a {
 /* Container Width Implementation             */
 /***********************************************/
 
-/* Override Growth theme container to 1440px */
+/* Override Growth theme container to match Figma design (1440px) */
 .content-wrapper,
 .container,
-.dnd-section > .row-fluid,
-.row-fluid-wrapper .row-fluid {
-  max-width: var(--container-max-width) !important;
+.dnd-section > .row-fluid {
+  max-width: var(--container-max-width) !important; /* 1440px */
   margin: 0 auto;
+}
+
+/* Only target content-level row-fluid elements, not page containers */
+.dnd-section .row-fluid,
+.dnd-row .row-fluid {
+  max-width: var(--content-max-width) !important; /* 1400px */
+  margin: 0 auto !important;
+  padding: 0 var(--space-16) !important; /* Mobile: 16px - matches design system */
 }
 
 /* Apply Figma design system padding at wide screens */
@@ -385,6 +397,36 @@ body .body-wrapper .container-fluid > .row-fluid {
   max-width: var(--container-max-width) !important;
 }
 
+/* Force proper width on DND sections */
+.dnd-section .row-fluid-wrapper {
+  max-width: var(--container-max-width) !important;
+  margin: 0 auto !important;
+}
+
+/* Remove duplicate - now handled above with better targeting */
+
+/* Responsive Design System Spacing for HubSpot Modules */
+@media (min-width: 768px) {
+  .dnd-section .row-fluid,
+  .dnd-row .row-fluid {
+    padding: 0 var(--space-24) !important; /* Tablet: 24px */
+  }
+}
+
+@media (min-width: 1024px) {
+  .dnd-section .row-fluid,
+  .dnd-row .row-fluid {
+    padding: 0 var(--space-32) !important; /* Desktop: 32px */
+  }
+}
+
+@media (min-width: 1440px) {
+  .dnd-section .row-fluid,
+  .dnd-row .row-fluid {
+    padding: 0 var(--space-48) !important; /* Wide: 48px - matches design system */
+  }
+}
+
 /***********************************************/
 /* Header Styles - Match Custom Theme Design */
 /***********************************************/
@@ -413,7 +455,7 @@ body .body-wrapper .container-fluid > .row-fluid {
 }
 
 .nav-container {
-  max-width: 1460px; /* Match Figma desktop width */
+  max-width: var(--nav-max-width); /* 1440px - Align with container */
   margin: 0 auto;
   padding: 0 var(--space-24); /* Desktop default: 24px */
 }
@@ -812,7 +854,7 @@ body .body-wrapper .container-fluid > .row-fluid {
   }
 }
 
-@media (min-width: 1460px) {
+@media (min-width: 1440px) {
   .nav-container {
     padding: 0 24px; /* Keep 24px padding even on wide screens */
   }
@@ -878,6 +920,51 @@ button {
 }
 
 /***********************************************/
+/* Custom Module Width Alignment Fixes       */
+/***********************************************/
+
+/* Force custom modules to respect HubSpot content width system */
+.dnd-module .content-section__container {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Ensure custom module sections use full available width */
+.dnd-module .content-section__contentSection {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Reset custom module responsive padding that conflicts with HubSpot grid */
+@media (min-width: 768px) {
+  .dnd-module .content-section__container {
+    padding: 0 !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dnd-module .content-section__container {
+    padding: 0 !important;
+  }
+
+  .dnd-module .content-section__header {
+    padding-left: 0 !important;
+  }
+}
+
+@media (min-width: 1440px) {
+  .dnd-module .content-section__container {
+    padding: 0 !important;
+  }
+
+  .dnd-module .content-section__header {
+    padding-left: 0 !important;
+  }
+}
+
+/***********************************************/
 /* Start additional custom styles below       */
 /***********************************************/
 
@@ -939,7 +1026,7 @@ button {
 
 /* Force Navigation Structure - Override Everything */
 html body .header .site-navigation .nav-container {
-  max-width: 1460px !important;
+  max-width: var(--nav-max-width) !important; /* 1440px */
   margin: 0 auto !important;
   padding: 0 24px !important;
 }

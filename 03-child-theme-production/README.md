@@ -141,6 +141,7 @@ html body .header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a {
 - ✅ Brand-aware button/link colors
 - ✅ Inter font system with proper weights
 - ✅ Domain-based automatic brand detection
+- ✅ Custom module width alignment with UI-built modules
 
 ### **Brand Switcher (Editor Mode)**
 For testing purposes, includes a brand switcher visible only in editor mode:
@@ -209,11 +210,35 @@ If navigation items don't appear:
 **Active Issues**: None
 **Portal ID**: 144549987
 
+## 🔧 Custom Module Integration
+
+### **Width Alignment System**
+Custom modules now seamlessly align with HubSpot UI-built modules:
+
+- **Problem Solved**: Custom modules previously used 1440px container width while UI modules used 1400px content width, causing vertical misalignment
+- **Solution**: Added CSS overrides (lines 923-965 in child.css) that force custom modules to respect HubSpot's content width system
+- **Result**: Perfect vertical alignment between all module types while maintaining Figma design proportions
+
+### **Technical Implementation**
+```css
+.dnd-module .content-section__container {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+```
+
+This ensures custom modules:
+- Use full available width within HubSpot's 1400px content system
+- Remove conflicting 1440px container constraints
+- Maintain responsive behavior across all breakpoints
+- Preserve design integrity within the standardized width
+
 ## 🔮 Future Enhancements
 
 - **Footer Template**: Create branded footer with dual themes
 - **Page Templates**: Override additional Growth templates as needed
-- **Module Integration**: Ensure custom modules work seamlessly
 - **Performance Optimization**: Minimize CSS/JS bundle sizes
 
 ---
@@ -221,4 +246,4 @@ If navigation items don't appear:
 **Status**: 🟢 Active Production System
 **Portal**: HubSpot 144549987
 **Domains**: cellcolabsclinical.com, cellcolabs.com
-**Last Updated**: September 25, 2025
+**Last Updated**: September 26, 2025
