@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './Button.module.css';
+import styles from './ButtonMultiVariant.module.css';
 
-export interface ButtonProps {
+export interface ButtonMultiVariantProps {
   text: string;
   url: string;
   style?: 'primary' | 'secondary' | 'outline' | 'outline-white';
@@ -11,7 +11,7 @@ export interface ButtonProps {
   theme?: 'cellcolabs' | 'cellcolabsclinical';
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const ButtonMultiVariant: React.FC<ButtonMultiVariantProps> = ({
   text = 'Click here',
   url = '#',
   style = 'primary',
@@ -34,7 +34,7 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <div
       className={wrapperClasses}
-      data-component="button"
+      data-component="buttonMultiVariant"
       data-theme={theme}
     >
       <a
@@ -48,3 +48,15 @@ export const Button: React.FC<ButtonProps> = ({
     </div>
   );
 };
+
+export const componentMetadata = {
+  name: 'ButtonMultiVariant',
+  category: 'Action',
+  tags: ['button', 'multi-variant', 'primary', 'secondary', 'outline', 'cta'],
+  useCases: ['flexible-buttons', 'multiple-styles', 'hubspot-integration'],
+  responsive: true,
+  accessibility: 'WCAG-AA',
+  version: '1.0.0'
+};
+
+export default ButtonMultiVariant;

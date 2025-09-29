@@ -1,0 +1,300 @@
+/* ===================================
+   Grid2x2CardImage Component Styles
+   HubSpot Module Integration
+   =================================== */
+
+/* Base Component Styles */
+.grid2x2-card-image {
+  width: 100%;
+  padding: var(--space-64, 4rem) 0;
+  background-color: var(--color-bg-primary, #ffffff);
+}
+
+.grid2x2-container {
+  max-width: 1136px;
+  margin: 0 auto;
+  padding: 0 var(--container-padding-desktop, var(--space-32, 2rem));
+}
+
+.grid2x2-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-16, 1rem);
+  justify-items: center;
+}
+
+/* Card Styles */
+.grid2x2-card {
+  position: relative;
+  border-radius: var(--radius-lg, 16px);
+  overflow: hidden;
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 560px;
+  box-shadow: var(--shadow-sm, 0 1px 2px 0 rgba(0, 0, 0, 0.05));
+  transition: var(--transition-default, all 0.2s ease);
+}
+
+.grid2x2-card:hover {
+  box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+  transform: translateY(-2px);
+}
+
+.grid2x2-card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Card Overlay and Content */
+.grid2x2-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-32, 2rem);
+  color: var(--color-text-inverse, var(--color-white, #ffffff));
+  text-align: center;
+  transition: var(--transition-default, all 0.2s ease);
+}
+
+.grid2x2-card:hover .grid2x2-card-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+}
+
+/* Badge Styles */
+.grid2x2-card-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--space-8, 0.5rem) var(--space-12, 0.75rem);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--font-size-eyebrow, var(--font-size-body-small, 14px));
+  font-weight: var(--font-weight-medium, 450);
+  line-height: var(--line-height-body, 1.35);
+  margin-bottom: var(--space-24, 1.5rem);
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Typography Styles */
+.grid2x2-card-title {
+  font-family: var(--font-heading, 'Bricolage Grotesque', sans-serif);
+  font-size: var(--font-size-h3, 28px);
+  font-weight: var(--font-weight-semibold, 600);
+  line-height: var(--line-height-heading, 1.15);
+  letter-spacing: var(--letter-spacing-default, 0);
+  margin: 0 0 var(--space-24, 1.5rem) 0;
+  color: var(--color-text-inverse, var(--color-white, #ffffff));
+  text-align: center;
+  max-width: 400px;
+}
+
+.grid2x2-card-description {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--font-size-body, 16px);
+  font-weight: var(--font-weight-regular, 400);
+  line-height: var(--line-height-body, 1.35);
+  margin: 0 0 var(--space-24, 1.5rem) 0;
+  color: var(--color-text-inverse, var(--color-white, #ffffff));
+  text-align: center;
+  max-width: 400px;
+  opacity: 0.9;
+}
+
+/* Link Styles */
+.grid2x2-card-link {
+  color: var(--color-text-inverse, var(--color-white, #ffffff));
+  text-decoration: underline;
+  text-underline-position: from-font;
+  text-decoration-thickness: 1px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--font-size-body, 16px);
+  font-weight: var(--font-weight-medium, 500);
+  line-height: var(--line-height-body, 1.35);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4, 0.25rem);
+  transition: var(--transition-default, all 0.2s ease);
+  text-align: center;
+  position: relative;
+}
+
+.grid2x2-card-link:hover {
+  color: var(--color-primary, #4F65BE);
+  transform: translateX(4px);
+  text-decoration: none;
+}
+
+.grid2x2-card-link:focus {
+  outline: 2px solid var(--color-primary, #4F65BE);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm, 4px);
+}
+
+/* Brand-specific styles */
+[data-brand="cellcolabsclinical"] .grid2x2-card-link:hover {
+  color: var(--color-primary, #4F65BE);
+}
+
+[data-brand="cellcolabs"] .grid2x2-card-link:hover {
+  color: var(--color-primary, #1D4ED8);
+}
+
+/* Dark theme support */
+[data-theme="dark"] .grid2x2-card-image {
+  background-color: var(--color-bg-dark, #161616);
+}
+
+/* Tablet Responsive Styles */
+@media (max-width: 1023px) {
+  .grid2x2-card-image {
+    padding: var(--space-48, 3rem) 0;
+  }
+
+  .grid2x2-container {
+    padding: 0 var(--container-padding-tablet, var(--space-24, 1.5rem));
+  }
+
+  .grid2x2-grid {
+    gap: var(--space-24, 1.5rem);
+  }
+
+  .grid2x2-card-overlay {
+    padding: var(--space-24, 1.5rem);
+  }
+
+  .grid2x2-card-title {
+    font-size: var(--font-size-h2-tablet, var(--font-size-h2, 32px));
+  }
+
+  .grid2x2-card-description {
+    font-size: var(--font-size-body-tablet, var(--font-size-body, 16px));
+  }
+
+  .grid2x2-card-badge {
+    font-size: var(--font-size-eyebrow-tablet, var(--font-size-body-small, 14px));
+  }
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 767px) {
+  .grid2x2-card-image {
+    padding: var(--space-32, 2rem) 0;
+  }
+
+  .grid2x2-container {
+    padding: 0 var(--container-padding-mobile, var(--space-16, 1rem));
+  }
+
+  .grid2x2-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-16, 1rem);
+  }
+
+  .grid2x2-card {
+    aspect-ratio: 0.8; /* Mobile cards are taller */
+    max-width: none;
+  }
+
+  .grid2x2-card-overlay {
+    padding: var(--space-24, 1.5rem);
+  }
+
+  .grid2x2-card-title {
+    font-size: var(--font-size-h2-mobile, var(--font-size-h2, 32px));
+    margin-bottom: var(--space-24, 1.5rem);
+  }
+
+  .grid2x2-card-description {
+    font-size: var(--font-size-body-mobile, var(--font-size-body, 16px));
+    margin-bottom: var(--space-24, 1.5rem);
+  }
+
+  .grid2x2-card-badge {
+    font-size: var(--font-size-eyebrow-mobile, var(--font-size-body-small, 14px));
+    padding: var(--space-8, 0.5rem) var(--space-12, 0.75rem);
+    margin-bottom: var(--space-24, 1.5rem);
+  }
+
+  .grid2x2-card-link {
+    font-size: var(--font-size-button-mobile, var(--font-size-body-mobile, 16px));
+    font-weight: var(--font-weight-medium, 500);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .grid2x2-card-overlay {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .grid2x2-card-badge {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--color-text-primary, #161616);
+    backdrop-filter: none;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .grid2x2-card,
+  .grid2x2-card-overlay,
+  .grid2x2-card-link {
+    transition: none;
+  }
+
+  .grid2x2-card:hover {
+    transform: none;
+  }
+
+  .grid2x2-card-link:hover {
+    transform: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .grid2x2-card-image {
+    padding: 0;
+  }
+
+  .grid2x2-card-overlay {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--color-text-primary, #161616);
+  }
+
+  .grid2x2-card-title,
+  .grid2x2-card-description,
+  .grid2x2-card-link {
+    color: var(--color-text-primary, #161616);
+  }
+
+  .grid2x2-card-badge {
+    background: var(--color-bg-secondary, #f4f4f4);
+    color: var(--color-text-primary, #161616);
+  }
+}

@@ -1177,3 +1177,40 @@ html body .header .site-navigation .nav-toggle {
     min-height: 52px !important;
   }
 }
+
+/***********************************************/
+/* MOBILE WIDTH FIX - Override HubSpot Padding */
+/***********************************************/
+
+/* Fix mobile content width to match Figma (343px) */
+@media (max-width: 767px) {
+  /* Target the actual row-fluid that has padding */
+  .row-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Target the dnd-module wrapper */
+  .span12.dnd-module {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Override HubSpot section padding on mobile */
+  .row-fluid-wrapper.dnd-section,
+  .row-fluid-wrapper.dnd-row {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Force proper container widths */
+  .row-fluid-wrapper {
+    width: 100% !important;
+  }
+
+  /* Override any conflicting padding from HubSpot */
+  .dnd-section[class*="padding"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}

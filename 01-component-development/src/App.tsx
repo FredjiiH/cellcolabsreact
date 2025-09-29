@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Navigation } from './components/Navigation/Navigation';
 import { ContentSection } from './components/ContentSection/ContentSection';
-import { FocusAreas } from './components/FocusAreas/FocusAreas';
+import { Grid2x2CardImage } from './components/Grid2x2CardImage/Grid2x2CardImage';
 import { Footer } from './components/Footer/Footer';
 import { applyThemeToCSS, getTheme, ThemeName } from './utils/theme-loader';
 import './App.css';
@@ -68,8 +68,8 @@ function App() {
         theme={currentTheme}
       />
 
-      {/* Focus Areas Grid */}
-      <FocusAreas />
+      {/* Grid2x2CardImage */}
+      <Grid2x2CardImage />
 
       {/* Footer */}
       <Footer

@@ -1,0 +1,1 @@
+export { Grid2x2CardImage, type Grid2x2CardImageCard, default } from './Grid2x2CardImage';

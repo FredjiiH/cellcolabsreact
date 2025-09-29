@@ -151,24 +151,81 @@ For testing purposes, includes a brand switcher visible only in editor mode:
 
 ## 🚀 Development Workflow
 
-### **1. Local Changes**
-Edit files in `growth-child/` directory:
-- `child.css` - Styling and brand variables
-- `child.js` - JavaScript functionality
-- `templates/partials/header.html` - Navigation template
+### **Current Approach: HubSpot Theme Modules (Under Evaluation)**
 
-### **2. Deploy to HubSpot**
+#### **For Component Development**
+1. **React Development** - Build components in `01-component-development/`
+2. **Theme Module Creation** - Generate theme modules in `growth-child/modules/`
+3. **Field Configuration** - Create `fields.json` for editable content
+4. **HubSpot Deployment** - Deploy entire theme including modules via CLI
+
+#### **Module Creation Process**
 ```bash
+# 1. Create module in React environment
+cd 01-component-development/
+npm run dev
+
+# 2. Create theme module structure
+mkdir growth-child/modules/component-name.module/
+# - module.html (HubL template)
+# - fields.json (editable fields)
+# - meta.json (module metadata)
+
+# 3. Deploy to HubSpot
+cd growth-child/
 hs upload . --dest="growth child"
 ```
 
-### **3. Test in HubSpot**
-- Preview in different brands using brand switcher
-- Test responsive behavior
-- Verify navigation functionality
+#### **Advantages**
+✅ Editable fields via `fields.json`
+✅ CLI-based deployment
+✅ Integrated with child theme
+❓ URL field integration (outstanding issue)
+❓ More complex debugging
 
-### **4. Publish Changes**
-Publish pages using the child theme in HubSpot.
+---
+
+### **Alternative Approach: Custom Modules (Previous Method)**
+
+#### **For Component Development**
+1. **React Development** - Build components in `01-component-development/`
+2. **Manual Integration** - Copy component code to HubSpot custom modules
+3. **Child Theme Updates** - Deploy theme-level changes separately
+
+#### **Integration Process**
+```bash
+# 1. Component development
+cd 01-component-development/
+npm run dev
+
+# 2. Copy to HubSpot manually
+# - Copy HTML/CSS from React component
+# - Create custom module in HubSpot UI
+# - Configure fields manually
+
+# 3. Deploy theme changes
+cd growth-child/
+hs upload . --dest="growth child"
+```
+
+#### **Advantages**
+✅ Direct HubSpot UI field control
+✅ Familiar workflow
+✅ Easy debugging
+❌ Manual integration steps
+❌ No version control for module structure
+
+---
+
+### **Current Status & Decision Points**
+
+> **🔄 We are currently evaluating the theme module approach** while keeping the custom module workflow as a fallback. Key issues to resolve:
+>
+> - **URL Field Integration**: Theme modules need proper URL field handling
+> - **Field Type Support**: Ensure all required field types work correctly
+> - **Deployment Complexity**: Balance between automation and simplicity
+>
+> **Decision Timeline**: Will finalize approach after resolving URL field issues and completing Grid2x2CardImage module.
 
 ## 📚 Documentation
 

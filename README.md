@@ -59,6 +59,9 @@ Each part contains its own detailed documentation:
 - **[02-custom-theme-reference/README.md](./02-custom-theme-reference/README.md)** - Custom theme reference
 - **[03-child-theme-production/README.md](./03-child-theme-production/README.md)** - Production child theme
 
+### **Current Evaluation**
+- **[03-child-theme-production/docs/THEME_MODULE_EVALUATION.md](./03-child-theme-production/docs/THEME_MODULE_EVALUATION.md)** - Theme vs Custom module decision framework
+
 ## 🎨 Brand System
 
 **Cellcolabs Clinical** (Production)
@@ -96,10 +99,19 @@ Each part contains its own detailed documentation:
 
 ## 🤝 Team Workflow
 
+### **Current Approach: Theme Modules (Under Evaluation)**
 1. **Component Development** → Part 1: Build and test components in React
-2. **Manual Integration** → Copy component code to HubSpot modules
+2. **Theme Module Creation** → Generate HubSpot theme modules via CLI
+3. **Production Deployment** → Part 3: Deploy child theme with modules
+4. **Content Management** → Marketing team edits content in HubSpot
+
+### **Alternative Approach: Custom Modules (Previous)**
+1. **Component Development** → Part 1: Build and test components in React
+2. **Manual Integration** → Copy component code to HubSpot custom modules
 3. **Production Deployment** → Part 3: Deploy child theme updates
 4. **Content Management** → Marketing team edits content in HubSpot
+
+> **Note**: We are currently exploring theme modules for better field integration but keeping both workflows documented until we make a final decision.
 
 ## 📞 Need Help?
 

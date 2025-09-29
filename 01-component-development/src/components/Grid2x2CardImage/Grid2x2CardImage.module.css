@@ -1,5 +1,5 @@
-/* Focus Areas Component */
-.focusAreas {
+/* Grid2x2CardImage Component */
+.grid2x2CardImage {
   width: 100%;
   padding: 80px 0;
 }
@@ -42,7 +42,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.2); /* Figma shows solid 20% black overlay */
+  background: rgba(0, 0, 0, 0.1); /* Lighter overlay to make images brighter */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -108,7 +108,7 @@
 
 /* Tablet breakpoint */
 @media (max-width: 1023px) {
-  .focusAreas {
+  .grid2x2CardImage {
     padding: 60px 0;
   }
 
@@ -131,7 +131,7 @@
 
 /* Mobile breakpoint */
 @media (max-width: 767px) {
-  .focusAreas {
+  .grid2x2CardImage {
     padding: 40px 0;
   }
 

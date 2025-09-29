@@ -1,8 +1,9 @@
 import React from 'react';
-import styles from './FocusAreas.module.css';
+import styles from './Grid2x2CardImage.module.css';
 import chestImage from '../../assets/images/focus-areas/Chest.webp';
+import muscleImage from '../../assets/images/focus-areas/muscle.png';
 
-export interface FocusAreaCard {
+export interface Grid2x2CardImageCard {
   id: string;
   title: string;
   description: string;
@@ -10,48 +11,48 @@ export interface FocusAreaCard {
   linkUrl: string;
 }
 
-interface FocusAreasProps {
-  cards?: FocusAreaCard[];
+interface Grid2x2CardImageProps {
+  cards?: Grid2x2CardImageCard[];
   className?: string;
 }
 
-const defaultCards: FocusAreaCard[] = [
+const defaultCards: Grid2x2CardImageCard[] = [
   {
     id: '1',
     title: 'Prevention in heart health',
     description: 'Exploring how MSCs can lower the risk of cardiovascular disease.',
-    imageUrl: chestImage,
+    imageUrl: muscleImage,  // Using muscle image for top left
     linkUrl: '#'
   },
   {
     id: '2',
     title: 'Rediscovering ease in motion',
     description: 'Studying how MSCs may support cartilage health and ease joint pain in osteoarthritis.',
-    imageUrl: chestImage,
+    imageUrl: muscleImage,  // Using muscle image for top right
     linkUrl: '#'
   },
   {
     id: '3',
     title: 'Strengthening joint & muscle',
     description: 'Investigating how MSCs may aid recovery after injury and maintain musculoskeletal strength.',
-    imageUrl: chestImage,
+    imageUrl: chestImage,  // Keeping chest image for bottom left
     linkUrl: '#'
   },
   {
     id: '4',
     title: 'Staying active as you age',
     description: 'Researching how MSCs could support performance and promote healthier lives as we grow older.',
-    imageUrl: chestImage,
+    imageUrl: chestImage,  // Keeping chest image for bottom right
     linkUrl: '#'
   }
 ];
 
-export const FocusAreas: React.FC<FocusAreasProps> = ({
+export const Grid2x2CardImage: React.FC<Grid2x2CardImageProps> = ({
   cards = defaultCards,
   className = ''
 }) => {
   return (
-    <section className={`${styles.focusAreas} ${className}`}>
+    <section className={`${styles.grid2x2CardImage} ${className}`}>
       <div className={styles.container}>
         <div className={styles.grid}>
           {cards.map((card) => (
@@ -77,4 +78,4 @@ export const FocusAreas: React.FC<FocusAreasProps> = ({
   );
 };
 
-export default FocusAreas;
+export default Grid2x2CardImage;

@@ -1,0 +1,241 @@
+<!--
+  templateType: module
+  label: Grid 2x2 Card Image
+  isAvailableForNewContent: true
+-->
+
+{# Set default brand to clinical, override if cellcolabs domain #}
+{% set current_brand = "cellcolabsclinical" %}
+{% if request.domain == "cellcolabs.com" %}
+  {% set current_brand = "cellcolabs" %}
+{% endif %}
+
+<section class="grid2x2-card-image" data-brand="{{ current_brand }}">
+  <div class="grid2x2-container">
+    <div class="grid2x2-grid">
+      {% for card in module.cards %}
+        <div class="grid2x2-card">
+          <div class="grid2x2-card-image" style="background-image: url('{{ card.image.src }}');">
+            <div class="grid2x2-card-overlay">
+              {% if card.badge_text %}
+                <div class="grid2x2-card-badge">{{ card.badge_text }}</div>
+              {% endif %}
+              {% if card.title %}
+                <h3 class="grid2x2-card-title">{{ card.title }}</h3>
+              {% endif %}
+              {% if card.description %}
+                <p class="grid2x2-card-description">{{ card.description }}</p>
+              {% endif %}
+              {% if card.link_url.url.href %}
+                {% set href = card.link_url.url.href %}
+                {% if card.link_url.url.type is equalto "EMAIL_ADDRESS" %}
+                  {% set href = "mailto:" + href %}
+                {% endif %}
+                <a href="{{ href }}" class="grid2x2-card-link"
+                   {% if card.link_url.open_in_new_tab %}target="_blank"{% endif %}
+                   {% if card.link_url.no_follow %}rel="nofollow"{% endif %}>
+                  {{ card.link_text or "Learn more" }} ↗
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+/* Grid2x2CardImage Module Styles */
+.grid2x2-card-image {
+  position: relative !important; /* Force relative positioning */
+  width: 100%;
+  max-width: 100%; /* Full width of parent */
+  padding: 80px 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.grid2x2-container {
+  max-width: 100%; /* Use full width of parent container */
+  width: 100%;
+  margin: 0 auto;
+  padding: 0; /* HubSpot already handles padding */
+  box-sizing: border-box;
+}
+
+.grid2x2-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: var(--space-24, 24px); /* Use standard spacing */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.grid2x2-card {
+  position: relative;
+  border-radius: var(--radius-lg, 16px);
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: auto;
+  max-width: 100%; /* Let cards fill grid columns */
+  box-sizing: border-box;
+}
+
+.grid2x2-card > .grid2x2-card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.grid2x2-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-32, 2rem);
+  color: var(--color-white, #ffffff);
+  text-align: center;
+}
+
+.grid2x2-card-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--space-8, 0.5rem) var(--space-12, 0.75rem);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--font-size-body-small, 14px);
+  font-weight: 450;
+  line-height: var(--line-height-body, 1.35);
+  margin-bottom: var(--space-24, 1.5rem);
+  width: fit-content;
+  color: var(--color-white, #ffffff) !important;
+}
+
+.grid2x2-card-title {
+  font-family: var(--font-heading, 'Bricolage Grotesque', sans-serif);
+  font-size: 28px;
+  font-weight: var(--font-weight-semibold, 580);
+  line-height: var(--line-height-heading, 1.15);
+  margin: 0 0 var(--space-24, 1.5rem) 0;
+  color: var(--color-white, #ffffff);
+  text-align: center;
+  max-width: 400px;
+}
+
+.grid2x2-card-description {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--font-size-body, 16px);
+  font-weight: 450;
+  line-height: var(--line-height-body, 1.35);
+  margin: 0 0 var(--space-24, 1.5rem) 0;
+  color: var(--color-white, #ffffff);
+  text-align: center;
+  max-width: 400px;
+}
+
+.grid2x2-card-link {
+  color: var(--color-white, #ffffff) !important;
+  text-decoration: underline;
+  text-underline-position: from-font;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--font-size-body, 16px);
+  font-weight: 450;
+  line-height: var(--line-height-body, 1.35);
+  display: inline-block;
+  transition: var(--transition-default, all 0.2s ease);
+  text-align: center;
+}
+
+.grid2x2-card-link:hover {
+  color: var(--color-white, #ffffff) !important;
+  opacity: 0.8;
+  transform: translateX(4px);
+}
+
+/* Tablet breakpoint */
+@media (max-width: 1023px) {
+  .grid2x2-card-image {
+    padding: 60px 0;
+    position: relative !important;
+  }
+
+  .grid2x2-container {
+    padding: 0; /* HubSpot handles padding */
+  }
+
+  .grid2x2-grid {
+    gap: 20px;
+  }
+
+  .grid2x2-card-overlay {
+    padding: var(--space-24, 1.5rem);
+  }
+
+  .grid2x2-card-title {
+    font-size: var(--font-size-h2, 32px);
+  }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 767px) {
+  .grid2x2-card-image {
+    padding: var(--space-32, 2rem) 0;
+    position: relative !important;
+  }
+
+  .grid2x2-container {
+    padding: 0;
+  }
+
+  .grid2x2-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-16, 1rem);
+  }
+
+  .grid2x2-card {
+    aspect-ratio: 0.8;
+    max-width: none;
+  }
+
+  .grid2x2-card-overlay {
+    padding: var(--space-24, 1.5rem);
+  }
+
+  .grid2x2-card-title {
+    font-size: var(--font-size-h2-mobile, var(--font-size-h2, 32px));
+    margin-bottom: var(--space-24, 1.5rem);
+  }
+
+  .grid2x2-card-description {
+    font-size: var(--font-size-body-mobile, var(--font-size-body, 16px));
+    margin-bottom: var(--space-24, 1.5rem);
+  }
+
+  .grid2x2-card-badge {
+    font-size: var(--font-size-eyebrow-mobile, var(--font-size-body-small, 14px));
+    padding: var(--space-8, 0.5rem) var(--space-12, 0.75rem);
+    margin-bottom: var(--space-24, 1.5rem);
+  }
+
+  .grid2x2-card-link {
+    font-size: var(--font-size-button-mobile, var(--font-size-body-mobile, 16px));
+    font-weight: var(--font-weight-medium, 500);
+  }
+}
+</style>
