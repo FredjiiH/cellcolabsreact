@@ -1,0 +1,66 @@
+[
+  {
+    "name": "title",
+    "label": "Section Title",
+    "type": "text",
+    "default": "Excellence in every cell"
+  },
+  {
+    "name": "background_color",
+    "label": "Background Color",
+    "type": "color",
+    "default": {
+      "color": "#BECFFF"
+    }
+  },
+  {
+    "name": "corner_radius",
+    "label": "Corner Radius (px)",
+    "type": "number",
+    "default": 16,
+    "min": 0,
+    "max": 50
+  },
+  {
+    "name": "items",
+    "label": "Checklist Items",
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 8,
+      "default": 4
+    },
+    "children": [
+      {
+        "name": "title",
+        "label": "Item Title",
+        "type": "text",
+        "default": "Feature title"
+      },
+      {
+        "name": "description",
+        "label": "Item Description",
+        "type": "text",
+        "default": "Feature description text"
+      }
+    ],
+    "default": [
+      {
+        "title": "Highest quality stem cells",
+        "description": "GMP-certified and produced under the world's strictest safety standards."
+      },
+      {
+        "title": "Personal health insights",
+        "description": "In-depth biomarker testing gives you a clearer picture of your body and wellbeing."
+      },
+      {
+        "title": "Continuous health monitoring",
+        "description": "We follow your progress closely, supporting you throughout the journey."
+      },
+      {
+        "title": "Expert medical care",
+        "description": "A dedicated team of experienced doctors by your side."
+      }
+    ]
+  }
+]

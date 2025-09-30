@@ -1,0 +1,7 @@
+{
+  "label": "Content Checklist Block",
+  "description": "A two-column section with a title on the left and checkmark list items on the right. Perfect for showcasing features, benefits, or key points.",
+  "category": "content",
+  "icon": "check-list",
+  "is_available_for_new_content": true
+}

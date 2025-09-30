@@ -1,0 +1,246 @@
+<!-- Content Checklist Block Module -->
+<section class="content-checklist-block"
+         style="background-color: {{ module.background_color.color }}; border-radius: {{ module.corner_radius }}px;">
+  <div class="container">
+    <div class="content">
+      <!-- Desktop Layout -->
+      <div class="desktop-layout">
+        <div class="title-column">
+          <h2 class="title">{{ module.title }}</h2>
+        </div>
+        <div class="items-column">
+          <div class="items-wrapper">
+            {% for item in module.items %}
+            <div class="item">
+              <div class="checkmark">✓</div>
+              <div class="item-content">
+                <p class="item-text">
+                  <span class="item-title">{{ item.title }}</span><br>
+                  <span class="item-description">{{ item.description }}</span>
+                </p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Layout -->
+      <div class="mobile-layout">
+        <div class="title-container">
+          <h2 class="title">{{ module.title }}</h2>
+        </div>
+        <div class="items-list">
+          {% for item in module.items %}
+          <div class="item">
+            <div class="checkmark">✓</div>
+            <div class="item-content">
+              <p class="item-text">
+                <span class="item-title">{{ item.title }}</span><br>
+                <span class="item-description">{{ item.description }}</span>
+              </p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* Content Checklist Block Module Styles */
+
+.content-checklist-block {
+  padding: var(--space-96) var(--space-48);
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.content-checklist-block .container {
+  max-width: 1460px;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.content-checklist-block .content {
+  width: 100%;
+}
+
+/* Desktop Layout (2-column) */
+.content-checklist-block .desktop-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--space-64) + var(--space-16));
+  width: 100%;
+  justify-content: center;
+}
+
+.content-checklist-block .title-column {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.content-checklist-block .items-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+  align-items: center;
+}
+
+.content-checklist-block .items-wrapper {
+  max-width: 420px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+/* Mobile Layout (single column) */
+.content-checklist-block .mobile-layout {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-48);
+  align-items: flex-start;
+  width: 100%;
+}
+
+.content-checklist-block .title-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  align-items: center;
+  width: 100%;
+}
+
+.content-checklist-block .items-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  width: 100%;
+}
+
+/* Typography */
+.content-checklist-block .title {
+  font-family: var(--font-heading, 'Inter', sans-serif);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin: 0;
+  text-align: left;
+  max-width: 320px;
+}
+
+/* Items */
+.content-checklist-block .item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-16);
+  width: 100%;
+}
+
+.content-checklist-block .checkmark {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--font-size-body-large);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.35;
+  color: var(--color-text-primary);
+  flex-shrink: 0;
+  margin-top: 0;
+  align-self: flex-start;
+}
+
+.content-checklist-block .item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.content-checklist-block .item-text {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--font-size-body);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.content-checklist-block .item-title {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.content-checklist-block .item-description {
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-secondary);
+}
+
+/* Desktop responsive adjustments */
+@media (max-width: 1023px) {
+  .content-checklist-block {
+    padding: calc(var(--space-32) + var(--space-24)) var(--space-24);
+  }
+
+  .content-checklist-block .desktop-layout {
+    gap: calc(var(--space-48) + var(--space-12));
+  }
+
+  .content-checklist-block .items-wrapper {
+    gap: var(--space-24);
+  }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 767px) {
+  .content-checklist-block {
+    padding: var(--space-48) var(--space-24);
+    margin: 0;
+  }
+
+  .content-checklist-block .container {
+    padding: 0;
+  }
+
+  /* Hide desktop layout */
+  .content-checklist-block .desktop-layout {
+    display: none;
+  }
+
+  /* Show mobile layout */
+  .content-checklist-block .mobile-layout {
+    display: flex;
+  }
+
+  .content-checklist-block .title {
+    text-align: center;
+    width: 100%;
+  }
+
+  .content-checklist-block .item-title {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .content-checklist-block .item-description {
+    font-weight: var(--font-weight-regular);
+  }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 480px) {
+  .content-checklist-block {
+    padding: var(--space-32) var(--space-16);
+    margin: 0;
+  }
+
+  .content-checklist-block .mobile-layout {
+    gap: var(--space-32);
+  }
+
+  .content-checklist-block .items-list {
+    gap: calc(var(--space-16) + var(--space-4));
+  }
+}
+</style>

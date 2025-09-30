@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Navigation } from './components/Navigation/Navigation';
 import { ContentSection } from './components/ContentSection/ContentSection';
 import { Grid2x2CardImage } from './components/Grid2x2CardImage/Grid2x2CardImage';
+import { WhyUsSection } from './components/WhyUsSection/WhyUsSection';
 import { Footer } from './components/Footer/Footer';
 import { applyThemeToCSS, getTheme, ThemeName } from './utils/theme-loader';
 import './App.css';
@@ -70,6 +71,30 @@ function App() {
 
       {/* Grid2x2CardImage */}
       <Grid2x2CardImage />
+
+      {/* WhyUsSection */}
+      <WhyUsSection
+        title="Excellence in every cell"
+        items={[
+          {
+            title: 'Highest quality stem cells',
+            description: 'GMP-certified and produced under the world\'s strictest safety standards.'
+          },
+          {
+            title: 'Personal health insights',
+            description: 'In-depth biomarker testing gives you a clearer picture of your body and wellbeing.'
+          },
+          {
+            title: 'Continuous health monitoring',
+            description: 'We follow your progress closely, supporting you throughout the journey.'
+          },
+          {
+            title: 'Expert medical care',
+            description: 'A dedicated team of experienced doctors by your side.'
+          }
+        ]}
+        theme={currentTheme}
+      />
 
       {/* Footer */}
       <Footer

@@ -1,0 +1,220 @@
+/* WhyUsSection Component Styles */
+
+.whyUsSection {
+  padding: 96px 24px;
+  margin: 0 48px;
+  border-radius: 16px;
+  box-sizing: border-box;
+  background-color: #BECFFF; /* Default to Clinical Blue as shown in Figma */
+}
+
+/* Theme-based background colors */
+[data-theme="cellcolabsclinical"] .whyUsSection {
+  background-color: #BECFFF; /* Brand 100 - Clinical Blue */
+}
+
+[data-theme="cellcolabs"] .whyUsSection {
+  background-color: #BECFFF; /* Keep blue for testing - change to #B8E6B8 for green theme if needed */
+}
+
+.container {
+  max-width: 1460px;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.content {
+  width: 100%;
+}
+
+/* Desktop Layout (2-column) */
+.desktopLayout {
+  display: flex;
+  align-items: flex-start;
+  gap: 80px;
+  width: 100%;
+  justify-content: center;
+}
+
+.titleColumn {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.itemsColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+
+.itemsWrapper {
+  max-width: 420px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Mobile Layout (single column) */
+.mobileLayout {
+  display: none;
+  flex-direction: column;
+  gap: 48px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  width: 100%;
+}
+
+.itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Typography */
+.title {
+  font-family: var(--font-heading-family, 'Bricolage Grotesque', sans-serif);
+  font-size: 40px;
+  font-weight: 580;
+  line-height: 1.15;
+  color: #161616;
+  margin: 0;
+  text-align: left;
+  max-width: 280px;
+}
+
+/* Items */
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.checkmark {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #000000;
+  flex-shrink: 0;
+  margin-top: 0;
+}
+
+.itemContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 700; /* Bold */
+  line-height: 1.35;
+  color: #161616;
+  margin: 0 0 4px 0;
+}
+
+.itemDescription {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 450;
+  line-height: 1.35;
+  color: #525252; /* Secondary text color */
+  margin: 0;
+}
+
+/* Desktop responsive adjustments */
+@media (max-width: 1023px) {
+  .whyUsSection {
+    padding: 60px 0;
+  }
+
+  .desktopLayout {
+    gap: 60px;
+  }
+
+  .itemsColumn {
+    gap: 24px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 767px) {
+  .whyUsSection {
+    padding: 48px 24px;
+    margin: 0 24px;
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  /* Hide desktop layout */
+  .desktopLayout {
+    display: none;
+  }
+
+  /* Show mobile layout */
+  .mobileLayout {
+    display: flex;
+  }
+
+  .title {
+    font-size: 32px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .itemContent {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .itemTitle {
+    font-weight: 600; /* SemiBold on mobile */
+  }
+
+  .itemDescription {
+    font-weight: 450; /* Medium on mobile */
+  }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 480px) {
+  .whyUsSection {
+    padding: 32px 16px;
+    margin: 0 16px;
+  }
+
+  .mobileLayout {
+    gap: 32px;
+  }
+
+  .itemsList {
+    gap: 20px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+}
