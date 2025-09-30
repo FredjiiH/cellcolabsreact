@@ -1,0 +1,361 @@
+/* LocationsCarousel Component Styles */
+
+.locationsCarousel {
+  padding: 128px 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1460px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 64px;
+  width: 100%;
+}
+
+.headerLeft {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.headerRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.eyebrow {
+  background-color: #f4f4f4;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 450;
+  line-height: 1.35;
+  color: #525252;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+}
+
+.mainTitle {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 40px;
+  font-weight: 580;
+  line-height: 1.15;
+  color: #161616;
+  margin: 0;
+  white-space: pre-line;
+  max-width: 350px;
+}
+
+.mainDescription {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #525252;
+  margin: 0;
+  max-width: 560px;
+}
+
+/* Tab Navigation */
+.tabNavigation {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  border-bottom: 1px solid #c6c6c6;
+  position: relative;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 16px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 450;
+  line-height: 1.35;
+  color: #c6c6c6;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.tab:hover {
+  color: #161616;
+}
+
+.tabActive {
+  color: #161616 !important;
+}
+
+.tabActive::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #161616;
+}
+
+/* Carousel Container */
+.carouselContainer {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-bottom: 32px;
+  overflow: visible;
+}
+
+.carouselTrack {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: calc(2 * (1260px + 16px));
+  gap: 16px;
+  margin-left: calc((100vw - 1460px) / 2 + 24px);
+  transform: translateX(calc(var(--slide-index, 0) * -1276px));
+}
+
+.carouselSlide {
+  width: 1260px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.carouselImage {
+  width: 1260px;
+  height: 638px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Progress Indicators */
+.progressIndicators {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 32px;
+}
+
+.progressDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.progressDotActive {
+  width: 24px;
+  height: 4px;
+  border-radius: 64px;
+  background-color: #161616;
+}
+
+/* Bottom Content */
+.bottomContent {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.bottomContentInner {
+  width: 560px;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  /* Align with right column - add left margin to match header layout */
+  margin-left: calc(50% + 8px);
+}
+
+.locationTitle {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 28px;
+  font-weight: 580;
+  line-height: 1.15;
+  color: #161616;
+  margin: 0;
+}
+
+.locationDescription {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #525252;
+  margin: 0;
+}
+
+.locationLink {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 450;
+  line-height: 1.35;
+  color: #161616;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  width: fit-content;
+}
+
+.locationLink:hover {
+  opacity: 0.8;
+}
+
+/* Tablet responsive adjustments */
+@media (max-width: 1023px) {
+  .locationsCarousel {
+    padding: 96px 0;
+  }
+
+  .header {
+    margin-bottom: 48px;
+  }
+
+  .mainTitle {
+    font-size: 32px;
+  }
+
+  .locationTitle {
+    font-size: 24px;
+  }
+
+  .carouselTrack {
+    width: calc(2 * (650px + 16px));
+    margin-left: calc((100vw - 750px) / 2 + 24px);
+    transform: translateX(calc(var(--slide-index, 0) * -666px));
+  }
+
+  .carouselSlide {
+    width: 650px;
+  }
+
+  .carouselImage {
+    width: 650px;
+    height: 347px;
+  }
+
+  .bottomContentInner {
+    width: 100%;
+    max-width: 560px;
+  }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 767px) {
+  .locationsCarousel {
+    padding: 64px 0;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+
+  .headerLeft,
+  .headerRight {
+    flex: none;
+    width: 100%;
+  }
+
+  .mainTitle {
+    font-size: 28px;
+    text-align: left;
+  }
+
+  .mainDescription {
+    font-size: 16px;
+  }
+
+  .tabNavigation {
+    gap: 24px;
+    justify-content: center;
+  }
+
+  .carouselTrack {
+    width: calc(2 * (calc(100vw - 64px) + 16px));
+    margin-left: 16px;
+    transform: translateX(calc(var(--slide-index, 0) * calc(-100vw + 48px)));
+  }
+
+  .carouselSlide {
+    width: calc(100vw - 64px);
+    flex-shrink: 0;
+  }
+
+  .carouselImage {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 0.8 !important;
+    object-fit: cover;
+  }
+
+  .progressIndicators {
+    justify-content: center;
+  }
+
+  .bottomContent {
+    justify-content: flex-start;
+  }
+
+  .bottomContentInner {
+    text-align: left;
+    margin-left: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .locationTitle {
+    font-size: 24px;
+  }
+
+  .locationLink {
+    align-self: flex-start;
+  }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 480px) {
+  .locationsCarousel {
+    padding: 48px 0;
+  }
+
+  .mainTitle {
+    font-size: 24px;
+  }
+
+  .carouselImage {
+    height: 240px;
+  }
+
+  .locationTitle {
+    font-size: 20px;
+  }
+}
