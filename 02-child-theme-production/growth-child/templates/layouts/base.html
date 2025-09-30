@@ -30,7 +30,13 @@
 {{ standard_header_includes }}
 {{ require_css(get_public_template_url("../../child.css")) }}
   </head>
-  <body>
+  {# Set global brand based on domain #}
+  {% set global_brand = "cellcolabsclinical" %}
+  {% if request.domain == "cellcolabs.com" %}
+    {% set global_brand = "cellcolabs" %}
+  {% endif %}
+
+  <body data-brand="{{ global_brand }}">
     <div class="body-wrapper {{ builtin_body_classes }}">
       {% block header %}
         {% global_partial path="../partials/header.html" %}

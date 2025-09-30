@@ -1,18 +1,4 @@
 [ {
-  "id" : "fa6c93ad-08b4-2973-2918-afc056429d28",
-  "name" : "theme",
-  "label" : "Theme",
-  "required" : false,
-  "locked" : false,
-  "display" : "select",
-  "choices" : [ [ "cellcolabs", "Cellcolabs" ], [ "cellcolabsclinical", "Cellcolabs Clinical" ] ],
-  "multiple" : false,
-  "reordering_enabled" : true,
-  "preset" : null,
-  "type" : "choice",
-  "display_width" : null,
-  "default" : "cellcolabs"
-}, {
   "id" : "09ea05ff-9e02-8076-9c9c-c6cb0fc24f57",
   "name" : "title",
   "label" : "Section Title",

@@ -24,12 +24,12 @@
   }
 }, {
   "id" : "2f962bf2-e094-e45c-0edf-169d2bb13a70",
-  "name" : "button_style",
-  "label" : "Button Style",
+  "name" : "button_variant",
+  "label" : "Button Variant",
   "required" : false,
   "locked" : false,
   "display" : "select",
-  "choices" : [ [ "primary", "Primary Button (Blue background)" ], [ "secondary", "Secondary Button (White background)" ], [ "outline", "Outline Button (Transparent with border)" ], [ "outline-white", "Outline White (For dark backgrounds)" ] ],
+  "choices" : [ [ "primary", "Primary (Blue background)" ], [ "outline", "Outline (Border only)" ] ],
   "multiple" : false,
   "reordering_enabled" : true,
   "preset" : null,
@@ -74,17 +74,4 @@
   "type" : "boolean",
   "display_width" : null,
   "default" : false
-}, {
-  "id" : "c9b9e11a-1bdb-5f44-5b7a-2b92ed1c379a",
-  "name" : "theme",
-  "label" : "Theme",
-  "required" : false,
-  "locked" : false,
-  "display" : "select",
-  "choices" : [ [ "cellcolabs", "Cellcolabs" ], [ "cellcolabsclinical", "Cellcolabs Clinical" ] ],
-  "multiple" : false,
-  "reordering_enabled" : true,
-  "preset" : null,
-  "type" : "choice",
-  "display_width" : null
 } ]

@@ -117,6 +117,7 @@
 
 /* Cellcolabs Clinical Theme (Current Production) */
 :root,
+[data-theme="cellcolabsclinical"],
 [data-brand="cellcolabsclinical"],
 .brand-cellcolabsclinical {
   /* Brand Colors - From cellcolabsclinical.json */
@@ -162,6 +163,7 @@
 }
 
 /* Cellcolabs Theme (Placeholder Data for Testing) */
+[data-theme="cellcolabs"],
 [data-brand="cellcolabs"],
 .brand-cellcolabs {
   /* Brand Colors */
