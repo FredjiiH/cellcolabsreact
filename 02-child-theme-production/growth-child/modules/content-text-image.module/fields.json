@@ -1,0 +1,142 @@
+[ {
+  "id" : "fa6c93ad-08b4-2973-2918-afc056429d28",
+  "name" : "theme",
+  "label" : "Theme",
+  "required" : false,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "cellcolabs", "Cellcolabs" ], [ "cellcolabsclinical", "Cellcolabs Clinical" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "cellcolabs"
+}, {
+  "id" : "09ea05ff-9e02-8076-9c9c-c6cb0fc24f57",
+  "name" : "title",
+  "label" : "Section Title",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Our clinical reserach programs"
+}, {
+  "id" : "4c17f819-d66f-7fa2-13ad-1c3bb94bc389",
+  "name" : "subtitle",
+  "label" : "Section Subtitle",
+  "required" : false,
+  "locked" : false,
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "We conduct patient-funded clinical trials exploring stem cell treatments with potential to protect your heart, restore mobility, and support healthy aging."
+}, {
+  "id" : "39d19f7a-c87b-4432-c630-a6707eaf64be",
+  "name" : "card1_headline",
+  "label" : "Card 1 Headline",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Heart Protection Study"
+}, {
+  "id" : "075f840f-9766-3130-86fe-23a9912cd72d",
+  "name" : "card2_headline",
+  "label" : "Card 2 Headline",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Heart Protection Study"
+}, {
+  "id" : "6ca070ee-bbd7-e7e4-4449-127ae6c8dd44",
+  "name" : "card3_headline",
+  "label" : "Card 3 Headline",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Heart Protection Study"
+}, {
+  "id" : "5904702b-24ad-41e3-160d-38d029ed9688",
+  "name" : "card1_description",
+  "label" : "Card 1 Description",
+  "required" : false,
+  "locked" : false,
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "If the trial is a good fit, you'll receive an offer with the participation details. Once you're ready, a date is booked and arrangements confirmed."
+}, {
+  "id" : "db7f2498-f4ab-6b93-4984-b19735ec9e85",
+  "name" : "card2_description",
+  "label" : "Card 2 Description",
+  "required" : false,
+  "locked" : false,
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "If the trial is a good fit, you'll receive an offer with the participation details. Once you're ready, a date is booked and arrangements confirmed."
+}, {
+  "id" : "ac6e6aff-ba9e-b32c-7ef9-0cd46707098d",
+  "name" : "card3_description",
+  "label" : "Card 3 Description",
+  "required" : false,
+  "locked" : false,
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "If the trial is a good fit, you'll receive an offer with the participation details. Once you're ready, a date is booked and arrangements confirmed."
+}, {
+  "id" : "11451329-dc8f-cdce-efbc-7f937ccc251f",
+  "name" : "card1_image",
+  "label" : "Card 1 Image",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "",
+    "alt" : null,
+    "loading" : "lazy"
+  }
+}, {
+  "id" : "192f90e3-db19-1473-17db-9fe8a388811d",
+  "name" : "card2_image",
+  "label" : "Card 2 Image",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "",
+    "alt" : null,
+    "loading" : "lazy"
+  }
+}, {
+  "id" : "0833f578-1179-fd9a-ada4-2129be0630f7",
+  "name" : "card3_image",
+  "label" : "Card 3 Image",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "",
+    "alt" : null,
+    "loading" : "lazy"
+  }
+} ]

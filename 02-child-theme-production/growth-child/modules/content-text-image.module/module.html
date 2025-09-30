@@ -1,0 +1,364 @@
+<!-- Cellcolabs Content Section Module -->
+  <style>
+  /* Theme Variables */
+  :root {
+    --color-primary: #0066CC;
+    --color-secondary: #00A86B;
+    --color-text-primary: #161616;
+    --color-text-secondary: #666666;
+    --color-text-inverse: #FFFFFF;
+    --color-bg-primary: #FFFFFF;
+    --color-bg-secondary: #F8F9FA;
+    --color-bg-section: #F5F5F5;
+    --font-heading: 'Barlow', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-xxl: 48px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  [data-theme="cellcolabsclinical"] {
+    --color-primary: #2C3E50;
+    --color-secondary: #3498DB;
+  }
+
+  /* Content Section Styles */
+  .content-section__contentSection {
+    background-color: var(--color-bg-primary);
+    padding: var(--spacing-xxl) 0;
+    width: 100%;
+  }
+
+  .content-section__container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  .content-section__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xxl);
+    text-align: center;
+  }
+
+  .content-section__title {
+    font-family: 'Bricolage Grotesque', var(--font-heading);
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .content-section__subtitle {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.35;
+    color: var(--color-text-secondary);
+    margin: 0 auto;
+    max-width: 600px;
+  }
+
+  .content-section__cardsGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+
+  .content-section__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    width: 100%;
+  }
+
+  .content-section__cardImage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 343 / 228;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--color-bg-section);
+  }
+
+  .content-section__cardImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .content-section__cardContent {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .content-section__cardTextContent {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .content-section__cardHeadline {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .content-section__cardDescription {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.35;
+    color: var(--color-text-secondary);
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    transition: all 0.3s ease;
+  }
+
+  .content-section__cardDescription.expanded {
+    -webkit-line-clamp: unset;
+    display: block;
+  }
+
+  .content-section__readMoreButton {
+    align-self: flex-start;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.35;
+    color: var(--color-text-primary);
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-position: from-font;
+    transition: opacity 0.2s ease;
+  }
+
+  .content-section__readMoreButton:hover {
+    opacity: 0.7;
+  }
+
+  /* Tablet Styles */
+  @media (min-width: 768px) {
+    .content-section__container {
+      padding: 0 var(--spacing-lg);
+    }
+
+    .content-section__header {
+      margin-bottom: calc(var(--spacing-xxl) * 1.5);
+    }
+
+    .content-section__title {
+      font-size: 36px;
+      line-height: 1.15;
+    }
+
+    .content-section__cardsGrid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-xl);
+    }
+
+    .content-section__cardDescription {
+      -webkit-line-clamp: 2;
+    }
+  }
+
+  /* Desktop Styles */
+  @media (min-width: 1024px) {
+    .content-section__contentSection {
+      padding: calc(var(--spacing-xxl) * 2) 0;
+    }
+
+    .content-section__container {
+      padding: 0 var(--spacing-xl);
+    }
+
+    .content-section__header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      text-align: left;
+      gap: calc(var(--spacing-xxl) * 2);
+      margin-bottom: calc(var(--spacing-xxl) * 2);
+    }
+
+    .content-section__title {
+      font-size: 40px;
+      line-height: 48px;
+      max-width: 400px;
+      flex-shrink: 0;
+    }
+
+    .content-section__subtitle {
+      font-size: 14px;
+      max-width: 500px;
+      margin: 0;
+    }
+
+    .content-section__cardsGrid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spacing-lg);
+    }
+
+    .content-section__card {
+      gap: var(--spacing-lg);
+    }
+
+    .content-section__cardDescription {
+      -webkit-line-clamp: 1;
+      color: var(--color-text-primary);
+    }
+  }
+
+  /* Wide Desktop Styles */
+  @media (min-width: 1440px) {
+    .content-section__container {
+      padding: 0 var(--spacing-xxl);
+    }
+
+    .content-section__header {
+      padding-left: calc(16.667% - var(--spacing-xxl));
+    }
+
+    .content-section__cardsGrid {
+      gap: var(--spacing-xl);
+    }
+  }
+  </style>
+
+  <!-- Content Section HTML -->
+  <section class="content-section__contentSection" data-component="content-section" data-theme="{{ module.theme }}">
+    <div class="content-section__container">
+      <div class="content-section__header">
+        <h2 class="content-section__title">{{ module.title }}</h2>
+        <div class="content-section__subtitle">{{ module.subtitle }}</div>
+      </div>
+      <div class="content-section__cardsGrid">
+
+        <!-- Card 1 -->
+        {% if module.card1_headline %}
+        <div class="content-section__card">
+          <div class="content-section__cardImage">
+            {% if module.card1_image.src %}
+              <img src="{{ module.card1_image.src }}" alt="{{ module.card1_image.alt or module.card1_headline }}">
+            {% else %}
+              <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #999; font-size: 14px;">
+                Image placeholder
+              </div>
+            {% endif %}
+          </div>
+          <div class="content-section__cardContent">
+            <div class="content-section__cardTextContent">
+              <h3 class="content-section__cardHeadline">{{ module.card1_headline }}</h3>
+              <div class="content-section__cardDescription" data-card="1">
+                {{ module.card1_description }}
+              </div>
+            </div>
+            <button class="content-section__readMoreButton" data-card="1">
+              Read more
+            </button>
+          </div>
+        </div>
+        {% endif %}
+
+      <!-- Card 2 -->
+  {% if module.card2_headline %}
+  <div class="content-section__card">
+    <div class="content-section__cardImage">
+      {% if module.card2_image.src %}
+        <img src="{{ module.card2_image.src }}" alt="{{ module.card2_image.alt or module.card2_headline }}">
+      {% else %}
+        <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #999; font-size: 14px;">
+          Image placeholder
+        </div>
+      {% endif %}
+    </div>
+    <div class="content-section__cardContent">
+      <div class="content-section__cardTextContent">
+        <h3 class="content-section__cardHeadline">{{ module.card2_headline }}</h3>
+        <div class="content-section__cardDescription" data-card="2">
+          {{ module.card2_description }}
+        </div>
+      </div>
+      <button class="content-section__readMoreButton" data-card="2">
+        Read more
+      </button>
+    </div>
+  </div>
+  {% endif %}
+
+        <!-- Card 3 -->
+        {% if module.card3_headline %}
+        <div class="content-section__card">
+          <div class="content-section__cardImage">
+            {% if module.card3_image.src %}
+              <img src="{{ module.card3_image.src }}" alt="{{ module.card3_image.alt or module.card3_headline }}">
+            {% else %}
+              <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #999; font-size: 14px;">
+                Image placeholder
+              </div>
+            {% endif %}
+          </div>
+          <div class="content-section__cardContent">
+            <div class="content-section__cardTextContent">
+              <h3 class="content-section__cardHeadline">{{ module.card3_headline }}</h3>
+              <div class="content-section__cardDescription" data-card="3">
+                {{ module.card3_description }}
+              </div>
+            </div>
+            <button class="content-section__readMoreButton" data-card="3">
+              Read more
+            </button>
+          </div>
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+  // Read more/less toggle functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    var readMoreButtons = document.querySelectorAll('.content-section__readMoreButton');
+
+    readMoreButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        var cardId = button.getAttribute('data-card');
+        var description = document.querySelector('.content-section__cardDescription[data-card="' + cardId + '"]');
+
+        if (description) {
+          var isExpanded = description.classList.contains('expanded');
+          description.classList.toggle('expanded');
+          button.textContent = isExpanded ? 'Read more' : 'Read less';
+        }
+      });
+    });
+  });
+  </script>

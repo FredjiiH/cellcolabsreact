@@ -1,0 +1,9 @@
+<div class="button__buttonWrapper" data-component="button" data-theme="{{ module.theme }}" style="text-align: {{ module.button_alignment }};">
+    <a href="{{ module.button_url.href }}" 
+       class="hs-button{% if module.button_style %} hs-button-{{ module.button_style }}{% endif %}{% if module.button_size and module.button_size !=       
+  'default' %} hs-button-{{ module.button_size }}{% endif %}"
+       target="{% if module.open_in_new_tab %}_blank{% else %}_self{% endif %}"
+       {% if module.open_in_new_tab %}rel="noopener noreferrer"{% endif %}>
+      {{ module.button_text }}
+    </a>
+  </div>

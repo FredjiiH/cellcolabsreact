@@ -7,8 +7,8 @@ React-based component development environment for building and testing HubSpot-r
 This system allows developers to:
 - Build responsive React components locally
 - Test multi-brand theming in real-time
-- Generate static HTML/CSS fragments for HubSpot integration
-- Maintain design system consistency across both brands
+- Perfect component styling and interactions
+- Prepare components for HubSpot theme module conversion
 
 ## 🏗️ Architecture
 
@@ -26,15 +26,18 @@ Brand configurations stored in JSON files:
 ### **Component Structure**
 ```
 src/components/
-├── Navigation/
-│   ├── Navigation.tsx
-│   └── Navigation.module.css
-├── HeroBlock/
-│   ├── HeroBlock.tsx
-│   └── HeroBlock.module.css
-└── Footer/
-    ├── Footer.tsx
-    └── Footer.module.css
+├── Grid2x2CardImage/           # ✅ Deployed as theme module
+│   ├── Grid2x2CardImage.tsx
+│   └── Grid2x2CardImage.module.css
+├── ButtonMultiVariant/         # ✅ Deployed as theme module
+│   ├── ButtonMultiVariant.tsx
+│   └── ButtonMultiVariant.module.css
+├── ContentSection/             # → Ready for theme module conversion
+│   ├── ContentSection.tsx
+│   └── ContentSection.module.css
+├── Navigation/                 # → Using templates/partials/header.html instead
+├── HeroBlock/                  # → Ready for future conversion
+└── Footer/                     # → In development
 ```
 
 ## 🚀 Quick Start
@@ -54,7 +57,6 @@ npm run dev
 ```bash
 npm run dev              # Start development server
 npm run build            # Build for production
-npm run build:fragments  # Generate static fragments (if available)
 npm run preview          # Preview production build
 npm run lint             # Lint code
 ```
@@ -80,6 +82,7 @@ Theme tokens are automatically applied as CSS variables:
 :root {
   --color-primary: #4F65BE;        /* Blue for Clinical */
   --color-text-link: #4F65BE;
+  --font-family-heading: 'Bricolage Grotesque', sans-serif;
   --font-family-body: 'Inter', sans-serif;
   --space-16: 1rem;
 }
@@ -87,48 +90,104 @@ Theme tokens are automatically applied as CSS variables:
 
 ## 📦 Components
 
-### **✅ Navigation Component**
-- Responsive header with mobile hamburger menu
-- Figma-based dotted menu icon (2x3 grid)
-- Brand text with bold/regular styling
-- HubSpot Menu Builder integration ready
+### **✅ Production Ready (Deployed as Theme Modules)**
 
-### **✅ HeroBlock Component**
-- Flexible content section with image positioning
-- Responsive layout (side-by-side → stacked)
-- CTA button with brand colors
-- Content fields for HubSpot integration
+#### **Grid2x2CardImage**
+- 2x2 responsive grid layout
+- Image cards with overlay content
+- Badge text, titles, descriptions, links
+- Mobile-first responsive design
 
-### **✅ Footer Component**
+#### **ButtonMultiVariant**
+- Multiple button styles (primary, secondary, outline)
+- Multiple sizes (small, default, large)
+- Brand-aware colors
+- Alignment options
+
+### **🔄 Ready for Conversion**
+
+#### **ContentSection**
+- Flexible text/image content blocks
+- Responsive layouts
+- Brand theming support
+- Ready for HubSpot fields
+
+#### **HeroBlock**
+- Hero sections with content + imagery
+- CTA integration
+- Responsive design
+- Field-ready structure
+
+### **🚧 In Development**
+
+#### **Footer**
 - Multi-column responsive layout
 - Brand-specific styling
-- Contact information and links
-- Ready for HubSpot field mapping
+- Contact information sections
+- Still being refined
 
-## 🔄 HubSpot Integration Workflow
+## 🔄 Production Workflow
 
-### **1. Component Development**
-Build and test components in the React environment with theme switching.
+### **Current Process: React → Theme Modules**
 
-### **2. Fragment Generation**
-```bash
-npm run build:fragments
+1. **Component Development**
+   ```bash
+   cd 01-component-development/
+   npm run dev
+   # Perfect components with theme switching
+   ```
+
+2. **Theme Module Conversion**
+   - Copy component to `02-child-theme-production/growth-child/modules/`
+   - Convert React JSX → HubL template
+   - Convert CSS Modules → embedded CSS
+   - Create `fields.json` for editable content
+   - Add `meta.json` metadata
+
+3. **Deployment**
+   ```bash
+   cd 02-child-theme-production/
+   hs upload growth-child --dest="growth child"
+   ```
+
+### **Conversion Guidelines**
+
+#### **HTML Conversion**
+```javascript
+// React JSX
+<div className={styles.card}>
+  <h3>{card.title}</h3>
+</div>
+
+// HubL Template
+<div class="card">
+  <h3>{{ card.title }}</h3>
+</div>
 ```
-Generates static HTML/CSS files in `dist/fragments/`.
 
-### **3. Manual HubSpot Integration**
-Copy component code to HubSpot custom modules:
-1. Create custom module in HubSpot Design Manager
-2. Copy HTML structure to `module.html`
-3. Copy CSS styles to `module.css`
-4. Configure fields in `fields.json`
-5. Test in HubSpot preview
+#### **CSS Conversion**
+```css
+/* React CSS Module */
+.card {
+  background: var(--color-primary);
+}
 
-### **4. Content Field Mapping**
-Components include `data-placeholder` attributes for easy HubSpot field mapping:
-```html
-<h1 data-placeholder="heading">Default Heading</h1>
-<p data-placeholder="description">Default description</p>
+/* Theme Module CSS */
+.card {
+  background: var(--color-primary);
+}
+```
+
+#### **Field Configuration**
+```json
+// fields.json
+{
+  "id": "title",
+  "name": "title",
+  "label": "Title",
+  "type": "text",
+  "default": "Default Title"
+}
 ```
 
 ## 📁 File Structure
@@ -138,63 +197,72 @@ Components include `data-placeholder` attributes for easy HubSpot field mapping:
 ├── README.md                    # This file
 ├── src/
 │   ├── components/              # React components
+│   │   ├── Grid2x2CardImage/   # ✅ Deployed
+│   │   ├── ButtonMultiVariant/  # ✅ Deployed
+│   │   ├── ContentSection/      # Ready for conversion
+│   │   ├── HeroBlock/          # Ready for conversion
+│   │   ├── Navigation/         # Using header.html instead
+│   │   └── Footer/             # In development
 │   ├── themes/                  # Brand JSON configurations
 │   ├── utils/                   # Helper utilities
 │   ├── App.tsx                  # Preview application
 │   └── main.tsx                 # Application entry point
-├── docs/
-│   ├── COMPONENT_ARCHITECTURE.md
-│   ├── FIGMA_INTEGRATION.md
-│   └── FRAGMENT_GENERATION.md
-├── dist/                        # Built files
+├── docs/                        # Component documentation
+├── dist/                        # Built files (generated)
 └── package.json                 # Dependencies and scripts
 ```
 
-## 🎨 Design System Integration
+## 🎛️ Development Features
 
-### **Figma Workflow**
-1. Design components in Figma with proper annotations
-2. Extract design tokens and specifications
-3. Build React components matching Figma exactly
-4. Test responsive behavior and brand switching
-5. Generate fragments for HubSpot integration
+### **Theme Switcher**
+Real-time brand switching in development:
+- Toggle between Clinical (blue) and Cellcolabs (green)
+- Instant visual feedback
+- Test brand-specific behaviors
 
-### **Design Token Sources**
-- **Typography**: [Figma Typography System](https://www.figma.com/design/bqAkpCKE3msElSGDuVqIz2/Website-2.0?node-id=825-3231)
-- **Spacing**: [Figma Spacing System](https://www.figma.com/design/bqAkpCKE3msElSGDuVqIz2/Website-2.0?node-id=825-4897)
+### **Responsive Testing**
+Development server supports:
+- Mobile viewport testing
+- Tablet breakpoint validation
+- Desktop layout verification
+- Component behavior across sizes
 
-## 🧪 Testing
-
-### **Multi-Brand Testing**
-Use the theme switcher in the development environment to test both brands:
-- Color switching (blue ↔ green)
-- Typography consistency
-- Component spacing and layout
-- Responsive behavior at all breakpoints
-
-### **Browser Testing**
-Test components across:
-- Chrome, Firefox, Safari, Edge
-- Mobile devices (iOS Safari, Chrome Mobile)
-- Different screen sizes and orientations
+### **Component Isolation**
+Each component can be developed and tested independently:
+- Hot module replacement
+- Isolated CSS scoping
+- Brand theme inheritance
+- Responsive behavior testing
 
 ## 📚 Documentation
 
-Detailed documentation available in the `docs/` folder:
-- **[COMPONENT_ARCHITECTURE.md](./docs/COMPONENT_ARCHITECTURE.md)** - System architecture
-- **[FIGMA_INTEGRATION.md](./docs/FIGMA_INTEGRATION.md)** - Design to code workflow
-- **[FRAGMENT_GENERATION.md](./docs/FRAGMENT_GENERATION.md)** - Static fragment creation
+### **Component Guides**
+- [COMPONENT_ARCHITECTURE.md](./docs/COMPONENT_ARCHITECTURE.md) - Architecture patterns
+- [COMPONENT_NAMING_CONVENTIONS.md](./docs/COMPONENT_NAMING_CONVENTIONS.md) - Naming standards
 
-## 🚀 Next Steps
+## 🔗 Integration with Production
 
-1. **Add More Components** - Expand the component library
-2. **Automate Fragment Generation** - Improve build pipeline
-3. **Enhanced Preview** - Better development experience
-4. **Testing Framework** - Add automated component testing
-5. **Storybook Integration** - Component documentation
+### **Deployment Chain**
+```
+01-component-development/ (React)
+         ↓ (Convert)
+02-child-theme-production/growth-child/modules/ (HubL)
+         ↓ (Deploy)
+HubSpot Design Manager (Live)
+```
+
+### **Field Mapping**
+Components use placeholder patterns that convert to HubSpot fields:
+```javascript
+// React component prop
+{title}
+
+// HubSpot field access
+{{ module.title }}
+```
 
 ---
 
-**Status**: 🟢 Active Development Environment
-**Purpose**: Component development and testing
-**Integration**: Manual copy to HubSpot custom modules
+**Last Updated**: September 30, 2025
+**Status**: ✅ Active development environment
+**Integration**: Theme modules via 02-child-theme-production

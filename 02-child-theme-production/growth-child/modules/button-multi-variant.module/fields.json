@@ -1,0 +1,90 @@
+[ {
+  "id" : "ca8317eb-2831-efe2-7e0d-4f125fe93a23",
+  "name" : "button_text",
+  "label" : "Button Text",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Click here"
+}, {
+  "id" : "7ac25734-718b-9595-d525-6b9a344c8895",
+  "name" : "button_url",
+  "label" : "Button URL",
+  "required" : false,
+  "locked" : false,
+  "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+  "type" : "url",
+  "display_width" : null,
+  "default" : {
+    "content_id" : null,
+    "href" : "",
+    "type" : "CONTENT"
+  }
+}, {
+  "id" : "2f962bf2-e094-e45c-0edf-169d2bb13a70",
+  "name" : "button_style",
+  "label" : "Button Style",
+  "required" : false,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "primary", "Primary Button (Blue background)" ], [ "secondary", "Secondary Button (White background)" ], [ "outline", "Outline Button (Transparent with border)" ], [ "outline-white", "Outline White (For dark backgrounds)" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "primary"
+}, {
+  "id" : "ed888140-26d5-bfd7-2e16-357864fe4534",
+  "name" : "button_size",
+  "label" : "Button Size",
+  "required" : false,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "small", "Small" ], [ "default", "Default" ], [ "large", "Large" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "default"
+}, {
+  "id" : "df92bccc-a84f-69bd-b909-d4cdd0f92950",
+  "name" : "button_alignment",
+  "label" : "Button Alignment",
+  "required" : false,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "left"
+}, {
+  "id" : "ad20a064-0539-4f06-f63c-8b647e903100",
+  "name" : "open_in_new_tab",
+  "label" : "Open in new tab",
+  "required" : false,
+  "locked" : false,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "c9b9e11a-1bdb-5f44-5b7a-2b92ed1c379a",
+  "name" : "theme",
+  "label" : "Theme",
+  "required" : false,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "cellcolabs", "Cellcolabs" ], [ "cellcolabsclinical", "Cellcolabs Clinical" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null
+} ]

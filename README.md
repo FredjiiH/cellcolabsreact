@@ -4,35 +4,30 @@ A comprehensive system for managing dual-brand websites (Cellcolabs & Cellcolabs
 
 ## 🏗️ Project Structure
 
-This project is organized into three main parts:
+This project is organized into two main parts:
 
 ### **[01-component-development/](./01-component-development/)**
-**React-based component development and static fragment generation**
+**React-based component development environment**
 - Local development environment with Vite + React + TypeScript
 - Multi-brand theming system with JSON theme tokens
-- Static fragment generation for HubSpot integration
-- Component library with responsive design (Navigation, HeroBlock, Footer)
+- Component library with responsive design
 - **Status**: 🟢 Active for component development
 
-### **[02-custom-theme-reference/](./02-custom-theme-reference/)**
-**Original custom HubSpot theme approach (REFERENCE ONLY)**
-- Complete custom HubSpot theme from scratch
-- Custom CSS architecture and module system
-- **Status**: 🔶 Deprecated - Keeping for reference only
-
-### **[03-child-theme-production/](./03-child-theme-production/)**
-**Production child theme extending Growth theme (ACTIVE)**
+### **[02-child-theme-production/](./02-child-theme-production/)**
+**Production child theme extending Growth theme**
 - Child theme extending `@hubspot/growth` marketplace theme
+- Theme modules deployed via HubSpot CLI
 - Dual-brand system with automatic domain detection
 - Complete navigation system with mobile menu
 - **Status**: 🟢 Active - Current production approach
 
 ## 🎯 Current Active System
 
-We're currently using **Part 3: Child Theme Production** for the live websites:
+We're using a streamlined workflow from React development to HubSpot deployment:
 
 - **Production Theme**: `growth child` (extends Growth theme)
 - **Domains**: `cellcolabsclinical.com` (blue) & `cellcolabs.com` (green)
+- **Module Approach**: Theme modules via CLI (fully tested and working)
 - **Features**: Automatic brand switching, responsive navigation, dual-brand color system
 
 ## 🚀 Quick Start
@@ -47,7 +42,7 @@ npm run dev
 
 ### For Child Theme Deployment:
 ```bash
-cd 03-child-theme-production/
+cd 02-child-theme-production/
 hs upload growth-child --dest="growth child"
 ```
 
@@ -56,62 +51,101 @@ hs upload growth-child --dest="growth child"
 Each part contains its own detailed documentation:
 
 - **[01-component-development/README.md](./01-component-development/README.md)** - React component development
-- **[02-custom-theme-reference/README.md](./02-custom-theme-reference/README.md)** - Custom theme reference
-- **[03-child-theme-production/README.md](./03-child-theme-production/README.md)** - Production child theme
+- **[02-child-theme-production/README.md](./02-child-theme-production/README.md)** - Production child theme
 
-### **Current Evaluation**
-- **[03-child-theme-production/docs/THEME_MODULE_EVALUATION.md](./03-child-theme-production/docs/THEME_MODULE_EVALUATION.md)** - Theme vs Custom module decision framework
+### **Key Guides**
+- **[02-child-theme-production/docs/URL_FIELD_IMPLEMENTATION_GUIDE.md](./02-child-theme-production/docs/URL_FIELD_IMPLEMENTATION_GUIDE.md)** - HubSpot link field implementation
+- **[02-child-theme-production/docs/THEME_MODULE_EVALUATION.md](./02-child-theme-production/docs/THEME_MODULE_EVALUATION.md)** - Theme module approach validation
 
 ## 🎨 Brand System
 
 **Cellcolabs Clinical** (Production)
 - Primary Color: `#4F65BE` (Blue)
 - Domain: `cellcolabsclinical.com`
-- Typography: Inter font family
+- Typography: Bricolage Grotesque (headings), Inter (body)
 
 **Cellcolabs** (Green Theme)
 - Primary Color: `#00A651` (Green)
 - Domain: `cellcolabs.com`
-- Typography: Inter font family
+- Typography: Bricolage Grotesque (headings), Inter (body)
 
 ## 🛠️ Technology Stack
 
 - **Frontend**: React 18, TypeScript, Vite
 - **Styling**: CSS Modules, CSS Variables
 - **CMS**: HubSpot with child theme approach
-- **Build Tools**: HubSpot CLI, custom fragment generators
+- **Build Tools**: HubSpot CLI
 - **Deployment**: HubSpot Design Manager
+
+## 🔄 Production Workflow
+
+### **Confirmed Approach: Theme Modules via CLI**
+
+1. **Component Development**
+   - Build and test in `01-component-development/` using React
+   - Perfect styling and interactions locally
+
+2. **Theme Module Creation**
+   - Convert to HubSpot modules in `02-child-theme-production/growth-child/modules/`
+   - Create `module.html` (template + CSS), `fields.json` (content fields), `meta.json` (metadata)
+
+3. **CLI Deployment**
+   ```bash
+   cd 02-child-theme-production/
+   hs upload growth-child --dest="growth child"
+   ```
+
+4. **Content Management**
+   - Marketing team uses modules in HubSpot page editor
+   - Full field editing capabilities with HubSpot UI
+
+## 📦 Current Modules
+
+### **Production Ready**
+- `grid2x2-card-image.module` - 2x2 grid with image cards
+- `button-multi-variant.module` - Multi-style button component
+- `content-text-image.module` - Content sections with text and images
+
+### **Theme Structure**
+- `templates/partials/header.html` - Navigation header
+- `templates/layouts/base.html` - Base page layout
+- `child.css` - Global styles and brand system
+- `child.js` - Global JavaScript functionality
 
 ## 📋 Current Status (September 2025)
 
 ✅ **Completed**
-- Dual-brand child theme system
-- Desktop navigation with HubSpot Menu Builder
-- Brand switching with CSS variables
-- Mobile menu functionality
-- Component development environment
+- Theme module workflow validated and working
+- URL/link fields properly implemented
+- Dual-brand system with automatic switching
+- Mobile responsive navigation
+- Three production-ready modules deployed
 
 ✅ **Production Ready**
-- Child theme deployed to HubSpot
+- Child theme live on HubSpot
 - Brand detection working
-- Navigation system complete
-- Button/link color switching functional
+- Module deployment via CLI confirmed
+- Marketing team can edit all content
 
-## 🤝 Team Workflow
+## 📁 Folder Structure
 
-### **Current Approach: Theme Modules (Under Evaluation)**
-1. **Component Development** → Part 1: Build and test components in React
-2. **Theme Module Creation** → Generate HubSpot theme modules via CLI
-3. **Production Deployment** → Part 3: Deploy child theme with modules
-4. **Content Management** → Marketing team edits content in HubSpot
-
-### **Alternative Approach: Custom Modules (Previous)**
-1. **Component Development** → Part 1: Build and test components in React
-2. **Manual Integration** → Copy component code to HubSpot custom modules
-3. **Production Deployment** → Part 3: Deploy child theme updates
-4. **Content Management** → Marketing team edits content in HubSpot
-
-> **Note**: We are currently exploring theme modules for better field integration but keeping both workflows documented until we make a final decision.
+```
+cellcolabsreact/
+├── 01-component-development/       # React development
+│   └── src/components/            # React components
+│
+└── 02-child-theme-production/     # Production deployment
+    ├── growth-child/              # Active child theme
+    │   ├── modules/               # Theme modules
+    │   │   ├── grid2x2-card-image.module/
+    │   │   ├── button-multi-variant.module/
+    │   │   └── content-text-image.module/
+    │   ├── templates/             # Page structure
+    │   ├── child.css             # Brand system
+    │   └── child.js              # Global JS
+    │
+    └── growth-theme/             # Parent theme reference
+```
 
 ## 📞 Need Help?
 
@@ -119,6 +153,6 @@ Each directory contains detailed README files and documentation specific to that
 
 ---
 
-**Last Updated**: September 25, 2025
-**Active System**: Child Theme Production (Part 3)
+**Last Updated**: September 30, 2025
+**Active System**: Child Theme Production with Theme Modules
 **Status**: ✅ Production Ready
