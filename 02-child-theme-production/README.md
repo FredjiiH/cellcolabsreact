@@ -99,18 +99,23 @@ modules/grid2x2-card-image.module/
 
 ## 🎨 Dual Brand System
 
-### **Automatic Domain Detection**
+### **Global Theme Detection (NEW)**
+Theme detection is now handled globally in `templates/layouts/base.html`:
 ```javascript
-// In templates
-{% set current_brand = "cellcolabsclinical" %}
+// Automatically set on <body> element
+{% set global_brand = "cellcolabsclinical" %}
 {% if request.domain == "cellcolabs.com" %}
-  {% set current_brand = "cellcolabs" %}
+  {% set global_brand = "cellcolabs" %}
 {% endif %}
+<body data-brand="{{ global_brand }}">
 ```
+
+**No need for theme fields in individual modules!** All modules automatically inherit the correct brand.
 
 ### **CSS Variable System**
 ```css
 /* Clinical Brand (Default) */
+:root,
 [data-brand="cellcolabsclinical"] {
   --color-primary: #4F65BE;
   --color-text-link: #4F65BE;
@@ -192,6 +197,7 @@ For testing purposes, includes a brand switcher visible only in editor mode:
 ## 📚 Documentation
 
 ### **Key Guides**
+- **[MODULE_DEVELOPMENT_GUIDE.md](./docs/MODULE_DEVELOPMENT_GUIDE.md)** - 🆕 How to create new modules with global theme system
 - [URL_FIELD_IMPLEMENTATION_GUIDE.md](./docs/URL_FIELD_IMPLEMENTATION_GUIDE.md) - HubSpot link field implementation
 - [THEME_MODULE_EVALUATION.md](./docs/THEME_MODULE_EVALUATION.md) - Module approach validation
 - [DUAL_BRAND_SPACING_GUIDE.md](./docs/DUAL_BRAND_SPACING_GUIDE.md) - Spacing and layout system

@@ -59,6 +59,12 @@ Each part contains its own detailed documentation:
 
 ## 🎨 Brand System
 
+### **Global Theme Detection**
+Theme switching is handled globally in `base.html` template:
+- Automatic detection based on domain
+- No manual theme selection needed in modules
+- CSS variables inherit from `<body data-brand="...">`
+
 **Cellcolabs Clinical** (Production)
 - Primary Color: `#4F65BE` (Blue)
 - Domain: `cellcolabsclinical.com`
