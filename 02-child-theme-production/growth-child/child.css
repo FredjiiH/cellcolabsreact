@@ -115,11 +115,9 @@
 /* Brand-Specific Variables                   */
 /***********************************************/
 
-/* Cellcolabs Clinical Theme (Current Production) */
+/* Cellcolabs Clinical Brand (Current Production) */
 :root,
-[data-theme="cellcolabsclinical"],
-[data-brand="cellcolabsclinical"],
-.brand-cellcolabsclinical {
+[data-brand="cellcolabsclinical"] {
   /* Brand Colors - From cellcolabsclinical.json */
   --color-brand-100: #BECFFF;
   --color-brand-300: #879ADF;
@@ -162,10 +160,8 @@
   --color-warning: #F9D400;
 }
 
-/* Cellcolabs Theme (Placeholder Data for Testing) */
-[data-theme="cellcolabs"],
-[data-brand="cellcolabs"],
-.brand-cellcolabs {
+/* Cellcolabs Brand (Green Theme) */
+[data-brand="cellcolabs"] {
   /* Brand Colors */
   --color-primary: #00A651;      /* Green */
   --color-secondary: #004225;    /* Dark green */
@@ -187,6 +183,23 @@
   /* Border Colors */
   --color-border-light: #E0E0E0;
   --color-border-medium: #CCCCCC;
+}
+
+/***********************************************/
+/* Utility Classes                            */
+/***********************************************/
+
+/* White link utility - for links on dark backgrounds */
+.link-white,
+.link-white:link,
+.link-white:visited,
+.link-white:active,
+.link-white:hover,
+.link-white:focus {
+  color: #ffffff !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
 }
 
 /***********************************************/

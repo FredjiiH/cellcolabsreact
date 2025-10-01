@@ -143,21 +143,30 @@
   max-width: 400px;
 }
 
-.grid2x2-card-link {
-  color: var(--color-white, #ffffff) !important;
+/* Link styles - higher specificity to override global brand link colors */
+[data-brand] .grid2x2-card-overlay .grid2x2-card-link,
+[data-brand] .grid2x2-card-overlay .grid2x2-card-link:link,
+[data-brand] .grid2x2-card-overlay .grid2x2-card-link:visited,
+[data-brand] .grid2x2-card-overlay .grid2x2-card-link:active {
+  color: #ffffff !important;
+  background-color: transparent !important;
+  border: none !important;
   text-decoration: underline;
   text-underline-position: from-font;
   font-family: var(--font-body, 'Inter', sans-serif);
   font-size: var(--font-size-body-medium-desktop, 16px);
   font-weight: var(--font-weight-regular, 450);
   line-height: var(--line-height-normal, 1.35);
+  padding: 0;
   display: inline-block;
   transition: all 0.2s ease;
   text-align: center;
 }
 
-.grid2x2-card-link:hover {
-  color: var(--color-white, #ffffff) !important;
+[data-brand] .grid2x2-card-overlay .grid2x2-card-link:hover,
+[data-brand] .grid2x2-card-overlay .grid2x2-card-link:focus {
+  color: #ffffff !important;
+  background-color: transparent !important;
   opacity: 0.8;
   transform: translateX(4px);
 }

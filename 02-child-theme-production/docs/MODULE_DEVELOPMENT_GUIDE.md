@@ -225,11 +225,48 @@ Look at these existing modules for examples:
 - `button-multi-variant.module` - Button variations
 - `content-text-image.module` - Content sections
 
+## 🔧 Overriding Global Brand Styles
+
+### When You Need Module-Specific Overrides
+
+**The Global Rule**: All links on the site use brand colors via this global rule in `header.html`:
+```css
+[data-brand] a:not(.button):not(.btn):not(button) {
+  color: var(--color-text-link) !important;
+}
+```
+
+**When to Override**: Sometimes you need different styling in your module (e.g., white links on dark backgrounds).
+
+**How to Override**: Use higher CSS specificity **within your module's CSS**:
+
+```css
+/* Example: White links on image overlay */
+[data-brand] .your-module-overlay .your-link-class,
+[data-brand] .your-module-overlay .your-link-class:link,
+[data-brand] .your-module-overlay .your-link-class:visited,
+[data-brand] .your-module-overlay .your-link-class:hover {
+  color: #ffffff !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+```
+
+**Key Points**:
+- ✅ Use `[data-brand]` selector to increase specificity
+- ✅ Target your specific module container (e.g., `.your-module-overlay`)
+- ✅ Keep overrides in the module CSS, not in global `child.css`
+- ✅ Add all link states (`:link`, `:visited`, `:hover`, `:active`)
+- ✅ Use `!important` to ensure override works
+
+**Example**: See `grid2x2-card-image.module` for a working example of white links on image overlays.
+
 ## 🆘 Troubleshooting
 
-### Module doesn't switch themes
-- Check that you're NOT setting data-brand or data-theme in your module
-- Verify CSS uses variables like var(--color-primary)
+### Module doesn't switch brands
+- Check that you're NOT setting `data-brand` in your module
+- Verify CSS uses variables like `var(--color-primary)`
 - Clear HubSpot cache and refresh
 
 ### Colors not applying correctly
@@ -242,8 +279,13 @@ Look at these existing modules for examples:
 - Access via `module.field_name.url.href`
 - Check supported_types array includes needed types
 
+### Links showing wrong color
+- Global brand link color is applied via `[data-brand] a:not(.button)` rule
+- To override, use higher specificity in your module CSS (see "Overriding Global Brand Styles" above)
+- Do NOT add overrides to global `child.css` - keep them in the module
+
 ---
 
-**Last Updated**: September 30, 2025
-**Theme System**: Global domain-based detection
-**No manual theme selection needed!**
+**Last Updated**: October 1, 2025
+**Theme System**: Global domain-based detection using `data-brand` attribute
+**Brand Attribute**: `data-brand` (NOT `data-theme` - we use `data-brand` consistently)
