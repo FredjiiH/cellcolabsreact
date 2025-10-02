@@ -1,0 +1,12 @@
+{
+  "label": "Section Builder",
+  "css_assets": [],
+  "external_js": [],
+  "host_template_types": ["PAGE", "BLOG_LISTING", "BLOG_POST"],
+  "js_assets": [],
+  "other_assets": [],
+  "smart_type": "NOT_SMART",
+  "tags": ["layout", "builder", "flexible", "sections"],
+  "is_available_for_new_content": true,
+  "content_tags": []
+}

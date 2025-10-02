@@ -1,0 +1,407 @@
+[
+  {
+    "id": "layout",
+    "name": "layout",
+    "label": "Layout",
+    "required": true,
+    "locked": false,
+    "type": "choice",
+    "choices": [
+      ["single", "Single Column"],
+      ["two-col-equal", "Two Columns (50/50)"],
+      ["two-col-6040", "Two Columns (60/40)"],
+      ["two-col-4060", "Two Columns (40/60)"],
+      ["three-col", "Three Columns"]
+    ],
+    "default": "single"
+  },
+  {
+    "id": "background_color",
+    "name": "background_color",
+    "label": "Background Color",
+    "required": false,
+    "locked": false,
+    "type": "color",
+    "default": {
+      "color": "#FFFFFF",
+      "opacity": 100
+    }
+  },
+  {
+    "id": "border_radius",
+    "name": "border_radius",
+    "label": "Border Radius",
+    "required": true,
+    "locked": false,
+    "type": "choice",
+    "choices": [
+      ["none", "None"],
+      ["small", "Small (4px)"],
+      ["medium", "Medium (8px)"],
+      ["large", "Large (16px)"]
+    ],
+    "default": "none"
+  },
+  {
+    "id": "padding",
+    "name": "padding",
+    "label": "Padding",
+    "required": true,
+    "locked": false,
+    "type": "choice",
+    "choices": [
+      ["none", "None"],
+      ["small", "Small (32px)"],
+      ["medium", "Medium (48px)"],
+      ["large", "Large (64px)"],
+      ["xlarge", "Extra Large (96px)"],
+      ["xxlarge", "2X Large (96px / 48px left-right)"]
+    ],
+    "default": "medium",
+    "help_text": "2X Large matches Content Checklist Block padding"
+  },
+  {
+    "id": "width_constraint",
+    "name": "width_constraint",
+    "label": "Width",
+    "required": true,
+    "locked": false,
+    "type": "choice",
+    "choices": [
+      ["full", "Full Width"],
+      ["constrained", "Constrained (1400px max)"]
+    ],
+    "default": "constrained"
+  },
+  {
+    "id": "content_spacing",
+    "name": "content_spacing",
+    "label": "Content Spacing (between blocks)",
+    "required": true,
+    "locked": false,
+    "type": "choice",
+    "choices": [
+      ["none", "None"],
+      ["xxsmall", "2XS (4px)"],
+      ["xsmall", "XS (8px)"],
+      ["small", "Small (12px)"],
+      ["medium", "Medium (16px)"],
+      ["large", "Large (24px)"],
+      ["xlarge", "XL (32px)"],
+      ["xxlarge", "2XL (48px)"],
+      ["xxxlarge", "3XL (64px)"]
+    ],
+    "default": "large",
+    "help_text": "Space between content blocks within columns"
+  },
+  {
+    "id": "column_gap",
+    "name": "column_gap",
+    "label": "Column Gap",
+    "required": true,
+    "locked": false,
+    "type": "choice",
+    "choices": [
+      ["xxsmall", "2XS (4px)"],
+      ["xsmall", "XS (8px)"],
+      ["small", "Small (12px)"],
+      ["medium", "Medium (16px)"],
+      ["large", "Large (24px)"],
+      ["xlarge", "XL (32px)"],
+      ["xxlarge", "2XL (48px)"],
+      ["xxxlarge", "3XL (64px)"],
+      ["xxxxlarge", "4XL (96px)"]
+    ],
+    "default": "large",
+    "help_text": "Space between columns in multi-column layouts"
+  },
+  {
+    "id": "content_blocks",
+    "name": "content_blocks",
+    "label": "Content Blocks",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 0,
+      "max": 20,
+      "default": 1
+    },
+    "type": "group",
+    "children": [
+      {
+        "id": "block_type",
+        "name": "block_type",
+        "label": "Block Type",
+        "required": true,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["eyebrow", "Eyebrow"],
+          ["heading", "Heading"],
+          ["description", "Description"],
+          ["button", "Button"],
+          ["richtext", "Rich Text"],
+          ["feature_list", "Feature List"]
+        ],
+        "default": "heading"
+      },
+      {
+        "id": "column",
+        "name": "column",
+        "label": "Place in Column",
+        "required": true,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["left", "Left/First Column"],
+          ["center", "Center/Second Column"],
+          ["right", "Right/Third Column"]
+        ],
+        "default": "left",
+        "help_text": "For single column layout, all blocks appear in order regardless of this setting"
+      },
+      {
+        "id": "alignment",
+        "name": "alignment",
+        "label": "Alignment",
+        "required": true,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["left", "Left"],
+          ["center", "Center"],
+          ["right", "Right"]
+        ],
+        "default": "left"
+      },
+      {
+        "id": "eyebrow_text",
+        "name": "eyebrow_text",
+        "label": "Eyebrow Text",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Eyebrow",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "eyebrow"
+        }
+      },
+      {
+        "id": "eyebrow_variant",
+        "name": "eyebrow_variant",
+        "label": "Eyebrow Variant",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["default", "Default"],
+          ["inverted", "Inverted"],
+          ["glass", "Glass"]
+        ],
+        "default": "default",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "eyebrow"
+        }
+      },
+      {
+        "id": "heading_text",
+        "name": "heading_text",
+        "label": "Heading Text",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Heading",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "heading"
+        }
+      },
+      {
+        "id": "heading_level",
+        "name": "heading_level",
+        "label": "Heading Level",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["h2", "H2"],
+          ["h3", "H3"],
+          ["h4", "H4"]
+        ],
+        "default": "h2",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "heading"
+        }
+      },
+      {
+        "id": "description_text",
+        "name": "description_text",
+        "label": "Description Text",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Description text goes here.",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "description"
+        }
+      },
+      {
+        "id": "description_size",
+        "name": "description_size",
+        "label": "Description Size",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["small", "Small (14px)"],
+          ["medium", "Medium (16px)"],
+          ["large", "Large (18px)"]
+        ],
+        "default": "medium",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "description"
+        }
+      },
+      {
+        "id": "button_text",
+        "name": "button_text",
+        "label": "Button Text",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Click here",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "button"
+        }
+      },
+      {
+        "id": "button_url",
+        "name": "button_url",
+        "label": "Button URL",
+        "required": false,
+        "locked": false,
+        "type": "link",
+        "default": {
+          "url": {
+            "href": "",
+            "type": "EXTERNAL"
+          },
+          "open_in_new_tab": false,
+          "no_follow": false
+        },
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "button"
+        }
+      },
+      {
+        "id": "button_variant",
+        "name": "button_variant",
+        "label": "Button Variant",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["primary", "Primary"],
+          ["outline", "Outline"]
+        ],
+        "default": "primary",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "button"
+        }
+      },
+      {
+        "id": "button_size",
+        "name": "button_size",
+        "label": "Button Size",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["small", "Small"],
+          ["medium", "Medium"],
+          ["large", "Large"]
+        ],
+        "default": "medium",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "button"
+        }
+      },
+      {
+        "id": "richtext_content",
+        "name": "richtext_content",
+        "label": "Rich Text Content",
+        "required": false,
+        "locked": false,
+        "type": "richtext",
+        "default": "<p>Add your rich text content here.</p>",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "richtext"
+        }
+      },
+      {
+        "id": "feature_items",
+        "name": "feature_items",
+        "label": "Feature Items",
+        "required": false,
+        "locked": false,
+        "type": "group",
+        "occurrence": {
+          "min": 0,
+          "max": 10,
+          "default": 3
+        },
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "feature_list"
+        },
+        "children": [
+          {
+            "id": "feature_title",
+            "name": "feature_title",
+            "label": "Feature Title",
+            "required": false,
+            "locked": false,
+            "type": "text",
+            "default": "Feature title"
+          },
+          {
+            "id": "feature_description",
+            "name": "feature_description",
+            "label": "Feature Description",
+            "required": false,
+            "locked": false,
+            "type": "text",
+            "default": "Feature description"
+          }
+        ]
+      },
+      {
+        "id": "feature_style",
+        "name": "feature_style",
+        "label": "Feature List Style",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["checkmark", "Checkmark"],
+          ["numbered", "Numbered"]
+        ],
+        "default": "checkmark",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "feature_list"
+        }
+      }
+    ]
+  }
+]

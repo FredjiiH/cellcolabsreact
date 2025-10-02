@@ -1,0 +1,774 @@
+<!--
+  templateType: module
+  label: Section Builder
+  isAvailableForNewContent: true
+-->
+
+{% set layout = module.layout %}
+{% set bg_color = module.background_color.color %}
+{% set border_radius = module.border_radius %}
+{% set padding = module.padding %}
+{% set width_constraint = module.width_constraint %}
+{% set content_spacing = module.content_spacing %}
+{% set column_gap = module.column_gap %}
+{% set blocks = module.content_blocks %}
+
+<style>
+  /* Section Builder Component - Uses Brand CSS Variables */
+
+  .section-builder {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Layout Styles */
+  .section-builder__single {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .section-builder__columns {
+    display: grid;
+    width: 100%;
+  }
+
+  .section-builder__columns.layout-two-col-equal {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .section-builder__columns.layout-two-col-6040 {
+    grid-template-columns: 60fr 40fr;
+  }
+
+  .section-builder__columns.layout-two-col-4060 {
+    grid-template-columns: 40fr 60fr;
+  }
+
+  .section-builder__columns.layout-three-col {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .section-builder__column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  /* Alignment Utilities */
+  .align-left {
+    text-align: left;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .align-center {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .align-right {
+    text-align: right;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  /* Eyebrow Component - Uses Brand Variables */
+  .section-builder__eyebrow-wrapper {
+    width: 100%;
+    display: flex;
+  }
+
+  .section-builder__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-8, 8px) var(--space-12, 12px);
+    border-radius: var(--border-radius-md, 8px);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-weight: var(--font-weight-regular, 450);
+    font-size: var(--font-size-body-small, 14px);
+    line-height: 1.35;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .section-builder__eyebrow.variant-default {
+    background-color: var(--color-gray-900, #262626);
+    color: var(--color-text-secondary, #666666);
+  }
+
+  .section-builder__eyebrow.variant-inverted {
+    background-color: rgba(22, 22, 22, 0.05);
+    color: var(--color-text-secondary, #666666);
+  }
+
+  .section-builder__eyebrow.variant-glass {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--color-text-inverse, #ffffff);
+  }
+
+  /* Heading Component - Uses Brand Variables */
+  .section-builder__heading {
+    font-family: var(--font-heading, 'Bricolage Grotesque', sans-serif);
+    color: var(--color-text-primary, #161616);
+    margin: 0;
+  }
+
+  /* Description Component - Uses Brand Variables */
+  .section-builder__description {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-weight: var(--font-weight-regular, 450);
+    line-height: var(--line-height-normal, 1.35);
+    color: var(--color-text-secondary, #666666);
+    margin: 0;
+  }
+
+  .section-builder__description.size-small {
+    font-size: var(--font-size-body-small, 14px);
+  }
+
+  .section-builder__description.size-medium {
+    font-size: var(--font-size-body, 16px);
+  }
+
+  .section-builder__description.size-large {
+    font-size: var(--font-size-body-large, 18px);
+  }
+
+  /* Button Component - Uses Brand Variables */
+  .section-builder__button-wrapper {
+    width: 100%;
+    display: flex;
+  }
+
+  .section-builder__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 64px;
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-weight: var(--font-weight-medium, 500);
+    line-height: 1;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  /* Button variants - higher specificity to override global brand link styles */
+  [data-brand] .section-builder__button.variant-primary,
+  [data-brand] .section-builder__button.variant-primary:link,
+  [data-brand] .section-builder__button.variant-primary:visited {
+    background-color: var(--color-brand-100, #becfff) !important;
+    color: var(--color-text-primary, #161616) !important;
+    border: 0.5px solid var(--color-white, #ffffff) !important;
+  }
+
+  [data-brand] .section-builder__button.variant-primary:hover {
+    background-color: var(--color-brand-300, #879adf) !important;
+    color: var(--color-text-primary, #161616) !important;
+  }
+
+  [data-brand] .section-builder__button.variant-primary:active {
+    background-color: var(--color-brand-500, #4f65be) !important;
+    color: var(--color-text-primary, #161616) !important;
+  }
+
+  [data-brand] .section-builder__button.variant-outline,
+  [data-brand] .section-builder__button.variant-outline:link,
+  [data-brand] .section-builder__button.variant-outline:visited {
+    background: transparent !important;
+    color: var(--color-text-primary, #161616) !important;
+    border: 1.5px solid var(--color-text-primary, #161616) !important;
+  }
+
+  [data-brand] .section-builder__button.variant-outline:hover {
+    border-color: var(--color-gray-400, #6f6f6f) !important;
+    color: var(--color-text-primary, #161616) !important;
+  }
+
+  [data-brand] .section-builder__button.variant-outline:active {
+    border-color: var(--color-gray-500, #8d8d8d) !important;
+    color: var(--color-text-primary, #161616) !important;
+  }
+
+  /* Button sizes */
+  .section-builder__button.size-small {
+    padding: var(--space-8, 8px) var(--space-12, 12px);
+    font-size: var(--font-size-body-small, 14px);
+  }
+
+  .section-builder__button.size-medium {
+    padding: var(--space-12, 12px) var(--space-16, 16px);
+    font-size: var(--font-size-body, 16px);
+  }
+
+  .section-builder__button.size-large {
+    padding: var(--space-16, 16px) var(--space-24, 24px);
+    font-size: var(--font-size-body-large, 18px);
+  }
+
+  /* Rich Text Component */
+  .section-builder__richtext {
+    width: 100%;
+  }
+
+  /* Feature List Component - Uses Brand Variables - Matches content-checklist-block */
+  .section-builder__feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-32, 32px);
+    width: 100%;
+  }
+
+  .section-builder__feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-16, 16px);
+    width: 100%;
+  }
+
+  .section-builder__feature-icon {
+    flex-shrink: 0;
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body-large, 18px);
+    font-weight: var(--font-weight-medium, 500);
+    line-height: 1.35;
+    color: var(--color-text-primary, #161616);
+    margin-top: 0;
+    align-self: flex-start;
+  }
+
+  .section-builder__feature-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .section-builder__feature-text {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  .section-builder__feature-title {
+    font-weight: var(--font-weight-bold, 700);
+    color: var(--color-text-primary, #161616);
+  }
+
+  .section-builder__feature-description {
+    font-weight: var(--font-weight-regular, 450);
+    color: var(--color-text-secondary, #666666);
+  }
+
+  /* Responsive feature list spacing */
+  @media (max-width: 767px) {
+    .section-builder__feature-list {
+      gap: var(--space-24, 24px);
+    }
+
+    .section-builder__feature-title {
+      font-weight: var(--font-weight-semibold, 580);
+    }
+  }
+
+  /* Tablet responsive padding (768-1023px) */
+  @media (max-width: 1023px) and (min-width: 768px) {
+    .section-builder[data-padding="small"] {
+      padding: var(--space-24, 24px) var(--space-16, 16px) !important;
+    }
+
+    .section-builder[data-padding="medium"] {
+      padding: var(--space-32, 32px) var(--space-24, 24px) !important;
+    }
+
+    .section-builder[data-padding="large"] {
+      padding: var(--space-48, 48px) var(--space-24, 24px) !important;
+    }
+
+    .section-builder[data-padding="xlarge"] {
+      padding: var(--space-64, 64px) var(--space-32, 32px) !important;
+    }
+
+    .section-builder[data-padding="xxlarge"] {
+      padding: calc(var(--space-32, 32px) + var(--space-24, 24px)) var(--space-24, 24px) !important;
+    }
+  }
+
+  /* Mobile responsive padding (768px and below) */
+  @media (max-width: 767px) {
+    .section-builder__columns {
+      grid-template-columns: 1fr !important;
+    }
+
+    .section-builder[data-padding="small"] {
+      padding: var(--space-16, 16px) var(--space-16, 16px) !important;
+    }
+
+    .section-builder[data-padding="medium"] {
+      padding: var(--space-24, 24px) var(--space-16, 16px) !important;
+    }
+
+    .section-builder[data-padding="large"] {
+      padding: var(--space-32, 32px) var(--space-24, 24px) !important;
+    }
+
+    .section-builder[data-padding="xlarge"] {
+      padding: var(--space-48, 48px) var(--space-24, 24px) !important;
+    }
+
+    .section-builder[data-padding="xxlarge"] {
+      padding: var(--space-48, 48px) var(--space-24, 24px) !important;
+    }
+  }
+
+  /* Small mobile responsive padding (480px and below) */
+  @media (max-width: 480px) {
+    .section-builder[data-padding="small"] {
+      padding: var(--space-16, 16px) !important;
+    }
+
+    .section-builder[data-padding="medium"] {
+      padding: var(--space-24, 24px) var(--space-16, 16px) !important;
+    }
+
+    .section-builder[data-padding="large"] {
+      padding: var(--space-32, 32px) var(--space-16, 16px) !important;
+    }
+
+    .section-builder[data-padding="xlarge"] {
+      padding: var(--space-32, 32px) var(--space-16, 16px) !important;
+    }
+
+    .section-builder[data-padding="xxlarge"] {
+      padding: var(--space-32, 32px) var(--space-16, 16px) !important;
+    }
+  }
+
+    /* Responsive content spacing */
+    .section-builder__single[data-content-spacing="none"],
+    .section-builder__column[data-content-spacing="none"] {
+      gap: 0 !important;
+    }
+
+    .section-builder__single[data-content-spacing="xxsmall"],
+    .section-builder__column[data-content-spacing="xxsmall"] {
+      gap: var(--space-4, 4px) !important;
+    }
+
+    .section-builder__single[data-content-spacing="xsmall"],
+    .section-builder__column[data-content-spacing="xsmall"] {
+      gap: var(--space-8, 8px) !important;
+    }
+
+    .section-builder__single[data-content-spacing="small"],
+    .section-builder__column[data-content-spacing="small"] {
+      gap: var(--space-12, 12px) !important;
+    }
+
+    .section-builder__single[data-content-spacing="medium"],
+    .section-builder__column[data-content-spacing="medium"] {
+      gap: var(--space-16, 16px) !important;
+    }
+
+    .section-builder__single[data-content-spacing="large"],
+    .section-builder__column[data-content-spacing="large"] {
+      gap: var(--space-24, 24px) !important;
+    }
+
+    .section-builder__single[data-content-spacing="xlarge"],
+    .section-builder__column[data-content-spacing="xlarge"] {
+      gap: var(--space-32, 32px) !important;
+    }
+
+    .section-builder__single[data-content-spacing="xxlarge"],
+    .section-builder__column[data-content-spacing="xxlarge"] {
+      gap: var(--space-48, 48px) !important;
+    }
+
+    .section-builder__single[data-content-spacing="xxxlarge"],
+    .section-builder__column[data-content-spacing="xxxlarge"] {
+      gap: var(--space-64, 64px) !important;
+    }
+
+    /* Responsive column gap */
+    .section-builder__columns[data-column-gap="xxsmall"] {
+      gap: var(--space-4, 4px) !important;
+    }
+
+    .section-builder__columns[data-column-gap="xsmall"] {
+      gap: var(--space-8, 8px) !important;
+    }
+
+    .section-builder__columns[data-column-gap="small"] {
+      gap: var(--space-12, 12px) !important;
+    }
+
+    .section-builder__columns[data-column-gap="medium"] {
+      gap: var(--space-16, 16px) !important;
+    }
+
+    .section-builder__columns[data-column-gap="large"] {
+      gap: var(--space-24, 24px) !important;
+    }
+
+    .section-builder__columns[data-column-gap="xlarge"] {
+      gap: var(--space-32, 32px) !important;
+    }
+
+    .section-builder__columns[data-column-gap="xxlarge"] {
+      gap: var(--space-48, 48px) !important;
+    }
+
+    .section-builder__columns[data-column-gap="xxxlarge"] {
+      gap: var(--space-64, 64px) !important;
+    }
+
+    .section-builder__columns[data-column-gap="xxxxlarge"] {
+      gap: var(--space-96, 96px) !important;
+    }
+  }
+</style>
+
+<div class="section-builder" data-padding="{{ padding }}" style="
+  background-color: {{ bg_color if bg_color else 'transparent' }};
+  {% if border_radius == 'small' %}border-radius: var(--border-radius-sm, 4px);
+  {% elif border_radius == 'medium' %}border-radius: var(--border-radius-md, 8px);
+  {% elif border_radius == 'large' %}border-radius: var(--border-radius-lg, 16px);
+  {% endif %}
+  {% if padding == 'none' %}padding: 0;
+  {% elif padding == 'small' %}padding: var(--space-32, 32px);
+  {% elif padding == 'medium' %}padding: var(--space-48, 48px);
+  {% elif padding == 'large' %}padding: var(--space-64, 64px);
+  {% elif padding == 'xlarge' %}padding: var(--space-96, 96px);
+  {% elif padding == 'xxlarge' %}padding: var(--space-96, 96px) var(--space-48, 48px);
+  {% endif %}
+  {% if width_constraint == 'constrained' %}max-width: var(--content-max-width, 1400px); margin-left: auto; margin-right: auto;{% endif %}
+">
+  {% if layout == 'single' %}
+    {# Single column layout - all blocks in order #}
+    <div class="section-builder__single" data-content-spacing="{{ content_spacing }}" style="
+      {% if content_spacing == 'none' %}gap: 0;
+      {% elif content_spacing == 'xxsmall' %}gap: var(--space-4, 4px);
+      {% elif content_spacing == 'xsmall' %}gap: var(--space-8, 8px);
+      {% elif content_spacing == 'small' %}gap: var(--space-12, 12px);
+      {% elif content_spacing == 'medium' %}gap: var(--space-16, 16px);
+      {% elif content_spacing == 'large' %}gap: var(--space-24, 24px);
+      {% elif content_spacing == 'xlarge' %}gap: var(--space-32, 32px);
+      {% elif content_spacing == 'xxlarge' %}gap: var(--space-48, 48px);
+      {% elif content_spacing == 'xxxlarge' %}gap: var(--space-64, 64px);
+      {% endif %}
+    ">
+      {% for block in blocks %}
+        {% if block.block_type == 'eyebrow' %}
+          <div class="section-builder__eyebrow-wrapper align-{{ block.alignment }}">
+            <div class="section-builder__eyebrow variant-{{ block.eyebrow_variant }}">
+              {{ block.eyebrow_text }}
+            </div>
+          </div>
+
+        {% elif block.block_type == 'heading' %}
+          <{{ block.heading_level }} class="section-builder__heading align-{{ block.alignment }}">
+            {{ block.heading_text }}
+          </{{ block.heading_level }}>
+
+        {% elif block.block_type == 'description' %}
+          <p class="section-builder__description size-{{ block.description_size }} align-{{ block.alignment }}">
+            {{ block.description_text }}
+          </p>
+
+        {% elif block.block_type == 'button' %}
+          <div class="section-builder__button-wrapper align-{{ block.alignment }}">
+            {% set href = block.button_url.url.href %}
+            {% if block.button_url.url.type is equalto "EMAIL_ADDRESS" %}
+              {% set href = "mailto:" + href %}
+            {% endif %}
+            <a href="{{ href }}"
+               class="section-builder__button variant-{{ block.button_variant }} size-{{ block.button_size }}"
+               {% if block.button_url.open_in_new_tab %}target="_blank"{% endif %}
+               {% if block.button_url.no_follow %}rel="nofollow"{% endif %}>
+              {{ block.button_text }}
+            </a>
+          </div>
+
+        {% elif block.block_type == 'richtext' %}
+          <div class="section-builder__richtext align-{{ block.alignment }}">
+            {{ block.richtext_content }}
+          </div>
+
+        {% elif block.block_type == 'feature_list' %}
+          <div class="section-builder__feature-list align-{{ block.alignment }}">
+            {% for feature in block.feature_items %}
+              <div class="section-builder__feature-item">
+                <span class="section-builder__feature-icon">
+                  {% if block.feature_style == 'checkmark' %}
+                    ✓
+                  {% else %}
+                    {{ loop.index }}.
+                  {% endif %}
+                </span>
+                <div class="section-builder__feature-content">
+                  <p class="section-builder__feature-text">
+                    <span class="section-builder__feature-title">{{ feature.feature_title }}</span><br>
+                    <span class="section-builder__feature-description">{{ feature.feature_description }}</span>
+                  </p>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  {% else %}
+    {# Multi-column layouts #}
+    <div class="section-builder__columns layout-{{ layout }}" data-column-gap="{{ column_gap }}" style="
+      {% if column_gap == 'xxsmall' %}gap: var(--space-4, 4px);
+      {% elif column_gap == 'xsmall' %}gap: var(--space-8, 8px);
+      {% elif column_gap == 'small' %}gap: var(--space-12, 12px);
+      {% elif column_gap == 'medium' %}gap: var(--space-16, 16px);
+      {% elif column_gap == 'large' %}gap: var(--space-24, 24px);
+      {% elif column_gap == 'xlarge' %}gap: var(--space-32, 32px);
+      {% elif column_gap == 'xxlarge' %}gap: var(--space-48, 48px);
+      {% elif column_gap == 'xxxlarge' %}gap: var(--space-64, 64px);
+      {% elif column_gap == 'xxxxlarge' %}gap: var(--space-96, 96px);
+      {% endif %}
+    ">
+      {# Left/First Column #}
+      <div class="section-builder__column" data-content-spacing="{{ content_spacing }}" style="
+        {% if content_spacing == 'none' %}gap: 0;
+        {% elif content_spacing == 'xxsmall' %}gap: var(--space-4, 4px);
+        {% elif content_spacing == 'xsmall' %}gap: var(--space-8, 8px);
+        {% elif content_spacing == 'small' %}gap: var(--space-12, 12px);
+        {% elif content_spacing == 'medium' %}gap: var(--space-16, 16px);
+        {% elif content_spacing == 'large' %}gap: var(--space-24, 24px);
+        {% elif content_spacing == 'xlarge' %}gap: var(--space-32, 32px);
+        {% elif content_spacing == 'xxlarge' %}gap: var(--space-48, 48px);
+        {% elif content_spacing == 'xxxlarge' %}gap: var(--space-64, 64px);
+        {% endif %}
+      ">
+        {% for block in blocks %}
+          {% if block.column == 'left' %}
+            {% if block.block_type == 'eyebrow' %}
+              <div class="section-builder__eyebrow-wrapper align-{{ block.alignment }}">
+                <div class="section-builder__eyebrow variant-{{ block.eyebrow_variant }}">
+                  {{ block.eyebrow_text }}
+                </div>
+              </div>
+
+            {% elif block.block_type == 'heading' %}
+              <{{ block.heading_level }} class="section-builder__heading align-{{ block.alignment }}">
+                {{ block.heading_text }}
+              </{{ block.heading_level }}>
+
+            {% elif block.block_type == 'description' %}
+              <p class="section-builder__description size-{{ block.description_size }} align-{{ block.alignment }}">
+                {{ block.description_text }}
+              </p>
+
+            {% elif block.block_type == 'button' %}
+              <div class="section-builder__button-wrapper align-{{ block.alignment }}">
+                {% set href = block.button_url.url.href %}
+                {% if block.button_url.url.type is equalto "EMAIL_ADDRESS" %}
+                  {% set href = "mailto:" + href %}
+                {% endif %}
+                <a href="{{ href }}"
+                   class="section-builder__button variant-{{ block.button_variant }} size-{{ block.button_size }}"
+                   {% if block.button_url.open_in_new_tab %}target="_blank"{% endif %}
+                   {% if block.button_url.no_follow %}rel="nofollow"{% endif %}>
+                  {{ block.button_text }}
+                </a>
+              </div>
+
+            {% elif block.block_type == 'richtext' %}
+              <div class="section-builder__richtext align-{{ block.alignment }}">
+                {{ block.richtext_content }}
+              </div>
+
+            {% elif block.block_type == 'feature_list' %}
+              <div class="section-builder__feature-list align-{{ block.alignment }}">
+                {% for feature in block.feature_items %}
+                  <div class="section-builder__feature-item">
+                    <span class="section-builder__feature-icon">
+                      {% if block.feature_style == 'checkmark' %}
+                        ✓
+                      {% else %}
+                        {{ loop.index }}.
+                      {% endif %}
+                    </span>
+                    <div class="section-builder__feature-content">
+                      <p class="section-builder__feature-text">
+                        <span class="section-builder__feature-title">{{ feature.feature_title }}</span><br>
+                        <span class="section-builder__feature-description">{{ feature.feature_description }}</span>
+                      </p>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {# Center/Second Column #}
+      <div class="section-builder__column" data-content-spacing="{{ content_spacing }}" style="
+        {% if content_spacing == 'none' %}gap: 0;
+        {% elif content_spacing == 'xxsmall' %}gap: var(--space-4, 4px);
+        {% elif content_spacing == 'xsmall' %}gap: var(--space-8, 8px);
+        {% elif content_spacing == 'small' %}gap: var(--space-12, 12px);
+        {% elif content_spacing == 'medium' %}gap: var(--space-16, 16px);
+        {% elif content_spacing == 'large' %}gap: var(--space-24, 24px);
+        {% elif content_spacing == 'xlarge' %}gap: var(--space-32, 32px);
+        {% elif content_spacing == 'xxlarge' %}gap: var(--space-48, 48px);
+        {% elif content_spacing == 'xxxlarge' %}gap: var(--space-64, 64px);
+        {% endif %}
+      ">
+        {% for block in blocks %}
+          {% if block.column == 'center' %}
+            {% if block.block_type == 'eyebrow' %}
+              <div class="section-builder__eyebrow-wrapper align-{{ block.alignment }}">
+                <div class="section-builder__eyebrow variant-{{ block.eyebrow_variant }}">
+                  {{ block.eyebrow_text }}
+                </div>
+              </div>
+
+            {% elif block.block_type == 'heading' %}
+              <{{ block.heading_level }} class="section-builder__heading align-{{ block.alignment }}">
+                {{ block.heading_text }}
+              </{{ block.heading_level }}>
+
+            {% elif block.block_type == 'description' %}
+              <p class="section-builder__description size-{{ block.description_size }} align-{{ block.alignment }}">
+                {{ block.description_text }}
+              </p>
+
+            {% elif block.block_type == 'button' %}
+              <div class="section-builder__button-wrapper align-{{ block.alignment }}">
+                {% set href = block.button_url.url.href %}
+                {% if block.button_url.url.type is equalto "EMAIL_ADDRESS" %}
+                  {% set href = "mailto:" + href %}
+                {% endif %}
+                <a href="{{ href }}"
+                   class="section-builder__button variant-{{ block.button_variant }} size-{{ block.button_size }}"
+                   {% if block.button_url.open_in_new_tab %}target="_blank"{% endif %}
+                   {% if block.button_url.no_follow %}rel="nofollow"{% endif %}>
+                  {{ block.button_text }}
+                </a>
+              </div>
+
+            {% elif block.block_type == 'richtext' %}
+              <div class="section-builder__richtext align-{{ block.alignment }}">
+                {{ block.richtext_content }}
+              </div>
+
+            {% elif block.block_type == 'feature_list' %}
+              <div class="section-builder__feature-list align-{{ block.alignment }}">
+                {% for feature in block.feature_items %}
+                  <div class="section-builder__feature-item">
+                    <span class="section-builder__feature-icon">
+                      {% if block.feature_style == 'checkmark' %}
+                        ✓
+                      {% else %}
+                        {{ loop.index }}.
+                      {% endif %}
+                    </span>
+                    <div class="section-builder__feature-content">
+                      <p class="section-builder__feature-text">
+                        <span class="section-builder__feature-title">{{ feature.feature_title }}</span><br>
+                        <span class="section-builder__feature-description">{{ feature.feature_description }}</span>
+                      </p>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% if layout == 'three-col' %}
+        {# Right/Third Column - only for 3-column layout #}
+        <div class="section-builder__column" data-content-spacing="{{ content_spacing }}" style="
+          {% if content_spacing == 'none' %}gap: 0;
+          {% elif content_spacing == 'xxsmall' %}gap: var(--space-4, 4px);
+          {% elif content_spacing == 'xsmall' %}gap: var(--space-8, 8px);
+          {% elif content_spacing == 'small' %}gap: var(--space-12, 12px);
+          {% elif content_spacing == 'medium' %}gap: var(--space-16, 16px);
+          {% elif content_spacing == 'large' %}gap: var(--space-24, 24px);
+          {% elif content_spacing == 'xlarge' %}gap: var(--space-32, 32px);
+          {% elif content_spacing == 'xxlarge' %}gap: var(--space-48, 48px);
+          {% elif content_spacing == 'xxxlarge' %}gap: var(--space-64, 64px);
+          {% endif %}
+        ">
+          {% for block in blocks %}
+            {% if block.column == 'right' %}
+              {% if block.block_type == 'eyebrow' %}
+                <div class="section-builder__eyebrow-wrapper align-{{ block.alignment }}">
+                  <div class="section-builder__eyebrow variant-{{ block.eyebrow_variant }}">
+                    {{ block.eyebrow_text }}
+                  </div>
+                </div>
+
+              {% elif block.block_type == 'heading' %}
+                <{{ block.heading_level }} class="section-builder__heading align-{{ block.alignment }}">
+                  {{ block.heading_text }}
+                </{{ block.heading_level }}>
+
+              {% elif block.block_type == 'description' %}
+                <p class="section-builder__description size-{{ block.description_size }} align-{{ block.alignment }}">
+                  {{ block.description_text }}
+                </p>
+
+              {% elif block.block_type == 'button' %}
+                <div class="section-builder__button-wrapper align-{{ block.alignment }}">
+                  {% set href = block.button_url.url.href %}
+                  {% if block.button_url.url.type is equalto "EMAIL_ADDRESS" %}
+                    {% set href = "mailto:" + href %}
+                  {% endif %}
+                  <a href="{{ href }}"
+                     class="section-builder__button variant-{{ block.button_variant }} size-{{ block.button_size }}"
+                     {% if block.button_url.open_in_new_tab %}target="_blank"{% endif %}
+                     {% if block.button_url.no_follow %}rel="nofollow"{% endif %}>
+                    {{ block.button_text }}
+                  </a>
+                </div>
+
+              {% elif block.block_type == 'richtext' %}
+                <div class="section-builder__richtext align-{{ block.alignment }}">
+                  {{ block.richtext_content }}
+                </div>
+
+              {% elif block.block_type == 'feature_list' %}
+                <div class="section-builder__feature-list align-{{ block.alignment }}">
+                  {% for feature in block.feature_items %}
+                    <div class="section-builder__feature-item">
+                      <span class="section-builder__feature-icon">
+                        {% if block.feature_style == 'checkmark' %}
+                          ✓
+                        {% else %}
+                          {{ loop.index }}.
+                        {% endif %}
+                      </span>
+                      <div class="section-builder__feature-content">
+                        <p class="section-builder__feature-text">
+                          <span class="section-builder__feature-title">{{ feature.feature_title }}</span><br>
+                          <span class="section-builder__feature-description">{{ feature.feature_description }}</span>
+                        </p>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
