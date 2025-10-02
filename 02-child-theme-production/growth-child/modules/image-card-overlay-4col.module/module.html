@@ -1,0 +1,265 @@
+<!--
+  templateType: module
+  label: Image Card Overlay 4 Column
+  isAvailableForNewContent: true
+-->
+
+<section class="image-card-4col">
+  <div class="image-card-4col-container">
+    <div class="image-card-4col-grid">
+      {% for card in module.cards %}
+        <div class="image-card-4col-card">
+          <div class="image-card-4col-card-image" style="background-image: url('{{ card.image.src }}');">
+            <div class="image-card-4col-card-overlay">
+              {% if card.badge_text %}
+                <div class="image-card-4col-card-badge">{{ card.badge_text }}</div>
+              {% endif %}
+              {% if card.title %}
+                <h3 class="image-card-4col-card-title">{{ card.title }}</h3>
+              {% endif %}
+              {% if card.description %}
+                <p class="image-card-4col-card-description">{{ card.description }}</p>
+              {% endif %}
+              {% if card.link_url.url.href %}
+                {% set href = card.link_url.url.href %}
+                {% if card.link_url.url.type is equalto "EMAIL_ADDRESS" %}
+                  {% set href = "mailto:" + href %}
+                {% endif %}
+                <a href="{{ href }}" class="image-card-4col-card-link"
+                   {% if card.link_url.open_in_new_tab %}target="_blank"{% endif %}
+                   {% if card.link_url.no_follow %}rel="nofollow"{% endif %}>
+                  {{ card.link_text or "Learn more" }} ↗
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+/* Image Card Overlay 4 Column Module Styles */
+.image-card-4col {
+  position: relative !important;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.image-card-4col-container {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.image-card-4col-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: var(--space-16, 16px);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.image-card-4col-card {
+  position: relative;
+  border-radius: var(--border-radius-md, 8px);
+  overflow: hidden;
+  height: 340px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.image-card-4col-card > .image-card-4col-card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.image-card-4col-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-32, 32px);
+  color: var(--color-text-inverse, #ffffff);
+  text-align: center;
+}
+
+.image-card-4col-card-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--border-radius-md, 8px);
+  padding: var(--space-8, 8px) var(--space-12, 12px);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--font-size-body-small, 14px);
+  font-weight: var(--font-weight-regular, 450);
+  line-height: 1.35;
+  margin-bottom: var(--space-16, 16px);
+  width: fit-content;
+  color: var(--color-text-inverse, #ffffff) !important;
+}
+
+.image-card-4col-card-title {
+  font-family: 'Bricolage Grotesque', var(--font-heading, sans-serif);
+  font-size: 28px;
+  font-weight: 580;
+  line-height: 1.15;
+  margin: 0 0 var(--space-16, 16px) 0;
+  color: var(--color-text-inverse, #ffffff);
+  text-align: center;
+  max-width: 100%;
+}
+
+.image-card-4col-card-description {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--font-size-body-small, 14px);
+  font-weight: var(--font-weight-regular, 450);
+  line-height: 1.35;
+  margin: 0 0 var(--space-16, 16px) 0;
+  color: var(--color-text-inverse, #ffffff);
+  text-align: center;
+  max-width: 100%;
+}
+
+/* Link styles - higher specificity to override global brand link colors */
+[data-brand] .image-card-4col-card-overlay .image-card-4col-card-link,
+[data-brand] .image-card-4col-card-overlay .image-card-4col-card-link:link,
+[data-brand] .image-card-4col-card-overlay .image-card-4col-card-link:visited,
+[data-brand] .image-card-4col-card-overlay .image-card-4col-card-link:active {
+  color: #ffffff !important;
+  background-color: transparent !important;
+  border: none !important;
+  text-decoration: underline;
+  text-underline-position: from-font;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--font-size-body-small, 14px);
+  font-weight: var(--font-weight-regular, 450);
+  line-height: 1.35;
+  padding: 0;
+  display: inline-block;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+[data-brand] .image-card-4col-card-overlay .image-card-4col-card-link:hover,
+[data-brand] .image-card-4col-card-overlay .image-card-4col-card-link:focus {
+  color: #ffffff !important;
+  background-color: transparent !important;
+  opacity: 0.8;
+  transform: translateX(4px);
+}
+
+/* Desktop small - scale down content when cards get narrow */
+@media (max-width: 1280px) and (min-width: 1024px) {
+  .image-card-4col-card {
+    height: 280px;
+  }
+
+  .image-card-4col-card-overlay {
+    padding: 16px;
+  }
+
+  .image-card-4col-card-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+
+  .image-card-4col-card-description {
+    font-size: 11px;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .image-card-4col-card-badge {
+    font-size: 11px;
+    margin-bottom: 8px;
+    padding: 6px 10px;
+  }
+
+  .image-card-4col-card-link {
+    font-size: 11px !important;
+  }
+}
+
+/* Tablet breakpoint - 2x2 grid on larger tablets */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .image-card-4col-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: var(--space-16, 16px);
+  }
+
+  .image-card-4col-card {
+    height: 300px;
+  }
+
+  .image-card-4col-card-overlay {
+    padding: var(--space-24, 24px);
+  }
+
+  .image-card-4col-card-title {
+    font-size: 24px;
+  }
+
+  .image-card-4col-card-description {
+    font-size: 13px;
+  }
+
+  .image-card-4col-card-badge {
+    font-size: 13px;
+  }
+}
+
+/* Mobile breakpoint - stack vertically on 767px and below */
+@media (max-width: 767px) {
+  .image-card-4col-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-16, 16px);
+  }
+
+  .image-card-4col-card {
+    aspect-ratio: 0.8;
+    height: auto;
+  }
+
+  .image-card-4col-card-overlay {
+    padding: var(--space-24, 24px);
+  }
+
+  .image-card-4col-card-title {
+    font-size: 24px;
+    margin-bottom: var(--space-16, 16px);
+  }
+
+  .image-card-4col-card-description {
+    font-size: 14px;
+    margin-bottom: var(--space-16, 16px);
+  }
+
+  .image-card-4col-card-badge {
+    font-size: 14px;
+    margin-bottom: var(--space-16, 16px);
+  }
+}
+</style>

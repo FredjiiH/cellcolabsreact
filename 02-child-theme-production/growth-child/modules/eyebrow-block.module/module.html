@@ -1,0 +1,92 @@
+{% set variant = module.variant %}
+{% set alignment = module.alignment %}
+{% set text = module.text %}
+
+<style>
+  .eyebrow-wrapper {
+    width: 100%;
+    display: flex;
+  }
+
+  /* Alignment options */
+  .eyebrow-wrapper.align-left {
+    justify-content: flex-start;
+  }
+
+  .eyebrow-wrapper.align-left-center {
+    justify-content: flex-start;
+    padding-left: 25%;
+  }
+
+  .eyebrow-wrapper.align-center {
+    justify-content: center;
+  }
+
+  .eyebrow-wrapper.align-right-center {
+    justify-content: flex-end;
+    padding-right: 25%;
+  }
+
+  .eyebrow-wrapper.align-right {
+    justify-content: flex-end;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-8) var(--space-12);
+    border-radius: var(--border-radius-md);
+    font-family: var(--font-body);
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-body-small);
+    line-height: 1.35;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* Variant: Default */
+  .eyebrow.variant-default {
+    background-color: var(--color-gray-900);
+    color: var(--color-text-secondary);
+  }
+
+  /* Variant: Inverted */
+  .eyebrow.variant-inverted {
+    background-color: rgba(22, 22, 22, 0.05);
+    color: var(--color-text-secondary);
+  }
+
+  /* Variant: Glass */
+  .eyebrow.variant-glass {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--color-text-inverse);
+  }
+
+  /* Responsive adjustments for alignment offsets */
+  @media (max-width: 768px) {
+    .eyebrow-wrapper.align-left-center,
+    .eyebrow-wrapper.align-right-center {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .eyebrow-wrapper.align-left-center {
+      justify-content: flex-start;
+      padding-left: 15%;
+    }
+
+    .eyebrow-wrapper.align-right-center {
+      justify-content: flex-end;
+      padding-right: 15%;
+    }
+  }
+</style>
+
+<div class="eyebrow-wrapper align-{{ alignment }}">
+  <div class="eyebrow variant-{{ variant }}">
+    {{ text }}
+  </div>
+</div>

@@ -1,0 +1,84 @@
+[
+  {
+    "id": "cards",
+    "name": "cards",
+    "label": "Image Cards",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 1,
+      "max": 4,
+      "sorting_label_field": "cards.title",
+      "default": 4
+    },
+    "children": [
+      {
+        "id": "title",
+        "name": "title",
+        "label": "Title",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Card Title"
+      },
+      {
+        "id": "description",
+        "name": "description",
+        "label": "Description",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Card description text"
+      },
+      {
+        "id": "badge_text",
+        "name": "badge_text",
+        "label": "Badge Text",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Focus areas"
+      },
+      {
+        "id": "image",
+        "name": "image",
+        "label": "Background Image",
+        "required": false,
+        "locked": false,
+        "type": "image",
+        "default": {
+          "src": "https://cdn2.hubspot.net/hubfs/placeholder-image.jpg",
+          "alt": "Card image"
+        }
+      },
+      {
+        "id": "link_url",
+        "name": "link_url",
+        "label": "Link",
+        "required": false,
+        "locked": false,
+        "type": "link",
+        "supported_types": ["EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG"],
+        "default": {
+          "url": {
+            "content_id": null,
+            "type": "EXTERNAL",
+            "href": ""
+          },
+          "open_in_new_tab": false,
+          "no_follow": false
+        }
+      },
+      {
+        "id": "link_text",
+        "name": "link_text",
+        "label": "Link Text",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Learn more"
+      }
+    ],
+    "type": "group"
+  }
+]

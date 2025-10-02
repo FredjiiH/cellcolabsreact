@@ -1,0 +1,11 @@
+{
+  "label": "Image Card Overlay 4 Column",
+  "css_assets": [],
+  "external_js": [],
+  "host_template_types": ["PAGE", "BLOG_LISTING", "BLOG_POST"],
+  "js_assets": [],
+  "other_assets": [],
+  "smart_type": "NOT_SMART",
+  "tags": [],
+  "is_available_for_new_content": true
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "text",
+    "name": "text",
+    "label": "Eyebrow Text",
+    "required": true,
+    "locked": false,
+    "type": "text",
+    "default": "Eyebrow"
+  },
+  {
+    "id": "variant",
+    "name": "variant",
+    "label": "Variant",
+    "required": true,
+    "locked": false,
+    "type": "choice",
+    "choices": [
+      ["default", "Default (Light Gray)"],
+      ["inverted", "Inverted (Semi-transparent Dark)"],
+      ["glass", "Glass (Frosted Glass Effect)"]
+    ],
+    "default": "default"
+  },
+  {
+    "id": "alignment",
+    "name": "alignment",
+    "label": "Alignment",
+    "required": true,
+    "locked": false,
+    "type": "choice",
+    "choices": [
+      ["left", "Left"],
+      ["left-center", "Left-Center"],
+      ["center", "Center"],
+      ["right-center", "Right-Center"],
+      ["right", "Right"]
+    ],
+    "default": "left"
+  }
+]
