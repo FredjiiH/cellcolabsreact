@@ -1,0 +1,176 @@
+<!--
+  templateType: module
+  label: Accordion
+  isAvailableForNewContent: true
+-->
+
+<style>
+  /* Accordion Module - Uses Brand CSS Variables */
+
+  .accordion {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8, 8px);
+    width: 100%;
+  }
+
+  .accordion__item {
+    width: 100%;
+  }
+
+  .accordion__header {
+    background-color: var(--color-gray-900, #F4F4F4);
+    border: none;
+    border-radius: var(--border-radius-md, 8px);
+    padding: var(--space-12, 12px) var(--space-16, 16px) var(--space-12, 12px) var(--space-24, 24px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-align: left;
+  }
+
+  .accordion__header:hover {
+    background-color: var(--color-gray-800, #E0E0E0);
+  }
+
+  .accordion__title {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: 550;
+    line-height: 1.15;
+    color: var(--color-text-primary, #161616);
+    margin: 0;
+    flex: 1;
+  }
+
+  .accordion__icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: var(--space-8, 8px);
+  }
+
+  .accordion__icon svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+
+  .accordion__icon--plus {
+    display: block;
+  }
+
+  .accordion__icon--minus {
+    display: none;
+  }
+
+  .accordion__item.is-open .accordion__icon--plus {
+    display: none;
+  }
+
+  .accordion__item.is-open .accordion__icon--minus {
+    display: block;
+  }
+
+  .accordion__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .accordion__item.is-open .accordion__content {
+    max-height: 2000px; /* Large enough for most content */
+  }
+
+  .accordion__content-inner {
+    padding: var(--space-16, 16px) var(--space-24, 24px);
+  }
+
+  .accordion__content-inner p {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    line-height: 1.5;
+    color: var(--color-text-primary, #161616);
+    margin: 0 0 var(--space-12, 12px) 0;
+  }
+
+  .accordion__content-inner p:last-child {
+    margin-bottom: 0;
+  }
+</style>
+
+<div class="accordion" data-allow-multiple="{{ module.allow_multiple_open }}">
+  {% for item in module.accordion_items %}
+    <div class="accordion__item{% if loop.first and module.first_item_open %} is-open{% endif %}" data-accordion-item>
+      <button class="accordion__header" aria-expanded="{% if loop.first and module.first_item_open %}true{% else %}false{% endif %}" data-accordion-header>
+        <div class="accordion__title">{{ item.title }}</div>
+        <div class="accordion__icon">
+          <!-- Plus Icon (collapsed) -->
+          <svg class="accordion__icon--plus" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="3" cy="9" r="1.5" fill="#161616"/>
+            <circle cx="9" cy="3" r="1.5" fill="#161616"/>
+            <circle cx="9" cy="9" r="1.5" fill="#161616"/>
+            <circle cx="9" cy="15" r="1.5" fill="#161616"/>
+            <circle cx="15" cy="9" r="1.5" fill="#161616"/>
+          </svg>
+          <!-- Minus Icon (expanded) -->
+          <svg class="accordion__icon--minus" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="3" cy="9" r="1.5" fill="#161616"/>
+            <circle cx="9" cy="9" r="1.5" fill="#161616"/>
+            <circle cx="15" cy="9" r="1.5" fill="#161616"/>
+          </svg>
+        </div>
+      </button>
+      <div class="accordion__content" data-accordion-content>
+        <div class="accordion__content-inner">
+          {{ item.content }}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<script>
+  (function() {
+    const accordions = document.querySelectorAll('.accordion');
+
+    accordions.forEach(accordion => {
+      const allowMultiple = accordion.dataset.allowMultiple === 'true';
+      const items = accordion.querySelectorAll('[data-accordion-item]');
+
+      items.forEach(item => {
+        const header = item.querySelector('[data-accordion-header]');
+        const content = item.querySelector('[data-accordion-content]');
+
+        header.addEventListener('click', function() {
+          const isOpen = item.classList.contains('is-open');
+
+          // If not allowing multiple open, close all others
+          if (!allowMultiple && !isOpen) {
+            items.forEach(otherItem => {
+              if (otherItem !== item) {
+                otherItem.classList.remove('is-open');
+                otherItem.querySelector('[data-accordion-header]').setAttribute('aria-expanded', 'false');
+              }
+            });
+          }
+
+          // Toggle current item
+          if (isOpen) {
+            item.classList.remove('is-open');
+            header.setAttribute('aria-expanded', 'false');
+          } else {
+            item.classList.add('is-open');
+            header.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+    });
+  })();
+</script>

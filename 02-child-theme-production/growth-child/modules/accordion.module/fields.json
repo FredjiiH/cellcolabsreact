@@ -1,0 +1,54 @@
+[
+  {
+    "id": "accordion_items",
+    "name": "accordion_items",
+    "label": "Accordion Items",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 1,
+      "max": 20,
+      "default": 3
+    },
+    "type": "group",
+    "children": [
+      {
+        "id": "title",
+        "name": "title",
+        "label": "Title",
+        "required": true,
+        "locked": false,
+        "type": "text",
+        "default": "Accordion Item"
+      },
+      {
+        "id": "content",
+        "name": "content",
+        "label": "Content",
+        "required": false,
+        "locked": false,
+        "type": "richtext",
+        "default": "<p>Accordion content goes here.</p>"
+      }
+    ]
+  },
+  {
+    "id": "allow_multiple_open",
+    "name": "allow_multiple_open",
+    "label": "Allow Multiple Items Open",
+    "required": false,
+    "locked": false,
+    "type": "boolean",
+    "default": false,
+    "help_text": "If enabled, multiple accordion items can be open at once. If disabled, opening one closes others."
+  },
+  {
+    "id": "first_item_open",
+    "name": "first_item_open",
+    "label": "First Item Open by Default",
+    "required": false,
+    "locked": false,
+    "type": "boolean",
+    "default": false
+  }
+]

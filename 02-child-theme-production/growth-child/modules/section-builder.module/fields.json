@@ -138,6 +138,7 @@
         "choices": [
           ["eyebrow", "Eyebrow"],
           ["heading", "Heading"],
+          ["subheader", "Subheader"],
           ["description", "Description"],
           ["button", "Button"],
           ["richtext", "Rich Text"],
@@ -226,6 +227,8 @@
         "locked": false,
         "type": "choice",
         "choices": [
+          ["display", "Display (Hero)"],
+          ["h1", "H1"],
           ["h2", "H2"],
           ["h3", "H3"],
           ["h4", "H4"]
@@ -265,6 +268,39 @@
         "visibility": {
           "controlling_field": "block_type",
           "controlling_value_regex": "description"
+        }
+      },
+      {
+        "id": "subheader_text",
+        "name": "subheader_text",
+        "label": "Subheader Text",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Subheader text goes here.",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "subheader"
+        }
+      },
+      {
+        "id": "subheader_max_width",
+        "name": "subheader_max_width",
+        "label": "Subheader Max Width",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["none", "None (Full Width)"],
+          ["narrow", "Narrow (480px)"],
+          ["medium", "Medium (640px)"],
+          ["wide", "Wide (800px)"]
+        ],
+        "default": "narrow",
+        "help_text": "Constrain width for better readability (centered)",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "subheader"
         }
       },
       {

@@ -37,27 +37,38 @@
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.7;
 
-  /* Responsive Font Sizes - Desktop */
+  /* Responsive Font Sizes - Desktop (1024px+) */
   --font-size-display-desktop: 5rem;      /* 80px */
   --font-size-h1-desktop: 3.5rem;         /* 56px */
   --font-size-h2-desktop: 3rem;           /* 48px */
   --font-size-h3-desktop: 2.25rem;        /* 36px */
-  --font-size-h4-desktop: 1.5rem;         /* 24px */
+  --font-size-h4-desktop: 1rem;           /* 16px */
   --font-size-body-large-desktop: 1.125rem; /* 18px */
   --font-size-body-medium-desktop: 1rem;    /* 16px */
   --font-size-body-small-desktop: 0.875rem; /* 14px */
   --font-size-button-desktop: 1rem;         /* 16px */
 
-  /* Responsive Font Sizes - Mobile */
+  /* Responsive Font Sizes - Tablet (768px-1023px) */
+  --font-size-display-tablet: 3rem;       /* 48px */
+  --font-size-h1-tablet: 2.25rem;         /* 36px */
+  --font-size-h2-tablet: 2rem;            /* 32px */
+  --font-size-h3-tablet: 1.75rem;         /* 28px */
+  --font-size-h4-tablet: 1rem;            /* 16px */
+  --font-size-body-large-tablet: 1rem;    /* 16px */
+  --font-size-body-medium-tablet: 1rem;   /* 16px */
+  --font-size-body-small-tablet: 0.875rem; /* 14px */
+  --font-size-button-tablet: 1rem;        /* 16px */
+
+  /* Responsive Font Sizes - Mobile (767px and below) */
   --font-size-display-mobile: 2.5rem;     /* 40px */
   --font-size-h1-mobile: 2.25rem;         /* 36px */
   --font-size-h2-mobile: 2rem;            /* 32px */
   --font-size-h3-mobile: 1.75rem;         /* 28px */
-  --font-size-h4-mobile: 1.25rem;         /* 20px */
-  --font-size-body-large-mobile: 1.125rem; /* 18px */
-  --font-size-body-medium-mobile: 1rem;    /* 16px */
+  --font-size-h4-mobile: 1rem;            /* 16px */
+  --font-size-body-large-mobile: 1rem;    /* 16px */
+  --font-size-body-medium-mobile: 1rem;   /* 16px */
   --font-size-body-small-mobile: 0.875rem; /* 14px */
-  --font-size-button-mobile: 1rem;         /* 16px */
+  --font-size-button-mobile: 1rem;        /* 16px */
 
   /* Active Font Sizes (Mobile First) */
   --font-size-display: var(--font-size-display-mobile);
@@ -94,6 +105,21 @@
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Tablet Font Sizes */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --font-size-display: var(--font-size-display-tablet);
+    --font-size-h1: var(--font-size-h1-tablet);
+    --font-size-h2: var(--font-size-h2-tablet);
+    --font-size-h3: var(--font-size-h3-tablet);
+    --font-size-h4: var(--font-size-h4-tablet);
+    --font-size-body-large: var(--font-size-body-large-tablet);
+    --font-size-body: var(--font-size-body-medium-tablet);
+    --font-size-body-small: var(--font-size-body-small-tablet);
+    --font-size-button: var(--font-size-button-tablet);
+  }
 }
 
 /* Desktop Font Sizes */
