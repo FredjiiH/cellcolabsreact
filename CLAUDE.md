@@ -152,6 +152,12 @@ The Section Builder is a flexible multi-column layout module supporting 1-3 colu
    - Supports title + description per item
    - Matches Content Checklist Block styling
 
+8. **Accordion** - Expandable/collapsible content sections
+   - Supports multiple items with title + rich text content
+   - Options: Allow multiple open, First item open by default
+   - Smooth animations with rotating chevron icons
+   - Fully responsive and accessible
+
 ### Spacing Controls
 
 **Content Spacing** (between blocks within columns):
@@ -186,3 +192,43 @@ Blocks:
 - Instance-specific styles (background, padding) use inline styles to prevent inheritance
 - Each block has alignment options (left, center, right)
 - Columns stack vertically on mobile (767px and below)
+
+## Process Steps Module
+
+A scroll-activated module displaying a step-by-step process with numbered circles and connecting vertical line.
+
+### Layout Structure
+- **Desktop/Tablet (768px+):** Two-column layout
+  - Left: Sticky header with eyebrow, heading, and subheader
+  - Right: Steps with numbered circles and descriptions
+- **Mobile (767px and below):** Single column, stacked layout
+  - Header content at top
+  - Steps below with smaller circles
+
+### Features
+- **Numbered Circles:** Auto-numbered (1-5+) with fill animation
+- **Connecting Line:** Vertical line connects all circles, stops at last circle top
+- **Scroll Effects:** Circles fill and text activates as user scrolls
+- **Sticky Header:** Left column header sticks at 128px from top (desktop/tablet)
+- **Brand Variables:** All typography and spacing uses CSS variables
+
+### Fields
+- **Eyebrow Text:** Optional label (e.g., "Process")
+- **Heading:** Main section heading (H2)
+- **Subheader:** Supporting text (Body Large)
+- **Steps (repeater, 1-10 items):**
+  - Step Title (H3)
+  - Step Description (Rich text)
+
+### Responsive Behavior
+- Desktop: Header sticks at 128px, circles 64px × 64px
+- Tablet: Header sticks at 64px, circles 64px × 64px
+- Mobile: Circles 48px × 48px, vertical stacking
+
+### Known Issues / TODO
+- **Desktop:** Circle activation timing needs adjustment (should fill earlier, before user finishes reading)
+- **Desktop:** Circles should stay filled after activation (only unfill when scrolling back up)
+- **Desktop:** Progressive line fill needed (line should fill as user scrolls to point to next step)
+- **Mobile:** Header (eyebrow + heading + subheader) needs to stick together
+- **Mobile:** Circle activation timing needs adjustment
+- **Mobile:** Same progressive effects as desktop needed

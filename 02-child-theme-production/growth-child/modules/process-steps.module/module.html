@@ -1,0 +1,391 @@
+<!--
+  templateType: module
+  label: Process Steps
+  isAvailableForNewContent: true
+-->
+
+<style>
+  /* Process Steps Module - Uses Brand CSS Variables */
+
+  .process-steps {
+    display: flex;
+    gap: var(--space-16, 16px);
+    width: 100%;
+    max-width: var(--content-max-width, 1400px);
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  /* Left Column - Sticky Header */
+  .process-steps__header {
+    flex: 0 0 calc(50% - 8px);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-32, 32px);
+    padding-top: 128px;
+    padding-bottom: 0;
+  }
+
+  .process-steps__header-sticky {
+    position: sticky;
+    top: 128px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16, 16px);
+  }
+
+  .process-steps__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-8, 8px) var(--space-12, 12px);
+    border-radius: var(--border-radius-md, 8px);
+    background-color: var(--color-gray-900, #F4F4F4);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-weight: var(--font-weight-regular, 450);
+    font-size: var(--font-size-body-small, 14px);
+    line-height: 1.35;
+    color: var(--color-text-secondary, #525252);
+    text-align: center;
+    white-space: nowrap;
+    width: fit-content;
+  }
+
+  .process-steps__heading {
+    font-family: var(--font-heading, 'Inter', sans-serif);
+    font-size: var(--font-size-h2, 3rem);
+    font-weight: var(--font-weight-medium, 500);
+    line-height: var(--line-height-tight, 1.15);
+    color: var(--color-text-primary, #161616);
+    margin: 0;
+  }
+
+  .process-steps__subheader {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body-large, 18px);
+    font-weight: var(--font-weight-medium, 500);
+    line-height: 1.35;
+    color: var(--color-text-secondary, #525252);
+    margin: 0;
+  }
+
+  /* Right Column - Steps */
+  .process-steps__content {
+    flex: 0 0 calc(50% - 8px);
+    display: flex;
+    flex-direction: column;
+    padding-top: 128px;
+    padding-bottom: 128px;
+    position: relative;
+  }
+
+  /* Continuous vertical line behind all steps */
+  .process-steps__content::before {
+    content: '';
+    position: absolute;
+    left: 32px;
+    top: 192px;
+    width: 1px;
+    height: var(--line-height, 500px);
+    background-color: var(--color-gray-100, #262626);
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+
+  .process-steps__step {
+    display: flex;
+    gap: var(--space-32, 32px);
+    width: 100%;
+    margin-bottom: 96px;
+  }
+
+  .process-steps__step:last-child {
+    margin-bottom: 0;
+  }
+
+  .process-steps__step-number-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .process-steps__step-number {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 1px solid var(--color-gray-100, #262626);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading, 'Inter', sans-serif);
+    font-size: var(--font-size-h3, 1.75rem);
+    font-weight: var(--font-weight-medium, 500);
+    line-height: var(--line-height-tight, 1.15);
+    color: var(--color-text-primary, #161616);
+    background-color: var(--color-bg-primary, #FFFFFF);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 2;
+    flex-shrink: 0;
+  }
+
+  /* Number fill effect */
+  .process-steps__step-number::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0%;
+    background-color: var(--color-primary, #4F65BE);
+    transition: height 0.6s ease;
+    z-index: 0;
+  }
+
+  .process-steps__step-number-text {
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease;
+  }
+
+  .process-steps__step.is-active .process-steps__step-number::before {
+    height: 100%;
+  }
+
+  .process-steps__step.is-active .process-steps__step-number {
+    border-color: var(--color-primary, #4F65BE);
+  }
+
+  .process-steps__step.is-active .process-steps__step-number-text {
+    color: var(--color-white, #FFFFFF);
+  }
+
+
+  .process-steps__step-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8, 8px);
+    padding-bottom: 0;
+    opacity: 0.4;
+    transition: opacity 0.6s ease;
+  }
+
+  .process-steps__step.is-active .process-steps__step-details {
+    opacity: 1;
+  }
+
+  .process-steps__step-title {
+    font-family: var(--font-heading, 'Inter', sans-serif);
+    font-size: var(--font-size-h3, 1.75rem);
+    font-weight: var(--font-weight-medium, 500);
+    line-height: var(--line-height-tight, 1.15);
+    color: var(--color-text-primary, #161616);
+    margin: 0;
+  }
+
+  .process-steps__step-description {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 1rem);
+    font-weight: var(--font-weight-regular, 450);
+    line-height: var(--line-height-normal, 1.5);
+    color: var(--color-text-secondary, #525252);
+    margin: 0;
+  }
+
+  .process-steps__step-description p {
+    margin: 0 0 var(--space-12, 12px) 0;
+  }
+
+  .process-steps__step-description p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Mobile Layout (767px and below) */
+  @media (max-width: 767px) {
+    .process-steps {
+      flex-direction: column;
+      gap: var(--space-32, 32px);
+      padding: var(--space-32, 32px) 0;
+    }
+
+    .process-steps__header {
+      flex: none;
+      padding-top: 0;
+    }
+
+    .process-steps__header-sticky {
+      position: sticky;
+      top: 0;
+      background-color: var(--color-bg-primary, #FFFFFF);
+      padding: var(--space-16, 16px) 0;
+      z-index: 10;
+    }
+
+    .process-steps__content {
+      flex: none;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .process-steps__content::before {
+      left: 24px;
+      top: 48px;
+    }
+
+    .process-steps__step {
+      margin-bottom: 64px;
+    }
+
+    .process-steps__step-number {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  /* Tablet Layout (768px-1023px) */
+  @media (max-width: 1023px) and (min-width: 768px) {
+    .process-steps__header {
+      padding-top: 64px;
+    }
+
+    .process-steps__header-sticky {
+      top: 64px;
+    }
+
+    .process-steps__content {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+
+    .process-steps__content::before {
+      top: 128px;
+    }
+
+    .process-steps__step {
+      margin-bottom: 80px;
+    }
+  }
+</style>
+
+<div class="process-steps">
+  <!-- Left Column - Sticky Header -->
+  <div class="process-steps__header">
+    <div class="process-steps__header-sticky">
+      {% if module.eyebrow_text %}
+        <div class="process-steps__eyebrow">{{ module.eyebrow_text }}</div>
+      {% endif %}
+      {% if module.heading_text %}
+        <h2 class="process-steps__heading">{{ module.heading_text }}</h2>
+      {% endif %}
+      {% if module.subheader_text %}
+        <p class="process-steps__subheader">{{ module.subheader_text }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Right Column - Steps -->
+  <div class="process-steps__content" data-step-count="{{ module.steps|length }}">
+    {% for step in module.steps %}
+      <div class="process-steps__step" data-step-index="{{ loop.index0 }}">
+        <div class="process-steps__step-number-container">
+          <div class="process-steps__step-number">
+            <span class="process-steps__step-number-text">{{ loop.index }}</span>
+          </div>
+          {% if not loop.last %}
+            <div class="process-steps__step-line"></div>
+          {% endif %}
+        </div>
+        <div class="process-steps__step-details">
+          {% if step.step_title %}
+            <h3 class="process-steps__step-title">{{ step.step_title }}</h3>
+          {% endif %}
+          {% if step.step_description %}
+            <div class="process-steps__step-description">{{ step.step_description }}</div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  (function() {
+    function initProcessSteps() {
+      const steps = document.querySelectorAll('.process-steps__step');
+      if (steps.length === 0) return;
+
+      // Set the line height dynamically to stop at last circle top
+      function setLineHeight() {
+        const content = document.querySelector('.process-steps__content');
+        if (!content || steps.length === 0) return;
+
+        const lastStep = steps[steps.length - 1];
+        const lastCircle = lastStep.querySelector('.process-steps__step-number');
+        if (!lastCircle) return;
+
+        const contentRect = content.getBoundingClientRect();
+        const lastCircleRect = lastCircle.getBoundingClientRect();
+
+        // Determine line top offset based on breakpoint
+        const isMobile = window.innerWidth <= 767;
+        const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1023;
+        const lineTopOffset = isMobile ? 48 : (isTablet ? 128 : 192);
+
+        // Calculate distance from content top to last circle top, minus the line's top offset
+        const lineHeight = (lastCircleRect.top - contentRect.top - lineTopOffset);
+        content.style.setProperty('--line-height', lineHeight + 'px');
+      }
+
+      function checkStepActivation() {
+        const windowHeight = window.innerHeight;
+        const isMobile = window.innerWidth <= 767;
+        const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1023;
+
+        // Trigger point: top of viewport for desktop/tablet (when header sticks),
+        // slightly below for mobile to account for sticky header
+        const triggerPoint = isMobile ? 100 : 128;
+
+        steps.forEach((step, index) => {
+          const circle = step.querySelector('.process-steps__step-number');
+          if (!circle) return;
+
+          const circleRect = circle.getBoundingClientRect();
+          const circleTop = circleRect.top;
+          const circleBottom = circleRect.bottom;
+
+          // Activate when circle top reaches trigger point
+          // Deactivate when circle bottom passes trigger point (on the way out)
+          if (circleTop <= triggerPoint && circleBottom > triggerPoint) {
+            step.classList.add('is-active');
+          } else {
+            step.classList.remove('is-active');
+          }
+        });
+      }
+
+      // Set line height
+      setLineHeight();
+      window.addEventListener('resize', setLineHeight);
+
+      // Run on scroll
+      window.addEventListener('scroll', checkStepActivation);
+
+      // Run on load
+      checkStepActivation();
+
+      // Run after a short delay to ensure layout is settled
+      setTimeout(checkStepActivation, 100);
+      setTimeout(setLineHeight, 100);
+    }
+
+    // Initialize on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initProcessSteps);
+    } else {
+      initProcessSteps();
+    }
+  })();
+</script>

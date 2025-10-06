@@ -12,17 +12,29 @@
     flex-direction: column;
     gap: var(--space-8, 8px);
     width: 100%;
+    max-width: 696px;
+    margin: 0 auto;
+  }
+
+  /* Full width on tablet and mobile */
+  @media (max-width: 1023px) {
+    .accordion {
+      max-width: none;
+    }
   }
 
   .accordion__item {
     width: 100%;
   }
 
-  .accordion__header {
-    background-color: var(--color-gray-900, #F4F4F4);
-    border: none;
-    border-radius: var(--border-radius-md, 8px);
-    padding: var(--space-12, 12px) var(--space-16, 16px) var(--space-12, 12px) var(--space-24, 24px);
+  .accordion__header,
+  button.accordion__header,
+  .accordion button.accordion__header {
+    background-color: var(--color-gray-900, #F4F4F4) !important;
+    background-image: none !important;
+    border: none !important;
+    border-radius: var(--border-radius-md, 8px) !important;
+    padding: var(--space-12, 12px) var(--space-16, 16px) var(--space-12, 12px) var(--space-24, 24px) !important;
     width: 100%;
     display: flex;
     align-items: center;
@@ -32,8 +44,11 @@
     text-align: left;
   }
 
-  .accordion__header:hover {
-    background-color: var(--color-gray-800, #E0E0E0);
+  .accordion__header:hover,
+  button.accordion__header:hover,
+  .accordion button.accordion__header:hover {
+    background-color: var(--color-gray-800, #E0E0E0) !important;
+    background-image: none !important;
   }
 
   .accordion__title {
@@ -63,19 +78,19 @@
   }
 
   .accordion__icon--plus {
-    display: block;
+    display: block !important;
   }
 
   .accordion__icon--minus {
-    display: none;
+    display: none !important;
   }
 
   .accordion__item.is-open .accordion__icon--plus {
-    display: none;
+    display: none !important;
   }
 
   .accordion__item.is-open .accordion__icon--minus {
-    display: block;
+    display: block !important;
   }
 
   .accordion__content {
@@ -111,7 +126,7 @@
       <button class="accordion__header" aria-expanded="{% if loop.first and module.first_item_open %}true{% else %}false{% endif %}" data-accordion-header>
         <div class="accordion__title">{{ item.title }}</div>
         <div class="accordion__icon">
-          <!-- Plus Icon (collapsed) -->
+          <!-- Plus Icon (collapsed) - 5-dot cross pattern -->
           <svg class="accordion__icon--plus" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="3" cy="9" r="1.5" fill="#161616"/>
             <circle cx="9" cy="3" r="1.5" fill="#161616"/>
@@ -119,7 +134,7 @@
             <circle cx="9" cy="15" r="1.5" fill="#161616"/>
             <circle cx="15" cy="9" r="1.5" fill="#161616"/>
           </svg>
-          <!-- Minus Icon (expanded) -->
+          <!-- Minus Icon (expanded) - 3-dot horizontal line -->
           <svg class="accordion__icon--minus" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="3" cy="9" r="1.5" fill="#161616"/>
             <circle cx="9" cy="9" r="1.5" fill="#161616"/>

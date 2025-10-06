@@ -1,0 +1,62 @@
+[
+  {
+    "id": "eyebrow_text",
+    "name": "eyebrow_text",
+    "label": "Eyebrow Text",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "default": "Process"
+  },
+  {
+    "id": "heading_text",
+    "name": "heading_text",
+    "label": "Heading",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "default": "Step into the trial"
+  },
+  {
+    "id": "subheader_text",
+    "name": "subheader_text",
+    "label": "Subheader",
+    "required": false,
+    "locked": false,
+    "type": "text",
+    "default": "A clear and supportive process designed with your safety in mind"
+  },
+  {
+    "id": "steps",
+    "name": "steps",
+    "label": "Process Steps",
+    "required": false,
+    "locked": false,
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 10,
+      "default": 5
+    },
+    "children": [
+      {
+        "id": "step_title",
+        "name": "step_title",
+        "label": "Step Title",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "Step title"
+      },
+      {
+        "id": "step_description",
+        "name": "step_description",
+        "label": "Step Description",
+        "required": false,
+        "locked": false,
+        "type": "richtext",
+        "default": "<p>Step description goes here.</p>"
+      }
+    ]
+  }
+]

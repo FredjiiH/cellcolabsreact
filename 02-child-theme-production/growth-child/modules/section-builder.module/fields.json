@@ -142,7 +142,8 @@
           ["description", "Description"],
           ["button", "Button"],
           ["richtext", "Rich Text"],
-          ["feature_list", "Feature List"]
+          ["feature_list", "Feature List"],
+          ["accordion", "Accordion"]
         ],
         "default": "heading"
       },
@@ -171,7 +172,9 @@
         "choices": [
           ["left", "Left"],
           ["center", "Center"],
-          ["right", "Right"]
+          ["right", "Right"],
+          ["center-left", "Center-Left (aligns with constrained subheader)"],
+          ["center-right", "Center-Right (aligns with constrained subheader)"]
         ],
         "default": "left"
       },
@@ -292,9 +295,9 @@
         "type": "choice",
         "choices": [
           ["none", "None (Full Width)"],
-          ["narrow", "Narrow (480px)"],
-          ["medium", "Medium (640px)"],
-          ["wide", "Wide (800px)"]
+          ["narrow", "Narrow (696px)"],
+          ["medium", "Medium (800px)"],
+          ["wide", "Wide (960px)"]
         ],
         "default": "narrow",
         "help_text": "Constrain width for better readability (centered)",
@@ -436,6 +439,70 @@
         "visibility": {
           "controlling_field": "block_type",
           "controlling_value_regex": "feature_list"
+        }
+      },
+      {
+        "id": "accordion_items",
+        "name": "accordion_items",
+        "label": "Accordion Items",
+        "required": false,
+        "locked": false,
+        "type": "group",
+        "occurrence": {
+          "min": 0,
+          "max": 10,
+          "default": 3
+        },
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "accordion"
+        },
+        "children": [
+          {
+            "id": "accordion_title",
+            "name": "accordion_title",
+            "label": "Title",
+            "required": false,
+            "locked": false,
+            "type": "text",
+            "default": "Accordion item"
+          },
+          {
+            "id": "accordion_content",
+            "name": "accordion_content",
+            "label": "Content",
+            "required": false,
+            "locked": false,
+            "type": "richtext",
+            "default": "<p>Accordion content goes here.</p>"
+          }
+        ]
+      },
+      {
+        "id": "accordion_allow_multiple",
+        "name": "accordion_allow_multiple",
+        "label": "Allow Multiple Open",
+        "required": false,
+        "locked": false,
+        "type": "boolean",
+        "default": false,
+        "help_text": "Allow multiple accordion items to be open at once",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "accordion"
+        }
+      },
+      {
+        "id": "accordion_first_open",
+        "name": "accordion_first_open",
+        "label": "First Item Open by Default",
+        "required": false,
+        "locked": false,
+        "type": "boolean",
+        "default": false,
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "accordion"
         }
       }
     ]

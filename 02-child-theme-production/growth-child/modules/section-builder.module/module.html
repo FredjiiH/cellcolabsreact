@@ -74,6 +74,8 @@
     justify-content: flex-end;
   }
 
+  /* Center-left and center-right are only for headings - no default styles here */
+
   /* Eyebrow Component - Uses Brand Variables */
   .section-builder__eyebrow-wrapper {
     width: 100%;
@@ -119,6 +121,24 @@
     font-weight: var(--font-weight-medium, 580);
   }
 
+  /* Center-left alignment for headings - matches subheader narrow width (696px) */
+  .section-builder__heading.align-center-left {
+    width: 100% !important;
+    max-width: 696px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left !important;
+  }
+
+  /* Center-right alignment for headings - matches subheader narrow width (696px) */
+  .section-builder__heading.align-center-right {
+    width: 100% !important;
+    max-width: 696px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: right !important;
+  }
+
   .section-builder__heading.level-display {
     font-size: var(--font-size-display);
     line-height: var(--line-height-tight, 1.15);
@@ -156,19 +176,19 @@
   }
 
   .section-builder__subheader.width-narrow {
-    max-width: 480px;
+    max-width: 696px;
     margin-left: auto;
     margin-right: auto;
   }
 
   .section-builder__subheader.width-medium {
-    max-width: 640px;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
   }
 
   .section-builder__subheader.width-wide {
-    max-width: 800px;
+    max-width: 960px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -331,6 +351,124 @@
     .section-builder__feature-title {
       font-weight: var(--font-weight-semibold, 580);
     }
+  }
+
+  /* Accordion Styles - Same as standalone accordion module */
+  .section-builder__accordion {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8, 8px);
+    width: 100%;
+  }
+
+  /* Max width only in single column layout on desktop */
+  .section-builder__single .section-builder__accordion {
+    max-width: 696px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Full width in multi-column layouts and on tablet/mobile */
+  @media (max-width: 1023px) {
+    .section-builder__single .section-builder__accordion {
+      max-width: none;
+    }
+  }
+
+  .section-builder__accordion-item {
+    width: 100%;
+  }
+
+  .section-builder__accordion-header,
+  button.section-builder__accordion-header,
+  .section-builder__accordion button.section-builder__accordion-header {
+    background-color: var(--color-gray-900, #F4F4F4) !important;
+    background-image: none !important;
+    border: none !important;
+    border-radius: var(--border-radius-md, 8px) !important;
+    padding: var(--space-12, 12px) var(--space-16, 16px) var(--space-12, 12px) var(--space-24, 24px) !important;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-align: left;
+  }
+
+  .section-builder__accordion-header:hover,
+  button.section-builder__accordion-header:hover,
+  .section-builder__accordion button.section-builder__accordion-header:hover {
+    background-color: var(--color-gray-800, #E0E0E0) !important;
+    background-image: none !important;
+  }
+
+  .section-builder__accordion-title {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: 550;
+    line-height: 1.15;
+    color: var(--color-text-primary, #161616);
+    margin: 0;
+    flex: 1;
+  }
+
+  .section-builder__accordion-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: var(--space-8, 8px);
+  }
+
+  .section-builder__accordion-icon svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+
+  .section-builder__accordion-icon--plus {
+    display: block !important;
+  }
+
+  .section-builder__accordion-icon--minus {
+    display: none !important;
+  }
+
+  .section-builder__accordion-item.is-open .section-builder__accordion-icon--plus {
+    display: none !important;
+  }
+
+  .section-builder__accordion-item.is-open .section-builder__accordion-icon--minus {
+    display: block !important;
+  }
+
+  .section-builder__accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .section-builder__accordion-item.is-open .section-builder__accordion-content {
+    max-height: 2000px;
+  }
+
+  .section-builder__accordion-content-inner {
+    padding: var(--space-16, 16px) var(--space-24, 24px);
+  }
+
+  .section-builder__accordion-content-inner p {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    line-height: 1.5;
+    color: var(--color-text-primary, #161616);
+    margin: 0 0 var(--space-12, 12px) 0;
+  }
+
+  .section-builder__accordion-content-inner p:last-child {
+    margin-bottom: 0;
   }
 
   /* Tablet responsive padding (768-1023px) */
@@ -588,6 +726,36 @@
               </div>
             {% endfor %}
           </div>
+
+        {% elif block.block_type == 'accordion' %}
+          <div class="section-builder__accordion align-{{ block.alignment }}" data-allow-multiple="{{ block.accordion_allow_multiple }}" data-accordion-container>
+            {% for item in block.accordion_items %}
+              <div class="section-builder__accordion-item{% if loop.first and block.accordion_first_open %} is-open{% endif %}" data-accordion-item>
+                <button class="section-builder__accordion-header" aria-expanded="{% if loop.first and block.accordion_first_open %}true{% else %}false{% endif %}" data-accordion-header>
+                  <div class="section-builder__accordion-title">{{ item.accordion_title }}</div>
+                  <div class="section-builder__accordion-icon">
+                    <svg class="section-builder__accordion-icon--plus" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="3" cy="9" r="1.5" fill="#161616"/>
+                      <circle cx="9" cy="3" r="1.5" fill="#161616"/>
+                      <circle cx="9" cy="9" r="1.5" fill="#161616"/>
+                      <circle cx="9" cy="15" r="1.5" fill="#161616"/>
+                      <circle cx="15" cy="9" r="1.5" fill="#161616"/>
+                    </svg>
+                    <svg class="section-builder__accordion-icon--minus" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="3" cy="9" r="1.5" fill="#161616"/>
+                      <circle cx="9" cy="9" r="1.5" fill="#161616"/>
+                      <circle cx="15" cy="9" r="1.5" fill="#161616"/>
+                    </svg>
+                  </div>
+                </button>
+                <div class="section-builder__accordion-content" data-accordion-content>
+                  <div class="section-builder__accordion-content-inner">
+                    {{ item.accordion_content }}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
         {% endif %}
       {% endfor %}
     </div>
@@ -688,6 +856,36 @@
                   </div>
                 {% endfor %}
               </div>
+
+            {% elif block.block_type == 'accordion' %}
+              <div class="section-builder__accordion align-{{ block.alignment }}" data-allow-multiple="{{ block.accordion_allow_multiple }}" data-accordion-container>
+                {% for item in block.accordion_items %}
+                  <div class="section-builder__accordion-item{% if loop.first and block.accordion_first_open %} is-open{% endif %}" data-accordion-item>
+                    <button class="section-builder__accordion-header" aria-expanded="{% if loop.first and block.accordion_first_open %}true{% else %}false{% endif %}" data-accordion-header>
+                      <div class="section-builder__accordion-title">{{ item.accordion_title }}</div>
+                      <div class="section-builder__accordion-icon">
+                        <svg class="section-builder__accordion-icon--plus" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="3" cy="9" r="1.5" fill="#161616"/>
+                          <circle cx="9" cy="3" r="1.5" fill="#161616"/>
+                          <circle cx="9" cy="9" r="1.5" fill="#161616"/>
+                          <circle cx="9" cy="15" r="1.5" fill="#161616"/>
+                          <circle cx="15" cy="9" r="1.5" fill="#161616"/>
+                        </svg>
+                        <svg class="section-builder__accordion-icon--minus" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="3" cy="9" r="1.5" fill="#161616"/>
+                          <circle cx="9" cy="9" r="1.5" fill="#161616"/>
+                          <circle cx="15" cy="9" r="1.5" fill="#161616"/>
+                        </svg>
+                      </div>
+                    </button>
+                    <div class="section-builder__accordion-content" data-accordion-content>
+                      <div class="section-builder__accordion-content-inner">
+                        {{ item.accordion_content }}
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
             {% endif %}
           {% endif %}
         {% endfor %}
@@ -771,6 +969,36 @@
                         <span class="section-builder__feature-title">{{ feature.feature_title }}</span><br>
                         <span class="section-builder__feature-description">{{ feature.feature_description }}</span>
                       </p>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+
+            {% elif block.block_type == 'accordion' %}
+              <div class="section-builder__accordion align-{{ block.alignment }}" data-allow-multiple="{{ block.accordion_allow_multiple }}" data-accordion-container>
+                {% for item in block.accordion_items %}
+                  <div class="section-builder__accordion-item{% if loop.first and block.accordion_first_open %} is-open{% endif %}" data-accordion-item>
+                    <button class="section-builder__accordion-header" aria-expanded="{% if loop.first and block.accordion_first_open %}true{% else %}false{% endif %}" data-accordion-header>
+                      <div class="section-builder__accordion-title">{{ item.accordion_title }}</div>
+                      <div class="section-builder__accordion-icon">
+                        <svg class="section-builder__accordion-icon--plus" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="3" cy="9" r="1.5" fill="#161616"/>
+                          <circle cx="9" cy="3" r="1.5" fill="#161616"/>
+                          <circle cx="9" cy="9" r="1.5" fill="#161616"/>
+                          <circle cx="9" cy="15" r="1.5" fill="#161616"/>
+                          <circle cx="15" cy="9" r="1.5" fill="#161616"/>
+                        </svg>
+                        <svg class="section-builder__accordion-icon--minus" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="3" cy="9" r="1.5" fill="#161616"/>
+                          <circle cx="9" cy="9" r="1.5" fill="#161616"/>
+                          <circle cx="15" cy="9" r="1.5" fill="#161616"/>
+                        </svg>
+                      </div>
+                    </button>
+                    <div class="section-builder__accordion-content" data-accordion-content>
+                      <div class="section-builder__accordion-content-inner">
+                        {{ item.accordion_content }}
+                      </div>
                     </div>
                   </div>
                 {% endfor %}
@@ -863,6 +1091,36 @@
                     </div>
                   {% endfor %}
                 </div>
+
+              {% elif block.block_type == 'accordion' %}
+                <div class="section-builder__accordion align-{{ block.alignment }}" data-allow-multiple="{{ block.accordion_allow_multiple }}" data-accordion-container>
+                  {% for item in block.accordion_items %}
+                    <div class="section-builder__accordion-item{% if loop.first and block.accordion_first_open %} is-open{% endif %}" data-accordion-item>
+                      <button class="section-builder__accordion-header" aria-expanded="{% if loop.first and block.accordion_first_open %}true{% else %}false{% endif %}" data-accordion-header>
+                        <div class="section-builder__accordion-title">{{ item.accordion_title }}</div>
+                        <div class="section-builder__accordion-icon">
+                          <svg class="section-builder__accordion-icon--plus" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="3" cy="9" r="1.5" fill="#161616"/>
+                            <circle cx="9" cy="3" r="1.5" fill="#161616"/>
+                            <circle cx="9" cy="9" r="1.5" fill="#161616"/>
+                            <circle cx="9" cy="15" r="1.5" fill="#161616"/>
+                            <circle cx="15" cy="9" r="1.5" fill="#161616"/>
+                          </svg>
+                          <svg class="section-builder__accordion-icon--minus" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="3" cy="9" r="1.5" fill="#161616"/>
+                            <circle cx="9" cy="9" r="1.5" fill="#161616"/>
+                            <circle cx="15" cy="9" r="1.5" fill="#161616"/>
+                          </svg>
+                        </div>
+                      </button>
+                      <div class="section-builder__accordion-content" data-accordion-content>
+                        <div class="section-builder__accordion-content-inner">
+                          {{ item.accordion_content }}
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
               {% endif %}
             {% endif %}
           {% endfor %}
@@ -871,3 +1129,61 @@
     </div>
   {% endif %}
 </div>
+
+<script>
+  (function() {
+    function initAccordions() {
+      const accordionContainers = document.querySelectorAll('[data-accordion-container]');
+
+      accordionContainers.forEach(accordion => {
+        // Skip if already initialized
+        if (accordion.dataset.initialized === 'true') {
+          return;
+        }
+        accordion.dataset.initialized = 'true';
+
+        const allowMultiple = accordion.dataset.allowMultiple === 'true';
+        const items = accordion.querySelectorAll('[data-accordion-item]');
+
+        items.forEach(item => {
+          const header = item.querySelector('[data-accordion-header]');
+          const content = item.querySelector('[data-accordion-content]');
+
+          header.addEventListener('click', function(e) {
+            e.preventDefault();
+            const isOpen = item.classList.contains('is-open');
+
+            // If not allowing multiple open, close all others
+            if (!allowMultiple && !isOpen) {
+              items.forEach(otherItem => {
+                if (otherItem !== item) {
+                  otherItem.classList.remove('is-open');
+                  otherItem.querySelector('[data-accordion-header]').setAttribute('aria-expanded', 'false');
+                }
+              });
+            }
+
+            // Toggle current item
+            if (isOpen) {
+              item.classList.remove('is-open');
+              header.setAttribute('aria-expanded', 'false');
+            } else {
+              item.classList.add('is-open');
+              header.setAttribute('aria-expanded', 'true');
+            }
+          });
+        });
+      });
+    }
+
+    // Initialize on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAccordions);
+    } else {
+      initAccordions();
+    }
+
+    // Also initialize after a short delay to catch dynamically loaded content
+    setTimeout(initAccordions, 100);
+  })();
+</script>

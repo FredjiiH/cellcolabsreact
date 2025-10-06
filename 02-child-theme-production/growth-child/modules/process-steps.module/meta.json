@@ -1,0 +1,12 @@
+{
+  "label": "Process Steps",
+  "css_assets": [],
+  "external_js": [],
+  "global": false,
+  "help_text": "Process steps module with sticky header and scroll-activated effects",
+  "host_template_types": ["PAGE"],
+  "icon": "timeline",
+  "is_available_for_new_content": true,
+  "module_id": 0,
+  "smart_type": "NOT_SMART"
+}
