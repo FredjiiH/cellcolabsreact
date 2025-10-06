@@ -1,0 +1,436 @@
+<!--
+  templateType: module
+  label: Article with Table of Contents
+  isAvailableForNewContent: true
+-->
+
+<style>
+  /* Article with TOC Module - Uses Brand CSS Variables */
+
+  .article-with-toc {
+    display: flex;
+    gap: var(--space-16, 16px);
+    width: 100%;
+    max-width: var(--content-max-width, 1400px);
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  /* Table of Contents - Left Column */
+  .article-toc {
+    flex: 0 0 calc(50% - 8px);
+    max-width: 560px;
+    padding-top: 128px;
+    padding-bottom: 0;
+    padding-right: 96px;
+  }
+
+  .article-toc__sticky {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4, 4px);
+  }
+
+  .article-toc__link {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: var(--font-weight-regular, 450);
+    line-height: 1.35;
+    color: var(--color-text-tertiary, #8d8d8d);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    display: block;
+    padding: var(--space-4, 4px) 0;
+  }
+
+  .article-toc__link:hover {
+    color: var(--color-text-secondary, #525252);
+  }
+
+  .article-toc__link.is-active {
+    color: var(--color-text-primary, #161616);
+    font-weight: 500;
+  }
+
+  /* Article Content - Right Column */
+  .article-content {
+    flex: 0 0 calc(50% - 8px);
+    max-width: 560px;
+    padding-top: 128px;
+    padding-bottom: 128px;
+    padding-right: 48px;
+  }
+
+  .article-content__sections {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-64, 64px);
+  }
+
+  .article-section {
+    scroll-margin-top: 20px;
+  }
+
+  .article-section__heading {
+    font-family: var(--font-heading, 'Inter', sans-serif);
+    font-size: 28px;
+    font-weight: 580;
+    line-height: 1.15;
+    color: var(--color-text-primary, #161616);
+    margin: 0 0 var(--space-16, 16px) 0;
+  }
+
+  .article-section__content {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: var(--font-weight-regular, 450);
+    line-height: 1.35;
+    color: var(--color-text-secondary, #525252);
+  }
+
+  .article-section__content p {
+    margin: 0 0 var(--space-16, 16px) 0;
+  }
+
+  .article-section__content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .article-section__content ul,
+  .article-section__content ol {
+    margin: 0 0 var(--space-16, 16px) 0;
+    padding-left: var(--space-24, 24px);
+  }
+
+  .article-section__content li {
+    margin-bottom: var(--space-4, 4px);
+  }
+
+  .article-section__content li:last-child {
+    margin-bottom: 0;
+  }
+
+  .article-section__content a {
+    color: var(--color-text-link, #4F65BE);
+    text-decoration: underline;
+  }
+
+  .article-section__content a:hover {
+    color: var(--color-primary, #4F65BE);
+  }
+
+  .article-section__image {
+    margin-top: var(--space-48, 48px);
+    border-radius: var(--border-radius-lg, 16px);
+    overflow: hidden;
+  }
+
+  .article-section__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* References Section */
+  .article-references {
+    margin-top: var(--space-64, 64px);
+  }
+
+  .article-references__toggle {
+    background-color: var(--color-gray-900, #F4F4F4);
+    border: none;
+    border-radius: var(--border-radius-md, 8px);
+    padding: var(--space-12, 12px) var(--space-16, 16px) var(--space-12, 12px) var(--space-24, 24px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .article-references__toggle:hover {
+    background-color: var(--color-gray-800, #E0E0E0);
+  }
+
+  .article-references__title {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body, 16px);
+    font-weight: 550;
+    line-height: 1.15;
+    color: var(--color-text-primary, #161616);
+    margin: 0;
+  }
+
+  .article-references__icon {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.2s ease;
+  }
+
+  .article-references.is-open .article-references__icon {
+    transform: rotate(45deg);
+  }
+
+  .article-references__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .article-references.is-open .article-references__content {
+    max-height: 2000px;
+  }
+
+  .article-references__content-inner {
+    padding: var(--space-16, 16px) var(--space-24, 24px);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-size-body-small, 14px);
+    line-height: 1.5;
+    color: var(--color-text-secondary, #525252);
+  }
+
+  .article-references__content-inner p {
+    margin: 0 0 var(--space-8, 8px) 0;
+  }
+
+  .article-references__content-inner p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Mobile Layout (767px and below) */
+  @media (max-width: 767px) {
+    .article-with-toc {
+      flex-direction: column;
+      gap: 0;
+      padding: var(--space-48, 48px) 0;
+    }
+
+    .article-toc {
+      flex: none;
+      max-width: none;
+      padding: 0 0 var(--space-24, 24px) 0;
+      position: sticky;
+      top: 0;
+      background-color: var(--color-bg-primary, #FFFFFF);
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .article-toc__sticky {
+      position: static;
+      flex-direction: row;
+      gap: var(--space-12, 12px);
+      overflow-x: auto;
+      padding: var(--space-16, 16px) 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .article-toc__sticky::-webkit-scrollbar {
+      display: none;
+    }
+
+    .article-toc__link {
+      white-space: nowrap;
+      font-size: var(--font-size-body-small, 14px);
+      padding: var(--space-8, 8px) var(--space-12, 12px);
+      border-radius: var(--border-radius-md, 8px);
+      background-color: var(--color-gray-900, #F4F4F4);
+    }
+
+    .article-toc__link.is-active {
+      background-color: var(--color-text-primary, #161616);
+      color: var(--color-white, #FFFFFF);
+    }
+
+    .article-content {
+      flex: none;
+      max-width: none;
+      padding: var(--space-48, 48px) 0 var(--space-96, 96px) 0;
+    }
+
+    .article-section__heading {
+      font-size: 24px;
+    }
+
+    .article-content__sections {
+      gap: var(--space-48, 48px);
+    }
+  }
+
+  /* Tablet Layout (768px-1023px) */
+  @media (max-width: 1023px) and (min-width: 768px) {
+    .article-toc {
+      padding-top: 64px;
+    }
+
+    .article-content {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+
+    .article-section__heading {
+      font-size: 24px;
+    }
+  }
+</style>
+
+<div class="article-with-toc">
+  <!-- Table of Contents -->
+  <div class="article-toc">
+    <nav class="article-toc__sticky" role="navigation" aria-label="Table of Contents">
+      {% for section in module.article_sections %}
+        <a
+          href="#section-{{ loop.index }}"
+          class="article-toc__link"
+          data-toc-link
+          data-section-id="section-{{ loop.index }}"
+        >
+          {{ section.section_title }}
+        </a>
+      {% endfor %}
+      {% if module.show_references %}
+        <a
+          href="#references"
+          class="article-toc__link"
+          data-toc-link
+          data-section-id="references"
+        >
+          References
+        </a>
+      {% endif %}
+    </nav>
+  </div>
+
+  <!-- Article Content -->
+  <div class="article-content">
+    <div class="article-content__sections">
+      {% for section in module.article_sections %}
+        <section class="article-section" id="section-{{ loop.index }}" data-section>
+          <h3 class="article-section__heading">{{ section.section_title }}</h3>
+          {% if section.section_content %}
+            <div class="article-section__content">
+              {{ section.section_content }}
+            </div>
+          {% endif %}
+          {% if section.section_image.src %}
+            <div class="article-section__image">
+              <img
+                src="{{ section.section_image.src }}"
+                alt="{{ section.section_image.alt }}"
+                loading="lazy"
+              />
+            </div>
+          {% endif %}
+        </section>
+      {% endfor %}
+
+      {% if module.show_references %}
+        <div class="article-references" id="references" data-section>
+          <button class="article-references__toggle" data-references-toggle>
+            <h4 class="article-references__title">References</h4>
+            <svg class="article-references__icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="3" cy="9" r="1.5" fill="#161616"/>
+              <circle cx="9" cy="3" r="1.5" fill="#161616"/>
+              <circle cx="9" cy="9" r="1.5" fill="#161616"/>
+              <circle cx="9" cy="15" r="1.5" fill="#161616"/>
+              <circle cx="15" cy="9" r="1.5" fill="#161616"/>
+            </svg>
+          </button>
+          <div class="article-references__content" data-references-content>
+            <div class="article-references__content-inner">
+              {{ module.references_content }}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    function initArticleWithTOC() {
+      const tocLinks = document.querySelectorAll('[data-toc-link]');
+      const sections = document.querySelectorAll('[data-section]');
+      const referencesToggle = document.querySelector('[data-references-toggle]');
+      const referencesSection = document.querySelector('.article-references');
+
+      if (tocLinks.length === 0 || sections.length === 0) return;
+
+      // Scroll spy - highlight active section in TOC
+      function updateActiveTOCLink() {
+        const scrollPosition = window.scrollY + 100; // Offset for better UX
+
+        let currentSection = null;
+
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionBottom = sectionTop + section.offsetHeight;
+
+          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+            currentSection = section.id;
+          }
+        });
+
+        // Update active state on TOC links
+        tocLinks.forEach(link => {
+          const sectionId = link.getAttribute('data-section-id');
+          if (sectionId === currentSection) {
+            link.classList.add('is-active');
+          } else {
+            link.classList.remove('is-active');
+          }
+        });
+      }
+
+      // Smooth scroll to section on TOC link click
+      tocLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const sectionId = this.getAttribute('data-section-id');
+          const targetSection = document.getElementById(sectionId);
+
+          if (targetSection) {
+            const isMobile = window.innerWidth <= 767;
+            const offset = isMobile ? 100 : 20; // Account for sticky TOC on mobile
+
+            const targetPosition = targetSection.offsetTop - offset;
+
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // References accordion toggle
+      if (referencesToggle && referencesSection) {
+        referencesToggle.addEventListener('click', function() {
+          referencesSection.classList.toggle('is-open');
+        });
+      }
+
+      // Run scroll spy on scroll
+      window.addEventListener('scroll', updateActiveTOCLink);
+
+      // Run on load
+      updateActiveTOCLink();
+
+      // Run after short delay
+      setTimeout(updateActiveTOCLink, 100);
+    }
+
+    // Initialize on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initArticleWithTOC);
+    } else {
+      initArticleWithTOC();
+    }
+  })();
+</script>

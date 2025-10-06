@@ -1,0 +1,66 @@
+[
+  {
+    "id": "article_sections",
+    "name": "article_sections",
+    "label": "Article Sections",
+    "required": false,
+    "locked": false,
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 20,
+      "default": 3
+    },
+    "children": [
+      {
+        "id": "section_title",
+        "name": "section_title",
+        "label": "Section Title",
+        "required": true,
+        "locked": false,
+        "type": "text",
+        "default": "Section heading"
+      },
+      {
+        "id": "section_content",
+        "name": "section_content",
+        "label": "Section Content",
+        "required": false,
+        "locked": false,
+        "type": "richtext",
+        "default": "<p>Section content goes here.</p>"
+      },
+      {
+        "id": "section_image",
+        "name": "section_image",
+        "label": "Section Image (optional)",
+        "required": false,
+        "locked": false,
+        "type": "image",
+        "help_text": "Optional image to display after this section's content"
+      }
+    ]
+  },
+  {
+    "id": "show_references",
+    "name": "show_references",
+    "label": "Show References Section",
+    "required": false,
+    "locked": false,
+    "type": "boolean",
+    "default": false
+  },
+  {
+    "id": "references_content",
+    "name": "references_content",
+    "label": "References Content",
+    "required": false,
+    "locked": false,
+    "type": "richtext",
+    "default": "<p>1. Reference citation here</p>",
+    "visibility": {
+      "controlling_field": "show_references",
+      "controlling_value_regex": "true"
+    }
+  }
+]

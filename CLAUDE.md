@@ -245,3 +245,68 @@ A scroll-activated module displaying a step-by-step process with numbered circle
 
 ### Known Issues / TODO
 - **Mobile:** Sticky header (eyebrow + heading + subheader) not working - needs investigation of HubSpot page context preventing `position: sticky` from functioning correctly
+
+## Article with Table of Contents Module
+
+A long-form article module with automatic table of contents navigation and scroll spy functionality.
+
+### Status
+⚠️ **First draft created - substantial styling work needed to match Figma design on both desktop and mobile**
+
+### Current Implementation
+- Two-column layout (desktop/tablet)
+- Auto-generated table of contents from article sections
+- Scroll spy to highlight active section
+- Smooth scroll navigation
+- Sticky TOC positioning (desktop left, mobile top)
+- References accordion
+- Up to 20 article sections
+
+### Layout Structure
+- **Desktop/Tablet (768px+):** Two-column layout
+  - Left: Sticky table of contents (560px width)
+  - Right: Article content sections (560px width)
+- **Mobile (767px and below):** Single column
+  - Sticky horizontal scrolling TOC at top
+  - Article sections stacked below
+
+### Fields
+- **Article Sections (repeater, 1-20 items):**
+  - Section Title (text) - becomes H3 heading and TOC link
+  - Section Content (rich text) - supports paragraphs, lists, links, formatting
+  - Section Image (optional) - displays below section content
+- **Show References** (boolean) - toggle references section
+- **References Content** (rich text) - expandable accordion
+
+### Features
+- **Table of Contents:**
+  - Auto-generated from section titles
+  - Active section highlighting via scroll spy
+  - Smooth scroll on link click
+  - Desktop: Vertical list, sticky left column
+  - Mobile: Horizontal pills, sticky top bar
+- **Article Sections:**
+  - Rich text content with full formatting support
+  - Optional images between sections
+  - Scroll spy tracking
+- **References Accordion:**
+  - Optional expandable section
+  - Plus icon (rotates to X when open)
+  - Smooth height transition
+
+### TODO - Styling Refinement Needed
+- **Desktop:**
+  - Match exact spacing from Figma (128px top padding, 96px right padding on TOC)
+  - Verify typography sizing and weights match design
+  - Check image border radius and spacing
+  - Fine-tune TOC link hover states and transitions
+- **Mobile:**
+  - Implement horizontal scroll TOC design (not in Figma, needs to be added)
+  - Adjust pill button styling for active/inactive states
+  - Verify spacing and padding matches mobile design patterns
+  - Test sticky TOC behavior and scroll performance
+- **General:**
+  - Test with real content and long articles
+  - Verify scroll spy accuracy with different section heights
+  - Check accessibility (keyboard navigation, screen readers)
+  - Test References accordion interaction

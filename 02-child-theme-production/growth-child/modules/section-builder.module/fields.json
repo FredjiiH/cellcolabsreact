@@ -450,7 +450,7 @@
         "type": "group",
         "occurrence": {
           "min": 0,
-          "max": 10,
+          "max": 20,
           "default": 3
         },
         "visibility": {
