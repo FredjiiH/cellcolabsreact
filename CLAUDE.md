@@ -206,11 +206,23 @@ A scroll-activated module displaying a step-by-step process with numbered circle
   - Steps below with smaller circles
 
 ### Features
-- **Numbered Circles:** Auto-numbered (1-5+) with fill animation
-- **Connecting Line:** Vertical line connects all circles, stops at last circle top
-- **Scroll Effects:** Circles fill and text activates as user scrolls
-- **Sticky Header:** Left column header sticks at 128px from top (desktop/tablet)
-- **Brand Variables:** All typography and spacing uses CSS variables
+- **Numbered Circles:** Auto-numbered (1-10) with top-down fill animation
+  - Desktop/Tablet: 64px × 64px, H3 font size (36px/28px)
+  - Mobile: 48px × 48px, responsive H3 sizing
+  - Fill color: Brand 100 (light blue)
+  - Border color: Gray 100 default, Brand 100 when active
+- **Connecting Line:** Vertical line connects all circles, dynamically stops at last circle top
+  - Background line: Gray 100
+  - Progressive fill line: Brand 900 (dark blue)
+  - Fills to bottom of last activated circle with smooth transitions
+- **Progressive Scroll Effects:**
+  - Circles fill from top-down as they reach trigger point
+  - All previous circles stay filled (progressive activation)
+  - Unfills when scrolling back up
+  - Line progressively fills ahead of current position (200px lookahead)
+  - Text opacity increases when step becomes active
+- **Sticky Header:** Left column header sticks at 128px from top (desktop/tablet only)
+- **Brand Variables:** All typography, colors, and spacing uses CSS variables
 
 ### Fields
 - **Eyebrow Text:** Optional label (e.g., "Process")
@@ -221,14 +233,15 @@ A scroll-activated module displaying a step-by-step process with numbered circle
   - Step Description (Rich text)
 
 ### Responsive Behavior
-- Desktop: Header sticks at 128px, circles 64px × 64px
-- Tablet: Header sticks at 64px, circles 64px × 64px
-- Mobile: Circles 48px × 48px, vertical stacking
+- **Desktop (1024px+):** Header sticks at 128px, circles 64px, trigger point 250px from top
+- **Tablet (768-1023px):** Header sticks at 64px, circles 64px, trigger point 250px from top
+- **Mobile (767px and below):** No sticky header, circles 48px, dynamic trigger point (header height + 40px)
+
+### Colors
+- Circle fill: `var(--color-brand-100)` - #becfff
+- Active border: `var(--color-brand-100)` - #becfff
+- Progressive line: `var(--color-brand-900)` - #0f2047
+- Background line: `var(--color-gray-100)` - #262626
 
 ### Known Issues / TODO
-- **Desktop:** Circle activation timing needs adjustment (should fill earlier, before user finishes reading)
-- **Desktop:** Circles should stay filled after activation (only unfill when scrolling back up)
-- **Desktop:** Progressive line fill needed (line should fill as user scrolls to point to next step)
-- **Mobile:** Header (eyebrow + heading + subheader) needs to stick together
-- **Mobile:** Circle activation timing needs adjustment
-- **Mobile:** Same progressive effects as desktop needed
+- **Mobile:** Sticky header (eyebrow + heading + subheader) not working - needs investigation of HubSpot page context preventing `position: sticky` from functioning correctly
