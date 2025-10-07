@@ -1,0 +1,12 @@
+{
+  "label": "Header - Cellcolabs Clinical",
+  "css_assets": [],
+  "external_js": [],
+  "global": true,
+  "help_text": "Header for Cellcolabs Clinical brand (B2C)",
+  "host_template_types": ["PAGE", "BLOG_POST", "BLOG_LISTING"],
+  "icon": "layout",
+  "is_available_for_new_content": false,
+  "module_id": 0,
+  "smart_type": "NOT_SMART"
+}

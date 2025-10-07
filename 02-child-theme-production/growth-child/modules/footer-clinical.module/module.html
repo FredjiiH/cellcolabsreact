@@ -1,0 +1,348 @@
+<!--
+  templateType: module
+  label: Footer - Cellcolabs Clinical
+  isAvailableForNewContent: false
+-->
+
+<footer class="site-footer" data-brand="cellcolabsclinical">
+  <div class="footer-container">
+    <!-- Mobile branding section (text logo + tagline) -->
+    <div class="footer-branding">
+      <p class="footer-logo-text">Cellcolabs Clinical</p>
+      <p class="footer-tagline">{{ module.tagline_text }}</p>
+    </div>
+
+    <!-- Desktop layout wrapper -->
+    <div class="footer-desktop-wrapper">
+      <!-- Logo (desktop only - image) -->
+      <div class="footer-logo footer-logo--desktop">
+        <img src="https://144549987.fs1.hubspotusercontent-eu1.net/hubfs/144549987/Clinical_White_Logo.png" alt="Cellcolabs Clinical" class="footer-logo-image">
+      </div>
+
+      <!-- Footer navigation columns -->
+      <div class="footer-nav-columns">
+      <!-- Product Column -->
+      <div class="footer-column">
+        <p class="footer-column-title">{{ module.product_title }}</p>
+        {% menu "footer_product"
+          id="footer_product_menu",
+          site_map_name="footer_product",
+          overrideable=False,
+          root_type="site_root",
+          flyouts="false",
+          max_levels="1",
+          flow="vertical",
+          menu_class="footer-menu-list",
+          item_class="footer-menu-item",
+          link_class="footer-menu-link"
+        %}
+      </div>
+
+      <!-- Company Column -->
+      <div class="footer-column">
+        <p class="footer-column-title">{{ module.company_title }}</p>
+        {% menu "footer_company"
+          id="footer_company_menu",
+          site_map_name="footer_company",
+          overrideable=False,
+          root_type="site_root",
+          flyouts="false",
+          max_levels="1",
+          flow="vertical",
+          menu_class="footer-menu-list",
+          item_class="footer-menu-item",
+          link_class="footer-menu-link"
+        %}
+      </div>
+
+      <!-- Support Column -->
+      <div class="footer-column">
+        <p class="footer-column-title">{{ module.support_title }}</p>
+        {% menu "footer_support"
+          id="footer_support_menu",
+          site_map_name="footer_support",
+          overrideable=False,
+          root_type="site_root",
+          flyouts="false",
+          max_levels="1",
+          flow="vertical",
+          menu_class="footer-menu-list",
+          item_class="footer-menu-item",
+          link_class="footer-menu-link"
+        %}
+      </div>
+
+      <!-- Social Column -->
+      <div class="footer-column">
+        <p class="footer-column-title">{{ module.social_title }}</p>
+        {% menu "footer_social"
+          id="footer_social_menu",
+          site_map_name="footer_social",
+          overrideable=False,
+          root_type="site_root",
+          flyouts="false",
+          max_levels="1",
+          flow="vertical",
+          menu_class="footer-menu-list",
+          item_class="footer-menu-item",
+          link_class="footer-menu-link"
+        %}
+      </div>
+      </div>
+    </div>
+
+    <!-- Contact section (separate row on desktop and mobile) -->
+    <div class="footer-contact">
+      <p class="footer-contact-title">{{ module.contact_title }}</p>
+      <div class="footer-contact-info">
+        {{ module.contact_address }}
+      </div>
+    </div>
+
+    <!-- Copyright (mobile only) -->
+    <div class="footer-copyright-mobile">
+      <p>{{ module.copyright_text }}</p>
+    </div>
+
+    <!-- Copyright (desktop only) -->
+    <div class="footer-copyright-desktop">
+      <p>{{ module.copyright_text }}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+/* Footer Styles - Brand CSS Variables */
+
+.site-footer {
+  background-color: var(--color-brand-500, #4f65be);
+  width: 100%;
+  padding: var(--space-48, 48px) var(--space-24, 24px);
+  color: var(--color-white, #ffffff);
+}
+
+.footer-container {
+  max-width: var(--content-max-width, 1400px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-48, 48px);
+}
+
+/* Logo - Desktop image (hidden on mobile) */
+.footer-logo--desktop {
+  display: none;
+}
+
+.footer-logo-image {
+  height: 80px;
+  width: auto;
+  display: block;
+}
+
+/* Mobile branding (text logo + tagline) */
+.footer-branding {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16, 16px);
+}
+
+.footer-logo-text {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 32px;
+  font-weight: 550;
+  line-height: 1.15;
+  color: var(--color-white, #ffffff);
+  margin: 0;
+}
+
+.footer-tagline {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--font-size-body-small, 14px);
+  font-weight: var(--font-weight-regular, 450);
+  line-height: 1.35;
+  color: var(--color-white, #ffffff);
+  margin: 0;
+}
+
+/* Footer navigation columns */
+.footer-nav-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-48, 48px) var(--space-24, 24px);
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16, 16px);
+}
+
+.footer-column-title {
+  font-size: var(--font-size-body, 16px);
+  font-weight: var(--font-weight-regular, 450);
+  line-height: var(--line-height-relaxed, 1.5);
+  color: var(--color-white, #ffffff);
+  opacity: 0.5;
+  margin: 0;
+}
+
+.footer-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8, 8px);
+}
+
+.footer-menu-item {
+  margin: 0;
+  padding: 0;
+}
+
+.footer-menu-link {
+  font-family: var(--font-body, 'Inter', sans-serif) !important;
+  font-size: var(--font-size-body, 16px) !important;
+  font-weight: var(--font-weight-regular, 450) !important;
+  line-height: var(--line-height-relaxed, 1.5) !important;
+  color: var(--color-white, #ffffff) !important;
+  text-decoration: none !important;
+  transition: opacity 0.2s ease;
+  display: block;
+}
+
+.footer-menu-link:hover {
+  opacity: 0.7;
+}
+
+/* Contact section (mobile only) */
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16, 16px);
+}
+
+.footer-contact-title {
+  font-size: var(--font-size-body, 16px);
+  font-weight: var(--font-weight-regular, 450);
+  line-height: var(--line-height-relaxed, 1.5);
+  color: var(--color-white, #ffffff);
+  opacity: 0.5;
+  margin: 0;
+}
+
+.footer-contact-info {
+  font-size: var(--font-size-body, 16px);
+  font-weight: var(--font-weight-regular, 450);
+  line-height: var(--line-height-relaxed, 1.5);
+  color: var(--color-white, #ffffff);
+}
+
+.footer-contact-info p {
+  margin: 0 0 var(--space-4, 4px) 0;
+  color: var(--color-white, #ffffff);
+}
+
+.footer-contact-info p:last-child {
+  margin-bottom: 0;
+}
+
+/* Copyright (mobile only) */
+.footer-copyright-mobile {
+  font-size: var(--font-size-body, 16px);
+  font-weight: var(--font-weight-regular, 450);
+  line-height: var(--line-height-relaxed, 1.5);
+  color: var(--color-white, #ffffff);
+}
+
+.footer-copyright-mobile p {
+  margin: 0;
+  color: var(--color-white, #ffffff);
+}
+
+/* Copyright (desktop only) - hidden on mobile */
+.footer-copyright-desktop {
+  display: none;
+}
+
+/* Desktop Layout (1024px+) */
+@media (min-width: 1024px) {
+  .site-footer {
+    padding: var(--space-48, 48px) var(--space-24, 24px);
+  }
+
+  .footer-container {
+    flex-direction: column;
+    gap: var(--space-48, 48px);
+  }
+
+  /* Hide mobile-only sections on desktop */
+  .footer-branding {
+    display: none;
+  }
+
+  .footer-copyright-mobile {
+    display: none;
+  }
+
+  /* Desktop wrapper for logo + columns */
+  .footer-desktop-wrapper {
+    display: grid;
+    grid-template-columns: 114px 1fr;
+    gap: 0;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  /* Show desktop image logo */
+  .footer-logo--desktop {
+    display: block;
+  }
+
+  /* Desktop navigation columns - evenly distributed */
+  .footer-nav-columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-24, 24px);
+    padding-left: var(--space-96, 96px); /* Space after logo */
+  }
+
+  .footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16, 16px);
+  }
+
+  /* Contact section - align with first column */
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16, 16px);
+    padding-left: calc(114px + var(--space-96, 96px)); /* Logo width + gap to align with Product column */
+  }
+
+  /* Desktop copyright - align with first column */
+  .footer-copyright-desktop {
+    display: block;
+    font-size: var(--font-size-body, 16px);
+    font-weight: var(--font-weight-regular, 450);
+    line-height: var(--line-height-relaxed, 1.5);
+    color: var(--color-white, #ffffff);
+    padding-left: calc(114px + var(--space-96, 96px)); /* Logo width + gap to align with Product column */
+  }
+
+  .footer-copyright-desktop p {
+    margin: 0;
+    color: var(--color-white, #ffffff);
+  }
+}
+
+/* Tablet Layout (768px-1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .footer-nav-columns {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-48, 48px) var(--space-32, 32px);
+  }
+}
+</style>

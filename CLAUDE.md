@@ -48,6 +48,129 @@ Pages in HubSpot are linked to specific themes. If you create a duplicate theme:
 - Site functionality breaks
 - Recovery requires restoring the original theme name
 
+## Dual Brand Architecture - Headers & Footers
+
+### Overview
+The site supports two distinct brands that share the same theme infrastructure:
+- **Cellcolabs** (B2B) - Green brand at cellcolabs.com
+- **Cellcolabs Clinical** (B2C) - Blue brand at cellcolabsclinical.com
+
+### Implementation Strategy
+
+**Headers and footers are implemented as global modules** (not partials) to allow non-technical users to edit content through the HubSpot UI.
+
+### Brand-Specific Modules
+
+**Cellcolabs Clinical (Blue Brand):**
+- `header-clinical.module` - Header with Clinical branding and navigation
+- `footer-clinical.module` - Footer with Clinical branding and menus
+
+**Cellcolabs (Green Brand) - TO BE CREATED:**
+- `header-cellcolabs.module` - Header with Cellcolabs branding and navigation
+- `footer-cellcolabs.module` - Footer with Cellcolabs branding and menus
+
+### Module Configuration
+
+All header/footer modules use these settings in `meta.json`:
+```json
+{
+  "global": true,
+  "is_available_for_new_content": false,
+  "host_template_types": ["PAGE", "BLOG_POST", "BLOG_LISTING"]
+}
+```
+
+- `"global": true` - Makes module reusable across pages
+- `"is_available_for_new_content": false` - Hides from module picker in content editor
+- Only accessible through base template, not directly added to pages
+
+### Domain-Based Loading
+
+Brand detection happens in `base.html` based on request domain:
+
+```html
+{% set global_brand = "cellcolabsclinical" %}
+{% if request.domain == "cellcolabs.com" %}
+  {% set global_brand = "cellcolabs" %}
+{% endif %}
+
+<body data-brand="{{ global_brand }}">
+  {% block header %}
+    {% if global_brand == "cellcolabs" %}
+      {% module "header_cellcolabs" path="../../modules/header-cellcolabs.module" %}
+    {% else %}
+      {% module "header_clinical" path="../../modules/header-clinical.module" %}
+    {% endif %}
+  {% endblock header %}
+
+  {% block footer %}
+    {% if global_brand == "cellcolabs" %}
+      {% module "footer_cellcolabs" path="../../modules/footer-cellcolabs.module" %}
+    {% else %}
+      {% module "footer_clinical" path="../../modules/footer-clinical.module" %}
+    {% endif %}
+  {% endblock footer %}
+</body>
+```
+
+### Menu Structure
+
+Each brand has separate HubSpot menu sets:
+
+**Cellcolabs Clinical:**
+- `main_navigation_clinical` - Main header navigation
+- `footer_product` - Footer Product column links
+- `footer_company` - Footer Company column links
+- `footer_support` - Footer Support column links
+- `footer_social` - Footer Social column links
+
+**Cellcolabs (to be created):**
+- `main_navigation_cellcolabs` - Main header navigation
+- `footer_product_cellcolabs` - Footer Product column links
+- `footer_company_cellcolabs` - Footer Company column links
+- `footer_support_cellcolabs` - Footer Support column links
+- `footer_social_cellcolabs` - Footer Social column links
+
+### Footer Structure (Clinical Example)
+
+**Desktop Layout (1024px+):**
+- Grid layout: `114px` (logo) + `1fr` (content area)
+- 4 navigation columns using `grid-template-columns: repeat(4, 1fr)` for even distribution
+- 96px gap between logo and columns
+- 24px gap between columns
+- Contact and Copyright sections align with first column (Product)
+
+**Mobile Layout (767px and below):**
+- Text logo + tagline at top
+- 2-column grid for navigation links (Product/Support, Company/Social)
+- Contact section below navigation
+- Copyright at bottom
+
+**Tablet Layout (768-1023px):**
+- Same proportions as desktop
+- Columns scale responsively within grid
+
+### Creating New Brand Modules
+
+When creating the Cellcolabs (green) modules:
+
+1. Duplicate the Clinical module as starting point
+2. Update `meta.json` label to reflect brand
+3. Update logo image URLs to green brand assets
+4. Update `data-brand` attribute to "cellcolabs"
+5. Update menu references to use `_cellcolabs` suffix
+6. Update default field values to Cellcolabs content
+7. Ensure color variables use green brand colors
+8. Upload to HubSpot: `hs upload growth-child/modules/[module].module "growth child/modules/[module].module"`
+
+### Key Principles
+
+- **Separate modules per brand** - Don't use conditional logic within a single module
+- **Global modules only** - Ensures consistent branding across all pages
+- **Hidden from picker** - Prevents accidental addition to pages outside template structure
+- **Domain-based switching** - Automatic brand detection in base template
+- **Editable content** - All text, links, and navigation managed through HubSpot UI
+
 ## Testing and Development Workflow
 
 1. Develop components locally in `01-component-development`

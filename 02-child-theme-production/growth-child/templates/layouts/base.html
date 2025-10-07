@@ -39,7 +39,11 @@
   <body data-brand="{{ global_brand }}">
     <div class="body-wrapper {{ builtin_body_classes }}">
       {% block header %}
-        {% global_partial path="../partials/header.html" %}
+        {% if global_brand == "cellcolabs" %}
+          {% module "header_cellcolabs" path="../../modules/header-cellcolabs.module" %}
+        {% else %}
+          {% module "header_clinical" path="../../modules/header-clinical.module" %}
+        {% endif %}
       {% endblock header %}
 
       {# The main-content ID is used for the navigation skipper in the header.html file #}
@@ -49,7 +53,11 @@
       </main>
 
       {% block footer %}
-        {% global_partial path="../partials/footer.html" %}
+        {% if global_brand == "cellcolabs" %}
+          {% module "footer_cellcolabs" path="../../modules/footer-cellcolabs.module" %}
+        {% else %}
+          {% module "footer_clinical" path="../../modules/footer-clinical.module" %}
+        {% endif %}
       {% endblock footer %}
     </div>
     {# This is intended to be used if a template requires template specific JavaScript files #}

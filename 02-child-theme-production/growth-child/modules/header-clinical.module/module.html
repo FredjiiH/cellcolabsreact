@@ -1,53 +1,32 @@
 <!--
-  templateType: global_partial
-  label: Dual Brand Header - Final
-  Updated: 2025-09-25 Final Implementation
+  templateType: module
+  label: Header - Cellcolabs Clinical
+  isAvailableForNewContent: false
 -->
 {# Retrieve translations for the template #}
-{% set template_translations = load_translations('../_locales', html_lang, 'en') %}
+{% set template_translations = load_translations('../../templates/_locales', html_lang, 'en') %}
 
-{# Domain-based brand detection #}
-{% set current_brand = "cellcolabsclinical" %}
-{% if request.domain == "cellcolabs.com" %}
-  {% set current_brand = "cellcolabs" %}
-{% elif request.domain == "cellcolabsclinical.com" %}
-  {% set current_brand = "cellcolabsclinical" %}
-{% endif %}
-
-<header class="header site-header" data-brand="{{ current_brand }}">
-
-  {# Brand switcher for editor testing (only visible in edit mode) #}
-  <div id="brand-switcher" style="position: fixed; top: 120px; left: 10px; z-index: 99999; background: white; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-family: Inter, sans-serif; font-size: 12px;">
-    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Preview Brand:</label>
-    <select id="brand-selector" style="width: 100%; padding: 4px; border: 1px solid #ccc; border-radius: 3px;">
-      <option value="cellcolabsclinical">Clinical (Blue)</option>
-      <option value="cellcolabs">Cellcolabs (Green)</option>
-    </select>
-  </div>
+<header class="header site-header" data-brand="cellcolabsclinical">
 
   {# The link below is used for a navigation skipper which allows users navigating the site with their keyboard to skip over the site navigation #}
   <a href="#main-content" class="header__skip">{{ template_translations.partial_header_skip_to_content.message }}</a>
 
   <!-- Navigation -->
-  <nav class="site-navigation" data-brand="{{ current_brand }}" style="background-color: #ffffff !important; position: relative !important; z-index: 999999 !important;">
+  <nav class="site-navigation" data-brand="cellcolabsclinical" style="background-color: #ffffff !important; position: relative !important; z-index: 999999 !important;">
     <div class="nav-container" style="max-width: 1460px !important; margin: 0 auto !important; padding: 0 24px !important;">
       <div class="nav-wrapper" style="display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 16px 0 !important; min-height: 72px !important; position: relative !important;">
 
         <!-- Logo - Image Only Per Figma -->
         <a href="/" class="nav-logo" style="text-decoration: none !important; display: flex !important; align-items: center !important;">
-          {% if current_brand == "cellcolabs" %}
-            <img src="https://144549987.fs1.hubspotusercontent-eu1.net/hubfs/144549987/Cellcolabs%20Logo.png" alt="Cellcolabs" style="height: 40px !important; width: 58px !important; object-fit: contain !important; display: block !important;">
-          {% else %}
-            <img src="https://144549987.fs1.hubspotusercontent-eu1.net/hubfs/144549987/Cellcolabs%20Clinical%20Logo.png" alt="Cellcolabs Clinical" style="height: 40px !important; width: 58px !important; object-fit: contain !important; display: block !important;">
-          {% endif %}
+          <img src="https://144549987.fs1.hubspotusercontent-eu1.net/hubfs/144549987/Cellcolabs%20Clinical%20Logo.png" alt="Cellcolabs Clinical" style="height: 40px !important; width: 58px !important; object-fit: contain !important; display: block !important;">
         </a>
 
         <!-- Desktop Menu -->
         <div class="nav-menu-desktop">
           <div style="display: flex !important; align-items: center !important;">
-            {% menu "main_navigation"
-              id="main_navigation",
-              site_map_name="main_navigation",
+            {% menu "main_navigation_clinical"
+              id="main_navigation_clinical",
+              site_map_name="main_navigation_clinical",
               overrideable=False,
               root_type="site_root",
               flyouts="true",
@@ -85,9 +64,9 @@
     <!-- Mobile Menu -->
     <div class="nav-menu-mobile" style="position: absolute !important; top: 100% !important; left: 0 !important; right: 0 !important; background-color: #ffffff !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important; max-height: calc(100vh - 80px) !important; overflow-y: auto !important; z-index: 999998 !important; display: none !important;">
       <div style="padding: 24px !important;">
-        {% menu "main_navigation"
-          id="main_navigation_mobile",
-          site_map_name="main_navigation",
+        {% menu "main_navigation_clinical"
+          id="main_navigation_clinical_mobile",
+          site_map_name="main_navigation_clinical",
           overrideable=False,
           root_type="site_root",
           flyouts="false",
@@ -152,8 +131,7 @@
     border: none !important;
   }
 
-  /* HOVER OVERRIDE - BRAND AWARE COLORS */
-  /* Clinical Brand Hover (Blue) */
+  /* HOVER OVERRIDE - Clinical Blue */
   html body .header .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a:hover,
   html body .header .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a[role="menuitem"]:hover,
   html body .header .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item.hs-menu-depth-1 > a:hover,
@@ -164,25 +142,8 @@
   html body .site-header .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a:hover,
   html body .site-header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a:hover,
   html body .site-header .nav-menu-desktop .hs-menu-item > a:hover,
-  html body .site-header .nav-menu-desktop a:hover,
-  html body [data-brand="cellcolabsclinical"] .header .nav-menu-desktop a:hover,
-  html body [data-brand="cellcolabsclinical"] .site-header .nav-menu-desktop a:hover {
+  html body .site-header .nav-menu-desktop a:hover {
     color: #4f65be !important; /* Clinical Blue */
-  }
-
-  /* Cellcolabs Brand Hover (Green) */
-  html body [data-brand="cellcolabs"] .header .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a:hover,
-  html body [data-brand="cellcolabs"] .header .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a[role="menuitem"]:hover,
-  html body [data-brand="cellcolabs"] .header .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item.hs-menu-depth-1 > a:hover,
-  html body [data-brand="cellcolabs"] .header .nav-menu-desktop .hs-menu-wrapper > ul > li > a:hover,
-  html body [data-brand="cellcolabs"] .header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item a:hover,
-  html body [data-brand="cellcolabs"] .header .nav-menu-desktop .hs-menu-item > a:hover,
-  html body [data-brand="cellcolabs"] .header .nav-menu-desktop a:hover,
-  html body [data-brand="cellcolabs"] .site-header .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a:hover,
-  html body [data-brand="cellcolabs"] .site-header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a:hover,
-  html body [data-brand="cellcolabs"] .site-header .nav-menu-desktop .hs-menu-item > a:hover,
-  html body [data-brand="cellcolabs"] .site-header .nav-menu-desktop a:hover {
-    color: #00A651 !important; /* Cellcolabs Green */
   }
 
   /* MOBILE MENU OVERRIDES - Target both custom classes and HubSpot classes */
@@ -212,20 +173,12 @@
     background: transparent !important;
   }
 
-  /* Mobile menu hover - brand aware */
+  /* Mobile menu hover - Clinical Blue */
   html body .header .nav-menu-mobile .hs-menu-item > a:hover,
   html body .header .nav-menu-mobile .nav-mobile-item > a:hover,
   html body .header .nav-menu-mobile .nav-mobile-link:hover,
-  html body .header .nav-menu-mobile a:hover,
-  html body [data-brand="cellcolabsclinical"] .header .nav-menu-mobile a:hover {
+  html body .header .nav-menu-mobile a:hover {
     color: #4f65be !important; /* Clinical Blue */
-  }
-
-  html body [data-brand="cellcolabs"] .header .nav-menu-mobile .hs-menu-item > a:hover,
-  html body [data-brand="cellcolabs"] .header .nav-menu-mobile .nav-mobile-item > a:hover,
-  html body [data-brand="cellcolabs"] .header .nav-menu-mobile .nav-mobile-link:hover,
-  html body [data-brand="cellcolabs"] .header .nav-menu-mobile a:hover {
-    color: #00A651 !important; /* Cellcolabs Green */
   }
 
   /* Last menu item - no bottom border */
@@ -259,8 +212,6 @@
   .header .nav-toggle[aria-expanded="true"] .nav-toggle-close {
     display: block !important;
   }
-
-  /* Mobile menu active state - Will be overridden by final cascade below */
 
   /* Default display states - Mobile First */
   .header .nav-menu-desktop {
@@ -306,7 +257,6 @@
       display: flex !important;
     }
     .header .nav-menu-mobile {
-      /* Allow mobile menu to show when active */
       display: none !important;
     }
     .header .nav-menu-mobile.is-active {
@@ -330,7 +280,6 @@
       display: flex !important;
     }
     .header .nav-menu-mobile {
-      /* Allow mobile menu to show when active */
       display: none !important;
     }
     .header .nav-menu-mobile.is-active {
@@ -375,27 +324,13 @@
     }
   }
 
-  /* HubSpot Tools Menu Override - Force our nav button above everything */
+  /* HubSpot Tools Menu Override */
   .hs-tools-menu {
     z-index: 999998 !important;
   }
 
   .header .nav-toggle {
     z-index: 2147483647 !important;
-    position: absolute !important;
-    right: 24px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    background: none !important;
-    border: none !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    width: 48px !important;
-    height: 48px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
   }
 
   /* Nuclear button style overrides */
@@ -431,7 +366,7 @@
     z-index: 999999 !important;
   }
 
-  /* Mobile menu styling - Clean brand styles */
+  /* Mobile menu styling */
   .nav-menu-mobile.is-active {
     display: block !important;
     background: #ffffff !important;
@@ -444,7 +379,7 @@
     z-index: 999998 !important;
   }
 
-  /* FINAL CASCADE - Mobile Menu Active State (MUST be last to override responsive CSS) */
+  /* FINAL CASCADE - Mobile Menu Active State */
   .header .nav-menu-mobile.is-active,
   html body .header .nav-menu-mobile.is-active,
   html body .site-header .nav-menu-mobile.is-active,
@@ -463,9 +398,6 @@
     z-index: 999998 !important;
   }
 
-  /* BRAND-SPECIFIC CSS VARIABLES - FINAL OVERRIDE */
-  /* This is the key fix for brand switching */
-
   /* Clinical Brand Variables */
   html[data-brand="cellcolabsclinical"],
   body[data-brand="cellcolabsclinical"],
@@ -475,35 +407,24 @@
     --color-text-link: #4F65BE !important;
   }
 
-  /* Cellcolabs Brand Variables */
-  html[data-brand="cellcolabs"],
-  body[data-brand="cellcolabs"],
-  [data-brand="cellcolabs"] {
-    --color-primary: #00A651 !important;
-    --color-accent: #F9D400 !important;
-    --color-text-link: #00A651 !important;
+  /* Force button colors to match brand system */
+  [data-brand="cellcolabsclinical"] .button,
+  [data-brand="cellcolabsclinical"] .btn,
+  [data-brand="cellcolabsclinical"] button {
+    background-color: var(--color-brand-100, #becfff) !important;
+    border-color: var(--color-white, #ffffff) !important;
+    color: var(--color-text-primary, #161616) !important;
   }
 
-  /* Force button colors to use CSS variables with proper contrast */
-  [data-brand] .button,
-  [data-brand] .btn,
-  [data-brand] button {
-    background-color: var(--color-primary) !important;
-    border-color: var(--color-primary) !important;
-    color: #ffffff !important; /* Always white text for readability */
-  }
-
-  [data-brand] .button:hover,
-  [data-brand] .btn:hover,
-  [data-brand] button:hover {
-    opacity: 0.9 !important;
-    color: #ffffff !important; /* Keep white text on hover */
+  [data-brand="cellcolabsclinical"] .button:hover,
+  [data-brand="cellcolabsclinical"] .btn:hover,
+  [data-brand="cellcolabsclinical"] button:hover {
+    background-color: var(--color-brand-300, #879adf) !important;
+    color: var(--color-text-primary, #161616) !important;
   }
 
   /* Links (but not buttons) use brand colors */
-  [data-brand] a:not(.button):not(.btn):not(button) {
+  [data-brand="cellcolabsclinical"] a:not(.button):not(.btn):not(button) {
     color: var(--color-text-link) !important;
   }
 </style>
-
-<!-- JavaScript moved to child.js to avoid CSP issues -->

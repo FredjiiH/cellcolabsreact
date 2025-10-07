@@ -41,10 +41,23 @@ npm run dev
 ```
 
 ### For Child Theme Deployment:
+
+⚠️ **CRITICAL: Never create duplicate themes!** Always upload to the existing "growth child" theme.
+
 ```bash
 cd 02-child-theme-production/
-hs upload growth-child --dest="growth child"
+# For individual module updates (PREFERRED):
+hs upload growth-child/modules/[module-name].module "growth child/modules/[module-name].module"
+
+# For full theme upload (ONLY when necessary):
+hs upload growth-child "growth child"
 ```
+
+**Important Notes:**
+- The HubSpot theme is named `"growth child"` (with space)
+- The local folder is named `growth-child` (with hyphen)
+- Always use quotes around "growth child" when uploading
+- Prefer uploading only changed modules/files to avoid breaking existing pages
 
 ## 📚 Documentation
 
@@ -59,21 +72,38 @@ Each part contains its own detailed documentation:
 
 ## 🎨 Brand System
 
-### **Global Theme Detection**
-Theme switching is handled globally in `base.html` template:
-- Automatic detection based on domain
-- No manual theme selection needed in modules
-- CSS variables inherit from `<body data-brand="...">`
+### **Dual Brand Architecture**
+The site supports two distinct brands sharing the same theme infrastructure:
 
-**Cellcolabs Clinical** (Production)
+**Cellcolabs Clinical** (B2C - Blue Brand)
 - Primary Color: `#4F65BE` (Blue)
 - Domain: `cellcolabsclinical.com`
 - Typography: Bricolage Grotesque (headings), Inter (body)
+- Header: `header-clinical.module`
+- Footer: `footer-clinical.module`
+- Menus: `main_navigation_clinical`, `footer_product`, `footer_company`, etc.
 
-**Cellcolabs** (Green Theme)
+**Cellcolabs** (B2B - Green Brand)
 - Primary Color: `#00A651` (Green)
 - Domain: `cellcolabs.com`
 - Typography: Bricolage Grotesque (headings), Inter (body)
+- Header: `header-cellcolabs.module` (to be created)
+- Footer: `footer-cellcolabs.module` (to be created)
+- Menus: `main_navigation_cellcolabs`, `footer_product_cellcolabs`, etc. (to be created)
+
+### **Global Theme Detection**
+Brand switching is handled globally in `base.html` template:
+- Automatic detection based on `request.domain`
+- Domain-based conditional loading of header/footer modules
+- No manual theme selection needed in modules
+- CSS variables inherit from `<body data-brand="...">`
+
+### **Header & Footer as Global Modules**
+Headers and footers are implemented as **global modules** (not partials):
+- Allows non-technical users to edit content via HubSpot UI
+- Hidden from module picker (`is_available_for_new_content: false`)
+- Only accessible through base template
+- Separate module per brand for clean architecture
 
 ## 🛠️ Technology Stack
 
@@ -113,25 +143,35 @@ Theme switching is handled globally in `base.html` template:
 - `content-text-image.module` - Content sections with text and images
 
 ### **Theme Structure**
-- `templates/partials/header.html` - Navigation header
-- `templates/layouts/base.html` - Base page layout
+- `modules/header-clinical.module` - Clinical brand navigation header (global module)
+- `modules/footer-clinical.module` - Clinical brand footer (global module)
+- `modules/header-cellcolabs.module` - Cellcolabs brand header (to be created)
+- `modules/footer-cellcolabs.module` - Cellcolabs brand footer (to be created)
+- `templates/layouts/base.html` - Base page layout with brand detection
 - `child.css` - Global styles and brand system
 - `child.js` - Global JavaScript functionality
 
-## 📋 Current Status (September 2025)
+## 📋 Current Status (October 2025)
 
 ✅ **Completed**
 - Theme module workflow validated and working
 - URL/link fields properly implemented
 - Dual-brand system with automatic switching
 - Mobile responsive navigation
-- Three production-ready modules deployed
+- Headers/footers converted to global modules
+- Clinical brand header and footer deployed
+- Domain-based brand detection in base template
 
 ✅ **Production Ready**
 - Child theme live on HubSpot
 - Brand detection working
 - Module deployment via CLI confirmed
 - Marketing team can edit all content
+- Clinical brand (blue) fully implemented
+
+🔄 **In Progress**
+- Footer styling refinement to match Figma design exactly
+- Cellcolabs brand (green) header and footer creation
 
 ## 📁 Folder Structure
 
@@ -159,6 +199,6 @@ Each directory contains detailed README files and documentation specific to that
 
 ---
 
-**Last Updated**: September 30, 2025
+**Last Updated**: October 7, 2025
 **Active System**: Child Theme Production with Theme Modules
-**Status**: ✅ Production Ready
+**Status**: ✅ Production Ready - Dual Brand Architecture Implemented

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "tagline_text",
+    "name": "tagline_text",
+    "label": "Tagline Text",
+    "required": true,
+    "locked": false,
+    "type": "text",
+    "default": "World-leading stem cell research and clinical trials using GMP-certified, donor-derived mesenchymal stems cells.",
+    "help_text": "Tagline displayed below the logo on mobile"
+  },
+  {
+    "id": "product_title",
+    "name": "product_title",
+    "label": "Product Column Title",
+    "required": true,
+    "locked": false,
+    "type": "text",
+    "default": "Product",
+    "help_text": "Title for the Product column"
+  },
+  {
+    "id": "company_title",
+    "name": "company_title",
+    "label": "Company Column Title",
+    "required": true,
+    "locked": false,
+    "type": "text",
+    "default": "Company",
+    "help_text": "Title for the Company column"
+  },
+  {
+    "id": "support_title",
+    "name": "support_title",
+    "label": "Support Column Title",
+    "required": true,
+    "locked": false,
+    "type": "text",
+    "default": "Support",
+    "help_text": "Title for the Support column"
+  },
+  {
+    "id": "social_title",
+    "name": "social_title",
+    "label": "Social Column Title",
+    "required": true,
+    "locked": false,
+    "type": "text",
+    "default": "Social",
+    "help_text": "Title for the Social column"
+  },
+  {
+    "id": "contact_title",
+    "name": "contact_title",
+    "label": "Contact Section Title",
+    "required": true,
+    "locked": false,
+    "type": "text",
+    "default": "Contact",
+    "help_text": "Title for the contact section"
+  },
+  {
+    "id": "contact_address",
+    "name": "contact_address",
+    "label": "Contact Address",
+    "required": true,
+    "locked": false,
+    "type": "richtext",
+    "default": "<p>Registered office Dominion House, 60 Montrose Avenue</p><p>P.O. Box N-9932</p><p>Nassau, New Providence, The Bahamas</p>",
+    "help_text": "Contact address information (supports multiple lines)"
+  },
+  {
+    "id": "copyright_text",
+    "name": "copyright_text",
+    "label": "Copyright Text",
+    "required": true,
+    "locked": false,
+    "type": "text",
+    "default": "© 2025 Cellcolabs Clinical",
+    "help_text": "Copyright text displayed at the bottom"
+  }
+]
