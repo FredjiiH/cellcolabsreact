@@ -227,11 +227,21 @@
       flex-direction: column;
       gap: var(--space-32, 32px);
       padding: var(--space-32, 32px) 0;
+      position: relative;
     }
 
     .process-steps__header {
       flex: none;
-      padding-top: 0;
+      padding: 0;
+      position: -webkit-sticky;
+      position: sticky;
+      top: 72px;
+      align-self: flex-start;
+      width: 100%;
+      background-color: var(--color-bg-primary, #FFFFFF);
+      padding-bottom: var(--space-16, 16px);
+      z-index: 10;
+      margin-bottom: var(--space-32, 32px);
     }
 
     .process-steps__header-sticky {
@@ -376,15 +386,15 @@
         const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1023;
 
         // Trigger point: earlier activation so circles fill before user finishes reading
-        // Mobile: account for sticky header height (eyebrow + heading + subheader + padding)
-        let mobileHeaderHeight = 0;
+        // Mobile: account for sticky header (fixed nav 72px + sticky process header + spacing)
+        let triggerPoint = 250; // Default for desktop
         if (isMobile) {
-          const stickyHeader = document.querySelector('.process-steps__header-sticky');
-          if (stickyHeader) {
-            mobileHeaderHeight = stickyHeader.offsetHeight;
-          }
+          const stickyHeader = document.querySelector('.process-steps__header');
+          const stickyHeaderHeight = stickyHeader ? stickyHeader.offsetHeight : 0;
+          const fixedNavHeight = 72; // Fixed header height
+          // Trigger when circle reaches just below the sticky header
+          triggerPoint = fixedNavHeight + stickyHeaderHeight + 32;
         }
-        const triggerPoint = isMobile ? (mobileHeaderHeight + 40) : 250;
 
         let maxActivatedIndex = -1;
         let progressLineHeight = 0;

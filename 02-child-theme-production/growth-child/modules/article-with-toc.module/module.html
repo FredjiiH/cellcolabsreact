@@ -19,49 +19,71 @@
   /* Table of Contents - Left Column */
   .article-toc {
     flex: 0 0 calc(50% - 8px);
-    max-width: 560px;
     padding-top: 128px;
     padding-bottom: 0;
-    padding-right: 96px;
   }
 
   .article-toc__sticky {
     position: sticky;
-    top: 0;
+    top: 128px;
     display: flex;
     flex-direction: column;
     gap: var(--space-4, 4px);
   }
 
   .article-toc__link {
-    font-family: var(--font-body, 'Inter', sans-serif);
-    font-size: var(--font-size-body, 16px);
-    font-weight: var(--font-weight-regular, 450);
-    line-height: 1.35;
-    color: var(--color-text-tertiary, #8d8d8d);
-    text-decoration: none;
+    font-family: var(--font-body, 'Inter', sans-serif) !important;
+    font-size: var(--font-size-body, 16px) !important;
+    font-weight: var(--font-weight-regular, 450) !important;
+    line-height: 1.35 !important;
+    color: var(--color-text-tertiary, #8d8d8d) !important;
+    text-decoration: none !important;
     cursor: pointer;
     transition: color 0.2s ease;
-    display: block;
-    padding: var(--space-4, 4px) 0;
+    display: block !important;
+    padding: var(--space-4, 4px) 0 !important;
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    text-align: left !important;
+    width: auto !important;
   }
 
   .article-toc__link:hover {
-    color: var(--color-text-secondary, #525252);
+    color: var(--color-text-secondary, #525252) !important;
+    background: none !important;
   }
 
   .article-toc__link.is-active {
-    color: var(--color-text-primary, #161616);
-    font-weight: 500;
+    color: var(--color-text-primary, #161616) !important;
+    font-weight: 500 !important;
+    background: none !important;
+  }
+
+  /* Additional specificity to override Growth theme link and button styles */
+  .article-toc a.article-toc__link.button,
+  .article-toc a.article-toc__link.button:visited {
+    color: var(--color-text-tertiary, #8d8d8d) !important;
+    text-decoration: none !important;
+    background: none !important;
+    border: none !important;
+  }
+
+  .article-toc a.article-toc__link.button:hover {
+    color: var(--color-text-secondary, #525252) !important;
+    background: none !important;
+  }
+
+  .article-toc a.article-toc__link.button.is-active {
+    color: var(--color-text-primary, #161616) !important;
+    background: none !important;
   }
 
   /* Article Content - Right Column */
   .article-content {
     flex: 0 0 calc(50% - 8px);
-    max-width: 560px;
     padding-top: 128px;
     padding-bottom: 128px;
-    padding-right: 48px;
   }
 
   .article-content__sections {
@@ -71,7 +93,11 @@
   }
 
   .article-section {
-    scroll-margin-top: 20px;
+    /* scroll-margin handled by JavaScript scroll offset */
+  }
+
+  .article-references {
+    /* scroll-margin handled by JavaScript scroll offset */
   }
 
   .article-section__heading {
@@ -207,50 +233,41 @@
       flex-direction: column;
       gap: 0;
       padding: var(--space-48, 48px) 0;
+      position: relative;
     }
 
     .article-toc {
       flex: none;
-      max-width: none;
-      padding: 0 0 var(--space-24, 24px) 0;
+      padding: 0;
+      position: -webkit-sticky;
       position: sticky;
-      top: 0;
+      top: 72px;
+      align-self: flex-start;
+      width: 100%;
       background-color: var(--color-bg-primary, #FFFFFF);
+      padding-bottom: var(--space-16, 16px);
       z-index: 10;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      margin-bottom: var(--space-32, 32px);
     }
 
     .article-toc__sticky {
       position: static;
-      flex-direction: row;
-      gap: var(--space-12, 12px);
-      overflow-x: auto;
-      padding: var(--space-16, 16px) 0;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-
-    .article-toc__sticky::-webkit-scrollbar {
-      display: none;
+      flex-direction: column;
+      gap: var(--space-4, 4px);
     }
 
     .article-toc__link {
-      white-space: nowrap;
-      font-size: var(--font-size-body-small, 14px);
-      padding: var(--space-8, 8px) var(--space-12, 12px);
-      border-radius: var(--border-radius-md, 8px);
-      background-color: var(--color-gray-900, #F4F4F4);
+      font-size: var(--font-size-body-small, 14px) !important;
+      padding: var(--space-4, 4px) 0 !important;
     }
 
     .article-toc__link.is-active {
-      background-color: var(--color-text-primary, #161616);
-      color: var(--color-white, #FFFFFF);
+      color: var(--color-text-primary, #161616) !important;
     }
 
     .article-content {
       flex: none;
-      max-width: none;
-      padding: var(--space-48, 48px) 0 var(--space-96, 96px) 0;
+      padding: var(--space-32, 32px) 0 var(--space-96, 96px) 0;
     }
 
     .article-section__heading {
@@ -260,12 +277,18 @@
     .article-content__sections {
       gap: var(--space-48, 48px);
     }
+
+    /* Scroll margins handled by JavaScript */
   }
 
   /* Tablet Layout (768px-1023px) */
   @media (max-width: 1023px) and (min-width: 768px) {
     .article-toc {
       padding-top: 64px;
+    }
+
+    .article-toc__sticky {
+      top: 96px;
     }
 
     .article-content {
@@ -276,6 +299,8 @@
     .article-section__heading {
       font-size: 24px;
     }
+
+    /* Scroll margins handled by JavaScript */
   }
 </style>
 
@@ -286,7 +311,7 @@
       {% for section in module.article_sections %}
         <a
           href="#section-{{ loop.index }}"
-          class="article-toc__link"
+          class="article-toc__link button"
           data-toc-link
           data-section-id="section-{{ loop.index }}"
         >
@@ -296,7 +321,7 @@
       {% if module.show_references %}
         <a
           href="#references"
-          class="article-toc__link"
+          class="article-toc__link button"
           data-toc-link
           data-section-id="references"
         >
@@ -397,14 +422,54 @@
 
           if (targetSection) {
             const isMobile = window.innerWidth <= 767;
-            const offset = isMobile ? 100 : 20; // Account for sticky TOC on mobile
+            const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1023;
 
-            const targetPosition = targetSection.offsetTop - offset;
+            if (isMobile) {
+              // Mobile: Use getBoundingClientRect for accurate positioning
+              const tocElement = document.querySelector('.article-toc');
+              const stickyTopPosition = 72; // Where TOC sticks (top: 72px in CSS)
+              const tocHeight = tocElement ? tocElement.offsetHeight : 0;
 
-            window.scrollTo({
-              top: targetPosition,
-              behavior: 'smooth'
-            });
+              // Get current position of section relative to viewport
+              const sectionRect = targetSection.getBoundingClientRect();
+              const currentScrollY = window.scrollY || window.pageYOffset;
+
+              // Calculate where we need to scroll to
+              // Section's current position from top of document + current scroll - desired viewport position
+              const desiredViewportPosition = stickyTopPosition + tocHeight + 32;
+              const targetPosition = currentScrollY + sectionRect.top - desiredViewportPosition;
+
+              // DEBUG LOGGING
+              console.log('=== Mobile Scroll Debug (getBoundingClientRect) ===');
+              console.log('Window width:', window.innerWidth);
+              console.log('TOC height:', tocHeight);
+              console.log('Sticky top position:', stickyTopPosition);
+              console.log('Desired viewport position for section:', desiredViewportPosition, 'px');
+              console.log('Section getBoundingClientRect().top:', sectionRect.top);
+              console.log('Current scroll Y:', currentScrollY);
+              console.log('Calculation:', currentScrollY, '+', sectionRect.top, '-', desiredViewportPosition, '=', targetPosition);
+              console.log('Target scroll position:', targetPosition);
+
+              window.scrollTo({
+                top: Math.max(0, targetPosition),
+                behavior: 'smooth'
+              });
+            } else {
+              // Desktop/Tablet: Use offset method
+              let offset = 100; // Desktop: header (72px) + small buffer
+              if (isTablet) {
+                offset = 90; // Tablet: header + small buffer
+              }
+
+              const targetPosition = targetSection.offsetTop - offset;
+
+              console.log('Desktop/Tablet scroll to:', targetPosition);
+
+              window.scrollTo({
+                top: Math.max(0, targetPosition),
+                behavior: 'smooth'
+              });
+            }
           }
         });
       });
