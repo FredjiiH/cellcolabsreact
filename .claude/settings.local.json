@@ -1,4 +1,5 @@
-{
+r
+c{
   "permissions": {
     "allow": [
       "Bash(hs upload:*)"

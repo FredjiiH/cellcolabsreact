@@ -36,21 +36,23 @@
   box-sizing: border-box;
 }
 
-/* Primary Button */
-.button-multi-variant__link--primary {
-  background-color: var(--color-brand-100, #becfff);
-  color: var(--color-text-primary, #161616);
-  border: 0.5px solid var(--color-white, #ffffff);
+/* Primary Button - higher specificity to override global brand link styles */
+[data-brand] .button-multi-variant__link--primary,
+[data-brand] .button-multi-variant__link--primary:link,
+[data-brand] .button-multi-variant__link--primary:visited {
+  background-color: var(--color-brand-100, #becfff) !important;
+  color: var(--color-text-primary, #161616) !important;
+  border: 0.5px solid var(--color-white, #ffffff) !important;
 }
 
-.button-multi-variant__link--primary:hover {
-  background-color: var(--color-brand-300, #879adf);
-  color: var(--color-text-primary, #161616);
+[data-brand] .button-multi-variant__link--primary:hover {
+  background-color: var(--color-brand-300, #879adf) !important;
+  color: var(--color-text-primary, #161616) !important;
 }
 
-.button-multi-variant__link--primary:active {
-  background-color: var(--color-brand-500, #4f65be);
-  color: var(--color-text-primary, #161616);
+[data-brand] .button-multi-variant__link--primary:active {
+  background-color: var(--color-brand-500, #4f65be) !important;
+  color: var(--color-text-primary, #161616) !important;
 }
 
 .button-multi-variant__link--primary:disabled,
@@ -62,21 +64,23 @@
 }
 
 
-/* Outline Button */
-.button-multi-variant__link--outline {
-  background: transparent;
-  color: var(--color-text-primary, #161616);
-  border: 1.5px solid var(--color-text-primary, #161616);
+/* Outline Button - higher specificity to override global brand link styles */
+[data-brand] .button-multi-variant__link--outline,
+[data-brand] .button-multi-variant__link--outline:link,
+[data-brand] .button-multi-variant__link--outline:visited {
+  background: transparent !important;
+  color: var(--color-text-primary, #161616) !important;
+  border: 1.5px solid var(--color-text-primary, #161616) !important;
 }
 
-.button-multi-variant__link--outline:hover {
-  border-color: var(--color-gray-400, #6f6f6f);
-  color: var(--color-text-primary, #161616);
+[data-brand] .button-multi-variant__link--outline:hover {
+  border-color: var(--color-gray-400, #6f6f6f) !important;
+  color: var(--color-text-primary, #161616) !important;
 }
 
-.button-multi-variant__link--outline:active {
-  border-color: var(--color-gray-500, #8d8d8d);
-  color: var(--color-text-primary, #161616);
+[data-brand] .button-multi-variant__link--outline:active {
+  border-color: var(--color-gray-500, #8d8d8d) !important;
+  color: var(--color-text-primary, #161616) !important;
 }
 
 .button-multi-variant__link--outline:disabled,
@@ -110,7 +114,7 @@
 <div class="button-multi-variant button-multi-variant--{{ module.button_alignment or 'left' }}" data-component="button-multi-variant">
   {% if module.button_url.href %}
     <a href="{{ module.button_url.href }}"
-       class="button-multi-variant__link button-multi-variant__link--{{ module.button_variant or 'primary' }}{% if module.button_size and module.button_size != 'default' %} button-multi-variant__link--{{ module.button_size }}{% endif %}"
+       class="button-multi-variant__link button-multi-variant__link--{{ module.button_variant or 'primary' }}{% if module.button_size and module.button_size != 'default' %} button-multi-variant__link--{{ module.button_size }}{% endif %} button"
        target="{% if module.button_url.open_in_new_tab %}_blank{% else %}_self{% endif %}"
        {% if module.button_url.open_in_new_tab %}rel="noopener noreferrer"{% endif %}
        {% if module.button_url.no_follow %}rel="nofollow"{% endif %}>

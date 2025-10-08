@@ -24,9 +24,9 @@
       <!-- Product Column -->
       <div class="footer-column">
         <p class="footer-column-title">{{ module.product_title }}</p>
-        {% menu "footer_product"
-          id="footer_product_menu",
-          site_map_name="footer_product",
+        {% menu "footer_product_clinical"
+          id="footer_product_clinical_menu",
+          site_map_name="footer_product_clinical",
           overrideable=False,
           root_type="site_root",
           flyouts="false",
@@ -41,9 +41,9 @@
       <!-- Company Column -->
       <div class="footer-column">
         <p class="footer-column-title">{{ module.company_title }}</p>
-        {% menu "footer_company"
-          id="footer_company_menu",
-          site_map_name="footer_company",
+        {% menu "footer_company_clinical"
+          id="footer_company_clinical_menu",
+          site_map_name="footer_company_clinical",
           overrideable=False,
           root_type="site_root",
           flyouts="false",
@@ -58,9 +58,9 @@
       <!-- Support Column -->
       <div class="footer-column">
         <p class="footer-column-title">{{ module.support_title }}</p>
-        {% menu "footer_support"
-          id="footer_support_menu",
-          site_map_name="footer_support",
+        {% menu "footer_support_clinical"
+          id="footer_support_clinical_menu",
+          site_map_name="footer_support_clinical",
           overrideable=False,
           root_type="site_root",
           flyouts="false",
@@ -75,9 +75,9 @@
       <!-- Social Column -->
       <div class="footer-column">
         <p class="footer-column-title">{{ module.social_title }}</p>
-        {% menu "footer_social"
-          id="footer_social_menu",
-          site_map_name="footer_social",
+        {% menu "footer_social_clinical"
+          id="footer_social_clinical_menu",
+          site_map_name="footer_social_clinical",
           overrideable=False,
           root_type="site_root",
           flyouts="false",
@@ -176,6 +176,15 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-16, 16px);
+  text-align: left;
+}
+
+.footer-column-title {
+  text-align: left;
+}
+
+.footer-menu-list {
+  text-align: left;
 }
 
 .footer-column-title {
@@ -199,9 +208,18 @@
 .footer-menu-item {
   margin: 0;
   padding: 0;
+  text-align: left;
 }
 
-.footer-menu-link {
+/* Override global brand link colors with maximum specificity */
+[data-brand="cellcolabsclinical"] .site-footer .footer-menu-link,
+[data-brand="cellcolabsclinical"] .site-footer .footer-menu-link a:not(.button):not(.btn):not(button),
+[data-brand="cellcolabsclinical"] .site-footer .hs-menu-wrapper .hs-menu-item a:not(.button):not(.btn):not(button),
+[data-brand="cellcolabsclinical"] .site-footer .footer-nav-columns .hs-menu-wrapper .hs-menu-item > a:not(.button):not(.btn):not(button),
+[data-brand="cellcolabs"] .site-footer .footer-menu-link,
+[data-brand="cellcolabs"] .site-footer .footer-menu-link a:not(.button):not(.btn):not(button),
+[data-brand="cellcolabs"] .site-footer .hs-menu-wrapper .hs-menu-item a:not(.button):not(.btn):not(button),
+[data-brand="cellcolabs"] .site-footer .footer-nav-columns .hs-menu-wrapper .hs-menu-item > a:not(.button):not(.btn):not(button) {
   font-family: var(--font-body, 'Inter', sans-serif) !important;
   font-size: var(--font-size-body, 16px) !important;
   font-weight: var(--font-weight-regular, 450) !important;
@@ -210,9 +228,22 @@
   text-decoration: none !important;
   transition: opacity 0.2s ease;
   display: block;
+  text-align: left !important;
 }
 
-.footer-menu-link:hover {
+[data-brand="cellcolabsclinical"] .site-footer .footer-menu-link:hover,
+[data-brand="cellcolabsclinical"] .site-footer .footer-menu-link:visited,
+[data-brand="cellcolabsclinical"] .site-footer .footer-menu-link:active,
+[data-brand="cellcolabsclinical"] .site-footer .hs-menu-wrapper .hs-menu-item a:hover,
+[data-brand="cellcolabsclinical"] .site-footer .hs-menu-wrapper .hs-menu-item a:visited,
+[data-brand="cellcolabsclinical"] .site-footer .hs-menu-wrapper .hs-menu-item a:active,
+[data-brand="cellcolabs"] .site-footer .footer-menu-link:hover,
+[data-brand="cellcolabs"] .site-footer .footer-menu-link:visited,
+[data-brand="cellcolabs"] .site-footer .footer-menu-link:active,
+[data-brand="cellcolabs"] .site-footer .hs-menu-wrapper .hs-menu-item a:hover,
+[data-brand="cellcolabs"] .site-footer .hs-menu-wrapper .hs-menu-item a:visited,
+[data-brand="cellcolabs"] .site-footer .hs-menu-wrapper .hs-menu-item a:active {
+  color: var(--color-white, #ffffff) !important;
   opacity: 0.7;
 }
 
@@ -286,26 +317,54 @@
     display: none;
   }
 
-  /* Desktop wrapper for logo + columns */
+  /* Desktop wrapper - position logo absolutely, columns use full width */
   .footer-desktop-wrapper {
-    display: grid;
-    grid-template-columns: 114px 1fr;
-    gap: 0;
+    position: relative;
     width: 100%;
-    align-items: flex-start;
   }
 
-  /* Show desktop image logo */
+  /* Show desktop image logo - positioned absolutely */
   .footer-logo--desktop {
     display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
-  /* Desktop navigation columns - evenly distributed */
+  /* Desktop navigation columns - use percentage-based positioning to match Figma */
   .footer-nav-columns {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-24, 24px);
-    padding-left: var(--space-96, 96px); /* Space after logo */
+    display: block;
+    position: relative;
+    min-height: 150px; /* Ensure space for absolutely positioned columns */
+  }
+
+  /* Position columns at Figma-specified percentages (adjusted for container) */
+  .footer-column:nth-child(1) {
+    /* Product at ~33.333% + offset */
+    position: absolute;
+    left: calc(33.333% + 16px);
+    width: 212px;
+  }
+
+  .footer-column:nth-child(2) {
+    /* Company at ~50% + offset */
+    position: absolute;
+    left: calc(50% + 12px);
+    width: 212px;
+  }
+
+  .footer-column:nth-child(3) {
+    /* Support at ~66.667% + offset */
+    position: absolute;
+    left: calc(66.667% + 8px);
+    width: 212px;
+  }
+
+  .footer-column:nth-child(4) {
+    /* Social at ~83.333% + offset */
+    position: absolute;
+    left: calc(83.333% + 4px);
+    width: 212px;
   }
 
   .footer-column {
@@ -314,22 +373,22 @@
     gap: var(--space-16, 16px);
   }
 
-  /* Contact section - align with first column */
+  /* Contact section - align with Product column */
   .footer-contact {
     display: flex;
     flex-direction: column;
     gap: var(--space-16, 16px);
-    padding-left: calc(114px + var(--space-96, 96px)); /* Logo width + gap to align with Product column */
+    padding-left: calc(33.333% + 16px); /* Align with Product column */
   }
 
-  /* Desktop copyright - align with first column */
+  /* Desktop copyright - align with Product column */
   .footer-copyright-desktop {
     display: block;
     font-size: var(--font-size-body, 16px);
     font-weight: var(--font-weight-regular, 450);
     line-height: var(--line-height-relaxed, 1.5);
     color: var(--color-white, #ffffff);
-    padding-left: calc(114px + var(--space-96, 96px)); /* Logo width + gap to align with Product column */
+    padding-left: calc(33.333% + 16px); /* Align with Product column */
   }
 
   .footer-copyright-desktop p {
@@ -338,8 +397,22 @@
   }
 }
 
+/* Mobile - Override HubSpot default center alignment */
+@media (max-width: 767px) {
+  .site-footer .hs-menu-wrapper li,
+  .site-footer .hs-menu-wrapper .hs-menu-item,
+  .site-footer .footer-menu-item {
+    text-align: left !important;
+  }
+}
+
 /* Tablet Layout (768px-1023px) */
 @media (min-width: 768px) and (max-width: 1023px) {
+  /* Reduce gap on tablet for better spacing */
+  .footer-desktop-wrapper {
+    gap: 32px;
+  }
+
   .footer-nav-columns {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-48, 48px) var(--space-32, 32px);

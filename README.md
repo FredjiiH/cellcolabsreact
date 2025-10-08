@@ -75,21 +75,21 @@ Each part contains its own detailed documentation:
 ### **Dual Brand Architecture**
 The site supports two distinct brands sharing the same theme infrastructure:
 
-**Cellcolabs Clinical** (B2C - Blue Brand)
+**Cellcolabs Clinical** (B2C - Blue Brand) - ✅ COMPLETE
 - Primary Color: `#4F65BE` (Blue)
 - Domain: `cellcolabsclinical.com`
 - Typography: Bricolage Grotesque (headings), Inter (body)
-- Header: `header-clinical.module`
-- Footer: `footer-clinical.module`
-- Menus: `main_navigation_clinical`, `footer_product`, `footer_company`, etc.
+- Header: `header-clinical.module` ✅
+- Footer: `footer-clinical.module` ✅ (matches Figma design)
+- Menus: `main_navigation_clinical`, `footer_product_clinical`, `footer_company_clinical`, `footer_support_clinical`, `footer_social_clinical`
 
-**Cellcolabs** (B2B - Green Brand)
+**Cellcolabs** (B2B - Green Brand) - TO BE CREATED
 - Primary Color: `#00A651` (Green)
 - Domain: `cellcolabs.com`
 - Typography: Bricolage Grotesque (headings), Inter (body)
-- Header: `header-cellcolabs.module` (to be created)
-- Footer: `footer-cellcolabs.module` (to be created)
-- Menus: `main_navigation_cellcolabs`, `footer_product_cellcolabs`, etc. (to be created)
+- Header: `header-cellcolabs.module` ❌ (to be created)
+- Footer: `footer-cellcolabs.module` ❌ (to be created)
+- Menus: `main_navigation_cellcolabs`, `footer_product_cellcolabs`, `footer_company_cellcolabs`, `footer_support_cellcolabs`, `footer_social_cellcolabs` ❌ (to be created)
 
 ### **Global Theme Detection**
 Brand switching is handled globally in `base.html` template:
@@ -143,13 +143,22 @@ Headers and footers are implemented as **global modules** (not partials):
 - `content-text-image.module` - Content sections with text and images
 
 ### **Theme Structure**
-- `modules/header-clinical.module` - Clinical brand navigation header (global module)
-- `modules/footer-clinical.module` - Clinical brand footer (global module)
-- `modules/header-cellcolabs.module` - Cellcolabs brand header (to be created)
-- `modules/footer-cellcolabs.module` - Cellcolabs brand footer (to be created)
+- `modules/header-clinical.module` - Clinical brand navigation header (global module) ✅
+- `modules/footer-clinical.module` - Clinical brand footer (global module) ✅
+- `modules/header-cellcolabs.module` - Cellcolabs brand header ❌ (to be created)
+- `modules/footer-cellcolabs.module` - Cellcolabs brand footer ❌ (to be created)
 - `templates/layouts/base.html` - Base page layout with brand detection
 - `child.css` - Global styles and brand system
 - `child.js` - Global JavaScript functionality
+
+### **Naming Conventions for Dual Brand**
+**Modules:**
+- Clinical: `[component]-clinical.module`
+- Cellcolabs: `[component]-cellcolabs.module`
+
+**HubSpot Menus:**
+- Clinical: `[menu-name]_clinical`
+- Cellcolabs: `[menu-name]_cellcolabs`
 
 ## 📋 Current Status (October 2025)
 
@@ -159,7 +168,10 @@ Headers and footers are implemented as **global modules** (not partials):
 - Dual-brand system with automatic switching
 - Mobile responsive navigation
 - Headers/footers converted to global modules
-- Clinical brand header and footer deployed
+- **Clinical brand (blue) header and footer fully complete** ✅
+- Footer desktop layout matches Figma design exactly (absolute positioning)
+- Footer menu link colors properly overridden to white
+- Mobile menu items left-aligned
 - Domain-based brand detection in base template
 
 ✅ **Production Ready**
@@ -167,11 +179,11 @@ Headers and footers are implemented as **global modules** (not partials):
 - Brand detection working
 - Module deployment via CLI confirmed
 - Marketing team can edit all content
-- Clinical brand (blue) fully implemented
+- **Clinical brand (blue) fully implemented** ✅
 
-🔄 **In Progress**
-- Footer styling refinement to match Figma design exactly
+🔄 **To Do**
 - Cellcolabs brand (green) header and footer creation
+- Create HubSpot menus for Cellcolabs with `_cellcolabs` suffix
 
 ## 📁 Folder Structure
 

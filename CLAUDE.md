@@ -61,13 +61,23 @@ The site supports two distinct brands that share the same theme infrastructure:
 
 ### Brand-Specific Modules
 
-**Cellcolabs Clinical (Blue Brand):**
+**Cellcolabs Clinical (Blue Brand) - ✅ COMPLETE:**
 - `header-clinical.module` - Header with Clinical branding and navigation
-- `footer-clinical.module` - Footer with Clinical branding and menus
+- `footer-clinical.module` - Footer with Clinical branding and menus (desktop layout matches Figma exactly)
 
 **Cellcolabs (Green Brand) - TO BE CREATED:**
 - `header-cellcolabs.module` - Header with Cellcolabs branding and navigation
 - `footer-cellcolabs.module` - Footer with Cellcolabs branding and menus
+
+### Naming Convention
+
+**Modules:**
+- Clinical brand: `[component]-clinical.module` (e.g., `footer-clinical.module`)
+- Cellcolabs brand: `[component]-cellcolabs.module` (e.g., `footer-cellcolabs.module`)
+
+**HubSpot Menus:**
+- Clinical brand: `[menu-name]_clinical` (e.g., `footer_product_clinical`)
+- Cellcolabs brand: `[menu-name]_cellcolabs` (e.g., `footer_product_cellcolabs`)
 
 ### Module Configuration
 
@@ -117,38 +127,43 @@ Brand detection happens in `base.html` based on request domain:
 
 Each brand has separate HubSpot menu sets:
 
-**Cellcolabs Clinical:**
+**Cellcolabs Clinical (Blue Brand) - ✅ COMPLETE:**
 - `main_navigation_clinical` - Main header navigation
-- `footer_product` - Footer Product column links
-- `footer_company` - Footer Company column links
-- `footer_support` - Footer Support column links
-- `footer_social` - Footer Social column links
+- `footer_product_clinical` - Footer Product column (Stem cells, Trials, Clinics, Consultation)
+- `footer_company_clinical` - Footer Company column (About, FAQ, Partnerships, Career, Privacy policy)
+- `footer_support_clinical` - Footer Support column (Contact us)
+- `footer_social_clinical` - Footer Social column (Instagram, Facebook, LinkedIn, LINE)
 
-**Cellcolabs (to be created):**
+**Cellcolabs (Green Brand) - TO BE CREATED:**
 - `main_navigation_cellcolabs` - Main header navigation
 - `footer_product_cellcolabs` - Footer Product column links
 - `footer_company_cellcolabs` - Footer Company column links
 - `footer_support_cellcolabs` - Footer Support column links
 - `footer_social_cellcolabs` - Footer Social column links
 
-### Footer Structure (Clinical Example)
+### Footer Structure (Clinical - Complete)
 
-**Desktop Layout (1024px+):**
-- Grid layout: `114px` (logo) + `1fr` (content area)
-- 4 navigation columns using `grid-template-columns: repeat(4, 1fr)` for even distribution
-- 96px gap between logo and columns
-- 24px gap between columns
-- Contact and Copyright sections align with first column (Product)
+**Desktop Layout (1024px+) - ✅ MATCHES FIGMA:**
+- Logo: 114px wide, positioned at left: 0
+- 4 navigation columns positioned with absolute positioning at specific percentages:
+  - Product: `calc(33.333% + 16px)` - 212px wide
+  - Company: `calc(50% + 12px)` - 212px wide
+  - Support: `calc(66.667% + 8px)` - 212px wide
+  - Social: `calc(83.333% + 4px)` - 212px wide
+- Contact and Copyright sections align with Product column
+- All link colors forced to white with maximum specificity overrides
 
 **Mobile Layout (767px and below):**
 - Text logo + tagline at top
 - 2-column grid for navigation links (Product/Support, Company/Social)
+- All menu items left-aligned (overrides HubSpot default center alignment)
 - Contact section below navigation
 - Copyright at bottom
 
 **Tablet Layout (768-1023px):**
-- Same proportions as desktop
-- Columns scale responsively within grid
+- Same structure as desktop with 32px gap
+- 2-column grid for navigation
+- Scales responsively
 
 ### Creating New Brand Modules
 
