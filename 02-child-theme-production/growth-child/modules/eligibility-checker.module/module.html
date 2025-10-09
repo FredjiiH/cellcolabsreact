@@ -1,0 +1,614 @@
+<!--
+  templateType: module
+  label: Eligibility Checker
+  isAvailableForNewContent: true
+-->
+
+{% set total_steps = module.steps|length %}
+{% set final_url = module.final_step_url.url.href or "#" %}
+{% set module_id = "eligibility-" ~ name ~ "-" ~ loop.index|default("0") %}
+{% set has_meeting_booker = module.enable_meeting_booker %}
+{% set meeting_url = module.meeting_booker_url if has_meeting_booker else "" %}
+{% set total_steps_with_booker = total_steps + 1 if has_meeting_booker else total_steps %}
+
+<div class="eligibility-checker"
+     id="{{ module_id }}"
+     data-total-steps="{{ total_steps_with_booker }}"
+     data-eligibility-steps="{{ total_steps }}"
+     data-has-meeting-booker="{{ has_meeting_booker|lower }}"
+     data-meeting-url="{{ meeting_url }}"
+     data-final-url="{{ final_url }}"
+     data-gtm-prefix="{{ module.gtm_event_prefix }}">
+  <!-- Step Indicator and Header -->
+  <div class="eligibility-header">
+    <div class="eligibility-step-indicator">
+      <span class="step-current">1</span>/<span class="step-total">{{ total_steps_with_booker }}</span>
+    </div>
+    <h1 class="eligibility-title"></h1>
+    <div class="eligibility-description"></div>
+  </div>
+
+  <!-- Card Container -->
+  <div class="eligibility-card">
+    <div class="card-content">
+      <h2 class="card-heading"></h2>
+      <div class="card-description"></div>
+
+      <div class="card-buttons">
+        <button class="btn-back" type="button">{{ module.back_button_text }}</button>
+        <button class="btn-confirm" type="button">{{ module.confirm_button_text }}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Meeting Booker Container (hidden by default) -->
+  {% if has_meeting_booker %}
+  <div class="meeting-booker-container" style="display: none;">
+    <div class="meeting-booker-content">
+      <!-- HubSpot Meetings Embed -->
+      <div class="meetings-iframe-container" data-src="{{ meeting_url }}?embed=true"></div>
+    </div>
+    <div class="meeting-booker-buttons">
+      <button class="btn-back" type="button">{{ module.back_button_text }}</button>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Hidden meeting booker data -->
+  {% if has_meeting_booker %}
+  <script type="application/json" class="meeting-booker-data">
+    {
+      "title": {{ module.meeting_booker_title|tojson }},
+      "description": {{ module.meeting_booker_description|tojson }}
+    }
+  </script>
+  {% endif %}
+
+  <!-- Hidden step data -->
+  <script type="application/json" class="eligibility-data">
+    [
+      {% for step in module.steps %}
+      {
+        "stepTitle": {{ step.step_title|tojson }},
+        "stepDescription": {{ step.step_description|tojson }},
+        "cardHeading": {{ step.card_heading|tojson }},
+        "cardDescription": {{ step.card_description|tojson }}
+      }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ]
+  </script>
+</div>
+
+<!-- HubSpot Meetings Embed Script -->
+{% if has_meeting_booker %}
+<script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
+{% endif %}
+
+<style>
+/* Eligibility Checker Styles */
+
+.eligibility-checker {
+  background-color: var(--color-bg-white, #ffffff);
+  width: 100%;
+  padding: var(--space-64, 64px) var(--space-24, 24px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-48, 48px);
+}
+
+/* Header Section */
+.eligibility-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-32, 32px);
+  max-width: 1136px;
+  width: 100%;
+  text-align: center;
+}
+
+.eligibility-step-indicator {
+  background-color: var(--color-gray-900, #f4f4f4);
+  padding: var(--space-8, 8px) var(--space-12, 12px);
+  border-radius: var(--border-radius-md, 8px);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--font-size-body-small, 14px);
+  font-weight: var(--font-weight-regular, 450);
+  line-height: 1.35;
+  color: var(--color-text-secondary, #525252);
+}
+
+.eligibility-title {
+  font-family: var(--font-heading, 'Inter', sans-serif);
+  font-size: var(--font-size-h1, 56px);
+  font-weight: var(--font-weight-medium, 580);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary, #161616);
+  margin: 0;
+}
+
+.eligibility-description {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--font-size-body, 16px);
+  font-weight: var(--font-weight-regular, 450);
+  line-height: 1.35;
+  color: var(--color-text-secondary, #525252);
+  max-width: 480px;
+}
+
+.eligibility-description p {
+  margin: 0;
+  color: inherit;
+}
+
+/* Card Section */
+.eligibility-card {
+  background-color: var(--color-bg-beige, #ede9e1);
+  border-radius: var(--border-radius-lg, 16px);
+  padding: var(--space-48, 48px) var(--space-64, 64px);
+  max-width: 640px;
+  width: 100%;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-32, 32px);
+  text-align: center;
+}
+
+.card-heading {
+  font-family: var(--font-heading, 'Inter', sans-serif);
+  font-size: var(--font-size-h2-desktop, 40px);
+  font-weight: var(--font-weight-medium, 580);
+  line-height: 1.15;
+  color: var(--color-text-primary, #161616);
+  margin: 0;
+  width: 100%;
+}
+
+.card-description {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--font-size-body, 16px);
+  font-weight: var(--font-weight-regular, 450);
+  line-height: 1.35;
+  color: var(--color-text-secondary, #525252);
+  max-width: 480px;
+}
+
+.card-description p {
+  margin: 0;
+  color: inherit;
+}
+
+.card-description strong {
+  font-weight: var(--font-weight-bold, 700);
+}
+
+/* Buttons */
+.card-buttons {
+  display: flex;
+  gap: var(--space-16, 16px);
+  align-items: center;
+  justify-content: center;
+}
+
+/* Button base styles - higher specificity to override global styles */
+[data-brand] .eligibility-checker button.btn-back,
+[data-brand] .eligibility-checker button.btn-confirm,
+[data-brand] .eligibility-checker .btn-back,
+[data-brand] .eligibility-checker .btn-confirm {
+  font-family: var(--font-body, 'Inter', sans-serif) !important;
+  font-size: var(--font-size-button, 16px) !important;
+  font-weight: var(--font-weight-medium, 500) !important;
+  line-height: 1 !important;
+  padding: var(--space-12, 12px) var(--space-16, 16px) !important;
+  border-radius: 64px !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+/* Back button - Outline style (matches button-multi-variant) */
+[data-brand] .eligibility-checker button.btn-back,
+[data-brand] .eligibility-checker .btn-back {
+  background: transparent !important;
+  color: var(--color-text-primary, #161616) !important;
+  border: 1.5px solid var(--color-text-primary, #161616) !important;
+}
+
+[data-brand] .eligibility-checker button.btn-back:hover:not(:disabled),
+[data-brand] .eligibility-checker .btn-back:hover:not(:disabled) {
+  border-color: var(--color-gray-400, #6f6f6f) !important;
+  color: var(--color-text-primary, #161616) !important;
+  background: transparent !important;
+}
+
+[data-brand] .eligibility-checker button.btn-back:focus:not(:disabled),
+[data-brand] .eligibility-checker button.btn-back:focus-visible:not(:disabled),
+[data-brand] .eligibility-checker .btn-back:focus:not(:disabled),
+[data-brand] .eligibility-checker .btn-back:focus-visible:not(:disabled) {
+  background: transparent !important;
+  color: var(--color-text-primary, #161616) !important;
+  border: 1.5px solid var(--color-text-primary, #161616) !important;
+  outline: none !important;
+}
+
+[data-brand] .eligibility-checker button.btn-back:active:not(:disabled),
+[data-brand] .eligibility-checker .btn-back:active:not(:disabled) {
+  border-color: var(--color-gray-500, #8d8d8d) !important;
+  color: var(--color-text-primary, #161616) !important;
+}
+
+[data-brand] .eligibility-checker button.btn-back:disabled,
+[data-brand] .eligibility-checker .btn-back:disabled {
+  border-color: var(--color-gray-700, #c6c6c6) !important;
+  color: var(--color-gray-700, #c6c6c6) !important;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Confirm button - Primary style (matches button-multi-variant) */
+[data-brand] .eligibility-checker button.btn-confirm,
+[data-brand] .eligibility-checker .btn-confirm {
+  background-color: var(--color-brand-100, #becfff) !important;
+  border: 0.5px solid var(--color-white, #ffffff) !important;
+  color: var(--color-text-primary, #161616) !important;
+}
+
+[data-brand] .eligibility-checker button.btn-confirm:hover,
+[data-brand] .eligibility-checker .btn-confirm:hover {
+  background-color: var(--color-brand-300, #879adf) !important;
+  color: var(--color-text-primary, #161616) !important;
+}
+
+[data-brand] .eligibility-checker button.btn-confirm:focus,
+[data-brand] .eligibility-checker button.btn-confirm:focus-visible,
+[data-brand] .eligibility-checker .btn-confirm:focus,
+[data-brand] .eligibility-checker .btn-confirm:focus-visible {
+  background-color: var(--color-brand-100, #becfff) !important;
+  color: var(--color-text-primary, #161616) !important;
+  border: 0.5px solid var(--color-white, #ffffff) !important;
+  outline: none !important;
+}
+
+[data-brand] .eligibility-checker button.btn-confirm:active,
+[data-brand] .eligibility-checker .btn-confirm:active {
+  background-color: var(--color-brand-500, #4f65be) !important;
+  color: var(--color-text-primary, #161616) !important;
+}
+
+/* Tablet Styles (768-1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .eligibility-checker {
+    padding: var(--space-48, 48px) var(--space-24, 24px);
+    gap: var(--space-32, 32px);
+  }
+
+  .eligibility-header {
+    max-width: 768px;
+  }
+
+  .eligibility-title {
+    font-size: var(--font-size-h1-tablet, 36px);
+  }
+
+  .card-heading {
+    font-size: var(--font-size-h2-tablet, 32px);
+  }
+
+  .eligibility-card {
+    max-width: 640px;
+    padding: var(--space-48, 48px) var(--space-32, 32px);
+  }
+}
+
+/* Mobile Styles (767px and below) */
+@media (max-width: 767px) {
+  .eligibility-checker {
+    padding: var(--space-48, 48px) var(--space-16, 16px);
+    gap: var(--space-32, 32px);
+  }
+
+  .eligibility-header {
+    gap: var(--space-24, 24px);
+  }
+
+  .eligibility-title {
+    font-size: var(--font-size-h1-mobile, 36px);
+  }
+
+  .eligibility-description {
+    font-size: var(--font-size-body-small, 14px);
+  }
+
+  .eligibility-card {
+    padding: var(--space-32, 32px) var(--space-24, 24px);
+    max-width: 100%;
+  }
+
+  .card-content {
+    gap: var(--space-24, 24px);
+  }
+
+  .card-heading {
+    font-size: var(--font-size-h2-mobile, 32px);
+  }
+
+  .card-description {
+    font-size: var(--font-size-body-small, 14px);
+    max-width: 100%;
+  }
+
+  /* Keep buttons side by side on mobile as per design */
+  .card-buttons {
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-back,
+  .btn-confirm {
+    flex: 0 1 auto;
+    min-width: min-content;
+  }
+}
+
+/* Meeting Booker Styles */
+.meeting-booker-container {
+  width: 100%;
+  max-width: 768px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-48, 48px);
+}
+
+.meeting-booker-content {
+  background-color: var(--color-bg-white, #ffffff);
+  border-radius: var(--border-radius-lg, 16px);
+  overflow: hidden;
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+}
+
+.meeting-booker-iframe {
+  width: 100%;
+  min-height: 700px;
+  border: none;
+  display: block;
+}
+
+.meeting-booker-buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--space-16, 16px);
+  margin-top: var(--space-16, 16px);
+}
+
+/* Meeting booker responsive styles */
+@media (max-width: 767px) {
+  .meeting-booker-iframe {
+    min-height: 800px;
+  }
+
+  .meeting-booker-buttons {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .meeting-booker-iframe {
+    min-height: 750px;
+  }
+}
+</style>
+
+<script>
+(function() {
+  // Use the module ID to find the specific container
+  const moduleId = '{{ module_id }}';
+
+  function initEligibilityChecker() {
+    const container = document.getElementById(moduleId);
+    if (!container) {
+      console.error('Eligibility checker container not found:', moduleId);
+      return;
+    }
+
+    // Get configuration
+    const eligibilitySteps = parseInt(container.dataset.eligibilitySteps);
+    const totalSteps = parseInt(container.dataset.totalSteps);
+    const hasMeetingBooker = container.dataset.hasMeetingBooker === 'true';
+    const meetingUrl = container.dataset.meetingUrl || '';
+    const finalUrl = container.dataset.finalUrl || '#';
+    const gtmPrefix = container.dataset.gtmPrefix || 'eligibility_step';
+
+    // Get step data
+    const dataElement = container.querySelector('.eligibility-data');
+    if (!dataElement) {
+      console.error('Eligibility data element not found');
+      return;
+    }
+
+    let stepsData;
+    try {
+      stepsData = JSON.parse(dataElement.textContent);
+    } catch (e) {
+      console.error('Failed to parse eligibility data:', e);
+      return;
+    }
+
+    // Get meeting booker data
+    let meetingData = null;
+    if (hasMeetingBooker) {
+      const meetingDataElement = container.querySelector('.meeting-booker-data');
+      if (meetingDataElement) {
+        try {
+          meetingData = JSON.parse(meetingDataElement.textContent);
+        } catch (e) {
+          console.error('Failed to parse meeting booker data:', e);
+        }
+      }
+    }
+
+    let currentStep = 0;
+
+    // DOM elements
+    const stepCurrent = container.querySelector('.step-current');
+    const stepTotal = container.querySelector('.step-total');
+    const title = container.querySelector('.eligibility-title');
+    const description = container.querySelector('.eligibility-description');
+    const eligibilityCard = container.querySelector('.eligibility-card');
+    const cardHeading = container.querySelector('.card-heading');
+    const cardDescription = container.querySelector('.card-description');
+    const meetingBookerContainer = container.querySelector('.meeting-booker-container');
+    const cardButtons = eligibilityCard.querySelector('.card-buttons');
+    const meetingButtons = meetingBookerContainer ? meetingBookerContainer.querySelector('.meeting-booker-buttons') : null;
+
+    const btnBackCard = cardButtons ? cardButtons.querySelector('.btn-back') : null;
+    const btnConfirmCard = cardButtons ? cardButtons.querySelector('.btn-confirm') : null;
+    const btnBackMeeting = meetingButtons ? meetingButtons.querySelector('.btn-back') : null;
+
+    if (!stepCurrent || !title || !description || !eligibilityCard) {
+      console.error('Some DOM elements not found');
+      return;
+    }
+
+    // Render current step
+    function renderStep(stepIndex) {
+      // Check if this is the meeting booker step
+      const isMeetingBookerStep = hasMeetingBooker && stepIndex === eligibilitySteps;
+
+      if (isMeetingBookerStep && meetingData) {
+        // Show meeting booker
+        stepCurrent.textContent = stepIndex + 1;
+        title.textContent = meetingData.title || 'Schedule your consultation';
+        description.innerHTML = meetingData.description || '';
+
+        // Hide eligibility card, show meeting booker
+        eligibilityCard.style.display = 'none';
+        if (meetingBookerContainer) {
+          meetingBookerContainer.style.display = 'block';
+        }
+      } else {
+        // Show eligibility step
+        const step = stepsData[stepIndex];
+        if (!step) {
+          console.error('Step data not found for index:', stepIndex);
+          return;
+        }
+
+        stepCurrent.textContent = stepIndex + 1;
+        title.textContent = step.stepTitle || '';
+        description.innerHTML = step.stepDescription || '';
+        cardHeading.textContent = step.cardHeading || '';
+        cardDescription.innerHTML = step.cardDescription || '';
+
+        // Show eligibility card, hide meeting booker
+        eligibilityCard.style.display = 'block';
+        if (meetingBookerContainer) {
+          meetingBookerContainer.style.display = 'none';
+        }
+
+        // Update back button state
+        if (btnBackCard) {
+          btnBackCard.disabled = stepIndex === 0;
+        }
+      }
+
+      // Remove focus from any active element after rendering
+      setTimeout(function() {
+        if (document.activeElement && document.activeElement.blur) {
+          document.activeElement.blur();
+        }
+      }, 0);
+    }
+
+    // Send GTM event
+    function sendGTMEvent(stepNumber) {
+      const eventName = gtmPrefix + '_' + stepNumber + '_confirmed';
+
+      // Push to dataLayer (Google Tag Manager)
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'event': eventName,
+        'stepNumber': stepNumber,
+        'totalSteps': totalSteps
+      });
+
+      console.log('GTM Event:', eventName, {stepNumber: stepNumber, totalSteps: totalSteps});
+    }
+
+    // Back button handler (eligibility card)
+    if (btnBackCard) {
+      btnBackCard.addEventListener('click', function() {
+        // Remove focus from button to prevent focus state persisting
+        this.blur();
+
+        if (currentStep > 0) {
+          currentStep--;
+          renderStep(currentStep);
+        }
+      });
+    }
+
+    // Back button handler (meeting booker)
+    if (btnBackMeeting) {
+      btnBackMeeting.addEventListener('click', function() {
+        // Remove focus from button to prevent focus state persisting
+        this.blur();
+
+        if (currentStep > 0) {
+          currentStep--;
+          renderStep(currentStep);
+        }
+      });
+    }
+
+    // Confirm button handler (eligibility card)
+    if (btnConfirmCard) {
+      btnConfirmCard.addEventListener('click', function() {
+        // Remove focus from button to prevent focus state persisting
+        this.blur();
+
+        const stepNumber = currentStep + 1;
+
+        // Send GTM event
+        sendGTMEvent(stepNumber);
+
+        // Check if this is the last eligibility step
+        if (currentStep === eligibilitySteps - 1) {
+          // Last eligibility step
+          if (hasMeetingBooker) {
+            // Show meeting booker
+            currentStep++;
+            renderStep(currentStep);
+          } else {
+            // No meeting booker, redirect to final URL
+            if (finalUrl && finalUrl !== '#') {
+              window.location.href = finalUrl;
+            }
+          }
+        } else {
+          // Go to next eligibility step
+          currentStep++;
+          renderStep(currentStep);
+        }
+      });
+    }
+
+    // Initialize first step
+    renderStep(0);
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initEligibilityChecker);
+  } else {
+    initEligibilityChecker();
+  }
+})();
+</script>

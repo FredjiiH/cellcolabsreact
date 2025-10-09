@@ -141,6 +141,7 @@ Headers and footers are implemented as **global modules** (not partials):
 - `grid2x2-card-image.module` - 2x2 grid with image cards
 - `button-multi-variant.module` - Multi-style button component
 - `content-text-image.module` - Content sections with text and images
+- `eligibility-checker.module` - Multi-step eligibility checker with HubSpot meeting booker integration
 
 ### **Theme Structure**
 - `modules/header-clinical.module` - Clinical brand navigation header (global module) ✅
@@ -173,6 +174,11 @@ Headers and footers are implemented as **global modules** (not partials):
 - Footer menu link colors properly overridden to white
 - Mobile menu items left-aligned
 - Domain-based brand detection in base template
+- **Eligibility Checker module with HubSpot meeting booker integration** ✅
+  - Multi-step eligibility flow (1-10 configurable steps)
+  - GTM event tracking on each step confirmation
+  - Optional HubSpot meeting scheduler integration
+  - Responsive design across desktop, tablet, and mobile
 
 ✅ **Production Ready**
 - Child theme live on HubSpot
@@ -197,7 +203,8 @@ cellcolabsreact/
     │   ├── modules/               # Theme modules
     │   │   ├── grid2x2-card-image.module/
     │   │   ├── button-multi-variant.module/
-    │   │   └── content-text-image.module/
+    │   │   ├── content-text-image.module/
+    │   │   └── eligibility-checker.module/
     │   ├── templates/             # Page structure
     │   ├── child.css             # Brand system
     │   └── child.js              # Global JS
@@ -211,6 +218,6 @@ Each directory contains detailed README files and documentation specific to that
 
 ---
 
-**Last Updated**: October 7, 2025
+**Last Updated**: October 9, 2025
 **Active System**: Child Theme Production with Theme Modules
 **Status**: ✅ Production Ready - Dual Brand Architecture Implemented

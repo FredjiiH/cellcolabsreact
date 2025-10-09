@@ -1,0 +1,143 @@
+[
+  {
+    "id": "steps",
+    "name": "steps",
+    "label": "Eligibility Steps",
+    "help_text": "Add each eligibility check step. Steps will be shown one at a time with navigation.",
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 10,
+      "default": 3
+    },
+    "children": [
+      {
+        "id": "step_title",
+        "name": "step_title",
+        "label": "Step Title",
+        "type": "text",
+        "default": "Apply for treatment"
+      },
+      {
+        "id": "step_description",
+        "name": "step_description",
+        "label": "Step Description",
+        "type": "richtext",
+        "default": "Complete this online screening form to check your eligibility."
+      },
+      {
+        "id": "card_heading",
+        "name": "card_heading",
+        "label": "Card Heading",
+        "type": "text",
+        "default": "Program cost"
+      },
+      {
+        "id": "card_description",
+        "name": "card_description",
+        "label": "Card Description",
+        "type": "richtext",
+        "default": "Please note that this is a patient-funded program."
+      }
+    ],
+    "default": [
+      {
+        "step_title": "Apply for treatment",
+        "step_description": "<p>Complete this online screening form to check your eligibility for Cellcolabs' mesenchymal stem cell (MSC) clinical trials, approved by national ethics committees.</p>",
+        "card_heading": "Program cost",
+        "card_description": "<p>Please note that this is a patient-funded program, with costs starting at <strong>$16,500 USD</strong> (excluding travel and accommodation).</p>"
+      },
+      {
+        "step_title": "Apply for treatment",
+        "step_description": "<p>Eligibility to access our GMP-certified stem cells.</p>",
+        "card_heading": "Age requirement",
+        "card_description": "<p>Please note, our clinical trial is open to individuals 18 years and older.</p>"
+      },
+      {
+        "step_title": "Apply for treatment",
+        "step_description": "<p>Eligibility to access our GMP-certified stem cells.</p>",
+        "card_heading": "Health assessment",
+        "card_description": "<p>Please confirm you are in general good health and able to travel.</p>"
+      }
+    ]
+  },
+  {
+    "id": "enable_meeting_booker",
+    "name": "enable_meeting_booker",
+    "label": "Enable HubSpot Meeting Booker",
+    "help_text": "Enable this to embed HubSpot meeting booker after eligibility steps",
+    "type": "boolean",
+    "default": false
+  },
+  {
+    "id": "meeting_booker_url",
+    "name": "meeting_booker_url",
+    "label": "HubSpot Meeting Link",
+    "help_text": "Paste ONLY the meeting URL here (e.g., https://meetings-eu1.hubspot.com/your-name). Do NOT paste the entire embed code - just the URL.",
+    "type": "text",
+    "default": "",
+    "visibility": {
+      "controlling_field": "enable_meeting_booker",
+      "controlling_value_regex": "true"
+    }
+  },
+  {
+    "id": "meeting_booker_title",
+    "name": "meeting_booker_title",
+    "label": "Meeting Booker Step Title",
+    "help_text": "Title shown above the meeting booker",
+    "type": "text",
+    "default": "Schedule your consultation",
+    "visibility": {
+      "controlling_field": "enable_meeting_booker",
+      "controlling_value_regex": "true"
+    }
+  },
+  {
+    "id": "meeting_booker_description",
+    "name": "meeting_booker_description",
+    "label": "Meeting Booker Description",
+    "help_text": "Description text shown above the meeting booker",
+    "type": "richtext",
+    "default": "<p>Select a convenient time for your consultation with our team.</p>",
+    "visibility": {
+      "controlling_field": "enable_meeting_booker",
+      "controlling_value_regex": "true"
+    }
+  },
+  {
+    "id": "final_step_url",
+    "name": "final_step_url",
+    "label": "Final Step URL (Optional)",
+    "help_text": "If meeting booker is disabled, redirect to this URL after last step. Otherwise, this is ignored.",
+    "type": "link",
+    "default": {
+      "url": {
+        "href": "#",
+        "type": "EXTERNAL"
+      }
+    }
+  },
+  {
+    "id": "back_button_text",
+    "name": "back_button_text",
+    "label": "Back Button Text",
+    "type": "text",
+    "default": "Back"
+  },
+  {
+    "id": "confirm_button_text",
+    "name": "confirm_button_text",
+    "label": "Confirm Button Text",
+    "type": "text",
+    "default": "Confirm"
+  },
+  {
+    "id": "gtm_event_prefix",
+    "name": "gtm_event_prefix",
+    "label": "GTM Event Prefix",
+    "help_text": "Prefix for Google Tag Manager events (e.g., 'eligibility_step'). Events will be named like 'eligibility_step_1_confirmed'",
+    "type": "text",
+    "default": "eligibility_step"
+  }
+]
