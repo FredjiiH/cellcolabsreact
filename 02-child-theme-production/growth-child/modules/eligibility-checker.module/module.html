@@ -206,7 +206,7 @@
   font-weight: var(--font-weight-medium, 500) !important;
   line-height: 1 !important;
   padding: var(--space-12, 12px) var(--space-16, 16px) !important;
-  border-radius: 64px !important;
+  border-radius: var(--button-border-radius, 24px) !important;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -216,32 +216,32 @@
 /* Back button - Outline style (matches button-multi-variant) */
 [data-brand] .eligibility-checker button.btn-back,
 [data-brand] .eligibility-checker .btn-back {
-  background: transparent !important;
-  color: var(--color-text-primary, #161616) !important;
-  border: 1.5px solid var(--color-text-primary, #161616) !important;
+  background: var(--button-secondary-bg) !important;
+  color: var(--button-secondary-text) !important;
+  border: 1.5px solid var(--button-secondary-border) !important;
 }
 
 [data-brand] .eligibility-checker button.btn-back:hover:not(:disabled),
 [data-brand] .eligibility-checker .btn-back:hover:not(:disabled) {
-  border-color: var(--color-gray-400, #6f6f6f) !important;
-  color: var(--color-text-primary, #161616) !important;
-  background: transparent !important;
+  border-color: var(--button-secondary-border-hover) !important;
+  color: var(--button-secondary-text) !important;
+  background: var(--button-secondary-bg) !important;
 }
 
 [data-brand] .eligibility-checker button.btn-back:focus:not(:disabled),
 [data-brand] .eligibility-checker button.btn-back:focus-visible:not(:disabled),
 [data-brand] .eligibility-checker .btn-back:focus:not(:disabled),
 [data-brand] .eligibility-checker .btn-back:focus-visible:not(:disabled) {
-  background: transparent !important;
-  color: var(--color-text-primary, #161616) !important;
-  border: 1.5px solid var(--color-text-primary, #161616) !important;
+  background: var(--button-secondary-bg) !important;
+  color: var(--button-secondary-text) !important;
+  border: 1.5px solid var(--button-secondary-border) !important;
   outline: none !important;
 }
 
 [data-brand] .eligibility-checker button.btn-back:active:not(:disabled),
 [data-brand] .eligibility-checker .btn-back:active:not(:disabled) {
-  border-color: var(--color-gray-500, #8d8d8d) !important;
-  color: var(--color-text-primary, #161616) !important;
+  border-color: var(--button-secondary-border-active) !important;
+  color: var(--button-secondary-text) !important;
 }
 
 [data-brand] .eligibility-checker button.btn-back:disabled,
@@ -255,31 +255,31 @@
 /* Confirm button - Primary style (matches button-multi-variant) */
 [data-brand] .eligibility-checker button.btn-confirm,
 [data-brand] .eligibility-checker .btn-confirm {
-  background-color: var(--color-brand-100, #becfff) !important;
-  border: 0.5px solid var(--color-white, #ffffff) !important;
-  color: var(--color-text-primary, #161616) !important;
+  background-color: var(--button-primary-bg) !important;
+  border: 0.5px solid var(--button-primary-border) !important;
+  color: var(--button-primary-text) !important;
 }
 
 [data-brand] .eligibility-checker button.btn-confirm:hover,
 [data-brand] .eligibility-checker .btn-confirm:hover {
-  background-color: var(--color-brand-300, #879adf) !important;
-  color: var(--color-text-primary, #161616) !important;
+  background-color: var(--button-primary-bg-hover) !important;
+  color: var(--button-primary-text) !important;
 }
 
 [data-brand] .eligibility-checker button.btn-confirm:focus,
 [data-brand] .eligibility-checker button.btn-confirm:focus-visible,
 [data-brand] .eligibility-checker .btn-confirm:focus,
 [data-brand] .eligibility-checker .btn-confirm:focus-visible {
-  background-color: var(--color-brand-100, #becfff) !important;
-  color: var(--color-text-primary, #161616) !important;
-  border: 0.5px solid var(--color-white, #ffffff) !important;
+  background-color: var(--button-primary-bg) !important;
+  color: var(--button-primary-text) !important;
+  border: 0.5px solid var(--button-primary-border) !important;
   outline: none !important;
 }
 
 [data-brand] .eligibility-checker button.btn-confirm:active,
 [data-brand] .eligibility-checker .btn-confirm:active {
-  background-color: var(--color-brand-500, #4f65be) !important;
-  color: var(--color-text-primary, #161616) !important;
+  background-color: var(--button-primary-bg-active) !important;
+  color: var(--button-primary-text) !important;
 }
 
 /* Tablet Styles (768-1023px) */
