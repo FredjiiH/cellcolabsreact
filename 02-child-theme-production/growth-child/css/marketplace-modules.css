@@ -1,0 +1,29 @@
+/* ================================================
+   MARKETPLACE MODULES - STYLE OVERRIDES
+   ================================================
+
+   This file contains styling overrides for third-party
+   marketplace modules installed from the HubSpot marketplace.
+
+   IMPORTANT:
+   - Always use brand variables from child.css
+   - Organized by module name with clear sections
+   - Use high specificity to override module defaults
+   - Test at all breakpoints (mobile, tablet, desktop)
+
+   Currently no marketplace modules are installed.
+   Add module overrides as needed when modules are added.
+
+   ================================================ */
+
+/* ================================================
+   EXAMPLE STRUCTURE (Remove when adding real modules)
+   ================================================
+
+   [MODULE NAME] - [Module Author]
+
+   .module-specific-class {
+     property: value;
+   }
+
+   ================================================ */

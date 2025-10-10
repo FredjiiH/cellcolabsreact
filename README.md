@@ -144,13 +144,38 @@ Headers and footers are implemented as **global modules** (not partials):
 - `eligibility-checker.module` - Multi-step eligibility checker with HubSpot meeting booker integration
 
 ### **Theme Structure**
-- `modules/header-clinical.module` - Clinical brand navigation header (global module) ✅
+- `modules/header-clinical.module` - Clinical brand navigation header (global module, sticky positioning) ✅
 - `modules/footer-clinical.module` - Clinical brand footer (global module) ✅
 - `modules/header-cellcolabs.module` - Cellcolabs brand header ❌ (to be created)
 - `modules/footer-cellcolabs.module` - Cellcolabs brand footer ❌ (to be created)
 - `templates/layouts/base.html` - Base page layout with brand detection
-- `child.css` - Global styles and brand system
+- `child.css` - Core theme: variables (colors, buttons, typography), global styles, container widths
+- `css/standard-modules.css` - Standard HubSpot module overrides (buttons, forms, accordion, etc.)
+- `css/marketplace-modules.css` - Marketplace module overrides (when needed)
 - `child.js` - Global JavaScript functionality
+
+### **Button & Link Styling System**
+All button and link styling is centralized using CSS variables:
+
+**Button Variables** (in `child.css`):
+- Primary: `--button-primary-bg`, `--button-primary-bg-hover`, `--button-primary-bg-active`, `--button-primary-text`
+- Secondary/Outline: `--button-secondary-bg`, `--button-secondary-border`, `--button-secondary-text`
+- Shape: `--button-border-radius` (24px)
+
+**Standard Buttons** (in `css/standard-modules.css`):
+- Unified styling for `.hs-button`, `<button>`, `input[type="submit"]`, etc.
+- Uses button brand variables
+- Black text (#161616), no border, 24px border-radius
+
+**Link Colors** (in `child.css`):
+- Brand-scoped with proper button exclusions
+- Clinical: `--color-text-link: #4F65BE` (blue)
+- Cellcolabs: `--color-text-link: #00A651` (green)
+
+**Sticky Header Implementation**:
+- Applied to HubSpot wrapper (`.hs_cos_wrapper_type_module`) via CSS block
+- Includes `-webkit-sticky` prefix for Safari compatibility
+- Requires parent taller than viewport to function
 
 ### **Naming Conventions for Dual Brand**
 **Modules:**
@@ -161,6 +186,27 @@ Headers and footers are implemented as **global modules** (not partials):
 - Clinical: `[menu-name]_clinical`
 - Cellcolabs: `[menu-name]_cellcolabs`
 
+### **Global Modules**
+**Global modules** have the same content across all pages. Editing a global module updates all instances.
+
+**Naming Convention:**
+- Add `-global` suffix: `content-checklist-block-global.module`
+- Set `"global": true` in `meta.json`
+- Include "(Global)" in label
+
+**Examples:**
+- `content-checklist-block-global.module` - Feature list appearing on multiple pages
+- `header-clinical.module`, `footer-clinical.module` - Brand headers/footers (global but brand-specific)
+
+**Use global modules when:**
+- Same content needed on multiple pages
+- Single-source updates required
+- Headers, footers, or consistent brand elements
+
+**Don't use global modules when:**
+- Content varies per page
+- Customization needed per instance
+
 ## 📋 Current Status (October 2025)
 
 ✅ **Completed**
@@ -170,10 +216,17 @@ Headers and footers are implemented as **global modules** (not partials):
 - Mobile responsive navigation
 - Headers/footers converted to global modules
 - **Clinical brand (blue) header and footer fully complete** ✅
-- Footer desktop layout matches Figma design exactly (absolute positioning)
-- Footer menu link colors properly overridden to white
-- Mobile menu items left-aligned
+  - Sticky header positioning (applied to HubSpot wrapper)
+  - Footer desktop layout matches Figma design exactly (absolute positioning)
+  - Footer menu link colors properly overridden to white
+  - Mobile menu items left-aligned
 - Domain-based brand detection in base template
+- **Button & Link Styling Architecture** ✅
+  - Button brand variables in child.css (primary/secondary/outline)
+  - Standard button styling in standard-modules.css
+  - Global link colors with proper button exclusions
+  - Multi-variant button module using brand variables
+  - Unified 24px border-radius, black text (#161616), no border
 - **Eligibility Checker module with HubSpot meeting booker integration** ✅
   - Multi-step eligibility flow (1-10 configurable steps)
   - GTM event tracking on each step confirmation
@@ -218,6 +271,6 @@ Each directory contains detailed README files and documentation specific to that
 
 ---
 
-**Last Updated**: October 9, 2025
+**Last Updated**: October 10, 2025
 **Active System**: Child Theme Production with Theme Modules
-**Status**: ✅ Production Ready - Dual Brand Architecture Implemented
+**Status**: ✅ Production Ready - Dual Brand Architecture with Unified Button/Link Styling

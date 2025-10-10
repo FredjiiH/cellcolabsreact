@@ -200,12 +200,298 @@ When creating the Cellcolabs (green) modules:
 - Ensure module names are descriptive and consistent
 - Include `.module` extension in folder names
 
+### Global Modules
+
+**Global modules** are modules where the same content appears on multiple pages. When you edit a global module, the changes apply to all instances across the site.
+
+**Naming Convention:**
+- Add `-global` suffix to module folder name: `content-checklist-block-global.module`
+- Update `meta.json` label to include "(Global)": `"label": "Content Checklist Block (Global)"`
+- Add description note: `"This is a global module - same content appears everywhere"`
+
+**Configuration Required:**
+```json
+{
+  "label": "Module Name (Global)",
+  "description": "Module description. This is a global module - same content appears everywhere.",
+  "global": true,
+  "is_available_for_new_content": true
+}
+```
+
+**When to Use Global Modules:**
+- Headers and footers (consistent across all pages)
+- Content blocks that need to be identical everywhere (e.g., feature lists, announcements)
+- Elements that require single-source editing
+
+**When NOT to Use Global Modules:**
+- Content that varies per page
+- Modules that need customization on each instance
+- Page-specific sections
+
+**Examples:**
+- `content-checklist-block-global.module` - Feature list that appears identically on multiple pages
+- `header-clinical.module` - Clinical brand header (global but brand-specific)
+- `footer-clinical.module` - Clinical brand footer (global but brand-specific)
+
 ## CSS and Styling
 
 - **ALWAYS use brand CSS variables** for all styling (colors, fonts, spacing)
 - Brand variables are defined in `child.css` and automatically adjust for breakpoints
 - Never hardcode values - variables enable centralized updates across all modules
 - Test responsive behavior at all breakpoints (desktop 1024px+, tablet 768-1023px, mobile 767px and below)
+
+### CSS File Structure
+
+The project uses a clear separation of CSS files by module type:
+
+**`child.css`** - Core theme foundation
+- CSS variables: colors, typography, spacing, brand system
+- Global typography overrides (body, headings, links)
+- Container widths and grid system
+- HubSpot spacing system integration
+- Mobile width fixes
+- Utility classes
+- **This is the single source of truth for all brand variables**
+- Does NOT contain header/footer styles (those are in modules)
+
+**`css/standard-modules.css`** - Standard HubSpot modules
+- All built-in HubSpot module overrides in ONE file
+- Forms (inputs, labels, buttons, validation)
+- Accordion, tabs, cards, pricing tables
+- Blog listing, pagination, related posts
+- Image gallery, video modules
+- Social follow, social sharing
+- Any other default HubSpot modules
+- Organized with clear comment sections per module
+- Uses brand variables from `child.css`
+
+**`css/marketplace-modules.css`** - Marketplace module overrides
+- Third-party marketplace module styling
+- Only populated when marketplace modules are installed
+- Uses brand variables from `child.css`
+
+**`modules/[module].module/module.html`** - Custom theme modules
+- Individual CSS embedded in `<style>` tags within module.html
+- Auto-loaded by HubSpot when module is used
+- Uses brand variables from `child.css`
+- Module-specific overrides when needed
+- Examples: `header-clinical.module`, `footer-clinical.module`, `section-builder.module`
+
+### Why This Structure?
+
+**Single file per category (not per module) for standard/marketplace:**
+- HubSpot doesn't auto-load CSS for standard modules like it does for theme modules
+- Loading 20+ separate CSS files creates performance issues
+- Single file approach: better performance, easier maintenance
+- Still organized with clear comment sections
+
+**Embedded CSS for theme modules:**
+- HubSpot automatically includes module.html (including <style> tags) when module is used
+- Conditional loading (only loads when module is on page)
+- Clean separation of concerns
+- Self-contained modules
+
+### Loading Order in base.html
+
+```html
+{{ require_css(get_public_template_url("../../child.css")) }}
+{{ require_css(get_public_template_url("../../css/standard-modules.css")) }}
+{{ require_css(get_public_template_url("../../css/marketplace-modules.css")) }}
+```
+
+Theme module CSS is automatically included when the module is used (no manual loading needed).
+
+### Best Practices
+
+1. **Always use brand variables** - Never hardcode colors, fonts, or spacing
+2. **Organize with comments** - Use clear section headers in `standard-modules.css`
+3. **Test responsively** - All styles must work at all breakpoints
+4. **Maximum specificity** - Use high specificity to override Growth theme defaults
+5. **Document changes** - Add comments for complex overrides
+6. **Keep child.css clean** - Only global/foundational styles, no module-specific code
+
+## Button and Link Styling Architecture
+
+### Button Brand Variables
+
+All button styling is controlled via CSS variables in `child.css` for both brands:
+
+**Cellcolabs Clinical (Blue Brand):**
+```css
+/* Button Colors - Primary */
+--button-primary-bg: #BECFFF;           /* Light blue - brand-100 */
+--button-primary-bg-hover: #879ADF;     /* Medium blue - brand-300 */
+--button-primary-bg-active: #4F65BE;    /* Dark blue - brand-500 */
+--button-primary-text: #161616;         /* Dark text */
+--button-primary-border: transparent;   /* No border */
+
+/* Button Colors - Secondary/Outline */
+--button-secondary-bg: transparent;
+--button-secondary-border: #161616;
+--button-secondary-border-hover: #6F6F6F;
+--button-secondary-border-active: #8D8D8D;
+--button-secondary-text: #161616;
+
+/* Button Shape */
+--button-border-radius: 24px;
+```
+
+**Cellcolabs (Green Brand):**
+```css
+/* Button Colors - Primary */
+--button-primary-bg: #7FD99F;           /* Light green - placeholder */
+--button-primary-bg-hover: #5BC47D;     /* Medium green - placeholder */
+--button-primary-bg-active: #00A651;    /* Primary green */
+--button-primary-text: #161616;
+--button-primary-border: transparent;
+
+/* Secondary and border radius same as Clinical */
+```
+
+### Standard Button Styling
+
+Standard HubSpot buttons (`.hs-button`, `<button>`, etc.) are styled in `css/standard-modules.css`:
+
+```css
+/* Base button styling */
+button, .btn, .button, .hs-button, a.hs-button,
+input[type='submit'], input[type='button'] {
+  font-family: var(--font-body) !important;
+  font-size: var(--font-size-button) !important;
+  border-radius: var(--button-border-radius, 24px) !important;
+  /* ... */
+}
+
+/* Primary button - uses brand variables */
+[data-brand] button, [data-brand] .hs-button,
+[data-brand] a.hs-button, [data-brand] a.button {
+  background-color: var(--button-primary-bg) !important;
+  color: var(--button-primary-text) !important;
+  border: 0.5px solid var(--button-primary-border) !important;
+}
+
+/* Hover and active states */
+[data-brand] button:hover {
+  background-color: var(--button-primary-bg-hover) !important;
+}
+
+[data-brand] button:active {
+  background-color: var(--button-primary-bg-active) !important;
+}
+```
+
+### Multi-Variant Button Module
+
+The `button-multi-variant.module` also uses the same button brand variables:
+
+```css
+/* Primary button */
+.button-multi-variant__link--primary {
+  background-color: var(--button-primary-bg) !important;
+  color: var(--button-primary-text) !important;
+  border: 0.5px solid var(--button-primary-border) !important;
+}
+
+/* Outline button */
+.button-multi-variant__link--outline {
+  background: var(--button-secondary-bg) !important;
+  color: var(--button-secondary-text) !important;
+  border: 1.5px solid var(--button-secondary-border) !important;
+}
+```
+
+### Global Link Styling
+
+Link colors are managed in `child.css` with proper button exclusions:
+
+```css
+/* Base link styling (weak, for fallback) */
+a {
+  color: var(--color-text-link);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Brand-scoped links with proper specificity - exclude buttons */
+[data-brand="cellcolabsclinical"] a:not(.button):not(.btn):not(.hs-button):not(button),
+[data-brand="cellcolabs"] a:not(.button):not(.btn):not(.hs-button):not(button) {
+  color: var(--color-text-link) !important;
+  font-weight: var(--font-weight-medium);
+}
+```
+
+**IMPORTANT:** Global link styling must be in `child.css`, NOT in individual modules. This ensures:
+- Centralized link color management
+- Proper button exclusions apply site-wide
+- No conflicts between module-level and global styling
+
+### Button Styling Checklist
+
+When creating or updating buttons:
+1. ✅ Use button brand variables (never hardcode colors)
+2. ✅ Ensure buttons are excluded from link styling with `:not()` selectors
+3. ✅ Test all states (default, hover, active, disabled)
+4. ✅ Verify text color is black (#161616), not link blue
+5. ✅ Check border-radius is 24px via `var(--button-border-radius)`
+6. ✅ Test on all breakpoints
+
+### Sticky Header Implementation
+
+Headers use sticky positioning to remain visible when scrolling. Due to HubSpot's wrapper structure, sticky positioning must be applied correctly.
+
+**CRITICAL:** Sticky positioning MUST be:
+1. Applied in the CSS `<style>` block (NOT inline styles)
+2. Include `-webkit-sticky` prefix for Safari compatibility
+3. Applied to the **HubSpot wrapper**, not the header element itself
+
+**Correct Implementation:**
+
+```css
+/* STICKY HEADER - Must be in CSS block, not inline */
+/* Apply to HubSpot wrapper since it's the parent container */
+.hs_cos_wrapper_type_module:has(.header.site-header) {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 999999 !important;
+}
+
+.header.site-header {
+  background-color: #ffffff !important;
+}
+```
+
+**Why HubSpot Wrapper?**
+- HubSpot wraps all modules in `.hs_cos_wrapper_type_module` divs
+- The header element (72px) has same height as its immediate parent (72px)
+- Sticky elements need a taller parent container to stick within
+- The HubSpot wrapper has the full page height (body-wrapper) as its parent
+- Using `:has()` selector targets only the wrapper containing the header
+
+**Common Debugging:**
+```javascript
+// Check if sticky is applied
+const wrapper = document.querySelector('.hs_cos_wrapper_type_module');
+console.log('Position:', window.getComputedStyle(wrapper).position); // Should be "sticky"
+console.log('Wrapper height:', wrapper.offsetHeight);
+console.log('Parent height:', wrapper.parentElement.offsetHeight);
+
+// Check for overflow issues (breaks sticky)
+let element = wrapper.parentElement;
+while (element && element !== document.body) {
+  const overflow = window.getComputedStyle(element).overflow;
+  if (overflow !== 'visible') {
+    console.log('Overflow issue:', element.className, overflow);
+  }
+  element = element.parentElement;
+}
+```
+
+**Requirements for Sticky to Work:**
+- Parent container must be taller than viewport
+- No `overflow: hidden/auto/scroll` on parent elements
+- Element must be in CSS block with `-webkit-sticky` prefix
+- Must have `top` or `bottom` value set
 
 ## Brand Variables and Responsive Typography
 

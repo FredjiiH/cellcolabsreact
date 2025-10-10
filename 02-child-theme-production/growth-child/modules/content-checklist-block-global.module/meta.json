@@ -1,0 +1,8 @@
+{
+  "label": "Content Checklist Block (Global)",
+  "description": "A two-column section with a title on the left and checkmark list items on the right. Perfect for showcasing features, benefits, or key points. This is a global module - same content appears everywhere.",
+  "category": "content",
+  "icon": "check-list",
+  "global": true,
+  "is_available_for_new_content": true
+}
