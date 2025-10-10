@@ -294,6 +294,130 @@ button.disabled,
 }
 
 /* ================================================
+   CTA (CALL-TO-ACTION) MODULE
+   ================================================
+
+   HubSpot CTA buttons use:
+   - .hs-cta-wrapper (container)
+   - .cta_button (the actual link)
+
+   Custom classes can be added in HubSpot CTA UI:
+   - Add "cta-primary" for primary button style
+   - Add "cta-outline" for outline button style
+   - Default styling applies if no class is added
+   ================================================ */
+
+/* Base CTA styling - applies to all CTAs */
+.hs-cta-wrapper .cta_button,
+a.cta_button {
+  font-family: var(--font-body, 'Inter', sans-serif) !important;
+  font-size: var(--font-size-button, 16px) !important;
+  font-weight: var(--font-weight-medium, 500) !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  border-radius: var(--button-border-radius, 24px) !important;
+  padding: var(--space-12, 12px) var(--space-16, 16px) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+}
+
+/* Default CTA styling (Primary) - higher specificity to override link colors */
+[data-brand] .hs-cta-wrapper .cta_button,
+[data-brand] a.cta_button,
+[data-brand] .hs-cta-wrapper .cta_button:link,
+[data-brand] .hs-cta-wrapper .cta_button:visited {
+  background-color: var(--button-primary-bg) !important;
+  color: var(--button-primary-text) !important;
+  border: 0.5px solid var(--button-primary-border) !important;
+}
+
+[data-brand] .hs-cta-wrapper .cta_button:hover,
+[data-brand] a.cta_button:hover {
+  background-color: var(--button-primary-bg-hover) !important;
+  color: var(--button-primary-text) !important;
+}
+
+[data-brand] .hs-cta-wrapper .cta_button:active,
+[data-brand] a.cta_button:active {
+  background-color: var(--button-primary-bg-active) !important;
+  color: var(--button-primary-text) !important;
+}
+
+/* Primary variant - add "cta-primary" class in HubSpot CTA UI */
+[data-brand] .hs-cta-wrapper.cta-primary .cta_button,
+[data-brand] .cta-primary .cta_button,
+[data-brand] a.cta_button.cta-primary,
+[data-brand] .hs-cta-wrapper.cta-primary .cta_button:link,
+[data-brand] .hs-cta-wrapper.cta-primary .cta_button:visited {
+  background-color: var(--button-primary-bg) !important;
+  color: var(--button-primary-text) !important;
+  border: 0.5px solid var(--button-primary-border) !important;
+}
+
+[data-brand] .hs-cta-wrapper.cta-primary .cta_button:hover,
+[data-brand] .cta-primary .cta_button:hover,
+[data-brand] a.cta_button.cta-primary:hover {
+  background-color: var(--button-primary-bg-hover) !important;
+  color: var(--button-primary-text) !important;
+}
+
+[data-brand] .hs-cta-wrapper.cta-primary .cta_button:active,
+[data-brand] .cta-primary .cta_button:active,
+[data-brand] a.cta_button.cta-primary:active {
+  background-color: var(--button-primary-bg-active) !important;
+  color: var(--button-primary-text) !important;
+}
+
+/* Outline variant - add "cta-outline" class in HubSpot CTA UI */
+[data-brand] .hs-cta-wrapper.cta-outline .cta_button,
+[data-brand] .cta-outline .cta_button,
+[data-brand] a.cta_button.cta-outline,
+[data-brand] .hs-cta-wrapper.cta-outline .cta_button:link,
+[data-brand] .hs-cta-wrapper.cta-outline .cta_button:visited {
+  background: var(--button-secondary-bg) !important;
+  color: var(--button-secondary-text) !important;
+  border: 1.5px solid var(--button-secondary-border) !important;
+}
+
+[data-brand] .hs-cta-wrapper.cta-outline .cta_button:hover,
+[data-brand] .cta-outline .cta_button:hover,
+[data-brand] a.cta_button.cta-outline:hover {
+  border-color: var(--button-secondary-border-hover) !important;
+  color: var(--button-secondary-text) !important;
+  background: var(--button-secondary-bg) !important;
+}
+
+[data-brand] .hs-cta-wrapper.cta-outline .cta_button:active,
+[data-brand] .cta-outline .cta_button:active,
+[data-brand] a.cta_button.cta-outline:active {
+  border-color: var(--button-secondary-border-active) !important;
+  color: var(--button-secondary-text) !important;
+  background: var(--button-secondary-bg) !important;
+}
+
+/* Small size variant - add "cta-small" class in HubSpot CTA UI */
+.hs-cta-wrapper.cta-small .cta_button,
+.cta-small .cta_button,
+a.cta_button.cta-small {
+  padding: var(--space-8, 8px) var(--space-12, 12px) !important;
+  font-size: var(--font-size-body-small, 14px) !important;
+}
+
+/* Large size variant - add "cta-large" class in HubSpot CTA UI */
+.hs-cta-wrapper.cta-large .cta_button,
+.cta-large .cta_button,
+a.cta_button.cta-large {
+  padding: var(--space-16, 16px) var(--space-24, 24px) !important;
+  font-size: var(--font-size-body-large, 18px) !important;
+}
+
+/* ================================================
    ADDITIONAL STANDARD MODULES
    Add sections as needed for other HubSpot modules
    ================================================ */
