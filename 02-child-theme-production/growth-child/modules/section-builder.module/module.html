@@ -694,7 +694,7 @@
               {% set href = "mailto:" + href %}
             {% endif %}
             <a href="{{ href }}"
-               class="section-builder__button variant-{{ block.button_variant }} size-{{ block.button_size }}"
+               class="section-builder__button variant-{{ block.button_variant }} size-{{ block.button_size }} button"
                {% if block.button_url.open_in_new_tab %}target="_blank"{% endif %}
                {% if block.button_url.no_follow %}rel="nofollow"{% endif %}>
               {{ block.button_text }}
