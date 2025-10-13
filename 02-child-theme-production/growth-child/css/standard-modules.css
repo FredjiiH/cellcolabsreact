@@ -19,10 +19,24 @@
 
 /* Form container */
 form.hs-form,
+form.hs-form-private,
 .hs-form {
   font-family: var(--font-body, 'Inter', sans-serif) !important;
   width: 100%;
   max-width: 100%;
+  border-radius: 16px !important;
+  padding: var(--space-32, 32px) !important;
+  box-sizing: border-box !important;
+}
+
+/* Responsive form container padding */
+@media (max-width: 767px) {
+  form.hs-form,
+  form.hs-form-private,
+  .hs-form {
+    padding: var(--space-24, 24px) var(--space-16, 16px) !important;
+    border-radius: 12px !important;
+  }
 }
 
 /* Form fieldsets */
@@ -90,7 +104,7 @@ legend.hs-field-desc {
   text-decoration: underline;
 }
 
-/* Form inputs */
+/* Form inputs - exclude checkboxes and radios from width rule */
 form input[type='text'],
 form input[type='email'],
 form input[type='password'],
@@ -100,7 +114,7 @@ form input[type='search'],
 form input[type='date'],
 form select,
 form textarea,
-.hs-form .hs-input {
+.hs-form .hs-input:not([type='checkbox']):not([type='radio']) {
   font-family: var(--font-body, 'Inter', sans-serif) !important;
   font-size: var(--font-size-body, 16px) !important;
   font-weight: var(--font-weight-regular, 450) !important;
@@ -122,7 +136,7 @@ form textarea,
   resize: vertical !important;
 }
 
-/* Input focus state */
+/* Input focus state - exclude checkboxes and radios */
 form input[type='text']:focus,
 form input[type='email']:focus,
 form input[type='password']:focus,
@@ -132,7 +146,7 @@ form input[type='search']:focus,
 form input[type='date']:focus,
 form select:focus,
 form textarea:focus,
-.hs-form .hs-input:focus {
+.hs-form .hs-input:not([type='checkbox']):not([type='radio']):focus {
   border-color: var(--color-brand-500, #4f65be) !important;
   outline: none !important;
   box-shadow: 0 0 0 2px rgba(79, 101, 190, 0.1) !important;
@@ -141,7 +155,7 @@ form textarea:focus,
 /* Select dropdown */
 form select,
 .hs-form select.hs-input {
-  appearance: none;
+  appearance: none !important;
   background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23161616' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
   background-repeat: no-repeat !important;
   background-position: right var(--space-16, 16px) center !important;
@@ -188,12 +202,25 @@ form select,
   gap: var(--space-12, 12px) !important;
   cursor: pointer !important;
   margin-bottom: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Ensure checkbox/radio text wraps properly */
+.hs-form-checkbox-display span,
+.hs-form-radio-display span {
+  flex: 1 !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  hyphens: auto !important;
 }
 
 input[type='checkbox'],
 input[type='radio'] {
   width: 20px !important;
   height: 20px !important;
+  min-width: 20px !important;
   margin: 0 !important;
   flex-shrink: 0 !important;
   cursor: pointer !important;
@@ -267,12 +294,15 @@ input[type='radio'] {
 }
 
 .hs-fieldtype-intl-phone select {
-  flex: 0 0 120px !important;
-  width: 120px !important;
+  flex: 0 0 200px !important;
+  width: 200px !important;
+  padding-right: 44px !important;
+  background-position: right 12px center !important;
 }
 
 .hs-fieldtype-intl-phone input[type='tel'] {
   flex: 1 !important;
+  min-width: 0 !important;
 }
 
 /* Form columns (multi-column layouts) */
@@ -295,6 +325,98 @@ fieldset.form-columns-3 {
   fieldset.form-columns-2,
   fieldset.form-columns-3 {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ================================================
+   FIELD WIDTH STANDARDIZATION
+   ================================================
+
+   Sets max-widths for different field types based on
+   their expected content length for better UX.
+
+   IMPORTANT: These max-widths only apply to fields in
+   single-column layouts. Multi-column fieldsets override
+   these to use full width of their grid column.
+
+   Field types and their typical content:
+   - Phone, Date, Number: Short/fixed length (narrow)
+   - Email: Medium length
+   - Text: Variable (could be name, address, etc.)
+   - Textarea: Long content (full width)
+
+   NOTE: Field type classes are on the SAME element as .hs-form-field
+   Example: <div class="hs-fieldtype-phonenumber hs-form-field">
+   ================================================ */
+
+/* Default field widths for SINGLE-COLUMN layouts only */
+/* These are overridden for multi-column layouts below */
+
+/* Narrow fields - date, number */
+.hs-form-field.hs-fieldtype-date,
+.hs-form-field.hs-fieldtype-number {
+  max-width: 300px !important;
+}
+
+/* Medium fields - email, select */
+.hs-form-field.hs-fieldtype-email,
+.hs-form-field.hs-fieldtype-select {
+  max-width: 400px !important;
+}
+
+/* Phone field - wider to accommodate country selector + phone input */
+.hs-form-field.hs-fieldtype-phonenumber {
+  max-width: 500px !important;
+}
+
+/* Text fields - medium-large default */
+.hs-form-field.hs-fieldtype-text {
+  max-width: 500px !important;
+}
+
+/* Checkbox and Radio - full width to accommodate multiple options */
+.hs-form-field.hs-fieldtype-checkbox,
+.hs-form-field.hs-fieldtype-radio {
+  max-width: 100% !important;
+}
+
+/* Textarea stays full width (no max-width restriction) */
+.hs-form-field.hs-fieldtype-textarea {
+  max-width: 100% !important;
+}
+
+/* OVERRIDE: Multi-column layouts - fields use full width of their column */
+/* Maximum specificity to ensure it overrides type-specific widths AND HubSpot's form-specific width rules */
+form fieldset.form-columns-2 div.field.hs-form-field,
+form fieldset.form-columns-3 div.field.hs-form-field,
+.hs-form fieldset.form-columns-2 div.field.hs-form-field,
+.hs-form fieldset.form-columns-3 div.field.hs-form-field {
+  max-width: none !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* Submit button - not full width */
+.hs-submit .hs-button {
+  min-width: 200px !important;
+  max-width: 300px !important;
+  width: auto !important;
+}
+
+/* Mobile - all fields become full width for better mobile UX */
+@media (max-width: 767px) {
+  .hs-form-field.hs-fieldtype-phonenumber,
+  .hs-form-field.hs-fieldtype-date,
+  .hs-form-field.hs-fieldtype-number,
+  .hs-form-field.hs-fieldtype-email,
+  .hs-form-field.hs-fieldtype-text,
+  .hs-form-field.hs-fieldtype-select {
+    max-width: 100% !important;
+  }
+
+  .hs-submit .hs-button {
+    max-width: 100% !important;
+    width: 100% !important;
   }
 }
 
