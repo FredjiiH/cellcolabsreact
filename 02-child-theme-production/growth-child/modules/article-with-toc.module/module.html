@@ -165,21 +165,28 @@
     margin-top: var(--space-64, 64px);
   }
 
-  .article-references__toggle {
-    background-color: var(--color-gray-900, #F4F4F4);
-    border: none;
-    border-radius: var(--border-radius-md, 8px);
-    padding: var(--space-12, 12px) var(--space-16, 16px) var(--space-12, 12px) var(--space-24, 24px);
+  .article-references__toggle,
+  button.article-references__toggle,
+  .article-references button.article-references__toggle {
+    background-color: var(--color-gray-900, #F4F4F4) !important;
+    background-image: none !important;
+    border: none !important;
+    border-radius: var(--border-radius-md, 8px) !important;
+    padding: var(--space-12, 12px) var(--space-16, 16px) var(--space-12, 12px) var(--space-24, 24px) !important;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    text-align: left;
   }
 
-  .article-references__toggle:hover {
-    background-color: var(--color-gray-800, #E0E0E0);
+  .article-references__toggle:hover,
+  button.article-references__toggle:hover,
+  .article-references button.article-references__toggle:hover {
+    background-color: var(--color-gray-800, #E0E0E0) !important;
+    background-image: none !important;
   }
 
   .article-references__title {
@@ -189,16 +196,39 @@
     line-height: 1.15;
     color: var(--color-text-primary, #161616);
     margin: 0;
+    flex: 1;
   }
 
   .article-references__icon {
-    width: 18px;
-    height: 18px;
-    transition: transform 0.2s ease;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: var(--space-8, 8px);
   }
 
-  .article-references.is-open .article-references__icon {
-    transform: rotate(45deg);
+  .article-references__icon svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+
+  .article-references__icon--plus {
+    display: block !important;
+  }
+
+  .article-references__icon--minus {
+    display: none !important;
+  }
+
+  .article-references.is-open .article-references__icon--plus {
+    display: none !important;
+  }
+
+  .article-references.is-open .article-references__icon--minus {
+    display: block !important;
   }
 
   .article-references__content {
@@ -358,13 +388,22 @@
         <div class="article-references" id="references" data-section>
           <button class="article-references__toggle" data-references-toggle>
             <h4 class="article-references__title">References</h4>
-            <svg class="article-references__icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="3" cy="9" r="1.5" fill="#161616"/>
-              <circle cx="9" cy="3" r="1.5" fill="#161616"/>
-              <circle cx="9" cy="9" r="1.5" fill="#161616"/>
-              <circle cx="9" cy="15" r="1.5" fill="#161616"/>
-              <circle cx="15" cy="9" r="1.5" fill="#161616"/>
-            </svg>
+            <div class="article-references__icon">
+              <!-- Plus Icon (collapsed) - 5-dot cross pattern -->
+              <svg class="article-references__icon--plus" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="3" cy="9" r="1.5" fill="#161616"/>
+                <circle cx="9" cy="3" r="1.5" fill="#161616"/>
+                <circle cx="9" cy="9" r="1.5" fill="#161616"/>
+                <circle cx="9" cy="15" r="1.5" fill="#161616"/>
+                <circle cx="15" cy="9" r="1.5" fill="#161616"/>
+              </svg>
+              <!-- Minus Icon (expanded) - 3-dot horizontal line -->
+              <svg class="article-references__icon--minus" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="3" cy="9" r="1.5" fill="#161616"/>
+                <circle cx="9" cy="9" r="1.5" fill="#161616"/>
+                <circle cx="15" cy="9" r="1.5" fill="#161616"/>
+              </svg>
+            </div>
           </button>
           <div class="article-references__content" data-references-content>
             <div class="article-references__content-inner">

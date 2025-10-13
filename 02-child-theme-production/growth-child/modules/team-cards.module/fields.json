@@ -1,0 +1,85 @@
+[
+  {
+    "id": "team_members",
+    "name": "team_members",
+    "label": "Team Members",
+    "required": false,
+    "locked": false,
+    "type": "group",
+    "occurrence": {
+      "min": 1,
+      "max": 20,
+      "default": 3
+    },
+    "children": [
+      {
+        "id": "photo",
+        "name": "photo",
+        "label": "Photo",
+        "required": false,
+        "locked": false,
+        "type": "image",
+        "default": {
+          "src": "https://via.placeholder.com/400x500",
+          "alt": "Team member photo"
+        }
+      },
+      {
+        "id": "member_name",
+        "name": "member_name",
+        "label": "Name",
+        "required": true,
+        "locked": false,
+        "type": "text",
+        "default": "Team Member Name"
+      },
+      {
+        "id": "title",
+        "name": "title",
+        "label": "Title/Credentials",
+        "required": true,
+        "locked": false,
+        "type": "text",
+        "default": "M.D."
+      },
+      {
+        "id": "bio",
+        "name": "bio",
+        "label": "Bio/Details",
+        "required": false,
+        "locked": false,
+        "type": "richtext",
+        "default": ""
+      }
+    ],
+    "default": [
+      {
+        "photo": {
+          "src": "https://via.placeholder.com/400x500",
+          "alt": "Team member photo"
+        },
+        "member_name": "Agnes Le Blanc",
+        "title": "MD",
+        "bio": "<p>Add team member biography and details here.</p>"
+      },
+      {
+        "photo": {
+          "src": "https://via.placeholder.com/400x500",
+          "alt": "Team member photo"
+        },
+        "member_name": "Heidi Stensmyren",
+        "title": "M.D.",
+        "bio": "<p>Add team member biography and details here.</p>"
+      },
+      {
+        "photo": {
+          "src": "https://via.placeholder.com/400x500",
+          "alt": "Team member photo"
+        },
+        "member_name": "Steven Sampson",
+        "title": "D.O.",
+        "bio": "<p>Add team member biography and details here.</p>"
+      }
+    ]
+  }
+]

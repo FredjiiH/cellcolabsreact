@@ -734,3 +734,392 @@ A long-form article module with automatic table of contents navigation and scrol
   - Verify scroll spy accuracy with different section heights
   - Check accessibility (keyboard navigation, screen readers)
   - Test References accordion interaction
+
+## Team Cards Module
+
+A responsive grid module displaying team members with photos and expandable biographies.
+
+### Status
+✅ **Complete** - Desktop and mobile layouts implemented with accordion expansion
+
+### Current Implementation
+- 3-column grid (desktop) → 2-column (tablet) → 1-column (mobile)
+- Team member photos with 4:5 aspect ratio
+- Name and credentials displayed on single line with comma separator
+- Expandable biography content via accordion
+- Plus/minus icon toggle (matches accordion pattern)
+- Full keyboard accessibility
+
+### Layout Structure
+- **Desktop (1024px+):** 3-column grid with 24px gap
+- **Tablet (768-1023px):** 2-column grid with 16px gap
+- **Mobile (767px and below):** Single column with 24px gap
+
+### Fields
+- **Team Members (repeater, 1-20 items):**
+  - Photo (image, 4:5 aspect ratio recommended)
+  - Member Name (text)
+  - Title/Credentials (text)
+  - Bio/Details (rich text, expandable)
+
+### Features
+- **Card Structure:**
+  - Image with 4:5 aspect ratio and 8px border-radius
+  - Header row with name/credentials and expand icon side-by-side
+  - Name and credentials displayed as: "Name, Credentials"
+  - Both use bold body text (16px, semibold 600)
+- **Expand/Collapse:**
+  - Entire header row is clickable
+  - Plus icon (collapsed) switches to minus icon (expanded)
+  - Icon uses heavier dots (r="2") to match text weight
+  - Smooth max-height transition (0.3s)
+  - Keyboard support (Enter/Space)
+- **Biography Content:**
+  - Rich text with full formatting support
+  - Paragraphs, lists, links automatically styled
+  - Body Small font size (14px)
+  - Secondary text color
+- **Responsive Grid:**
+  - Desktop: 3 columns for team overview
+  - Tablet: 2 columns for better readability
+  - Mobile: 1 column stacked vertically
+- **Brand Variables:**
+  - All typography, colors, spacing uses CSS variables
+  - Icon colors controlled via CSS (not hardcoded in SVG)
+  - Transitions use `var(--transition-duration)`
+
+### Typography
+- **Name & Credentials:**
+  - Font: Body (16px)
+  - Weight: Semibold (600)
+  - Line-height: Normal (1.5)
+  - Color: Primary text (#161616)
+  - Format: "Name, Credentials" on single line
+- **Bio Content:**
+  - Font: Body Small (14px)
+  - Weight: Regular (450)
+  - Line-height: Relaxed (1.6)
+  - Color: Secondary text (#525252)
+
+### Accessibility
+- Header row has `role="button"` and `tabindex="0"`
+- `aria-expanded` attribute toggles between "true"/"false"
+- `aria-label` provides context for screen readers
+- Keyboard navigation (Enter and Space keys)
+- Focus states for interactive elements
+
+### Usage
+Typically paired with Section Builder module for page structure:
+```
+Section Builder:
+- Eyebrow: "Our Team"
+- Heading: "Meet the Experts"
+- Subheader: "Board-certified specialists..."
+
+Team Cards Module:
+- Add 3-6 team member cards
+- Each with photo, name, credentials, bio
+```
+
+## HubSpot Form Styling
+
+Comprehensive styling system for all HubSpot forms across the site, managed centrally in `css/standard-modules.css`.
+
+### Status
+✅ **Complete** - All form elements styled with brand variables and responsive behavior
+
+### Overview
+Forms are styled centrally to ensure consistency across all HubSpot forms without per-form customization. The styling system handles:
+- Single-column forms
+- Multi-column layouts (2 and 3 columns)
+- All field types with standardized widths
+- Validation states and error messages
+- Responsive behavior across breakpoints
+
+### Form Container Styling
+
+```css
+form.hs-form,
+form.hs-form-private,
+.hs-form {
+  border-radius: 16px !important;
+  padding: var(--space-32, 32px) !important;
+}
+```
+
+- **Border Radius:** 16px (matches other module sections)
+- **Padding:** 32px on desktop, 24px/16px on mobile
+- **NO background color** - forms are transparent by default
+- Reduces responsively on mobile (12px border-radius)
+
+### Field Width Standardization
+
+Different field types use standardized max-widths based on their content:
+
+**Narrow Fields (300px):**
+- Date fields
+- Number fields
+
+**Medium Fields (400px):**
+- Email fields
+- Select dropdowns
+
+**Phone Fields (500px):**
+- International phone fields (country selector + phone input)
+- Country selector: 200px
+- Phone input: ~280px remaining
+
+**Medium-Large Fields (500px):**
+- Text fields (single line)
+
+**Full Width:**
+- Textareas (multi-line)
+- Checkboxes (20px with flex-wrap text)
+- Radio buttons (20px with flex-wrap text)
+
+**Multi-Column Override:**
+All fields use 100% width of their grid cell when in 2 or 3 column layouts:
+
+```css
+fieldset.form-columns-2 .hs-form-field.hs-fieldtype-text,
+fieldset.form-columns-3 .hs-form-field.hs-fieldtype-text {
+  max-width: none !important;
+  width: 100% !important;
+}
+```
+
+### Field Type Implementation
+
+Field widths are applied using field type classes:
+
+```css
+/* Narrow fields - date, number */
+.hs-form-field.hs-fieldtype-date,
+.hs-form-field.hs-fieldtype-number {
+  max-width: 300px !important;
+}
+
+/* Medium fields - phone, email, select */
+.hs-form-field.hs-fieldtype-phonenumber,
+.hs-form-field.hs-fieldtype-email,
+.hs-form-field.hs-fieldtype-select {
+  max-width: 400px !important;
+}
+
+/* Phone field special case */
+.hs-form-field.hs-fieldtype-phonenumber {
+  max-width: 500px !important;
+}
+```
+
+**IMPORTANT:** Use same-element class chaining, not descendant selectors:
+- ✅ Correct: `.hs-form-field.hs-fieldtype-text`
+- ❌ Wrong: `.hs-fieldtype-text .hs-form-field`
+
+### Checkbox and Radio Button Styling
+
+Checkboxes and radios require special handling to prevent layout issues:
+
+**Width Exclusion:**
+```css
+/* Exclude checkboxes/radios from general input width rule */
+.hs-form .hs-input:not([type='checkbox']):not([type='radio']) {
+  width: 100% !important;
+}
+```
+
+**Text Wrapping:**
+```css
+.hs-form-checkbox-display span,
+.hs-form-radio-display span {
+  flex: 1 !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  hyphens: auto !important;
+}
+```
+
+**Why This Matters:**
+- Checkboxes have `.hs-input` class, which matched general input width rules
+- This made checkboxes 384px wide instead of 20px
+- Text had no room and overflowed columns
+- Excluding them with `:not()` selectors fixes this
+
+### International Phone Field Layout
+
+Special flexbox layout for country selector + phone input:
+
+```css
+.hs-fieldtype-intl-phone .hs-form-field > div {
+  display: flex !important;
+  gap: var(--space-8, 8px) !important;
+}
+
+.hs-fieldtype-intl-phone select {
+  flex: 0 0 200px !important;
+  width: 200px !important;
+  padding-right: 44px !important;
+  background-position: right 12px center !important;
+}
+
+.hs-fieldtype-intl-phone input[type='tel'] {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+```
+
+- Container: 500px total width
+- Country selector: Fixed 200px with proper arrow padding
+- Phone input: Flexible remaining space (~280px)
+- 8px gap between elements
+
+### Multi-Column Form Support
+
+HubSpot generates grid layouts for multi-column forms. Our overrides ensure proper behavior:
+
+**Issue:** HubSpot generates form-specific CSS with high specificity:
+```css
+.hs-form-{formId} fieldset.form-columns-3 .hs-form-field {
+  width: 32.7%;
+}
+```
+
+**Solution:** Override with `!important` for all field types:
+```css
+fieldset.form-columns-2 .hs-form-field.hs-fieldtype-text,
+fieldset.form-columns-2 .hs-form-field.hs-fieldtype-email,
+/* ... all field types ... */
+fieldset.form-columns-3 .hs-form-field.hs-fieldtype-text,
+fieldset.form-columns-3 .hs-form-field.hs-fieldtype-email {
+  max-width: none !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+```
+
+### Input Styling
+
+All form inputs use consistent styling:
+
+```css
+form input[type='text'],
+form input[type='email'],
+/* ... all input types ... */
+form textarea {
+  font-family: var(--font-body, 'Inter', sans-serif) !important;
+  font-size: var(--font-size-body, 16px) !important;
+  font-weight: var(--font-weight-regular, 450) !important;
+  line-height: var(--line-height-normal, 1.5) !important;
+  color: var(--color-text-primary) !important;
+  background-color: #ffffff !important;
+  border: 1px solid var(--color-gray-300, #d1d1d1) !important;
+  border-radius: var(--border-radius-sm, 4px) !important;
+  padding: var(--space-12, 12px) var(--space-16, 16px) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+```
+
+**Key Points:**
+- Uses brand variables for all styling
+- 16px font size prevents iOS zoom on focus
+- Proper padding for touch targets
+- Box-sizing prevents overflow issues
+
+### Label Styling
+
+```css
+.hs-form label,
+.hs-form-field > label {
+  font-family: var(--font-body) !important;
+  font-size: var(--font-size-body-small, 14px) !important;
+  font-weight: var(--font-weight-medium, 500) !important;
+  line-height: var(--line-height-normal, 1.5) !important;
+  color: var(--color-text-primary) !important;
+  margin-bottom: var(--space-8, 8px) !important;
+}
+```
+
+### Submit Button Styling
+
+Submit buttons use the same button brand variables as all site buttons:
+
+```css
+.hs-form input[type='submit'],
+.hs-form button[type='submit'] {
+  background-color: var(--button-primary-bg) !important;
+  color: var(--button-primary-text) !important;
+  border: 0.5px solid var(--button-primary-border) !important;
+  border-radius: var(--button-border-radius, 24px) !important;
+  /* ... */
+}
+
+.hs-form input[type='submit']:hover {
+  background-color: var(--button-primary-bg-hover) !important;
+}
+```
+
+### Error and Validation Styling
+
+```css
+.hs-error-msgs {
+  color: var(--color-error, #e41e1e) !important;
+  font-size: var(--font-size-body-small, 14px) !important;
+  margin-top: var(--space-4, 4px) !important;
+}
+
+.hs-form-field.error input,
+.hs-form-field.error textarea,
+.hs-form-field.error select {
+  border-color: var(--color-error, #e41e1e) !important;
+}
+```
+
+### Responsive Behavior
+
+**Desktop (1024px+):**
+- Full padding (32px)
+- Type-based field widths apply
+- Multi-column layouts supported
+
+**Tablet (768-1023px):**
+- Same as desktop
+- Field widths scale within grid cells
+
+**Mobile (767px and below):**
+- Reduced padding (24px/16px)
+- Reduced border-radius (12px)
+- All fields stack to single column
+- Touch-friendly sizing maintained
+
+### Best Practices
+
+1. **Never style individual forms** - All styling is centralized
+2. **Use field type classes** - Widths are controlled by field type
+3. **Test multi-column layouts** - Ensure overrides apply correctly
+4. **Check checkbox/radio wrapping** - Text should wrap within columns
+5. **Verify phone field layout** - Country selector and input should fit properly
+6. **Use brand variables** - All colors, fonts, spacing from CSS variables
+7. **Test validation states** - Error messages and field highlights should work
+
+### Common Issues and Fixes
+
+**Issue: Field widths not applying**
+- Check selector specificity (use same-element class chaining)
+- Ensure `!important` flag is present
+- Verify field type class matches HubSpot's generated class
+
+**Issue: Checkboxes overflowing columns**
+- Confirm checkboxes excluded from general input width rule
+- Check text wrapping styles applied to label span
+- Verify flex layout on checkbox container
+
+**Issue: Multi-column fields too narrow**
+- Confirm multi-column overrides present for all field types
+- Check `width: 100% !important` applied
+- Verify `max-width: none !important` removes type-based constraint
+
+**Issue: Phone field crowded**
+- Check container is 500px (not 400px)
+- Verify country selector is 200px with proper padding
+- Ensure 8px gap between elements
