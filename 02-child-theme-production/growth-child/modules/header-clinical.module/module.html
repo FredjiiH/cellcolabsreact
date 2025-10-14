@@ -34,11 +34,11 @@
               flow="horizontal",
               menu_class="nav-menu-list",
               item_class="nav-menu-item",
-              link_class="nav-menu-link link-black",
+              link_class="nav-menu-link",
               active_class="nav-menu-item--active",
               child_ul_class="nav-submenu",
               child_li_class="nav-submenu-item",
-              child_a_class="nav-submenu-link link-black"
+              child_a_class="nav-submenu-link"
             %}
           </div>
         </div>
@@ -74,11 +74,11 @@
           flow="vertical",
           menu_class="nav-mobile-list",
           item_class="nav-mobile-item",
-          link_class="nav-mobile-link link-black",
+          link_class="nav-mobile-link",
           active_class="nav-mobile-item--active",
           child_ul_class="nav-mobile-submenu",
           child_li_class="nav-mobile-submenu-item",
-          child_a_class="nav-mobile-submenu-link link-black"
+          child_a_class="nav-mobile-submenu-link"
         %}
       </div>
     </div>
@@ -119,22 +119,23 @@
     margin: 0 !important;
   }
 
-  /* NUCLEAR MENU ITEM OVERRIDE - ALL POSSIBLE SELECTORS (color handled by .link-black utility) */
-  html body .header .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a,
-  html body .header .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a[role="menuitem"],
-  html body .header .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item.hs-menu-depth-1 > a,
-  html body .header .nav-menu-desktop .hs-menu-wrapper > ul > li > a,
-  html body .header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item a,
-  html body .header .nav-menu-desktop .hs-menu-item > a,
-  html body .header .nav-menu-desktop a,
-  html body .site-header .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a,
-  html body .site-header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a,
-  html body .site-header .nav-menu-desktop .hs-menu-item > a,
-  html body .site-header .nav-menu-desktop a {
+  /* NUCLEAR MENU ITEM OVERRIDE - ALL POSSIBLE SELECTORS */
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a,
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a[role="menuitem"],
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item.hs-menu-depth-1 > a,
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li > a,
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper .hs-menu-item a,
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-item > a,
+  html body .header[data-brand] .nav-menu-desktop a,
+  html body .site-header[data-brand] .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a,
+  html body .site-header[data-brand] .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a,
+  html body .site-header[data-brand] .nav-menu-desktop .hs-menu-item > a,
+  html body .site-header[data-brand] .nav-menu-desktop a {
     font-family: 'Inter', sans-serif !important;
     font-size: 16px !important;
     font-weight: 500 !important;
     line-height: 1 !important;
+    color: var(--color-text-primary, #161616) !important;
     text-decoration: none !important;
     padding: 12px 16px !important;
     display: flex !important;
@@ -189,7 +190,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
     border-radius: 8px !important;
     padding: 8px 0 !important;
-    margin: 4px 0 0 0 !important;
+    margin: 0 !important;
     min-width: 200px !important;
     display: none !important;
     list-style: none !important;
@@ -211,13 +212,14 @@
     padding: 0 !important;
   }
 
-  /* Submenu links (color handled by .link-black utility) */
-  html body .header .nav-menu-desktop .hs-menu-wrapper .nav-submenu .nav-submenu-link,
-  html body .header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item ul li a {
+  /* Submenu links */
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper .nav-submenu .nav-submenu-link,
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper .hs-menu-item ul li a {
     font-family: 'Inter', sans-serif !important;
     font-size: 14px !important;
     font-weight: 450 !important;
     line-height: 1.5 !important;
+    color: var(--color-text-primary, #161616) !important;
     text-decoration: none !important;
     padding: 8px 16px !important;
     display: block !important;
@@ -227,24 +229,24 @@
   }
 
   /* Submenu link hover */
-  html body .header .nav-menu-desktop .hs-menu-wrapper .nav-submenu .nav-submenu-link:hover,
-  html body .header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item ul li a:hover {
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper .nav-submenu .nav-submenu-link:hover,
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper .hs-menu-item ul li a:hover {
     background-color: #f4f4f4 !important;
     color: #4f65be !important;
   }
 
   /* HOVER OVERRIDE - Clinical Blue */
-  html body .header .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a:hover,
-  html body .header .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a[role="menuitem"]:hover,
-  html body .header .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item.hs-menu-depth-1 > a:hover,
-  html body .header .nav-menu-desktop .hs-menu-wrapper > ul > li > a:hover,
-  html body .header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item a:hover,
-  html body .header .nav-menu-desktop .hs-menu-item > a:hover,
-  html body .header .nav-menu-desktop a:hover,
-  html body .site-header .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a:hover,
-  html body .site-header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a:hover,
-  html body .site-header .nav-menu-desktop .hs-menu-item > a:hover,
-  html body .site-header .nav-menu-desktop a:hover {
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a:hover,
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a[role="menuitem"]:hover,
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item.hs-menu-depth-1 > a:hover,
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li > a:hover,
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper .hs-menu-item a:hover,
+  html body .header[data-brand] .nav-menu-desktop .hs-menu-item > a:hover,
+  html body .header[data-brand] .nav-menu-desktop a:hover,
+  html body .site-header[data-brand] .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a:hover,
+  html body .site-header[data-brand] .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a:hover,
+  html body .site-header[data-brand] .nav-menu-desktop .hs-menu-item > a:hover,
+  html body .site-header[data-brand] .nav-menu-desktop a:hover {
     color: #4f65be !important; /* Clinical Blue */
   }
 
@@ -262,15 +264,16 @@
     position: relative !important;
   }
 
-  /* Target all possible mobile menu link combinations (color handled by .link-black utility) */
-  html body .header .nav-menu-mobile .hs-menu-item > a,
-  html body .header .nav-menu-mobile .nav-mobile-item > a,
-  html body .header .nav-menu-mobile .nav-mobile-link,
-  html body .header .nav-menu-mobile a {
+  /* Target all possible mobile menu link combinations */
+  html body .header[data-brand] .nav-menu-mobile .hs-menu-item > a,
+  html body .header[data-brand] .nav-menu-mobile .nav-mobile-item > a,
+  html body .header[data-brand] .nav-menu-mobile .nav-mobile-link,
+  html body .header[data-brand] .nav-menu-mobile a {
     font-family: 'Inter', sans-serif !important;
     font-size: 16px !important;
     font-weight: 450 !important;
     line-height: 1.5 !important;
+    color: var(--color-text-primary, #161616) !important;
     text-decoration: none !important;
     padding: 16px 24px !important;
     display: flex !important;
@@ -282,10 +285,10 @@
   }
 
   /* Mobile menu hover - Clinical Blue */
-  html body .header .nav-menu-mobile .hs-menu-item > a:hover,
-  html body .header .nav-menu-mobile .nav-mobile-item > a:hover,
-  html body .header .nav-menu-mobile .nav-mobile-link:hover,
-  html body .header .nav-menu-mobile a:hover {
+  html body .header[data-brand] .nav-menu-mobile .hs-menu-item > a:hover,
+  html body .header[data-brand] .nav-menu-mobile .nav-mobile-item > a:hover,
+  html body .header[data-brand] .nav-menu-mobile .nav-mobile-link:hover,
+  html body .header[data-brand] .nav-menu-mobile a:hover {
     color: #4f65be !important; /* Clinical Blue */
   }
 
@@ -320,13 +323,14 @@
     padding: 0 !important;
   }
 
-  /* Mobile submenu links (color handled by .link-black utility) */
-  html body .header .nav-menu-mobile .nav-mobile-submenu .nav-mobile-submenu-link,
-  html body .header .nav-menu-mobile .hs-menu-item ul li a {
+  /* Mobile submenu links */
+  html body .header[data-brand] .nav-menu-mobile .nav-mobile-submenu .nav-mobile-submenu-link,
+  html body .header[data-brand] .nav-menu-mobile .hs-menu-item ul li a {
     font-family: 'Inter', sans-serif !important;
     font-size: 14px !important;
     font-weight: 450 !important;
     line-height: 1.5 !important;
+    color: var(--color-text-primary, #161616) !important;
     text-decoration: none !important;
     padding: 12px 24px 12px 40px !important;
     display: block !important;
@@ -336,8 +340,8 @@
   }
 
   /* Mobile submenu link hover */
-  html body .header .nav-menu-mobile .nav-mobile-submenu .nav-mobile-submenu-link:hover,
-  html body .header .nav-menu-mobile .hs-menu-item ul li a:hover {
+  html body .header[data-brand] .nav-menu-mobile .nav-mobile-submenu .nav-mobile-submenu-link:hover,
+  html body .header[data-brand] .nav-menu-mobile .hs-menu-item ul li a:hover {
     color: #4f65be !important;
   }
 

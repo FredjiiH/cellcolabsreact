@@ -186,6 +186,121 @@ When creating the Cellcolabs (green) modules:
 - **Domain-based switching** - Automatic brand detection in base template
 - **Editable content** - All text, links, and navigation managed through HubSpot UI
 
+### Header Link Color Overrides
+
+**Problem:** Header navigation links need to be black (`#161616`), but the global brand-scoped link rule in `child.css` applies brand color (blue for Clinical, green for Cellcolabs) to all links site-wide.
+
+**Solution:** Use `[data-brand]` attribute selectors in header module CSS to increase specificity and override the global rule.
+
+**Why This Approach:**
+1. **Keeps child.css clean** - No header-specific exclusions or overrides in the global file
+2. **Encapsulated module styling** - All header styling lives in the header module itself
+3. **Higher specificity** - `[data-brand]` selectors beat the global brand rule without fighting specificity wars
+4. **Maintainable architecture** - Clear separation between global and module-specific styles
+
+**Implementation:**
+
+All header link selectors in `header-clinical.module/module.html` (and future `header-cellcolabs.module/module.html`) include the `[data-brand]` attribute:
+
+```css
+/* Desktop menu links - BLACK not brand color */
+html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a,
+html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a[role="menuitem"] {
+  color: var(--color-text-primary, #161616) !important;
+  /* ... */
+}
+
+/* Desktop submenu links - BLACK not brand color */
+html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper .nav-submenu .nav-submenu-link,
+html body .header[data-brand] .nav-menu-desktop .hs-menu-wrapper .hs-menu-item ul li a {
+  color: var(--color-text-primary, #161616) !important;
+  /* ... */
+}
+
+/* Mobile menu links - BLACK not brand color */
+html body .header[data-brand] .nav-menu-mobile .hs-menu-wrapper > ul > li.hs-menu-item > a {
+  color: var(--color-text-primary, #161616) !important;
+  /* ... */
+}
+
+/* Mobile submenu links - BLACK not brand color */
+html body .header[data-brand] .nav-menu-mobile .hs-menu-wrapper .nav-submenu .nav-submenu-link {
+  color: var(--color-text-primary, #161616) !important;
+  /* ... */
+}
+```
+
+**How It Works:**
+
+1. **Global rule in child.css** applies brand color to all links:
+   ```css
+   [data-brand="cellcolabsclinical"] a:not(.button):not(.link-white):not(.link-black) {
+     color: var(--color-text-link) !important;
+   }
+   ```
+   - Specificity: `[0,2,1]` (1 attribute, 1 class pseudo, 1 element)
+
+2. **Header module rule** has higher specificity:
+   ```css
+   html body .header[data-brand] .nav-menu-desktop ... a {
+     color: var(--color-text-primary) !important;
+   }
+   ```
+   - Specificity: `[0,1,5+]` (1 attribute, multiple classes, multiple elements)
+   - The `[data-brand]` attribute + deeper nesting creates higher specificity
+   - This rule wins over the global brand rule
+
+3. **Result:** Header links display in black, all other site links display in brand color
+
+**Why NOT Use Other Approaches:**
+
+❌ **Utility classes (`.link-black`):**
+- HubSpot's `{% menu %}` tag doesn't apply custom classes from `link_class` parameter
+- Classes are not rendered in the HTML output
+- Would require manual HTML manipulation
+
+❌ **child.css overrides:**
+- Creates header-specific rules in the global file
+- Clutters child.css with module-specific code
+- Violates separation of concerns
+- Goes against architectural preference for clean global files
+
+❌ **Exclusions in global rule:**
+- Would require adding header-specific exclusions to the brand-scoped link rule
+- Makes the global rule complex and brittle
+- Doesn't scale well as more modules need custom link colors
+
+**Best Practice:**
+When creating new header modules (e.g., `header-cellcolabs.module`), always include `[data-brand]` in all link selectors to ensure proper link color override.
+
+### Dropdown Hover Gap Fix
+
+**Issue:** Dropdown submenus had a 4px gap between the parent menu item and the dropdown, causing hover state to be lost when moving the mouse slowly from parent to dropdown. This made dropdowns close unexpectedly.
+
+**Root Cause:** CSS margin on submenu positioning:
+```css
+/* BROKEN - Creates gap */
+.nav-submenu {
+  position: absolute;
+  top: 100%;
+  margin: 4px 0 0 0 !important;
+}
+```
+
+**Fix:** Remove margin so submenu starts exactly at parent bottom edge:
+```css
+/* FIXED - No gap */
+.nav-submenu {
+  position: absolute;
+  top: 100%;
+  margin: 0 !important;
+}
+```
+
+**Location:** `header-clinical.module/module.html` line ~193
+
+**Result:** Users can now move their mouse from parent menu item to dropdown submenu without losing hover state, making navigation smoother and more forgiving.
+
 ## Testing and Development Workflow
 
 1. Develop components locally in `01-component-development`
