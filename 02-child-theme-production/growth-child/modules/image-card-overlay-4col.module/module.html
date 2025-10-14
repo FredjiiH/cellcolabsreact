@@ -25,7 +25,7 @@
                 {% if card.link_url.url.type is equalto "EMAIL_ADDRESS" %}
                   {% set href = "mailto:" + href %}
                 {% endif %}
-                <a href="{{ href }}" class="image-card-4col-card-link"
+                <a href="{{ href }}" class="image-card-4col-card-link link-white"
                    {% if card.link_url.open_in_new_tab %}target="_blank"{% endif %}
                    {% if card.link_url.no_follow %}rel="nofollow"{% endif %}>
                   {{ card.link_text or "Learn more" }} ↗
@@ -137,30 +137,21 @@
   max-width: 100%;
 }
 
-/* Link styles - higher specificity to override global brand link colors */
-[data-brand] .image-card-4col-card-overlay .image-card-4col-card-link,
-[data-brand] .image-card-4col-card-overlay .image-card-4col-card-link:link,
-[data-brand] .image-card-4col-card-overlay .image-card-4col-card-link:visited,
-[data-brand] .image-card-4col-card-overlay .image-card-4col-card-link:active {
-  color: #ffffff !important;
-  background-color: transparent !important;
-  border: none !important;
+/* Link styles - module-specific styling (color handled by .link-white utility) */
+.image-card-4col-card-link {
   text-decoration: underline;
   text-underline-position: from-font;
   font-family: var(--font-body, 'Inter', sans-serif);
   font-size: var(--font-size-body-small, 14px);
   font-weight: var(--font-weight-regular, 450);
   line-height: 1.35;
-  padding: 0;
   display: inline-block;
   transition: all 0.2s ease;
   text-align: center;
 }
 
-[data-brand] .image-card-4col-card-overlay .image-card-4col-card-link:hover,
-[data-brand] .image-card-4col-card-overlay .image-card-4col-card-link:focus {
-  color: #ffffff !important;
-  background-color: transparent !important;
+.image-card-4col-card-link:hover,
+.image-card-4col-card-link:focus {
   opacity: 0.8;
   transform: translateX(4px);
 }

@@ -256,7 +256,20 @@
 .link-white:active,
 .link-white:hover,
 .link-white:focus {
-  color: #ffffff !important;
+  color: var(--color-text-inverse, #ffffff) !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* Black link utility - for links that should be black instead of brand color */
+.link-black,
+.link-black:link,
+.link-black:visited,
+.link-black:active,
+.link-black:hover,
+.link-black:focus {
+  color: var(--color-text-primary, #161616) !important;
   background-color: transparent !important;
   border: none !important;
   padding: 0 !important;
@@ -390,9 +403,9 @@ a {
   font-weight: var(--font-weight-medium);
 }
 
-/* Brand-scoped links with proper specificity - exclude buttons */
-[data-brand="cellcolabsclinical"] a:not(.button):not(.btn):not(.hs-button):not(button),
-[data-brand="cellcolabs"] a:not(.button):not(.btn):not(.hs-button):not(button) {
+/* Brand-scoped links with proper specificity - exclude buttons, white links, and black links */
+[data-brand="cellcolabsclinical"] a:not(.button):not(.btn):not(.hs-button):not(button):not(.link-white):not(.link-black),
+[data-brand="cellcolabs"] a:not(.button):not(.btn):not(.hs-button):not(button):not(.link-white):not(.link-black) {
   color: var(--color-text-link) !important;
   font-weight: var(--font-weight-medium);
 }

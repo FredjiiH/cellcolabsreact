@@ -62,12 +62,12 @@
         <div class="location-content location-content-active">
           <h3 class="location-title">{{ module.location1_title }}</h3>
           <div class="location-description">{{ module.location1_description }}</div>
-          <a href="{{ module.location1_link_url }}" class="location-link">{{ module.location1_link_text }}</a>
+          <a href="{{ module.location1_link_url }}" class="location-link link-black">{{ module.location1_link_text }}</a>
         </div>
         <div class="location-content">
           <h3 class="location-title">{{ module.location2_title }}</h3>
           <div class="location-description">{{ module.location2_description }}</div>
-          <a href="{{ module.location2_link_url }}" class="location-link">{{ module.location2_link_text }}</a>
+          <a href="{{ module.location2_link_url }}" class="location-link link-black">{{ module.location2_link_text }}</a>
         </div>
       </div>
     </div>
@@ -330,25 +330,18 @@
   margin: 0;
 }
 
-/* Location link - higher specificity to override global brand link colors */
-[data-brand] .locations-carousel-block .location-link,
-[data-brand] .locations-carousel-block .location-link:link,
-[data-brand] .locations-carousel-block .location-link:visited {
+/* Location link - module-specific styling (color handled by .link-black utility) */
+.locations-carousel-block .location-link {
   font-family: var(--font-body);
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-normal);
-  color: var(--color-text-primary) !important;
   text-decoration: underline;
   text-decoration-skip-ink: none;
   width: fit-content;
-  background-color: transparent !important;
-  border: none !important;
-  padding: 0 !important;
 }
 
-[data-brand] .locations-carousel-block .location-link:hover {
-  color: var(--color-text-primary) !important;
+.locations-carousel-block .location-link:hover {
   opacity: 0.8;
 }
 
@@ -461,9 +454,7 @@
     font-size: var(--font-size-body-small, 14px);
   }
 
-  [data-brand] .locations-carousel-block .location-link,
-  [data-brand] .locations-carousel-block .location-link:link,
-  [data-brand] .locations-carousel-block .location-link:visited {
+  .locations-carousel-block .location-link {
     font-size: var(--font-size-body-small, 14px);
     align-self: flex-start;
   }
@@ -578,9 +569,7 @@
     font-size: var(--font-size-body-small, 14px);
   }
 
-  [data-brand] .locations-carousel-block .location-link,
-  [data-brand] .locations-carousel-block .location-link:link,
-  [data-brand] .locations-carousel-block .location-link:visited {
+  .locations-carousel-block .location-link {
     font-size: var(--font-size-body-small, 14px);
     align-self: flex-start;
   }

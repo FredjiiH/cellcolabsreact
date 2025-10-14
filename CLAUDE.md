@@ -403,7 +403,7 @@ The `button-multi-variant.module` also uses the same button brand variables:
 
 ### Global Link Styling
 
-Link colors are managed in `child.css` with proper button exclusions:
+Link colors are managed in `child.css` with proper button and utility exclusions:
 
 ```css
 /* Base link styling (weak, for fallback) */
@@ -412,9 +412,9 @@ a {
   font-weight: var(--font-weight-medium);
 }
 
-/* Brand-scoped links with proper specificity - exclude buttons */
-[data-brand="cellcolabsclinical"] a:not(.button):not(.btn):not(.hs-button):not(button),
-[data-brand="cellcolabs"] a:not(.button):not(.btn):not(.hs-button):not(button) {
+/* Brand-scoped links with proper specificity - exclude buttons, white links, and black links */
+[data-brand="cellcolabsclinical"] a:not(.button):not(.btn):not(.hs-button):not(button):not(.link-white):not(.link-black),
+[data-brand="cellcolabs"] a:not(.button):not(.btn):not(.hs-button):not(button):not(.link-white):not(.link-black) {
   color: var(--color-text-link) !important;
   font-weight: var(--font-weight-medium);
 }
@@ -422,8 +422,118 @@ a {
 
 **IMPORTANT:** Global link styling must be in `child.css`, NOT in individual modules. This ensures:
 - Centralized link color management
-- Proper button exclusions apply site-wide
+- Proper button and utility exclusions apply site-wide
 - No conflicts between module-level and global styling
+
+### Link Color Override Utilities
+
+For cases where links need to be a different color than the brand color, use centralized utility classes instead of module-specific overrides:
+
+**`.link-white` - White links on dark backgrounds:**
+
+```css
+/* In child.css */
+.link-white,
+.link-white:link,
+.link-white:visited,
+.link-white:active,
+.link-white:hover,
+.link-white:focus {
+  color: var(--color-text-inverse, #ffffff) !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+```
+
+**Usage:**
+- Image overlay modules (image-card-overlay-3col, image-card-overlay-4col, grid2x2-card-image)
+- Links on dark background sections
+- Footer links (if footer has dark background)
+
+**`.link-black` - Black links instead of brand color:**
+
+```css
+/* In child.css */
+.link-black,
+.link-black:link,
+.link-black:visited,
+.link-black:active,
+.link-black:hover,
+.link-black:focus {
+  color: var(--color-text-primary, #161616) !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+```
+
+**Usage:**
+- Locations carousel "Get directions" links
+- Any link that should be black for design purposes
+- Secondary navigation or subtle links
+
+### How the Exclusion System Works
+
+1. **Global rule applies brand color** to all links by default
+2. **Exclusions prevent override** for buttons and utility classes
+3. **Utility classes win** because they're excluded from global rule
+4. **Modules stay clean** - no color overrides needed in module CSS
+
+**Example - Image Overlay Module:**
+
+```html
+<!-- HTML - Just add the utility class -->
+<a href="{{ url }}" class="overlay-link link-white">
+  Learn more ↗
+</a>
+```
+
+```css
+/* Module CSS - Only layout/typography, no color overrides needed */
+.overlay-link {
+  text-decoration: underline;
+  font-size: var(--font-size-body, 16px);
+  transition: opacity 0.2s ease;
+}
+
+.overlay-link:hover {
+  opacity: 0.8;
+}
+```
+
+### Best Practices for Link Color Overrides
+
+✅ **DO:**
+- Use `.link-white` for white links on dark backgrounds
+- Use `.link-black` for black links instead of brand color
+- Add these utilities to the HTML class attribute
+- Keep module CSS focused on layout and typography
+
+❌ **DON'T:**
+- Try to override link colors in module CSS with high specificity
+- Create new utility classes for other link colors (extend the system if needed)
+- Hardcode colors - utilities use brand variables
+- Fight specificity wars with `!important` in modules
+
+### Adding New Link Color Utilities
+
+If you need a new link color utility:
+
+1. **Add the utility to `child.css`:**
+```css
+.link-secondary {
+  color: var(--color-text-secondary, #525252) !important;
+  /* ... */
+}
+```
+
+2. **Add exclusion to global rule:**
+```css
+a:not(.button):not(.btn):not(.link-white):not(.link-black):not(.link-secondary)
+```
+
+3. **Document it** in this section with usage examples
 
 ### Button Styling Checklist
 
