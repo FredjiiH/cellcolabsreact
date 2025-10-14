@@ -34,11 +34,11 @@
               flow="horizontal",
               menu_class="nav-menu-list",
               item_class="nav-menu-item",
-              link_class="nav-menu-link",
+              link_class="nav-menu-link link-black",
               active_class="nav-menu-item--active",
               child_ul_class="nav-submenu",
               child_li_class="nav-submenu-item",
-              child_a_class="nav-submenu-link"
+              child_a_class="nav-submenu-link link-black"
             %}
           </div>
         </div>
@@ -74,11 +74,11 @@
           flow="vertical",
           menu_class="nav-mobile-list",
           item_class="nav-mobile-item",
-          link_class="nav-mobile-link",
+          link_class="nav-mobile-link link-black",
           active_class="nav-mobile-item--active",
           child_ul_class="nav-mobile-submenu",
           child_li_class="nav-mobile-submenu-item",
-          child_a_class="nav-mobile-submenu-link"
+          child_a_class="nav-mobile-submenu-link link-black"
         %}
       </div>
     </div>
@@ -119,7 +119,7 @@
     margin: 0 !important;
   }
 
-  /* NUCLEAR MENU ITEM OVERRIDE - ALL POSSIBLE SELECTORS */
+  /* NUCLEAR MENU ITEM OVERRIDE - ALL POSSIBLE SELECTORS (color handled by .link-black utility) */
   html body .header .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a,
   html body .header .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a[role="menuitem"],
   html body .header .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item.hs-menu-depth-1 > a,
@@ -135,7 +135,6 @@
     font-size: 16px !important;
     font-weight: 500 !important;
     line-height: 1 !important;
-    color: #161616 !important;
     text-decoration: none !important;
     padding: 12px 16px !important;
     display: flex !important;
@@ -212,14 +211,13 @@
     padding: 0 !important;
   }
 
-  /* Submenu links */
+  /* Submenu links (color handled by .link-black utility) */
   html body .header .nav-menu-desktop .hs-menu-wrapper .nav-submenu .nav-submenu-link,
   html body .header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item ul li a {
     font-family: 'Inter', sans-serif !important;
     font-size: 14px !important;
     font-weight: 450 !important;
     line-height: 1.5 !important;
-    color: #161616 !important;
     text-decoration: none !important;
     padding: 8px 16px !important;
     display: block !important;
@@ -264,7 +262,7 @@
     position: relative !important;
   }
 
-  /* Target all possible mobile menu link combinations */
+  /* Target all possible mobile menu link combinations (color handled by .link-black utility) */
   html body .header .nav-menu-mobile .hs-menu-item > a,
   html body .header .nav-menu-mobile .nav-mobile-item > a,
   html body .header .nav-menu-mobile .nav-mobile-link,
@@ -273,7 +271,6 @@
     font-size: 16px !important;
     font-weight: 450 !important;
     line-height: 1.5 !important;
-    color: #161616 !important;
     text-decoration: none !important;
     padding: 16px 24px !important;
     display: flex !important;
@@ -323,14 +320,13 @@
     padding: 0 !important;
   }
 
-  /* Mobile submenu links */
+  /* Mobile submenu links (color handled by .link-black utility) */
   html body .header .nav-menu-mobile .nav-mobile-submenu .nav-mobile-submenu-link,
   html body .header .nav-menu-mobile .hs-menu-item ul li a {
     font-family: 'Inter', sans-serif !important;
     font-size: 14px !important;
     font-weight: 450 !important;
     line-height: 1.5 !important;
-    color: #161616 !important;
     text-decoration: none !important;
     padding: 12px 24px 12px 40px !important;
     display: block !important;
