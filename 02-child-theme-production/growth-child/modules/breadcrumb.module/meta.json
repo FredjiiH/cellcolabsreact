@@ -1,0 +1,8 @@
+{
+  "label": "Breadcrumb Navigation",
+  "description": "URL-based breadcrumb navigation showing full path with '>' separators and title-cased labels",
+  "category": "navigation",
+  "icon": "navigation",
+  "is_available_for_new_content": false,
+  "global": false
+}

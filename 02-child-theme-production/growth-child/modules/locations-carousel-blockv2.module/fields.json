@@ -1,0 +1,290 @@
+[
+  {
+    "name": "eyebrow_text",
+    "label": "Eyebrow Text",
+    "type": "text",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "default": "Locations"
+  },
+  {
+    "name": "main_title",
+    "label": "Main Title",
+    "type": "text",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "default": "Stem cell therapy in the Bahamas"
+  },
+  {
+    "name": "main_description",
+    "label": "Main Description",
+    "type": "richtext",
+    "required": false,
+    "locked": false,
+    "default": "At Cellcolabs Clinical, we conduct our patient-funded clinical trials in the Bahamas, a destination recognized both for tourism and for its role as a hub of regenerative medicine."
+  },
+  {
+    "name": "auto_play",
+    "label": "Auto-play Image Carousel",
+    "type": "boolean",
+    "required": false,
+    "locked": false,
+    "default": false,
+    "help_text": "Automatically cycle through images in each location's carousel"
+  },
+  {
+    "name": "auto_play_interval",
+    "label": "Auto-play Interval (milliseconds)",
+    "type": "number",
+    "required": false,
+    "locked": false,
+    "default": 5000,
+    "help_text": "Time between auto-transitions (e.g., 5000 = 5 seconds)"
+  },
+  {
+    "name": "location1_name",
+    "label": "Location 1 Name (for tab)",
+    "type": "text",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "default": "Cellcolabs by Live Well"
+  },
+  {
+    "name": "location1_title",
+    "label": "Location 1 Title",
+    "type": "text",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "default": "Cellcolabs by Live Well"
+  },
+  {
+    "name": "location1_description",
+    "label": "Location 1 Description",
+    "type": "richtext",
+    "required": false,
+    "locked": false,
+    "default": "Our clinic at The Albany resort is designed to make every participant feel cared for in a calm and private environment."
+  },
+  {
+    "name": "location1_images",
+    "label": "Location 1 Images",
+    "type": "group",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 1,
+      "max": 10,
+      "default": 1
+    },
+    "children": [
+      {
+        "name": "image_desktop",
+        "label": "Desktop Image",
+        "type": "image",
+        "required": false,
+        "locked": false,
+        "responsive": true,
+        "resizable": true,
+        "show_loading": false,
+        "default": {
+          "size_type": "auto",
+          "src": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1260&h=638&fit=crop",
+          "alt": "Cellcolabs by Live Well clinic interior",
+          "loading": "lazy"
+        }
+      },
+      {
+        "name": "image_mobile",
+        "label": "Mobile Image (Optional)",
+        "type": "image",
+        "required": false,
+        "locked": false,
+        "responsive": true,
+        "resizable": true,
+        "show_loading": false,
+        "help_text": "Optional separate image for mobile devices. If not provided, desktop image will be used."
+      },
+      {
+        "name": "show_on_desktop",
+        "label": "Show on Desktop",
+        "type": "boolean",
+        "required": false,
+        "locked": false,
+        "default": true
+      },
+      {
+        "name": "show_on_tablet",
+        "label": "Show on Tablet",
+        "type": "boolean",
+        "required": false,
+        "locked": false,
+        "default": true
+      },
+      {
+        "name": "show_on_mobile",
+        "label": "Show on Mobile",
+        "type": "boolean",
+        "required": false,
+        "locked": false,
+        "default": true
+      }
+    ],
+    "default": [
+      {
+        "image_desktop": {
+          "size_type": "auto",
+          "src": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1260&h=638&fit=crop",
+          "alt": "Cellcolabs by Live Well clinic interior",
+          "loading": "lazy"
+        },
+        "show_on_desktop": true,
+        "show_on_tablet": true,
+        "show_on_mobile": true
+      }
+    ]
+  },
+  {
+    "name": "location1_link_text",
+    "label": "Location 1 Link Text",
+    "type": "text",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "default": "Get directions ↗"
+  },
+  {
+    "name": "location1_link_url",
+    "label": "Location 1 Link URL",
+    "type": "text",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "default": "https://example.com"
+  },
+  {
+    "name": "location2_name",
+    "label": "Location 2 Name (for tab)",
+    "type": "text",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "default": "The Albany Resort"
+  },
+  {
+    "name": "location2_title",
+    "label": "Location 2 Title",
+    "type": "text",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "default": "The Albany Resort"
+  },
+  {
+    "name": "location2_description",
+    "label": "Location 2 Description",
+    "type": "richtext",
+    "required": false,
+    "locked": false,
+    "default": "Experience world-class facilities at The Albany Resort, featuring state-of-the-art medical equipment and luxurious accommodations."
+  },
+  {
+    "name": "location2_images",
+    "label": "Location 2 Images",
+    "type": "group",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": 1,
+      "max": 10,
+      "default": 1
+    },
+    "children": [
+      {
+        "name": "image_desktop",
+        "label": "Desktop Image",
+        "type": "image",
+        "required": false,
+        "locked": false,
+        "responsive": true,
+        "resizable": true,
+        "show_loading": false,
+        "default": {
+          "size_type": "auto",
+          "src": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=1260&h=638&fit=crop",
+          "alt": "The Albany Resort facilities",
+          "loading": "lazy"
+        }
+      },
+      {
+        "name": "image_mobile",
+        "label": "Mobile Image (Optional)",
+        "type": "image",
+        "required": false,
+        "locked": false,
+        "responsive": true,
+        "resizable": true,
+        "show_loading": false,
+        "help_text": "Optional separate image for mobile devices. If not provided, desktop image will be used."
+      },
+      {
+        "name": "show_on_desktop",
+        "label": "Show on Desktop",
+        "type": "boolean",
+        "required": false,
+        "locked": false,
+        "default": true
+      },
+      {
+        "name": "show_on_tablet",
+        "label": "Show on Tablet",
+        "type": "boolean",
+        "required": false,
+        "locked": false,
+        "default": true
+      },
+      {
+        "name": "show_on_mobile",
+        "label": "Show on Mobile",
+        "type": "boolean",
+        "required": false,
+        "locked": false,
+        "default": true
+      }
+    ],
+    "default": [
+      {
+        "image_desktop": {
+          "size_type": "auto",
+          "src": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=1260&h=638&fit=crop",
+          "alt": "The Albany Resort facilities",
+          "loading": "lazy"
+        },
+        "show_on_desktop": true,
+        "show_on_tablet": true,
+        "show_on_mobile": true
+      }
+    ]
+  },
+  {
+    "name": "location2_link_text",
+    "label": "Location 2 Link Text",
+    "type": "text",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "default": "Learn more ↗"
+  },
+  {
+    "name": "location2_link_url",
+    "label": "Location 2 Link URL",
+    "type": "text",
+    "required": false,
+    "locked": false,
+    "allow_new_line": false,
+    "default": "https://example.com"
+  }
+]

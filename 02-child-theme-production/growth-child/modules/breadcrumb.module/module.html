@@ -1,0 +1,151 @@
+<!-- Breadcrumb Navigation Module - URL Slug Based -->
+{% set is_homepage = content.id == site_settings.root_page_id %}
+
+{% if not (module.hide_on_homepage and is_homepage) %}
+<nav class="breadcrumb-navigation" aria-label="Breadcrumb">
+  <div class="breadcrumb-container">
+    <ol class="breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">
+
+      {# Home link (optional) #}
+      {% if module.show_home_link %}
+      <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/" class="breadcrumb-link link-gray" itemprop="item">
+          <span itemprop="name">Home</span>
+        </a>
+        <meta itemprop="position" content="1" />
+        <span class="breadcrumb-separator" aria-hidden="true">></span>
+      </li>
+      {% endif %}
+
+      {# Parse URL slug into segments #}
+      {% set slug_segments = content.slug.split('/') %}
+      {% set url_parts = [] %}
+
+      {# Create breadcrumb for each URL segment except the last (current page) #}
+      {% for segment in slug_segments %}
+        {% if not loop.last %}
+          {% do url_parts.append(segment) %}
+          {% set segment_url = '/' + url_parts|join('/') %}
+          {% set position = loop.index + (1 if module.show_home_link else 0) %}
+          {% set segment_label = segment|replace('-', ' ')|title %}
+
+          <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="{{ segment_url }}" class="breadcrumb-link link-gray" itemprop="item">
+              <span itemprop="name">{{ segment_label }}</span>
+            </a>
+            <meta itemprop="position" content="{{ position }}" />
+            <span class="breadcrumb-separator" aria-hidden="true">></span>
+          </li>
+        {% endif %}
+      {% endfor %}
+
+      {# Current page (not linked) #}
+      {% set slug_parts = content.slug.split('/') %}
+      {% set last_slug = slug_parts[-1] %}
+      {% set current_slug = last_slug|replace('-', ' ')|title %}
+      {% set final_position = slug_parts|length + (1 if module.show_home_link else 0) %}
+
+      <li class="breadcrumb-item breadcrumb-item-active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+        <span class="breadcrumb-current" itemprop="name">{{ current_slug }}</span>
+        <meta itemprop="position" content="{{ final_position }}" />
+      </li>
+    </ol>
+  </div>
+</nav>
+{% endif %}
+
+<style>
+/* Breadcrumb Navigation Styles */
+
+.breadcrumb-navigation {
+  width: 100%;
+  background-color: transparent;
+  padding: var(--space-16, 16px) 0;
+}
+
+.breadcrumb-container {
+  max-width: var(--content-max-width, 1400px);
+  margin: 0 auto;
+  padding: 0 var(--space-32, 32px);
+}
+
+.breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-8, 8px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8, 8px);
+}
+
+.breadcrumb-link {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-small, 14px);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-small, 14px);
+  color: var(--color-text-tertiary, #8D8D8D);
+  user-select: none;
+}
+
+.breadcrumb-current {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-small, 14px);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-tertiary, #8D8D8D) !important;
+}
+
+.breadcrumb-item-active {
+  pointer-events: none;
+}
+
+/* Tablet responsive adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .breadcrumb-container {
+    padding: 0 var(--space-24, 24px);
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 767px) {
+  .breadcrumb-navigation {
+    padding: var(--space-12, 12px) 0;
+  }
+
+  .breadcrumb-container {
+    padding: 0 var(--space-16, 16px);
+  }
+
+  .breadcrumb-link,
+  .breadcrumb-separator,
+  .breadcrumb-current {
+    font-size: 12px;
+  }
+
+  .breadcrumb-list {
+    gap: var(--space-4, 4px);
+  }
+
+  .breadcrumb-item {
+    gap: var(--space-4, 4px);
+  }
+}
+</style>

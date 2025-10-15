@@ -1,7 +1,8 @@
 /* Dual Brand Child Theme CSS - Growth Theme Extension */
 
-/* Import Inter font directly - UI settings don't work for child themes */
+/* Import fonts directly - UI settings don't work for child themes */
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..900;1,14..32,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&display=swap');
 
 /***********************************************/
 /* Shared Variables - Common to Both Brands  */
@@ -24,8 +25,8 @@
   --space-64: 4rem;      /* 64px */
   --space-96: 6rem;      /* 96px */
 
-  /* Typography - All fonts in code (Inter for both brands) */
-  --font-heading: 'Inter', sans-serif;
+  /* Typography - Headings use Barlow, body uses Inter */
+  --font-heading: 'Barlow', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-weight-regular: 450;
   --font-weight-medium: 500;
@@ -275,6 +276,22 @@
   padding: 0 !important;
 }
 
+/* Gray link utility - for links that should be gray instead of brand color */
+.link-gray,
+.link-gray:link,
+.link-gray:visited,
+.link-gray:active,
+.link-gray:focus {
+  color: var(--color-text-tertiary, #8D8D8D) !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.link-gray:hover {
+  color: var(--color-text-secondary, #525252) !important;
+}
+
 /***********************************************/
 /* HubSpot Spacing System Integration        */
 /***********************************************/
@@ -403,19 +420,19 @@ a {
   font-weight: var(--font-weight-medium);
 }
 
-/* Brand-scoped links with proper specificity - exclude buttons, white links, and black links */
-[data-brand="cellcolabsclinical"] a:not(.button):not(.btn):not(.hs-button):not(button):not(.link-white):not(.link-black),
-[data-brand="cellcolabs"] a:not(.button):not(.btn):not(.hs-button):not(button):not(.link-white):not(.link-black) {
+/* Brand-scoped links with proper specificity - exclude buttons and utility classes */
+[data-brand="cellcolabsclinical"] a:not(.button):not(.btn):not(.hs-button):not(button):not(.link-white):not(.link-black):not(.link-gray),
+[data-brand="cellcolabs"] a:not(.button):not(.btn):not(.hs-button):not(button):not(.link-white):not(.link-black):not(.link-gray) {
   color: var(--color-text-link) !important;
   font-weight: var(--font-weight-medium);
 }
 
-/* Ensure HubSpot modules use our fonts */
+/* Ensure HubSpot modules use our fonts - exclude headings so they can use Barlow */
 .hs_cos_wrapper,
 .hs-richtext,
-.hs-richtext *,
-.dnd-module *,
-.widget-type-rich_text * {
+.hs-richtext *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6),
+.dnd-module *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6),
+.widget-type-rich_text *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
   font-family: inherit !important;
 }
 

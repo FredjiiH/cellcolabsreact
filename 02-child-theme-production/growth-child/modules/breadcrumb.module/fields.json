@@ -1,0 +1,20 @@
+[
+  {
+    "name": "hide_on_homepage",
+    "label": "Hide on Homepage",
+    "type": "boolean",
+    "required": false,
+    "locked": false,
+    "default": true,
+    "help_text": "Hide breadcrumbs on the homepage"
+  },
+  {
+    "name": "show_home_link",
+    "label": "Show Home Link",
+    "type": "boolean",
+    "required": false,
+    "locked": false,
+    "default": true,
+    "help_text": "Show 'Home' as the first breadcrumb item"
+  }
+]

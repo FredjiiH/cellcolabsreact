@@ -1,0 +1,757 @@
+<!-- Locations Carousel Block V2 Module -->
+<section class="locations-carousel-block-v2" data-auto-play="{{ module.auto_play }}" data-auto-play-interval="{{ module.auto_play_interval }}">
+  <div class="container">
+    <!-- Content Header Section -->
+    <div class="content-header">
+      <div class="content-header-left">
+        <div class="eyebrow">{{ module.eyebrow_text }}</div>
+        <h2 class="main-title">{{ module.main_title }}</h2>
+      </div>
+      <div class="content-header-right">
+        <div class="main-description">{{ module.main_description }}</div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+          <button
+            class="tab tab-active"
+            data-location="0"
+            aria-selected="true"
+          >
+            {{ module.location1_name }}
+          </button>
+          <button
+            class="tab"
+            data-location="1"
+            aria-selected="false"
+          >
+            {{ module.location2_name }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image Carousel (for Location 1) -->
+    <div class="location-carousel location-carousel-active" data-location-index="0">
+      <div class="carousel-images">
+        {% for image in module.location1_images %}
+        <div class="carousel-image-wrapper"
+             data-show-desktop="{{ image.show_on_desktop }}"
+             data-show-tablet="{{ image.show_on_tablet }}"
+             data-show-mobile="{{ image.show_on_mobile }}">
+          <!-- Desktop/Tablet Image -->
+          <img
+            src="{{ image.image_desktop.src }}"
+            alt="{{ image.image_desktop.alt }}"
+            class="carousel-image carousel-image-desktop"
+            loading="lazy"
+          />
+          <!-- Mobile Image (if provided) -->
+          {% if image.image_mobile and image.image_mobile.src %}
+          <img
+            src="{{ image.image_mobile.src }}"
+            alt="{{ image.image_mobile.alt }}"
+            class="carousel-image carousel-image-mobile"
+            loading="lazy"
+          />
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Navigation Arrows -->
+      {% if module.location1_images|length > 1 %}
+      <button class="carousel-arrow carousel-arrow-prev" aria-label="Previous image">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="carousel-arrow carousel-arrow-next" aria-label="Next image">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      {% endif %}
+
+      <!-- Image Progress Dots -->
+      {% if module.location1_images|length > 1 %}
+      <div class="image-progress-dots">
+        {% for image in module.location1_images %}
+        <div class="progress-dot{% if loop.index == 1 %} progress-dot-active{% endif %}"></div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Image Carousel (for Location 2) -->
+    <div class="location-carousel" data-location-index="1">
+      <div class="carousel-images">
+        {% for image in module.location2_images %}
+        <div class="carousel-image-wrapper"
+             data-show-desktop="{{ image.show_on_desktop }}"
+             data-show-tablet="{{ image.show_on_tablet }}"
+             data-show-mobile="{{ image.show_on_mobile }}">
+          <!-- Desktop/Tablet Image -->
+          <img
+            src="{{ image.image_desktop.src }}"
+            alt="{{ image.image_desktop.alt }}"
+            class="carousel-image carousel-image-desktop"
+            loading="lazy"
+          />
+          <!-- Mobile Image (if provided) -->
+          {% if image.image_mobile and image.image_mobile.src %}
+          <img
+            src="{{ image.image_mobile.src }}"
+            alt="{{ image.image_mobile.alt }}"
+            class="carousel-image carousel-image-mobile"
+            loading="lazy"
+          />
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Navigation Arrows -->
+      {% if module.location2_images|length > 1 %}
+      <button class="carousel-arrow carousel-arrow-prev" aria-label="Previous image">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="carousel-arrow carousel-arrow-next" aria-label="Next image">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      {% endif %}
+
+      <!-- Image Progress Dots -->
+      {% if module.location2_images|length > 1 %}
+      <div class="image-progress-dots">
+        {% for image in module.location2_images %}
+        <div class="progress-dot{% if loop.index == 1 %} progress-dot-active{% endif %}"></div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Bottom Content -->
+    <div class="bottom-content">
+      <div class="bottom-content-inner">
+        <div class="location-content location-content-active">
+          <h3 class="location-title">{{ module.location1_title }}</h3>
+          <div class="location-description">{{ module.location1_description }}</div>
+          <a href="{{ module.location1_link_url }}" class="location-link link-black">{{ module.location1_link_text }}</a>
+        </div>
+        <div class="location-content">
+          <h3 class="location-title">{{ module.location2_title }}</h3>
+          <div class="location-description">{{ module.location2_description }}</div>
+          <a href="{{ module.location2_link_url }}" class="location-link link-black">{{ module.location2_link_text }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* Locations Carousel Block V2 Module Styles */
+
+.locations-carousel-block-v2 {
+  padding: var(--space-128, 128px) 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.locations-carousel-block-v2 .container {
+  max-width: var(--content-max-width, 1400px);
+  margin: 0 auto;
+  padding: 0 var(--space-32, 32px);
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-64, 64px);
+}
+
+/* Content Header Section */
+.locations-carousel-block-v2 .content-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-32, 32px);
+  width: 100%;
+}
+
+.locations-carousel-block-v2 .content-header-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32, 32px);
+  align-items: flex-start;
+}
+
+.locations-carousel-block-v2 .content-header-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32, 32px);
+  align-items: flex-start;
+}
+
+.locations-carousel-block-v2 .eyebrow {
+  background-color: var(--color-gray-800, #E0E0E0) !important;
+  padding: var(--space-8, 8px) var(--space-12, 12px);
+  border-radius: var(--space-8, 8px);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-small, 14px);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--color-gray-300, #525252) !important;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.locations-carousel-block-v2 .main-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight, 1.15);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.locations-carousel-block-v2 .main-description {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-large);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+  margin: 0;
+  width: 100%;
+}
+
+/* Tab Navigation */
+.locations-carousel-block-v2 .tab-navigation {
+  display: flex;
+  gap: var(--space-32, 32px);
+  align-items: center;
+  border-bottom: 1px solid var(--color-gray-700, #c6c6c6);
+  position: relative;
+}
+
+/* Tab buttons - higher specificity to override global button styles */
+[data-brand] .locations-carousel-block-v2 .tab,
+[data-brand] .locations-carousel-block-v2 button.tab {
+  background: none !important;
+  border: none !important;
+  padding: var(--space-16, 16px) 0 !important;
+  font-family: var(--font-body);
+  font-size: var(--font-size-body, 16px);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--color-gray-700, #c6c6c6) !important;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+  border-radius: 0 !important;
+}
+
+[data-brand] .locations-carousel-block-v2 .tab:hover,
+[data-brand] .locations-carousel-block-v2 button.tab:hover {
+  color: var(--color-text-primary, #161616) !important;
+  background: none !important;
+}
+
+[data-brand] .locations-carousel-block-v2 .tab-active,
+[data-brand] .locations-carousel-block-v2 button.tab-active {
+  color: var(--color-text-primary, #161616) !important;
+  background: none !important;
+}
+
+[data-brand] .locations-carousel-block-v2 .tab-active::after,
+[data-brand] .locations-carousel-block-v2 button.tab-active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--color-text-primary, #161616);
+}
+
+/* Location Carousel Container */
+.locations-carousel-block-v2 .location-carousel {
+  display: none;
+  position: relative;
+  width: 100%;
+  border-radius: var(--space-8, 8px);
+  overflow: hidden;
+}
+
+.locations-carousel-block-v2 .location-carousel-active {
+  display: block;
+}
+
+.locations-carousel-block-v2 .carousel-images {
+  position: relative;
+  width: 100%;
+  height: 638px;
+}
+
+.locations-carousel-block-v2 .carousel-image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.locations-carousel-block-v2 .carousel-image-wrapper.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.locations-carousel-block-v2 .carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Show/hide based on breakpoint */
+.locations-carousel-block-v2 .carousel-image-mobile {
+  display: none;
+}
+
+/* Carousel Navigation Arrows - high specificity to override global button styles */
+[data-brand] .locations-carousel-block-v2 .carousel-arrow,
+[data-brand] .locations-carousel-block-v2 button.carousel-arrow {
+  position: absolute !important;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px !important;
+  height: 56px !important;
+  min-width: 56px !important;
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer;
+  z-index: 10;
+  transition: opacity 0.2s ease;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-brand] .locations-carousel-block-v2 .carousel-arrow:hover,
+[data-brand] .locations-carousel-block-v2 button.carousel-arrow:hover {
+  opacity: 1;
+  background: none !important;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.locations-carousel-block-v2 .carousel-arrow-prev {
+  left: var(--space-24, 24px);
+}
+
+.locations-carousel-block-v2 .carousel-arrow-next {
+  right: var(--space-24, 24px);
+}
+
+/* Image Progress Dots */
+.locations-carousel-block-v2 .image-progress-dots {
+  position: absolute;
+  bottom: var(--space-24, 24px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-8, 8px);
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.locations-carousel-block-v2 .progress-dot {
+  width: var(--space-8, 8px);
+  height: var(--space-8, 8px);
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.locations-carousel-block-v2 .progress-dot:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.locations-carousel-block-v2 .progress-dot-active {
+  width: var(--space-24, 24px);
+  height: var(--space-8, 8px);
+  border-radius: var(--radius-pill, 64px);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/* Bottom Content */
+.locations-carousel-block-v2 .bottom-content {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.locations-carousel-block-v2 .bottom-content-inner {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32, 32px);
+  margin-left: 50%;
+  position: relative;
+}
+
+.locations-carousel-block-v2 .location-content {
+  display: none;
+}
+
+.locations-carousel-block-v2 .location-content-active {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32, 32px);
+}
+
+.locations-carousel-block-v2 .location-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.locations-carousel-block-v2 .location-description {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-large);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Location link - module-specific styling (color handled by .link-black utility) */
+.locations-carousel-block-v2 .location-link {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  width: fit-content;
+}
+
+.locations-carousel-block-v2 .location-link:hover {
+  opacity: 0.8;
+}
+
+/* Tablet responsive adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .locations-carousel-block-v2 {
+    padding: var(--space-96, 96px) 0;
+  }
+
+  .locations-carousel-block-v2 .container {
+    padding: 0 var(--space-24, 24px);
+  }
+
+  .locations-carousel-block-v2 .content-header {
+    flex-direction: column;
+    gap: var(--space-24, 24px);
+  }
+
+  .locations-carousel-block-v2 .content-header-left,
+  .locations-carousel-block-v2 .content-header-right {
+    width: 100%;
+  }
+
+  .locations-carousel-block-v2 .main-description {
+    font-size: var(--font-size-body, 16px);
+  }
+
+  .locations-carousel-block-v2 .carousel-images {
+    height: 500px;
+  }
+
+  .locations-carousel-block-v2 .bottom-content-inner {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .locations-carousel-block-v2 .location-description {
+    font-size: var(--font-size-body-small, 14px);
+  }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 767px) {
+  .locations-carousel-block-v2 {
+    padding: var(--space-96, 96px) 0;
+  }
+
+  .locations-carousel-block-v2 .container {
+    padding: 0 var(--space-16, 16px);
+    gap: var(--space-48, 48px);
+  }
+
+  .locations-carousel-block-v2 .content-header {
+    flex-direction: column;
+    gap: var(--space-24, 24px);
+  }
+
+  .locations-carousel-block-v2 .content-header-left,
+  .locations-carousel-block-v2 .content-header-right {
+    width: 100%;
+  }
+
+  .locations-carousel-block-v2 .main-description {
+    font-size: var(--font-size-body, 16px);
+  }
+
+  .locations-carousel-block-v2 .tab-navigation {
+    gap: var(--space-24, 24px);
+  }
+
+  [data-brand] .locations-carousel-block-v2 .tab,
+  [data-brand] .locations-carousel-block-v2 button.tab {
+    font-size: var(--font-size-body-small, 14px);
+  }
+
+  .locations-carousel-block-v2 .carousel-images {
+    height: 400px;
+  }
+
+  /* Show mobile image, hide desktop on mobile */
+  .locations-carousel-block-v2 .carousel-image-desktop {
+    display: none;
+  }
+
+  .locations-carousel-block-v2 .carousel-image-mobile {
+    display: block;
+  }
+
+  /* If no mobile image provided, show desktop image */
+  .locations-carousel-block-v2 .carousel-image-wrapper:not(:has(.carousel-image-mobile)) .carousel-image-desktop {
+    display: block;
+  }
+
+  [data-brand] .locations-carousel-block-v2 .carousel-arrow,
+  [data-brand] .locations-carousel-block-v2 button.carousel-arrow {
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+  }
+
+  .locations-carousel-block-v2 .carousel-arrow svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .locations-carousel-block-v2 .carousel-arrow-prev {
+    left: var(--space-16, 16px);
+  }
+
+  .locations-carousel-block-v2 .carousel-arrow-next {
+    right: var(--space-16, 16px);
+  }
+
+  .locations-carousel-block-v2 .bottom-content-inner {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .locations-carousel-block-v2 .location-description {
+    font-size: var(--font-size-body-small, 14px);
+  }
+
+  .locations-carousel-block-v2 .location-link {
+    font-size: var(--font-size-body-small, 14px);
+  }
+}
+
+/* Breakpoint visibility CSS */
+@media (min-width: 1024px) {
+  .locations-carousel-block-v2 .carousel-image-wrapper[data-show-desktop="false"] {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .locations-carousel-block-v2 .carousel-image-wrapper[data-show-tablet="false"] {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .locations-carousel-block-v2 .carousel-image-wrapper[data-show-mobile="false"] {
+    display: none !important;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const blocks = document.querySelectorAll('.locations-carousel-block-v2');
+
+  blocks.forEach(function(block) {
+    const tabs = block.querySelectorAll('.tab');
+    const locationCarousels = block.querySelectorAll('.location-carousel');
+    const locationContents = block.querySelectorAll('.location-content');
+    const autoPlay = block.getAttribute('data-auto-play') === 'true';
+    const autoPlayInterval = parseInt(block.getAttribute('data-auto-play-interval')) || 5000;
+
+    let activeLocationIndex = 0;
+    let autoPlayTimers = [];
+
+    // Initialize each location's image carousel
+    locationCarousels.forEach(function(carousel, locationIndex) {
+      const imageWrappers = Array.from(carousel.querySelectorAll('.carousel-image-wrapper'));
+      const prevBtn = carousel.querySelector('.carousel-arrow-prev');
+      const nextBtn = carousel.querySelector('.carousel-arrow-next');
+      const dots = carousel.querySelectorAll('.progress-dot');
+      let currentImageIndex = 0;
+      let autoPlayTimer = null;
+
+      // Filter out hidden images based on current breakpoint
+      function getVisibleImages() {
+        const width = window.innerWidth;
+        return imageWrappers.filter(function(wrapper) {
+          if (width >= 1024) {
+            return wrapper.getAttribute('data-show-desktop') === 'true';
+          } else if (width >= 768) {
+            return wrapper.getAttribute('data-show-tablet') === 'true';
+          } else {
+            return wrapper.getAttribute('data-show-mobile') === 'true';
+          }
+        });
+      }
+
+      function updateCarousel(newIndex) {
+        const visibleImages = getVisibleImages();
+        if (visibleImages.length === 0) return;
+
+        // Wrap index
+        if (newIndex < 0) newIndex = visibleImages.length - 1;
+        if (newIndex >= visibleImages.length) newIndex = 0;
+
+        // Hide all, show active
+        imageWrappers.forEach(img => img.classList.remove('active'));
+        visibleImages[newIndex].classList.add('active');
+
+        // Update dots
+        dots.forEach(function(dot, i) {
+          if (i === newIndex) {
+            dot.classList.add('progress-dot-active');
+          } else {
+            dot.classList.remove('progress-dot-active');
+          }
+        });
+
+        currentImageIndex = newIndex;
+      }
+
+      function startAutoPlay() {
+        if (!autoPlay || locationIndex !== activeLocationIndex) return;
+
+        stopAutoPlay();
+        autoPlayTimer = setInterval(function() {
+          const visibleImages = getVisibleImages();
+          updateCarousel((currentImageIndex + 1) % visibleImages.length);
+        }, autoPlayInterval);
+      }
+
+      function stopAutoPlay() {
+        if (autoPlayTimer) {
+          clearInterval(autoPlayTimer);
+          autoPlayTimer = null;
+        }
+      }
+
+      // Navigation buttons
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+          stopAutoPlay();
+          updateCarousel(currentImageIndex - 1);
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+          stopAutoPlay();
+          updateCarousel(currentImageIndex + 1);
+        });
+      }
+
+      // Progress dot navigation
+      dots.forEach(function(dot, index) {
+        dot.addEventListener('click', function() {
+          stopAutoPlay();
+          updateCarousel(index);
+        });
+      });
+
+      // Initialize first image
+      updateCarousel(0);
+
+      // Start auto-play if this is the active location
+      if (locationIndex === activeLocationIndex && autoPlay) {
+        startAutoPlay();
+      }
+
+      // Store reference to auto-play functions
+      autoPlayTimers[locationIndex] = {
+        start: startAutoPlay,
+        stop: stopAutoPlay
+      };
+    });
+
+    // Tab switching
+    tabs.forEach(function(tab, index) {
+      tab.addEventListener('click', function() {
+        // Stop all auto-play timers
+        autoPlayTimers.forEach(timer => timer.stop());
+
+        // Update active tab
+        tabs.forEach(t => {
+          t.classList.remove('tab-active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('tab-active');
+        tab.setAttribute('aria-selected', 'true');
+
+        // Update active location carousel
+        locationCarousels.forEach(carousel => carousel.classList.remove('location-carousel-active'));
+        if (locationCarousels[index]) {
+          locationCarousels[index].classList.add('location-carousel-active');
+        }
+
+        // Update location content
+        locationContents.forEach(content => content.classList.remove('location-content-active'));
+        if (locationContents[index]) {
+          locationContents[index].classList.add('location-content-active');
+        }
+
+        activeLocationIndex = index;
+
+        // Start auto-play for new active location
+        if (autoPlayTimers[index]) {
+          autoPlayTimers[index].start();
+        }
+      });
+    });
+  });
+});
+</script>

@@ -1,10 +1,10 @@
 <!--
   templateType: module
-  label: Footer - Cellcolabs Clinical
+  label: Footer - Cellcolabs Clinical V2
   isAvailableForNewContent: false
 -->
 
-<footer class="site-footer" data-brand="cellcolabsclinical">
+<footer class="site-footer" data-brand="cellcolabsclinical" data-column-count="{{ module.column_count }}">
   <div class="footer-container">
     <!-- Mobile branding section (text logo + tagline) -->
     <div class="footer-branding">
@@ -21,73 +21,77 @@
 
       <!-- Footer navigation columns -->
       <div class="footer-nav-columns">
-      <!-- Product Column -->
-      <div class="footer-column">
-        <p class="footer-column-title">{{ module.product_title }}</p>
-        {% menu "footer_product_clinical"
-          id="footer_product_clinical_menu",
-          site_map_name="footer_product_clinical",
-          overrideable=False,
-          root_type="site_root",
-          flyouts="false",
-          max_levels="1",
-          flow="vertical",
-          menu_class="footer-menu-list",
-          item_class="footer-menu-item",
-          link_class="footer-menu-link"
-        %}
-      </div>
+        <!-- Column 1 (always shown) -->
+        <div class="footer-column">
+          <p class="footer-column-title">{{ module.column_1_title }}</p>
+          {% set menu_tree = menu(module.column_1_menu) %}
+          {% if menu_tree %}
+          <ul class="footer-menu-list">
+            {% for item in menu_tree %}
+            {% if item.label %}
+            <li class="footer-menu-item">
+              <a href="{{ item.url }}" class="footer-menu-link link-white">{{ item.label }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
 
-      <!-- Company Column -->
-      <div class="footer-column">
-        <p class="footer-column-title">{{ module.company_title }}</p>
-        {% menu "footer_company_clinical"
-          id="footer_company_clinical_menu",
-          site_map_name="footer_company_clinical",
-          overrideable=False,
-          root_type="site_root",
-          flyouts="false",
-          max_levels="1",
-          flow="vertical",
-          menu_class="footer-menu-list",
-          item_class="footer-menu-item",
-          link_class="footer-menu-link"
-        %}
-      </div>
+        <!-- Column 2 (always shown) -->
+        <div class="footer-column">
+          <p class="footer-column-title">{{ module.column_2_title }}</p>
+          {% set menu_tree = menu(module.column_2_menu) %}
+          {% if menu_tree %}
+          <ul class="footer-menu-list">
+            {% for item in menu_tree %}
+            {% if item.label %}
+            <li class="footer-menu-item">
+              <a href="{{ item.url }}" class="footer-menu-link link-white">{{ item.label }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
 
-      <!-- Support Column -->
-      <div class="footer-column">
-        <p class="footer-column-title">{{ module.support_title }}</p>
-        {% menu "footer_support_clinical"
-          id="footer_support_clinical_menu",
-          site_map_name="footer_support_clinical",
-          overrideable=False,
-          root_type="site_root",
-          flyouts="false",
-          max_levels="1",
-          flow="vertical",
-          menu_class="footer-menu-list",
-          item_class="footer-menu-item",
-          link_class="footer-menu-link"
-        %}
-      </div>
+        <!-- Column 3 (shown if 3 or 4 columns selected) -->
+        {% if module.column_count == "3" or module.column_count == "4" %}
+        <div class="footer-column">
+          <p class="footer-column-title">{{ module.column_3_title }}</p>
+          {% set menu_tree = menu(module.column_3_menu) %}
+          {% if menu_tree %}
+          <ul class="footer-menu-list">
+            {% for item in menu_tree %}
+            {% if item.label %}
+            <li class="footer-menu-item">
+              <a href="{{ item.url }}" class="footer-menu-link link-white">{{ item.label }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+        {% endif %}
 
-      <!-- Social Column -->
-      <div class="footer-column">
-        <p class="footer-column-title">{{ module.social_title }}</p>
-        {% menu "footer_social_clinical"
-          id="footer_social_clinical_menu",
-          site_map_name="footer_social_clinical",
-          overrideable=False,
-          root_type="site_root",
-          flyouts="false",
-          max_levels="1",
-          flow="vertical",
-          menu_class="footer-menu-list",
-          item_class="footer-menu-item",
-          link_class="footer-menu-link"
-        %}
-      </div>
+        <!-- Column 4 (shown only if 4 columns selected) -->
+        {% if module.column_count == "4" %}
+        <div class="footer-column">
+          <p class="footer-column-title">{{ module.column_4_title }}</p>
+          {% set menu_tree = menu(module.column_4_menu) %}
+          {% if menu_tree %}
+          <ul class="footer-menu-list">
+            {% for item in menu_tree %}
+            {% if item.label %}
+            <li class="footer-menu-item">
+              <a href="{{ item.url }}" class="footer-menu-link link-white">{{ item.label }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+        {% endif %}
       </div>
     </div>
 
@@ -165,7 +169,7 @@
   margin: 0;
 }
 
-/* Footer navigation columns */
+/* Footer navigation columns - MOBILE (1fr 1fr grid) */
 .footer-nav-columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -211,39 +215,19 @@
   text-align: left;
 }
 
-/* Override global brand link colors with maximum specificity */
-[data-brand="cellcolabsclinical"] .site-footer .footer-menu-link,
-[data-brand="cellcolabsclinical"] .site-footer .footer-menu-link a:not(.button):not(.btn):not(button),
-[data-brand="cellcolabsclinical"] .site-footer .hs-menu-wrapper .hs-menu-item a:not(.button):not(.btn):not(button),
-[data-brand="cellcolabsclinical"] .site-footer .footer-nav-columns .hs-menu-wrapper .hs-menu-item > a:not(.button):not(.btn):not(button),
-[data-brand="cellcolabs"] .site-footer .footer-menu-link,
-[data-brand="cellcolabs"] .site-footer .footer-menu-link a:not(.button):not(.btn):not(button),
-[data-brand="cellcolabs"] .site-footer .hs-menu-wrapper .hs-menu-item a:not(.button):not(.btn):not(button),
-[data-brand="cellcolabs"] .site-footer .footer-nav-columns .hs-menu-wrapper .hs-menu-item > a:not(.button):not(.btn):not(button) {
+/* Footer menu link styling (.link-white utility handles color) */
+.site-footer .footer-menu-link {
   font-family: var(--font-body, 'Inter', sans-serif) !important;
   font-size: var(--font-size-body, 16px) !important;
   font-weight: var(--font-weight-regular, 450) !important;
   line-height: var(--line-height-relaxed, 1.5) !important;
-  color: var(--color-white, #ffffff) !important;
   text-decoration: none !important;
   transition: opacity 0.2s ease;
   display: block;
   text-align: left !important;
 }
 
-[data-brand="cellcolabsclinical"] .site-footer .footer-menu-link:hover,
-[data-brand="cellcolabsclinical"] .site-footer .footer-menu-link:visited,
-[data-brand="cellcolabsclinical"] .site-footer .footer-menu-link:active,
-[data-brand="cellcolabsclinical"] .site-footer .hs-menu-wrapper .hs-menu-item a:hover,
-[data-brand="cellcolabsclinical"] .site-footer .hs-menu-wrapper .hs-menu-item a:visited,
-[data-brand="cellcolabsclinical"] .site-footer .hs-menu-wrapper .hs-menu-item a:active,
-[data-brand="cellcolabs"] .site-footer .footer-menu-link:hover,
-[data-brand="cellcolabs"] .site-footer .footer-menu-link:visited,
-[data-brand="cellcolabs"] .site-footer .footer-menu-link:active,
-[data-brand="cellcolabs"] .site-footer .hs-menu-wrapper .hs-menu-item a:hover,
-[data-brand="cellcolabs"] .site-footer .hs-menu-wrapper .hs-menu-item a:visited,
-[data-brand="cellcolabs"] .site-footer .hs-menu-wrapper .hs-menu-item a:active {
-  color: var(--color-white, #ffffff) !important;
+.site-footer .footer-menu-link:hover {
   opacity: 0.7;
 }
 
@@ -331,40 +315,11 @@
     left: 0;
   }
 
-  /* Desktop navigation columns - use percentage-based positioning to match Figma */
+  /* Desktop navigation columns - use percentage-based positioning */
   .footer-nav-columns {
     display: block;
     position: relative;
     min-height: 150px; /* Ensure space for absolutely positioned columns */
-  }
-
-  /* Position columns at Figma-specified percentages (adjusted for container) */
-  .footer-column:nth-child(1) {
-    /* Product at ~33.333% + offset */
-    position: absolute;
-    left: calc(33.333% + 16px);
-    width: 212px;
-  }
-
-  .footer-column:nth-child(2) {
-    /* Company at ~50% + offset */
-    position: absolute;
-    left: calc(50% + 12px);
-    width: 212px;
-  }
-
-  .footer-column:nth-child(3) {
-    /* Support at ~66.667% + offset */
-    position: absolute;
-    left: calc(66.667% + 8px);
-    width: 212px;
-  }
-
-  .footer-column:nth-child(4) {
-    /* Social at ~83.333% + offset */
-    position: absolute;
-    left: calc(83.333% + 4px);
-    width: 212px;
   }
 
   .footer-column {
@@ -373,22 +328,105 @@
     gap: var(--space-16, 16px);
   }
 
-  /* Contact section - align with Product column */
+  /* ========================================
+     2 COLUMN LAYOUT - 50% each
+     ======================================== */
+  [data-column-count="2"] .footer-column:nth-child(1) {
+    position: absolute;
+    left: 33.333%;
+    width: calc((100% - 33.333%) / 2 - 12px); /* Half of remaining space after logo */
+  }
+
+  [data-column-count="2"] .footer-column:nth-child(2) {
+    position: absolute;
+    left: calc(33.333% + (100% - 33.333%) / 2 + 12px);
+    width: calc((100% - 33.333%) / 2 - 12px);
+  }
+
+  /* ========================================
+     3 COLUMN LAYOUT - Equal thirds
+     ======================================== */
+  [data-column-count="3"] .footer-column:nth-child(1) {
+    position: absolute;
+    left: 33.333%;
+    width: calc((100% - 33.333%) / 3 - 16px);
+  }
+
+  [data-column-count="3"] .footer-column:nth-child(2) {
+    position: absolute;
+    left: calc(33.333% + (100% - 33.333%) / 3 + 8px);
+    width: calc((100% - 33.333%) / 3 - 16px);
+  }
+
+  [data-column-count="3"] .footer-column:nth-child(3) {
+    position: absolute;
+    left: calc(33.333% + 2 * (100% - 33.333%) / 3 + 16px);
+    width: calc((100% - 33.333%) / 3 - 16px);
+  }
+
+  /* ========================================
+     4 COLUMN LAYOUT - Equal fourths (ORIGINAL FIGMA DESIGN)
+     ======================================== */
+  [data-column-count="4"] .footer-column:nth-child(1) {
+    position: absolute;
+    left: calc(33.333% + 16px);
+    width: 212px;
+  }
+
+  [data-column-count="4"] .footer-column:nth-child(2) {
+    position: absolute;
+    left: calc(50% + 12px);
+    width: 212px;
+  }
+
+  [data-column-count="4"] .footer-column:nth-child(3) {
+    position: absolute;
+    left: calc(66.667% + 8px);
+    width: 212px;
+  }
+
+  [data-column-count="4"] .footer-column:nth-child(4) {
+    position: absolute;
+    left: calc(83.333% + 4px);
+    width: 212px;
+  }
+
+  /* Contact section - align with first column for all layouts */
   .footer-contact {
     display: flex;
     flex-direction: column;
     gap: var(--space-16, 16px);
-    padding-left: calc(33.333% + 16px); /* Align with Product column */
+    padding-left: calc(33.333% + 16px); /* Default for 4 columns */
   }
 
-  /* Desktop copyright - align with Product column */
+  /* 2 column layout - align with first column */
+  [data-column-count="2"] .footer-contact {
+    padding-left: 33.333%;
+  }
+
+  /* 3 column layout - align with first column */
+  [data-column-count="3"] .footer-contact {
+    padding-left: 33.333%;
+  }
+
+  /* Desktop copyright - align with first column for all layouts */
   .footer-copyright-desktop {
     display: block;
     font-size: var(--font-size-body, 16px);
     font-weight: var(--font-weight-regular, 450);
     line-height: var(--line-height-relaxed, 1.5);
     color: var(--color-white, #ffffff);
-    padding-left: calc(33.333% + 16px); /* Align with Product column */
+    padding-left: calc(33.333% + 16px); /* Default for 4 columns */
+  }
+
+  /* 2 column layout - align with first column */
+  [data-column-count="2"] .footer-copyright-desktop {
+    padding-left: 33.333%;
+  }
+
+  /* 3 column layout - align with first column */
+  [data-column-count="3"] .footer-copyright-desktop {
+    padding-left: 33.333%;
   }
 
   .footer-copyright-desktop p {

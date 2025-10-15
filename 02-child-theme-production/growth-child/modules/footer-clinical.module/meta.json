@@ -3,7 +3,7 @@
   "css_assets": [],
   "external_js": [],
   "global": true,
-  "help_text": "Footer for Cellcolabs Clinical brand (B2C)",
+  "help_text": "Footer for Cellcolabs Clinical brand (B2C) - Flexible 2-4 column layout",
   "host_template_types": ["PAGE", "BLOG_POST", "BLOG_LISTING"],
   "icon": "layout",
   "is_available_for_new_content": false,

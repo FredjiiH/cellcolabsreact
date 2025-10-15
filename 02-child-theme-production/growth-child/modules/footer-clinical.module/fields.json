@@ -10,44 +10,99 @@
     "help_text": "Tagline displayed below the logo on mobile"
   },
   {
-    "id": "product_title",
-    "name": "product_title",
-    "label": "Product Column Title",
+    "id": "column_count",
+    "name": "column_count",
+    "label": "Number of Columns",
+    "required": true,
+    "locked": false,
+    "type": "choice",
+    "choices": [
+      ["2", "2 Columns"],
+      ["3", "3 Columns"],
+      ["4", "4 Columns"]
+    ],
+    "default": "4",
+    "help_text": "Select how many navigation columns to display"
+  },
+  {
+    "id": "column_1_title",
+    "name": "column_1_title",
+    "label": "Column 1 Title",
     "required": true,
     "locked": false,
     "type": "text",
     "default": "Product",
-    "help_text": "Title for the Product column"
+    "help_text": "Title for the first column"
   },
   {
-    "id": "company_title",
-    "name": "company_title",
-    "label": "Company Column Title",
+    "id": "column_1_menu",
+    "name": "column_1_menu",
+    "label": "Column 1 Menu",
+    "required": true,
+    "locked": false,
+    "type": "menu",
+    "default": "footer_product_clinical",
+    "help_text": "Select the menu to display in column 1"
+  },
+  {
+    "id": "column_2_title",
+    "name": "column_2_title",
+    "label": "Column 2 Title",
     "required": true,
     "locked": false,
     "type": "text",
     "default": "Company",
-    "help_text": "Title for the Company column"
+    "help_text": "Title for the second column"
   },
   {
-    "id": "support_title",
-    "name": "support_title",
-    "label": "Support Column Title",
+    "id": "column_2_menu",
+    "name": "column_2_menu",
+    "label": "Column 2 Menu",
     "required": true,
+    "locked": false,
+    "type": "menu",
+    "default": "footer_company_clinical",
+    "help_text": "Select the menu to display in column 2"
+  },
+  {
+    "id": "column_3_title",
+    "name": "column_3_title",
+    "label": "Column 3 Title",
+    "required": false,
     "locked": false,
     "type": "text",
     "default": "Support",
-    "help_text": "Title for the Support column"
+    "help_text": "Title for the third column (only shown if 3 or 4 columns selected)"
   },
   {
-    "id": "social_title",
-    "name": "social_title",
-    "label": "Social Column Title",
-    "required": true,
+    "id": "column_3_menu",
+    "name": "column_3_menu",
+    "label": "Column 3 Menu",
+    "required": false,
+    "locked": false,
+    "type": "menu",
+    "default": "footer_support_clinical",
+    "help_text": "Select the menu to display in column 3 (only shown if 3 or 4 columns selected)"
+  },
+  {
+    "id": "column_4_title",
+    "name": "column_4_title",
+    "label": "Column 4 Title",
+    "required": false,
     "locked": false,
     "type": "text",
     "default": "Social",
-    "help_text": "Title for the Social column"
+    "help_text": "Title for the fourth column (only shown if 4 columns selected)"
+  },
+  {
+    "id": "column_4_menu",
+    "name": "column_4_menu",
+    "label": "Column 4 Menu",
+    "required": false,
+    "locked": false,
+    "type": "menu",
+    "default": "footer_social_clinical",
+    "help_text": "Select the menu to display in column 4 (only shown if 4 columns selected)"
   },
   {
     "id": "contact_title",
