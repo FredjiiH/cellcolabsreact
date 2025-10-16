@@ -342,6 +342,7 @@ Global link colors managed in `child.css`:
 - **[MODULE_DEVELOPMENT_GUIDE.md](./02-child-theme-production/docs/MODULE_DEVELOPMENT_GUIDE.md)** - How to create new modules
 - **[URL_FIELD_IMPLEMENTATION_GUIDE.md](./02-child-theme-production/docs/URL_FIELD_IMPLEMENTATION_GUIDE.md)** - HubSpot link field implementation
 - **[WIDTH_SYSTEM_GUIDE.md](./02-child-theme-production/docs/WIDTH_SYSTEM_GUIDE.md)** - Width alignment system
+- **[SPACING_SYSTEM_GUIDE.md](./02-child-theme-production/docs/SPACING_SYSTEM_GUIDE.md)** - Container-based spacing system
 - **[DUAL_BRAND_SPACING_GUIDE.md](./02-child-theme-production/docs/DUAL_BRAND_SPACING_GUIDE.md)** - Spacing system implementation
 
 ---

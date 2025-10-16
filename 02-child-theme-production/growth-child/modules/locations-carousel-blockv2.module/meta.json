@@ -1,5 +1,5 @@
 {
-  "label": "Locations Carousel Block V2",
+  "label": "Locations Carousel Block",
   "description": "A two-column section with title/description and image carousel per location. Supports multiple images per location with auto-play and mobile-specific images. Perfect for highlighting facilities, offices, or destinations.",
   "category": "content",
   "icon": "map",

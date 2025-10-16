@@ -90,7 +90,7 @@
 .eligibility-checker {
   background-color: var(--color-bg-white, #ffffff);
   width: 100%;
-  padding: var(--space-64, 64px) var(--space-24, 24px);
+  padding: 0 var(--space-24, 24px); /* Vertical spacing controlled by DND section container */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -285,7 +285,7 @@
 /* Tablet Styles (768-1023px) */
 @media (min-width: 768px) and (max-width: 1023px) {
   .eligibility-checker {
-    padding: var(--space-48, 48px) var(--space-24, 24px);
+    padding: 0 var(--space-24, 24px); /* Vertical spacing controlled by DND section container */
     gap: var(--space-32, 32px);
   }
 
@@ -310,7 +310,7 @@
 /* Mobile Styles (767px and below) */
 @media (max-width: 767px) {
   .eligibility-checker {
-    padding: var(--space-48, 48px) var(--space-16, 16px);
+    padding: 0 var(--space-16, 16px); /* Vertical spacing controlled by DND section container */
     gap: var(--space-32, 32px);
   }
 

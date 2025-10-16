@@ -45,7 +45,7 @@
   position: relative !important; /* Force relative positioning */
   width: 100%;
   max-width: 100%; /* Full width of parent */
-  padding: var(--space-64, 80px) 0;
+  padding: 0; /* Spacing controlled by DND section container */
   margin: 0;
   box-sizing: border-box;
 }
@@ -165,7 +165,7 @@
 /* Tablet breakpoint */
 @media (max-width: 1023px) {
   .grid2x2-card-image {
-    padding: var(--space-48, 60px) 0;
+    padding: 0; /* Spacing controlled by DND section container */
     position: relative !important;
   }
 
@@ -189,7 +189,7 @@
 /* Mobile breakpoint */
 @media (max-width: 767px) {
   .grid2x2-card-image {
-    padding: var(--space-32, 2rem) 0;
+    padding: 0; /* Spacing controlled by DND section container */
     position: relative !important;
   }
 

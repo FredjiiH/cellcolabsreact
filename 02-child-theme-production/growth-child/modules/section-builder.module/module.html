@@ -471,6 +471,100 @@
     margin-bottom: 0;
   }
 
+  /* Block Wrapper Component - For per-block spacing control */
+  .section-builder__block-wrapper {
+    width: 100%;
+  }
+
+  /* Full-width blocks - break out of section padding */
+  .section-builder[data-padding="small"] .full-width-block {
+    margin-left: calc(-1 * var(--space-32, 32px));
+    margin-right: calc(-1 * var(--space-32, 32px));
+    width: calc(100% + 2 * var(--space-32, 32px));
+  }
+
+  .section-builder[data-padding="medium"] .full-width-block {
+    margin-left: calc(-1 * var(--space-48, 48px));
+    margin-right: calc(-1 * var(--space-48, 48px));
+    width: calc(100% + 2 * var(--space-48, 48px));
+  }
+
+  .section-builder[data-padding="large"] .full-width-block {
+    margin-left: calc(-1 * var(--space-64, 64px));
+    margin-right: calc(-1 * var(--space-64, 64px));
+    width: calc(100% + 2 * var(--space-64, 64px));
+  }
+
+  .section-builder[data-padding="xlarge"] .full-width-block {
+    margin-left: calc(-1 * var(--space-96, 96px));
+    margin-right: calc(-1 * var(--space-96, 96px));
+    width: calc(100% + 2 * var(--space-96, 96px));
+  }
+
+  .section-builder[data-padding="xxlarge"] .full-width-block {
+    margin-left: calc(-1 * var(--space-96, 96px));
+    margin-right: calc(-1 * var(--space-96, 96px));
+    width: calc(100% + 2 * var(--space-96, 96px));
+  }
+
+  /* Image Block Component */
+  .section-builder__image-wrapper {
+    width: 100%;
+    display: flex;
+  }
+
+  .section-builder__image-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .section-builder__image-container.width-custom {
+    width: auto;
+  }
+
+  .section-builder__image-container.radius-none {
+    border-radius: 0;
+  }
+
+  .section-builder__image-container.radius-small {
+    border-radius: var(--border-radius-sm, 4px);
+  }
+
+  .section-builder__image-container.radius-medium {
+    border-radius: var(--border-radius-md, 8px);
+  }
+
+  .section-builder__image-container.radius-large {
+    border-radius: var(--border-radius-lg, 16px);
+  }
+
+  .section-builder__image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .section-builder__image-mobile {
+    display: none;
+  }
+
+  /* Show mobile image on mobile */
+  @media (max-width: 767px) {
+    .section-builder__image-desktop {
+      display: none;
+    }
+
+    .section-builder__image-mobile {
+      display: block;
+    }
+
+    /* If no mobile image provided, show desktop image */
+    .section-builder__image-container:not(:has(.section-builder__image-mobile)) .section-builder__image-desktop {
+      display: block;
+    }
+  }
+
   /* Tablet responsive padding (768-1023px) */
   @media (max-width: 1023px) and (min-width: 768px) {
     .section-builder[data-padding="small"] {
@@ -491,6 +585,37 @@
 
     .section-builder[data-padding="xxlarge"] {
       padding: calc(var(--space-32, 32px) + var(--space-24, 24px)) var(--space-24, 24px) !important;
+    }
+
+    /* Full-width blocks on tablet */
+    .section-builder[data-padding="small"] .full-width-block {
+      margin-left: calc(-1 * var(--space-16, 16px));
+      margin-right: calc(-1 * var(--space-16, 16px));
+      width: calc(100% + 2 * var(--space-16, 16px));
+    }
+
+    .section-builder[data-padding="medium"] .full-width-block {
+      margin-left: calc(-1 * var(--space-24, 24px));
+      margin-right: calc(-1 * var(--space-24, 24px));
+      width: calc(100% + 2 * var(--space-24, 24px));
+    }
+
+    .section-builder[data-padding="large"] .full-width-block {
+      margin-left: calc(-1 * var(--space-24, 24px));
+      margin-right: calc(-1 * var(--space-24, 24px));
+      width: calc(100% + 2 * var(--space-24, 24px));
+    }
+
+    .section-builder[data-padding="xlarge"] .full-width-block {
+      margin-left: calc(-1 * var(--space-32, 32px));
+      margin-right: calc(-1 * var(--space-32, 32px));
+      width: calc(100% + 2 * var(--space-32, 32px));
+    }
+
+    .section-builder[data-padding="xxlarge"] .full-width-block {
+      margin-left: calc(-1 * var(--space-24, 24px));
+      margin-right: calc(-1 * var(--space-24, 24px));
+      width: calc(100% + 2 * var(--space-24, 24px));
     }
   }
 
@@ -519,6 +644,32 @@
     .section-builder[data-padding="xxlarge"] {
       padding: var(--space-48, 48px) var(--space-24, 24px) !important;
     }
+
+    /* Full-width blocks on mobile (767px and below) */
+    .section-builder[data-padding="small"] .full-width-block {
+      margin-left: calc(-1 * var(--space-16, 16px));
+      margin-right: calc(-1 * var(--space-16, 16px));
+      width: calc(100% + 2 * var(--space-16, 16px));
+    }
+
+    .section-builder[data-padding="medium"] .full-width-block {
+      margin-left: calc(-1 * var(--space-16, 16px));
+      margin-right: calc(-1 * var(--space-16, 16px));
+      width: calc(100% + 2 * var(--space-16, 16px));
+    }
+
+    .section-builder[data-padding="large"] .full-width-block {
+      margin-left: calc(-1 * var(--space-24, 24px));
+      margin-right: calc(-1 * var(--space-24, 24px));
+      width: calc(100% + 2 * var(--space-24, 24px));
+    }
+
+    .section-builder[data-padding="xlarge"] .full-width-block,
+    .section-builder[data-padding="xxlarge"] .full-width-block {
+      margin-left: calc(-1 * var(--space-24, 24px));
+      margin-right: calc(-1 * var(--space-24, 24px));
+      width: calc(100% + 2 * var(--space-24, 24px));
+    }
   }
 
   /* Small mobile responsive padding (480px and below) */
@@ -542,91 +693,26 @@
     .section-builder[data-padding="xxlarge"] {
       padding: var(--space-32, 32px) var(--space-16, 16px) !important;
     }
-  }
 
-    /* Responsive content spacing */
-    .section-builder__single[data-content-spacing="none"],
-    .section-builder__column[data-content-spacing="none"] {
-      gap: 0 !important;
+    /* Full-width blocks on small mobile (480px and below) */
+    .section-builder[data-padding="small"] .full-width-block {
+      margin-left: calc(-1 * var(--space-16, 16px));
+      margin-right: calc(-1 * var(--space-16, 16px));
+      width: calc(100% + 2 * var(--space-16, 16px));
     }
 
-    .section-builder__single[data-content-spacing="xxsmall"],
-    .section-builder__column[data-content-spacing="xxsmall"] {
-      gap: var(--space-4, 4px) !important;
-    }
-
-    .section-builder__single[data-content-spacing="xsmall"],
-    .section-builder__column[data-content-spacing="xsmall"] {
-      gap: var(--space-8, 8px) !important;
-    }
-
-    .section-builder__single[data-content-spacing="small"],
-    .section-builder__column[data-content-spacing="small"] {
-      gap: var(--space-12, 12px) !important;
-    }
-
-    .section-builder__single[data-content-spacing="medium"],
-    .section-builder__column[data-content-spacing="medium"] {
-      gap: var(--space-16, 16px) !important;
-    }
-
-    .section-builder__single[data-content-spacing="large"],
-    .section-builder__column[data-content-spacing="large"] {
-      gap: var(--space-24, 24px) !important;
-    }
-
-    .section-builder__single[data-content-spacing="xlarge"],
-    .section-builder__column[data-content-spacing="xlarge"] {
-      gap: var(--space-32, 32px) !important;
-    }
-
-    .section-builder__single[data-content-spacing="xxlarge"],
-    .section-builder__column[data-content-spacing="xxlarge"] {
-      gap: var(--space-48, 48px) !important;
-    }
-
-    .section-builder__single[data-content-spacing="xxxlarge"],
-    .section-builder__column[data-content-spacing="xxxlarge"] {
-      gap: var(--space-64, 64px) !important;
-    }
-
-    /* Responsive column gap */
-    .section-builder__columns[data-column-gap="xxsmall"] {
-      gap: var(--space-4, 4px) !important;
-    }
-
-    .section-builder__columns[data-column-gap="xsmall"] {
-      gap: var(--space-8, 8px) !important;
-    }
-
-    .section-builder__columns[data-column-gap="small"] {
-      gap: var(--space-12, 12px) !important;
-    }
-
-    .section-builder__columns[data-column-gap="medium"] {
-      gap: var(--space-16, 16px) !important;
-    }
-
-    .section-builder__columns[data-column-gap="large"] {
-      gap: var(--space-24, 24px) !important;
-    }
-
-    .section-builder__columns[data-column-gap="xlarge"] {
-      gap: var(--space-32, 32px) !important;
-    }
-
-    .section-builder__columns[data-column-gap="xxlarge"] {
-      gap: var(--space-48, 48px) !important;
-    }
-
-    .section-builder__columns[data-column-gap="xxxlarge"] {
-      gap: var(--space-64, 64px) !important;
-    }
-
-    .section-builder__columns[data-column-gap="xxxxlarge"] {
-      gap: var(--space-96, 96px) !important;
+    .section-builder[data-padding="medium"] .full-width-block,
+    .section-builder[data-padding="large"] .full-width-block,
+    .section-builder[data-padding="xlarge"] .full-width-block,
+    .section-builder[data-padding="xxlarge"] .full-width-block {
+      margin-left: calc(-1 * var(--space-16, 16px));
+      margin-right: calc(-1 * var(--space-16, 16px));
+      width: calc(100% + 2 * var(--space-16, 16px));
     }
   }
+
+  /* Note: Content spacing now controlled via inline styles with per-block margin-bottom */
+  /* Note: Column gap now controlled via inline styles with numeric values */
 </style>
 
 <div class="section-builder" data-padding="{{ padding }}" style="
@@ -635,30 +721,23 @@
   {% elif border_radius == 'medium' %}border-radius: var(--border-radius-md, 8px);
   {% elif border_radius == 'large' %}border-radius: var(--border-radius-lg, 16px);
   {% endif %}
-  {% if padding == 'none' %}padding: 0;
-  {% elif padding == 'small' %}padding: var(--space-32, 32px);
-  {% elif padding == 'medium' %}padding: var(--space-48, 48px);
-  {% elif padding == 'large' %}padding: var(--space-64, 64px);
-  {% elif padding == 'xlarge' %}padding: var(--space-96, 96px);
-  {% elif padding == 'xxlarge' %}padding: var(--space-96, 96px) var(--space-48, 48px);
+  {% if padding == 'none' %}padding: 0; /* Vertical spacing controlled by DND section container */
+  {% elif padding == 'small' %}padding: var(--space-32, 32px); /* Desktop: 32px, scales down for tablet/mobile */
+  {% elif padding == 'medium' %}padding: var(--space-48, 48px); /* Desktop: 48px, scales down for tablet/mobile */
+  {% elif padding == 'large' %}padding: var(--space-64, 64px); /* Desktop: 64px, scales down for tablet/mobile */
+  {% elif padding == 'xlarge' %}padding: var(--space-96, 96px); /* Desktop: 96px, scales down for tablet/mobile */
+  {% elif padding == 'xxlarge' %}padding: var(--space-96, 96px) var(--space-48, 48px); /* Desktop: 96px/48px, scales down for tablet/mobile */
   {% endif %}
   {% if width_constraint == 'constrained' %}max-width: var(--content-max-width, 1400px); margin-left: auto; margin-right: auto;{% endif %}
 ">
   {% if layout == 'single' %}
     {# Single column layout - all blocks in order #}
-    <div class="section-builder__single" data-content-spacing="{{ content_spacing }}" style="
-      {% if content_spacing == 'none' %}gap: 0;
-      {% elif content_spacing == 'xxsmall' %}gap: var(--space-4, 4px);
-      {% elif content_spacing == 'xsmall' %}gap: var(--space-8, 8px);
-      {% elif content_spacing == 'small' %}gap: var(--space-12, 12px);
-      {% elif content_spacing == 'medium' %}gap: var(--space-16, 16px);
-      {% elif content_spacing == 'large' %}gap: var(--space-24, 24px);
-      {% elif content_spacing == 'xlarge' %}gap: var(--space-32, 32px);
-      {% elif content_spacing == 'xxlarge' %}gap: var(--space-48, 48px);
-      {% elif content_spacing == 'xxxlarge' %}gap: var(--space-64, 64px);
-      {% endif %}
-    ">
+    <div class="section-builder__single" data-content-spacing="{{ content_spacing }}">
       {% for block in blocks %}
+        {# Block wrapper with per-block spacing and full-width support #}
+        <div class="section-builder__block-wrapper{% if block.full_width_block %} full-width-block{% endif %}"
+             style="{% if not loop.last %}margin-bottom: {% if block.spacing_after and block.spacing_after != 'default' %}{% if block.spacing_after == 'none' %}0{% else %}var(--space-{{ block.spacing_after }}, {{ block.spacing_after }}px){% endif %}{% else %}var(--space-{{ content_spacing }}, {{ content_spacing }}px){% endif %};{% endif %}">
+
         {% if block.block_type == 'eyebrow' %}
           <div class="section-builder__eyebrow-wrapper align-{{ block.alignment }}">
             <div class="section-builder__eyebrow variant-{{ block.eyebrow_variant }}">
@@ -756,39 +835,42 @@
               </div>
             {% endfor %}
           </div>
+
+        {% elif block.block_type == 'image' %}
+          <div class="section-builder__image-wrapper align-{{ block.alignment }}">
+            <div class="section-builder__image-container radius-{{ block.image_border_radius }} {% if block.image_width == 'custom' %}width-custom{% endif %}"
+                 style="{% if block.image_width == 'custom' and block.image_custom_width %}max-width: {{ block.image_custom_width }};{% endif %}">
+              {% if block.image_desktop and block.image_desktop.src %}
+                <img src="{{ block.image_desktop.src }}"
+                     alt="{{ block.image_desktop.alt }}"
+                     class="section-builder__image section-builder__image-desktop"
+                     loading="lazy" />
+              {% endif %}
+              {% if block.image_mobile and block.image_mobile.src %}
+                <img src="{{ block.image_mobile.src }}"
+                     alt="{{ block.image_mobile.alt }}"
+                     class="section-builder__image section-builder__image-mobile"
+                     loading="lazy" />
+              {% endif %}
+            </div>
+          </div>
         {% endif %}
+
+        </div>{# Close block wrapper #}
       {% endfor %}
     </div>
 
   {% else %}
     {# Multi-column layouts #}
-    <div class="section-builder__columns layout-{{ layout }}" data-column-gap="{{ column_gap }}" style="
-      {% if column_gap == 'xxsmall' %}gap: var(--space-4, 4px);
-      {% elif column_gap == 'xsmall' %}gap: var(--space-8, 8px);
-      {% elif column_gap == 'small' %}gap: var(--space-12, 12px);
-      {% elif column_gap == 'medium' %}gap: var(--space-16, 16px);
-      {% elif column_gap == 'large' %}gap: var(--space-24, 24px);
-      {% elif column_gap == 'xlarge' %}gap: var(--space-32, 32px);
-      {% elif column_gap == 'xxlarge' %}gap: var(--space-48, 48px);
-      {% elif column_gap == 'xxxlarge' %}gap: var(--space-64, 64px);
-      {% elif column_gap == 'xxxxlarge' %}gap: var(--space-96, 96px);
-      {% endif %}
-    ">
+    <div class="section-builder__columns layout-{{ layout }}" data-column-gap="{{ column_gap }}" style="gap: var(--space-{{ column_gap }}, {{ column_gap }}px);">{# Column gap now uses numeric values directly #}
       {# Left/First Column #}
-      <div class="section-builder__column" data-content-spacing="{{ content_spacing }}" style="
-        {% if content_spacing == 'none' %}gap: 0;
-        {% elif content_spacing == 'xxsmall' %}gap: var(--space-4, 4px);
-        {% elif content_spacing == 'xsmall' %}gap: var(--space-8, 8px);
-        {% elif content_spacing == 'small' %}gap: var(--space-12, 12px);
-        {% elif content_spacing == 'medium' %}gap: var(--space-16, 16px);
-        {% elif content_spacing == 'large' %}gap: var(--space-24, 24px);
-        {% elif content_spacing == 'xlarge' %}gap: var(--space-32, 32px);
-        {% elif content_spacing == 'xxlarge' %}gap: var(--space-48, 48px);
-        {% elif content_spacing == 'xxxlarge' %}gap: var(--space-64, 64px);
-        {% endif %}
-      ">
+      <div class="section-builder__column" data-content-spacing="{{ content_spacing }}">
         {% for block in blocks %}
           {% if block.column == 'left' %}
+          {# Block wrapper with per-block spacing and full-width support #}
+          <div class="section-builder__block-wrapper{% if block.full_width_block %} full-width-block{% endif %}"
+               style="{% if not loop.last %}margin-bottom: {% if block.spacing_after and block.spacing_after != 'default' %}{% if block.spacing_after == 'none' %}0{% else %}var(--space-{{ block.spacing_after }}, {{ block.spacing_after }}px){% endif %}{% else %}var(--space-{{ content_spacing }}, {{ content_spacing }}px){% endif %};{% endif %}">
+
             {% if block.block_type == 'eyebrow' %}
               <div class="section-builder__eyebrow-wrapper align-{{ block.alignment }}">
                 <div class="section-builder__eyebrow variant-{{ block.eyebrow_variant }}">
@@ -886,26 +968,40 @@
                   </div>
                 {% endfor %}
               </div>
+
+            {% elif block.block_type == 'image' %}
+              <div class="section-builder__image-wrapper align-{{ block.alignment }}">
+                <div class="section-builder__image-container radius-{{ block.image_border_radius }} {% if block.image_width == 'custom' %}width-custom{% endif %}"
+                     style="{% if block.image_width == 'custom' and block.image_custom_width %}max-width: {{ block.image_custom_width }};{% endif %}">
+                  {% if block.image_desktop and block.image_desktop.src %}
+                    <img src="{{ block.image_desktop.src }}"
+                         alt="{{ block.image_desktop.alt }}"
+                         class="section-builder__image section-builder__image-desktop"
+                         loading="lazy" />
+                  {% endif %}
+                  {% if block.image_mobile and block.image_mobile.src %}
+                    <img src="{{ block.image_mobile.src }}"
+                         alt="{{ block.image_mobile.alt }}"
+                         class="section-builder__image section-builder__image-mobile"
+                         loading="lazy" />
+                  {% endif %}
+                </div>
+              </div>
             {% endif %}
+
+          </div>{# Close block wrapper #}
           {% endif %}
         {% endfor %}
       </div>
 
       {# Center/Second Column #}
-      <div class="section-builder__column" data-content-spacing="{{ content_spacing }}" style="
-        {% if content_spacing == 'none' %}gap: 0;
-        {% elif content_spacing == 'xxsmall' %}gap: var(--space-4, 4px);
-        {% elif content_spacing == 'xsmall' %}gap: var(--space-8, 8px);
-        {% elif content_spacing == 'small' %}gap: var(--space-12, 12px);
-        {% elif content_spacing == 'medium' %}gap: var(--space-16, 16px);
-        {% elif content_spacing == 'large' %}gap: var(--space-24, 24px);
-        {% elif content_spacing == 'xlarge' %}gap: var(--space-32, 32px);
-        {% elif content_spacing == 'xxlarge' %}gap: var(--space-48, 48px);
-        {% elif content_spacing == 'xxxlarge' %}gap: var(--space-64, 64px);
-        {% endif %}
-      ">
+      <div class="section-builder__column" data-content-spacing="{{ content_spacing }}">
         {% for block in blocks %}
           {% if block.column == 'center' %}
+          {# Block wrapper with per-block spacing and full-width support #}
+          <div class="section-builder__block-wrapper{% if block.full_width_block %} full-width-block{% endif %}"
+               style="{% if not loop.last %}margin-bottom: {% if block.spacing_after and block.spacing_after != 'default' %}{% if block.spacing_after == 'none' %}0{% else %}var(--space-{{ block.spacing_after }}, {{ block.spacing_after }}px){% endif %}{% else %}var(--space-{{ content_spacing }}, {{ content_spacing }}px){% endif %};{% endif %}">
+
             {% if block.block_type == 'eyebrow' %}
               <div class="section-builder__eyebrow-wrapper align-{{ block.alignment }}">
                 <div class="section-builder__eyebrow variant-{{ block.eyebrow_variant }}">
@@ -1003,27 +1099,41 @@
                   </div>
                 {% endfor %}
               </div>
+
+            {% elif block.block_type == 'image' %}
+              <div class="section-builder__image-wrapper align-{{ block.alignment }}">
+                <div class="section-builder__image-container radius-{{ block.image_border_radius }} {% if block.image_width == 'custom' %}width-custom{% endif %}"
+                     style="{% if block.image_width == 'custom' and block.image_custom_width %}max-width: {{ block.image_custom_width }};{% endif %}">
+                  {% if block.image_desktop and block.image_desktop.src %}
+                    <img src="{{ block.image_desktop.src }}"
+                         alt="{{ block.image_desktop.alt }}"
+                         class="section-builder__image section-builder__image-desktop"
+                         loading="lazy" />
+                  {% endif %}
+                  {% if block.image_mobile and block.image_mobile.src %}
+                    <img src="{{ block.image_mobile.src }}"
+                         alt="{{ block.image_mobile.alt }}"
+                         class="section-builder__image section-builder__image-mobile"
+                         loading="lazy" />
+                  {% endif %}
+                </div>
+              </div>
             {% endif %}
+
+          </div>{# Close block wrapper #}
           {% endif %}
         {% endfor %}
       </div>
 
       {% if layout == 'three-col' %}
         {# Right/Third Column - only for 3-column layout #}
-        <div class="section-builder__column" data-content-spacing="{{ content_spacing }}" style="
-          {% if content_spacing == 'none' %}gap: 0;
-          {% elif content_spacing == 'xxsmall' %}gap: var(--space-4, 4px);
-          {% elif content_spacing == 'xsmall' %}gap: var(--space-8, 8px);
-          {% elif content_spacing == 'small' %}gap: var(--space-12, 12px);
-          {% elif content_spacing == 'medium' %}gap: var(--space-16, 16px);
-          {% elif content_spacing == 'large' %}gap: var(--space-24, 24px);
-          {% elif content_spacing == 'xlarge' %}gap: var(--space-32, 32px);
-          {% elif content_spacing == 'xxlarge' %}gap: var(--space-48, 48px);
-          {% elif content_spacing == 'xxxlarge' %}gap: var(--space-64, 64px);
-          {% endif %}
-        ">
+        <div class="section-builder__column" data-content-spacing="{{ content_spacing }}">
           {% for block in blocks %}
             {% if block.column == 'right' %}
+            {# Block wrapper with per-block spacing and full-width support #}
+            <div class="section-builder__block-wrapper{% if block.full_width_block %} full-width-block{% endif %}"
+                 style="{% if not loop.last %}margin-bottom: {% if block.spacing_after and block.spacing_after != 'default' %}{% if block.spacing_after == 'none' %}0{% else %}var(--space-{{ block.spacing_after }}, {{ block.spacing_after }}px){% endif %}{% else %}var(--space-{{ content_spacing }}, {{ content_spacing }}px){% endif %};{% endif %}">
+
               {% if block.block_type == 'eyebrow' %}
                 <div class="section-builder__eyebrow-wrapper align-{{ block.alignment }}">
                   <div class="section-builder__eyebrow variant-{{ block.eyebrow_variant }}">
@@ -1121,7 +1231,28 @@
                     </div>
                   {% endfor %}
                 </div>
+
+              {% elif block.block_type == 'image' %}
+                <div class="section-builder__image-wrapper align-{{ block.alignment }}">
+                  <div class="section-builder__image-container radius-{{ block.image_border_radius }} {% if block.image_width == 'custom' %}width-custom{% endif %}"
+                       style="{% if block.image_width == 'custom' and block.image_custom_width %}max-width: {{ block.image_custom_width }};{% endif %}">
+                    {% if block.image_desktop and block.image_desktop.src %}
+                      <img src="{{ block.image_desktop.src }}"
+                           alt="{{ block.image_desktop.alt }}"
+                           class="section-builder__image section-builder__image-desktop"
+                           loading="lazy" />
+                    {% endif %}
+                    {% if block.image_mobile and block.image_mobile.src %}
+                      <img src="{{ block.image_mobile.src }}"
+                           alt="{{ block.image_mobile.alt }}"
+                           class="section-builder__image section-builder__image-mobile"
+                           loading="lazy" />
+                    {% endif %}
+                  </div>
+                </div>
               {% endif %}
+
+            </div>{# Close block wrapper #}
             {% endif %}
           {% endfor %}
         </div>

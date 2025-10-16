@@ -19,7 +19,7 @@
   /* Table of Contents - Left Column */
   .article-toc {
     flex: 0 0 calc(50% - 8px);
-    padding-top: 128px;
+    padding-top: 0; /* Spacing controlled by DND section container */
     padding-bottom: 0;
   }
 
@@ -82,8 +82,8 @@
   /* Article Content - Right Column */
   .article-content {
     flex: 0 0 calc(50% - 8px);
-    padding-top: 128px;
-    padding-bottom: 128px;
+    padding-top: 0; /* Spacing controlled by DND section container */
+    padding-bottom: 0; /* Spacing controlled by DND section container */
   }
 
   .article-content__sections {
@@ -262,7 +262,7 @@
     .article-with-toc {
       flex-direction: column;
       gap: 0;
-      padding: var(--space-48, 48px) 0;
+      padding: 0; /* Spacing controlled by DND section container */
       position: relative;
     }
 
@@ -297,7 +297,7 @@
 
     .article-content {
       flex: none;
-      padding: var(--space-32, 32px) 0 var(--space-96, 96px) 0;
+      padding: 0; /* Spacing controlled by DND section container */
     }
 
     .article-section__heading {
@@ -314,7 +314,7 @@
   /* Tablet Layout (768px-1023px) */
   @media (max-width: 1023px) and (min-width: 768px) {
     .article-toc {
-      padding-top: 64px;
+      padding-top: 0; /* Spacing controlled by DND section container */
     }
 
     .article-toc__sticky {
@@ -322,8 +322,8 @@
     }
 
     .article-content {
-      padding-top: 64px;
-      padding-bottom: 64px;
+      padding-top: 0; /* Spacing controlled by DND section container */
+      padding-bottom: 0; /* Spacing controlled by DND section container */
     }
 
     .article-section__heading {

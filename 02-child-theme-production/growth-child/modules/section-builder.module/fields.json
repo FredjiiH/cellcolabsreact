@@ -50,15 +50,15 @@
     "locked": false,
     "type": "choice",
     "choices": [
-      ["none", "None"],
-      ["small", "Small (32px)"],
-      ["medium", "Medium (48px)"],
-      ["large", "Large (64px)"],
-      ["xlarge", "Extra Large (96px)"],
-      ["xxlarge", "2X Large (96px / 48px left-right)"]
+      ["none", "None (use DND section padding)"],
+      ["small", "Small (32px desktop)"],
+      ["medium", "Medium (48px desktop)"],
+      ["large", "Large (64px desktop)"],
+      ["xlarge", "Extra Large (96px desktop)"],
+      ["xxlarge", "2X Large (96px/48px desktop)"]
     ],
-    "default": "medium",
-    "help_text": "2X Large matches Content Checklist Block padding"
+    "default": "none",
+    "help_text": "Padding auto-scales for tablet/mobile. Use when section has background color."
   },
   {
     "id": "width_constraint",
@@ -76,23 +76,25 @@
   {
     "id": "content_spacing",
     "name": "content_spacing",
-    "label": "Content Spacing (between blocks)",
+    "label": "Content Spacing (default between blocks)",
     "required": true,
     "locked": false,
     "type": "choice",
     "choices": [
-      ["none", "None"],
-      ["xxsmall", "2XS (4px)"],
-      ["xsmall", "XS (8px)"],
-      ["small", "Small (12px)"],
-      ["medium", "Medium (16px)"],
-      ["large", "Large (24px)"],
-      ["xlarge", "XL (32px)"],
-      ["xxlarge", "2XL (48px)"],
-      ["xxxlarge", "3XL (64px)"]
+      ["none", "None (0px)"],
+      ["4", "4px"],
+      ["8", "8px"],
+      ["12", "12px"],
+      ["16", "16px"],
+      ["24", "24px"],
+      ["32", "32px"],
+      ["48", "48px"],
+      ["64", "64px"],
+      ["96", "96px"],
+      ["128", "128px"]
     ],
-    "default": "large",
-    "help_text": "Space between content blocks within columns"
+    "default": "24",
+    "help_text": "Default spacing between blocks. Can be overridden per block."
   },
   {
     "id": "column_gap",
@@ -102,17 +104,18 @@
     "locked": false,
     "type": "choice",
     "choices": [
-      ["xxsmall", "2XS (4px)"],
-      ["xsmall", "XS (8px)"],
-      ["small", "Small (12px)"],
-      ["medium", "Medium (16px)"],
-      ["large", "Large (24px)"],
-      ["xlarge", "XL (32px)"],
-      ["xxlarge", "2XL (48px)"],
-      ["xxxlarge", "3XL (64px)"],
-      ["xxxxlarge", "4XL (96px)"]
+      ["4", "4px"],
+      ["8", "8px"],
+      ["12", "12px"],
+      ["16", "16px"],
+      ["24", "24px"],
+      ["32", "32px"],
+      ["48", "48px"],
+      ["64", "64px"],
+      ["96", "96px"],
+      ["128", "128px"]
     ],
-    "default": "large",
+    "default": "24",
     "help_text": "Space between columns in multi-column layouts"
   },
   {
@@ -143,7 +146,8 @@
           ["button", "Button"],
           ["richtext", "Rich Text"],
           ["feature_list", "Feature List"],
-          ["accordion", "Accordion"]
+          ["accordion", "Accordion"],
+          ["image", "Image"]
         ],
         "default": "heading"
       },
@@ -177,6 +181,40 @@
           ["center-right", "Center-Right (aligns with constrained subheader)"]
         ],
         "default": "left"
+      },
+      {
+        "id": "spacing_after",
+        "name": "spacing_after",
+        "label": "Spacing After This Block",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["default", "Default (use section spacing)"],
+          ["none", "None (0px)"],
+          ["4", "4px"],
+          ["8", "8px"],
+          ["12", "12px"],
+          ["16", "16px"],
+          ["24", "24px"],
+          ["32", "32px"],
+          ["48", "48px"],
+          ["64", "64px"],
+          ["96", "96px"],
+          ["128", "128px"]
+        ],
+        "default": "default",
+        "help_text": "Override the default section spacing for this specific block"
+      },
+      {
+        "id": "full_width_block",
+        "name": "full_width_block",
+        "label": "Full Width (break out of padding)",
+        "required": false,
+        "locked": false,
+        "type": "boolean",
+        "default": false,
+        "help_text": "Make this block extend to section edges, ignoring section padding. Useful for full-width images."
       },
       {
         "id": "eyebrow_text",
@@ -503,6 +541,82 @@
         "visibility": {
           "controlling_field": "block_type",
           "controlling_value_regex": "accordion"
+        }
+      },
+      {
+        "id": "image_desktop",
+        "name": "image_desktop",
+        "label": "Desktop Image",
+        "required": false,
+        "locked": false,
+        "type": "image",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "image"
+        }
+      },
+      {
+        "id": "image_mobile",
+        "name": "image_mobile",
+        "label": "Mobile Image (optional)",
+        "required": false,
+        "locked": false,
+        "type": "image",
+        "help_text": "If not provided, desktop image will be used on mobile",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "image"
+        }
+      },
+      {
+        "id": "image_width",
+        "name": "image_width",
+        "label": "Image Width",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["full", "Full Width"],
+          ["custom", "Custom Width"]
+        ],
+        "default": "full",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "image"
+        }
+      },
+      {
+        "id": "image_custom_width",
+        "name": "image_custom_width",
+        "label": "Custom Width (px or %)",
+        "required": false,
+        "locked": false,
+        "type": "text",
+        "default": "600px",
+        "help_text": "E.g., 600px or 50%",
+        "visibility": {
+          "controlling_field": "image_width",
+          "controlling_value_regex": "custom",
+          "operator": "EQUAL"
+        }
+      },
+      {
+        "id": "image_border_radius",
+        "name": "image_border_radius",
+        "label": "Border Radius",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["none", "None"],
+          ["small", "Small (4px)"],
+          ["medium", "Medium (8px)"],
+          ["large", "Large (16px)"]
+        ],
+        "default": "medium",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "image"
         }
       }
     ]

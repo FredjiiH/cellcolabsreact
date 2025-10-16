@@ -68,6 +68,8 @@ Each part contains its own detailed documentation:
 
 ### **Key Guides**
 - **[02-child-theme-production/docs/URL_FIELD_IMPLEMENTATION_GUIDE.md](./02-child-theme-production/docs/URL_FIELD_IMPLEMENTATION_GUIDE.md)** - HubSpot link field implementation
+- **[02-child-theme-production/docs/WIDTH_SYSTEM_GUIDE.md](./02-child-theme-production/docs/WIDTH_SYSTEM_GUIDE.md)** - Width alignment system
+- **[02-child-theme-production/docs/SPACING_SYSTEM_GUIDE.md](./02-child-theme-production/docs/SPACING_SYSTEM_GUIDE.md)** - Container-based spacing system
 - **[02-child-theme-production/docs/THEME_MODULE_EVALUATION.md](./02-child-theme-production/docs/THEME_MODULE_EVALUATION.md)** - Theme module approach validation
 
 ## 🎨 Brand System

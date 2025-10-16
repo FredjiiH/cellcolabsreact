@@ -1,7 +1,0 @@
-{
-  "label": "Locations Carousel Block",
-  "description": "A two-column section with title/description and an overflow carousel showcasing locations with tab navigation. Perfect for highlighting facilities, offices, or destinations.",
-  "category": "content",
-  "icon": "map",
-  "is_available_for_new_content": true
-}
