@@ -192,133 +192,113 @@ while (element && element !== document.body) {
 - Element must be in CSS block with `-webkit-sticky` prefix
 - Must have `top` or `bottom` value set
 
-## Header Link Color Overrides
+## Header & Footer Link Color Overrides
 
-### Problem
+### Problem Solved
 
-Header navigation links need to be black (`#161616`), but the global brand-scoped link rule in `child.css` applies brand color (blue for Clinical, green for Cellcolabs) to all links site-wide.
+Header navigation links need to be black (`#161616`) and footer links need to be white (`#ffffff`), but the global brand-scoped link rule in `child.css` applies brand color (blue for Clinical, green for Cellcolabs) to all links site-wide.
 
-### Current Solution (October 2025)
+### Solution: CSS Custom Property Override System ✅ (October 2025)
 
-⚠️ **NOTE: This is a temporary specificity-based solution. We should look for a more maintainable architectural approach in the future.**
+Both header and footer modules now use the **CSS Custom Property Override System**, which provides clean, maintainable link color overrides without specificity wars or utility classes.
 
-Due to the increasing number of link utility classes (`.link-white`, `.link-black`, `.link-gray`) being added to the global exclusion list, the global rule's specificity keeps growing. Each `:not()` pseudo-class adds +1 to the class/attribute count in specificity calculations.
-
-**The Issue:**
-- Global rule: `[data-brand] a:not(.button):not(.btn):not(.hs-button):not(button):not(.link-white):not(.link-black):not(.link-gray)`
-- Specificity: `[0, 7, 1]` (7 classes/attributes, 1 element)
-- Adding one more utility class would increase it to `[0, 8, 1]`
-
-**Current Solution:**
-Use repeated `[data-brand]` attribute selectors to artificially increase specificity:
-
-```css
-/* Desktop menu links - BLACK not brand color - INCREASED SPECIFICITY */
-html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop ... a {
-  color: var(--color-text-primary, #161616) !important;
-}
-```
-
-**Specificity:** `[0, 12, 5]` (12 classes/attributes from 8×[data-brand] + 4 classes, 5 elements)
-
-**Safety Margin:** Can accommodate up to **5 more link utility classes** before needing adjustment.
-
-### Why This Approach
-
-1. **Keeps child.css clean** - No header-specific exclusions or overrides in the global file
-2. **Encapsulated module styling** - All header styling lives in the header module itself
-3. **Higher specificity** - Repeated attribute selectors beat the global brand rule
-4. **Future-proofed** - Comfortable margin for adding more utility classes
-
-### Implementation
-
-All header link selectors in `header-clinical.module/module.html` (and future `header-cellcolabs.module/module.html`) use `[data-brand]` repeated 8 times:
-
-```css
-/* Desktop menu links - BLACK not brand color */
-html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a,
-html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a[role="menuitem"] {
-  color: var(--color-text-primary, #161616) !important;
-  /* ... */
-}
-
-/* Desktop submenu links - BLACK not brand color */
-html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper .nav-submenu .nav-submenu-link,
-html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper .hs-menu-item ul li a {
-  color: var(--color-text-primary, #161616) !important;
-  /* ... */
-}
-
-/* Mobile menu links - BLACK not brand color */
-html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-mobile .hs-menu-item > a {
-  color: var(--color-text-primary, #161616) !important;
-  /* ... */
-}
-
-/* Mobile submenu links - BLACK not brand color */
-html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-mobile .hs-menu-item ul li a {
-  color: var(--color-text-primary, #161616) !important;
-  /* ... */
-}
-```
+**Key Achievement:** Eliminated nuclear specificity selectors (8x repeated `[data-brand]` attributes) and utility classes (`.link-white`, `.link-black`) in favor of a scalable CSS variable system.
 
 ### How It Works
 
-1. **Global rule in child.css** applies brand color to all links:
-   ```css
-   [data-brand="cellcolabsclinical"] a:not(.button):not(.btn):not(.hs-button):not(button):not(.link-white):not(.link-black):not(.link-gray) {
-     color: var(--color-text-link) !important;
-   }
-   ```
-   - Specificity: `[0, 7, 1]` (7 classes/attributes, 1 element)
+**1. Global Foundation (`child.css`):**
 
-2. **Header module rule** has artificially higher specificity:
-   ```css
-   html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop ... a {
-     color: var(--color-text-primary) !important;
-   }
-   ```
-   - Specificity: `[0, 12, 5]` (12 classes/attributes, 5 elements)
-   - The repeated `[data-brand]` attribute + deeper nesting creates higher specificity
-   - This rule wins over the global brand rule
+```css
+/* Intermediary variable defined in :root */
+:root {
+  --link-color: var(--color-text-link);  /* Default: brand color */
+}
 
-3. **Result:** Header links display in black, all other site links display in brand color
+/* Applied to all links */
+a {
+  color: var(--link-color);
+}
 
-### Maintenance Warning
+[data-brand] a:not(.button):not(.btn):not(.hs-button):not(button) {
+  color: var(--link-color);
+}
+```
 
-⚠️ **If you add 6 or more new link utility classes** (e.g., `.link-purple`, `.link-green`, `.link-yellow`, `.link-orange`, `.link-blue`, `.link-red`) to the global exclusion list, the global rule will reach `[0, 12, 1]` specificity and tie with the header rule's class count. While the header would still win due to element count (5 vs 1), it's recommended to add more `[data-brand]` repetitions at that point for safety.
+**2. Header Module Override:**
 
-### Future Improvement Needed
+```css
+/* header-clinical.module/module.html */
+.header {
+  --link-color: var(--color-text-primary);  /* Override to black */
+}
 
-🔧 **TODO: Find a more maintainable solution that doesn't rely on specificity wars.**
+/* All navigation links automatically inherit black */
+.header .nav-menu-link {
+  /* No color declaration needed - inherits from --link-color */
+}
+```
 
-Potential approaches to explore:
-- Use CSS custom properties/variables for link colors
-- Restructure the global link rule to avoid growing specificity
-- Use CSS layers (`@layer`) for better cascade control (when HubSpot supports it)
-- Create a separate link color system that doesn't use exclusions
+**3. Footer Module Override:**
 
-### Why NOT Use Other Approaches
+```css
+/* footer-clinical.module/module.html */
+.site-footer {
+  --link-color: var(--color-text-inverse);  /* Override to white */
+}
 
-❌ **Utility classes (`.link-black`):**
-- HubSpot's `{% menu %}` tag doesn't apply custom classes from `link_class` parameter
-- Classes are not rendered in the HTML output
-- Would require manual HTML manipulation
+/* All footer links automatically inherit white */
+.footer-menu-link {
+  /* No color declaration needed - inherits from --link-color */
+}
+```
 
-❌ **child.css overrides:**
-- Creates header-specific rules in the global file
-- Clutters child.css with module-specific code
-- Violates separation of concerns
-- Goes against architectural preference for clean global files
+### Benefits
 
-❌ **Exclusions in global rule:**
-- Would require adding header-specific exclusions to the brand-scoped link rule
-- Makes the global rule complex and brittle
-- Doesn't scale well as more modules need custom link colors
+✅ **No specificity wars** - CSS variables don't have specificity, they just cascade
+✅ **Clean, readable code** - Single override point per module
+✅ **No utility classes** - No HTML class management needed
+✅ **Scalable** - Easy to add new override points
+✅ **Maintainable** - Clear intent and purpose
+✅ **Works with nesting** - Submenus and nested elements inherit automatically
+
+### Implementation Details
+
+**Header Module Refactor:**
+
+The header required a complete refactor to enable the CSS Custom Property Override System:
+
+1. **Replaced HubSpot `{% menu %}` tag with manual loops:**
+   - `{% menu %}` auto-generates HTML, preventing custom property control
+   - Converted to `{% set main_menu = menu("main_navigation_clinical") %}`
+   - Manual loops for desktop and mobile menus
+   - Conditional logic for submenus and chevron icons
+   - Filter to show only top-level items: `{% if item.label and item.level == 1 %}`
+
+2. **Removed nuclear specificity selectors:**
+   - Eliminated 8x repeated `[data-brand]` attribute selectors
+   - Reduced code from ~700 to ~565 lines
+   - Replaced with clean CSS Custom Property Override
+
+3. **Fixed mobile menu toggle:**
+   - Used event capture phase (`addEventListener(..., true)`)
+   - Added `stopImmediatePropagation()` to prevent conflicts with `template_child.js`
+
+**Footer Module Conversion:**
+
+Footer already used manual `menu()` loops, so conversion was straightforward:
+
+1. Removed `.link-white` utility classes from HTML
+2. Added CSS Custom Property Override to `.site-footer`
+3. Updated CSS comments to reflect new system
 
 ### Best Practice
 
-When creating new header modules (e.g., `header-cellcolabs.module`), always include `[data-brand]` in all link selectors to ensure proper link color override.
+When creating new header/footer modules (e.g., `header-cellcolabs.module`, `footer-cellcolabs.module`):
+
+1. Use manual `menu()` loops, not `{% menu %}` tags
+2. Set `--link-color` on the module container (`.header` or `.site-footer`)
+3. Let links inherit color automatically - no color declarations needed
+4. See `CSS_STYLING_GUIDE.md` for complete documentation
 
 ## Dropdown Hover Gap Fix
 

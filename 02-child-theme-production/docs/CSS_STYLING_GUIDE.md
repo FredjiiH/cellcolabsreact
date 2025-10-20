@@ -246,64 +246,19 @@ a {
 - Proper button and utility exclusions apply site-wide
 - No conflicts between module-level and global styling
 
-## Link Color Override Utilities
+## Link Color Override System
 
-**⚠️ DEPRECATED:** Link color utility classes (`.link-white`, `.link-black`) are being phased out in favor of the **CSS Custom Property Override System**. New modules should use the override system instead.
+**✅ FULLY MIGRATED:** All modules have been converted to the **CSS Custom Property Override System**. Legacy utility classes (`.link-white`, `.link-black`, `.link-gray`) have been **removed** from `child.css`.
 
-**Status:**
-- ✅ **Header modules**: Converted to CSS Custom Property Override System
-- ✅ **Footer modules**: Converted to CSS Custom Property Override System
-- ⚠️ **Image overlay modules**: Still using utility classes (will be converted)
-- ⚠️ **Other modules**: Still using utility classes (will be converted)
+**Migration Status:**
+- ✅ **All modules**: Fully converted to CSS Custom Property Override System
+- ✅ **Header modules**: Using override system
+- ✅ **Footer modules**: Using override system
+- ✅ **Image overlay modules**: Converted to override system
+- ✅ **All other modules**: Converted to override system
+- 🗑️ **Utility classes**: Removed from codebase (October 2025)
 
-For legacy compatibility, utility classes are still defined in `child.css` and will continue to work.
-
-### `.link-white` - White links on dark backgrounds (LEGACY)
-
-```css
-/* In child.css */
-.link-white,
-.link-white:link,
-.link-white:visited,
-.link-white:active,
-.link-white:hover,
-.link-white:focus {
-  color: var(--color-text-inverse, #ffffff) !important;
-  background-color: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-}
-```
-
-**Legacy Usage (being phased out):**
-- Image overlay modules (image-card-overlay-3col, image-card-overlay-4col, grid2x2-card-image)
-- Links on dark background sections
-
-### `.link-black` - Black links instead of brand color (LEGACY)
-
-```css
-/* In child.css */
-.link-black,
-.link-black:link,
-.link-black:visited,
-.link-black:active,
-.link-black:hover,
-.link-black:focus {
-  color: var(--color-text-primary, #161616) !important;
-  background-color: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-}
-```
-
-**Legacy Usage (being phased out):**
-- Locations carousel "Get directions" links
-- Any link that should be black for design purposes
-- Secondary navigation or subtle links
-
-### Migration to CSS Custom Property Override System
-
-**New approach (PREFERRED):** Use CSS Custom Property Override System instead of utility classes.
+### CSS Custom Property Override System (Current Approach)
 
 **Example - Header Module (Converted):**
 
@@ -337,17 +292,15 @@ For legacy compatibility, utility classes are still defined in `child.css` and w
 }
 ```
 
-**Legacy Example - Image Overlay Module (Still using utility class):**
-
-```html
-<!-- HTML - Using deprecated utility class -->
-<a href="{{ url }}" class="overlay-link link-white">
-  Learn more ↗
-</a>
-```
+**Example - Image Overlay Module (Converted):**
 
 ```css
-/* Module CSS - Only layout/typography */
+/* image-card-overlay.module */
+.image-card-overlay {
+  --link-color: var(--color-text-inverse);  /* Override to white */
+}
+
+/* Links automatically inherit the override - no classes needed in HTML */
 .overlay-link {
   text-decoration: underline;
   font-size: var(--font-size-body, 16px);
@@ -355,24 +308,27 @@ For legacy compatibility, utility classes are still defined in `child.css` and w
 }
 ```
 
+```html
+<!-- HTML - Clean, no utility classes needed -->
+<a href="{{ url }}" class="overlay-link">
+  Learn more ↗
+</a>
+```
+
 ### Best Practices for Link Color Overrides
 
-✅ **DO (New Modules):**
-- Use CSS Custom Property Override System for all new modules
+✅ **DO:**
+- Use CSS Custom Property Override System for all modules
 - Set `--link-color` at module container level
 - Links automatically inherit without HTML class changes
-- See "CSS Custom Property Override System" section below
-
-✅ **DO (Legacy Modules - Until Converted):**
-- Continue using `.link-white` or `.link-black` utility classes
 - Keep module CSS focused on layout and typography
-- Utilities use brand variables (never hardcode colors)
+- See "CSS Custom Property Override System" section below for full details
 
 ❌ **DON'T:**
-- Create new utility classes for link colors (use override system instead)
+- Create utility classes for link colors (system has been removed)
 - Try to override link colors in module CSS with high specificity
 - Fight specificity wars with `!important` in modules
-- Use utility classes in new modules (use override system)
+- Hardcode colors - always use CSS variables
 
 ## CSS Custom Property Override System
 
