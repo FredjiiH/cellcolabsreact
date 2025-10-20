@@ -618,6 +618,20 @@
           "controlling_field": "block_type",
           "controlling_value_regex": "image"
         }
+      },
+      {
+        "id": "is_lcp_image",
+        "name": "is_lcp_image",
+        "label": "This is the LCP Image (optimize for fast loading)",
+        "required": false,
+        "locked": false,
+        "type": "boolean",
+        "default": false,
+        "help_text": "Enable ONLY for the first above-the-fold hero image. This image will be preloaded with high priority for better performance.",
+        "visibility": {
+          "controlling_field": "block_type",
+          "controlling_value_regex": "image"
+        }
       }
     ]
   }

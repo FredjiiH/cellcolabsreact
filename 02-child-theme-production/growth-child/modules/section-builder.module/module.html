@@ -13,6 +13,18 @@
 {% set column_gap = module.column_gap %}
 {% set blocks = module.content_blocks %}
 
+{# LCP Optimization - Preload critical image block if marked as LCP #}
+{% for block in blocks %}
+  {% if block.block_type == 'image' and block.is_lcp_image %}
+    {% if block.image_desktop and block.image_desktop.src %}
+      {% require_head %}
+      {# Preload desktop LCP image - use original optimized image #}
+      <link rel="preload" as="image" href="{{ block.image_desktop.src }}" fetchpriority="high">
+      {% end_require_head %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
 <style>
   /* Section Builder Component - Uses Brand CSS Variables */
 
@@ -842,16 +854,42 @@
             <div class="section-builder__image-container radius-{{ block.image_border_radius }} {% if block.image_width == 'custom' %}width-custom{% endif %}"
                  style="{% if block.image_width == 'custom' and block.image_custom_width %}max-width: {{ block.image_custom_width }};{% endif %}">
               {% if block.image_desktop and block.image_desktop.src %}
-                <img src="{{ block.image_desktop.src }}"
-                     alt="{{ block.image_desktop.alt }}"
-                     class="section-builder__image section-builder__image-desktop"
-                     loading="lazy" />
+                {% if block.is_lcp_image %}
+                  {# LCP optimized image - use original, eager loading with high priority #}
+                  <img src="{{ block.image_desktop.src }}"
+                       alt="{{ block.image_desktop.alt }}"
+                       class="section-builder__image section-builder__image-desktop"
+                       loading="eager"
+                       fetchpriority="high"
+                       decoding="async"
+                       data-critical="true" />
+                {% else %}
+                  {# Regular image - lazy loading with low priority #}
+                  <img src="{{ block.image_desktop.src }}"
+                       alt="{{ block.image_desktop.alt }}"
+                       class="section-builder__image section-builder__image-desktop"
+                       loading="lazy"
+                       fetchpriority="low" />
+                {% endif %}
               {% endif %}
               {% if block.image_mobile and block.image_mobile.src %}
-                <img src="{{ block.image_mobile.src }}"
-                     alt="{{ block.image_mobile.alt }}"
-                     class="section-builder__image section-builder__image-mobile"
-                     loading="lazy" />
+                {% if block.is_lcp_image %}
+                  {# LCP optimized mobile image - use original, eager loading with high priority #}
+                  <img src="{{ block.image_mobile.src }}"
+                       alt="{{ block.image_mobile.alt }}"
+                       class="section-builder__image section-builder__image-mobile"
+                       loading="eager"
+                       fetchpriority="high"
+                       decoding="async"
+                       data-critical="true" />
+                {% else %}
+                  {# Regular mobile image - lazy loading with low priority #}
+                  <img src="{{ block.image_mobile.src }}"
+                       alt="{{ block.image_mobile.alt }}"
+                       class="section-builder__image section-builder__image-mobile"
+                       loading="lazy"
+                       fetchpriority="low" />
+                {% endif %}
               {% endif %}
             </div>
           </div>
@@ -975,16 +1013,42 @@
                 <div class="section-builder__image-container radius-{{ block.image_border_radius }} {% if block.image_width == 'custom' %}width-custom{% endif %}"
                      style="{% if block.image_width == 'custom' and block.image_custom_width %}max-width: {{ block.image_custom_width }};{% endif %}">
                   {% if block.image_desktop and block.image_desktop.src %}
-                    <img src="{{ block.image_desktop.src }}"
-                         alt="{{ block.image_desktop.alt }}"
-                         class="section-builder__image section-builder__image-desktop"
-                         loading="lazy" />
+                    {% if block.is_lcp_image %}
+                      {# LCP optimized image - use original, eager loading with high priority #}
+                      <img src="{{ block.image_desktop.src }}"
+                           alt="{{ block.image_desktop.alt }}"
+                           class="section-builder__image section-builder__image-desktop"
+                           loading="eager"
+                           fetchpriority="high"
+                           decoding="async"
+                           data-critical="true" />
+                    {% else %}
+                      {# Regular image - lazy loading with low priority #}
+                      <img src="{{ block.image_desktop.src }}"
+                           alt="{{ block.image_desktop.alt }}"
+                           class="section-builder__image section-builder__image-desktop"
+                           loading="lazy"
+                           fetchpriority="low" />
+                    {% endif %}
                   {% endif %}
                   {% if block.image_mobile and block.image_mobile.src %}
-                    <img src="{{ block.image_mobile.src }}"
-                         alt="{{ block.image_mobile.alt }}"
-                         class="section-builder__image section-builder__image-mobile"
-                         loading="lazy" />
+                    {% if block.is_lcp_image %}
+                      {# LCP optimized mobile image - use original, eager loading with high priority #}
+                      <img src="{{ block.image_mobile.src }}"
+                           alt="{{ block.image_mobile.alt }}"
+                           class="section-builder__image section-builder__image-mobile"
+                           loading="eager"
+                           fetchpriority="high"
+                           decoding="async"
+                           data-critical="true" />
+                    {% else %}
+                      {# Regular mobile image - lazy loading with low priority #}
+                      <img src="{{ block.image_mobile.src }}"
+                           alt="{{ block.image_mobile.alt }}"
+                           class="section-builder__image section-builder__image-mobile"
+                           loading="lazy"
+                           fetchpriority="low" />
+                    {% endif %}
                   {% endif %}
                 </div>
               </div>
@@ -1106,16 +1170,42 @@
                 <div class="section-builder__image-container radius-{{ block.image_border_radius }} {% if block.image_width == 'custom' %}width-custom{% endif %}"
                      style="{% if block.image_width == 'custom' and block.image_custom_width %}max-width: {{ block.image_custom_width }};{% endif %}">
                   {% if block.image_desktop and block.image_desktop.src %}
-                    <img src="{{ block.image_desktop.src }}"
-                         alt="{{ block.image_desktop.alt }}"
-                         class="section-builder__image section-builder__image-desktop"
-                         loading="lazy" />
+                    {% if block.is_lcp_image %}
+                      {# LCP optimized image - use original, eager loading with high priority #}
+                      <img src="{{ block.image_desktop.src }}"
+                           alt="{{ block.image_desktop.alt }}"
+                           class="section-builder__image section-builder__image-desktop"
+                           loading="eager"
+                           fetchpriority="high"
+                           decoding="async"
+                           data-critical="true" />
+                    {% else %}
+                      {# Regular image - lazy loading with low priority #}
+                      <img src="{{ block.image_desktop.src }}"
+                           alt="{{ block.image_desktop.alt }}"
+                           class="section-builder__image section-builder__image-desktop"
+                           loading="lazy"
+                           fetchpriority="low" />
+                    {% endif %}
                   {% endif %}
                   {% if block.image_mobile and block.image_mobile.src %}
-                    <img src="{{ block.image_mobile.src }}"
-                         alt="{{ block.image_mobile.alt }}"
-                         class="section-builder__image section-builder__image-mobile"
-                         loading="lazy" />
+                    {% if block.is_lcp_image %}
+                      {# LCP optimized mobile image - use original, eager loading with high priority #}
+                      <img src="{{ block.image_mobile.src }}"
+                           alt="{{ block.image_mobile.alt }}"
+                           class="section-builder__image section-builder__image-mobile"
+                           loading="eager"
+                           fetchpriority="high"
+                           decoding="async"
+                           data-critical="true" />
+                    {% else %}
+                      {# Regular mobile image - lazy loading with low priority #}
+                      <img src="{{ block.image_mobile.src }}"
+                           alt="{{ block.image_mobile.alt }}"
+                           class="section-builder__image section-builder__image-mobile"
+                           loading="lazy"
+                           fetchpriority="low" />
+                    {% endif %}
                   {% endif %}
                 </div>
               </div>
@@ -1238,16 +1328,47 @@
                   <div class="section-builder__image-container radius-{{ block.image_border_radius }} {% if block.image_width == 'custom' %}width-custom{% endif %}"
                        style="{% if block.image_width == 'custom' and block.image_custom_width %}max-width: {{ block.image_custom_width }};{% endif %}">
                     {% if block.image_desktop and block.image_desktop.src %}
-                      <img src="{{ block.image_desktop.src }}"
-                           alt="{{ block.image_desktop.alt }}"
-                           class="section-builder__image section-builder__image-desktop"
-                           loading="lazy" />
+                      {% if block.is_lcp_image %}
+                        {# LCP optimized image - eager loading with high priority #}
+                        <img src="{{ block.image_desktop.src }}"
+                             srcset="{{ resize_image_url(block.image_desktop.src, 800, 0, 85, 'webp') }} 800w,
+                                     {{ block.image_desktop.src }} 1400w,
+                                     {{ resize_image_url(block.image_desktop.src, 1600, 0, 85, 'webp') }} 1600w"
+                             alt="{{ block.image_desktop.alt }}"
+                             class="section-builder__image section-builder__image-desktop"
+                             loading="eager"
+                             fetchpriority="high"
+                             decoding="async"
+                             data-critical="true" />
+                      {% else %}
+                        {# Regular image - lazy loading with low priority #}
+                        <img src="{{ block.image_desktop.src }}"
+                             alt="{{ block.image_desktop.alt }}"
+                             class="section-builder__image section-builder__image-desktop"
+                             loading="lazy"
+                             fetchpriority="low" />
+                      {% endif %}
                     {% endif %}
                     {% if block.image_mobile and block.image_mobile.src %}
-                      <img src="{{ block.image_mobile.src }}"
-                           alt="{{ block.image_mobile.alt }}"
-                           class="section-builder__image section-builder__image-mobile"
-                           loading="lazy" />
+                      {% if block.is_lcp_image %}
+                        {# LCP optimized mobile image - eager loading with high priority #}
+                        <img src="{{ block.image_mobile.src }}"
+                             srcset="{{ resize_image_url(block.image_mobile.src, 400, 0, 85, 'webp') }} 400w,
+                                     {{ block.image_mobile.src }} 800w"
+                             alt="{{ block.image_mobile.alt }}"
+                             class="section-builder__image section-builder__image-mobile"
+                             loading="eager"
+                             fetchpriority="high"
+                             decoding="async"
+                             data-critical="true" />
+                      {% else %}
+                        {# Regular mobile image - lazy loading with low priority #}
+                        <img src="{{ block.image_mobile.src }}"
+                             alt="{{ block.image_mobile.alt }}"
+                             class="section-builder__image section-builder__image-mobile"
+                             loading="lazy"
+                             fetchpriority="low" />
+                      {% endif %}
                     {% endif %}
                   </div>
                 </div>
