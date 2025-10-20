@@ -248,9 +248,17 @@ a {
 
 ## Link Color Override Utilities
 
-For cases where links need to be a different color than the brand color, use centralized utility classes instead of module-specific overrides:
+**⚠️ DEPRECATED:** Link color utility classes (`.link-white`, `.link-black`) are being phased out in favor of the **CSS Custom Property Override System**. New modules should use the override system instead.
 
-### `.link-white` - White links on dark backgrounds
+**Status:**
+- ✅ **Header modules**: Converted to CSS Custom Property Override System
+- ✅ **Footer modules**: Converted to CSS Custom Property Override System
+- ⚠️ **Image overlay modules**: Still using utility classes (will be converted)
+- ⚠️ **Other modules**: Still using utility classes (will be converted)
+
+For legacy compatibility, utility classes are still defined in `child.css` and will continue to work.
+
+### `.link-white` - White links on dark backgrounds (LEGACY)
 
 ```css
 /* In child.css */
@@ -267,12 +275,11 @@ For cases where links need to be a different color than the brand color, use cen
 }
 ```
 
-**Usage:**
+**Legacy Usage (being phased out):**
 - Image overlay modules (image-card-overlay-3col, image-card-overlay-4col, grid2x2-card-image)
 - Links on dark background sections
-- Footer links (if footer has dark background)
 
-### `.link-black` - Black links instead of brand color
+### `.link-black` - Black links instead of brand color (LEGACY)
 
 ```css
 /* In child.css */
@@ -289,72 +296,83 @@ For cases where links need to be a different color than the brand color, use cen
 }
 ```
 
-**Usage:**
+**Legacy Usage (being phased out):**
 - Locations carousel "Get directions" links
 - Any link that should be black for design purposes
 - Secondary navigation or subtle links
 
-### How the Exclusion System Works
+### Migration to CSS Custom Property Override System
 
-1. **Global rule applies brand color** to all links by default
-2. **Exclusions prevent override** for buttons and utility classes
-3. **Utility classes win** because they're excluded from global rule
-4. **Modules stay clean** - no color overrides needed in module CSS
+**New approach (PREFERRED):** Use CSS Custom Property Override System instead of utility classes.
 
-**Example - Image Overlay Module:**
+**Example - Header Module (Converted):**
+
+```css
+/* header-clinical.module */
+.header {
+  --link-color: var(--color-text-primary);  /* Override to black */
+}
+
+/* Links automatically inherit the override - no classes needed in HTML */
+.header .nav-menu-link {
+  /* Color comes from --link-color custom property */
+  font-size: var(--font-size-body, 16px);
+  transition: color 0.2s ease;
+}
+```
+
+**Example - Footer Module (Converted):**
+
+```css
+/* footer-clinical.module */
+.site-footer {
+  --link-color: var(--color-text-inverse);  /* Override to white */
+}
+
+/* Links automatically inherit the override - no classes needed in HTML */
+.footer-menu-link {
+  /* Color comes from --link-color custom property */
+  font-size: var(--font-size-body, 16px);
+  transition: opacity 0.2s ease;
+}
+```
+
+**Legacy Example - Image Overlay Module (Still using utility class):**
 
 ```html
-<!-- HTML - Just add the utility class -->
+<!-- HTML - Using deprecated utility class -->
 <a href="{{ url }}" class="overlay-link link-white">
   Learn more ↗
 </a>
 ```
 
 ```css
-/* Module CSS - Only layout/typography, no color overrides needed */
+/* Module CSS - Only layout/typography */
 .overlay-link {
   text-decoration: underline;
   font-size: var(--font-size-body, 16px);
   transition: opacity 0.2s ease;
 }
-
-.overlay-link:hover {
-  opacity: 0.8;
-}
 ```
 
 ### Best Practices for Link Color Overrides
 
-✅ **DO:**
-- Use `.link-white` for white links on dark backgrounds
-- Use `.link-black` for black links instead of brand color
-- Add these utilities to the HTML class attribute
+✅ **DO (New Modules):**
+- Use CSS Custom Property Override System for all new modules
+- Set `--link-color` at module container level
+- Links automatically inherit without HTML class changes
+- See "CSS Custom Property Override System" section below
+
+✅ **DO (Legacy Modules - Until Converted):**
+- Continue using `.link-white` or `.link-black` utility classes
 - Keep module CSS focused on layout and typography
+- Utilities use brand variables (never hardcode colors)
 
 ❌ **DON'T:**
+- Create new utility classes for link colors (use override system instead)
 - Try to override link colors in module CSS with high specificity
-- Create new utility classes for other link colors (extend the system if needed)
-- Hardcode colors - utilities use brand variables
 - Fight specificity wars with `!important` in modules
-
-### Adding New Link Color Utilities
-
-If you need a new link color utility:
-
-1. **Add the utility to `child.css`:**
-```css
-.link-secondary {
-  color: var(--color-text-secondary, #525252) !important;
-  /* ... */
-}
-```
-
-2. **Add exclusion to global rule:**
-```css
-a:not(.button):not(.btn):not(.link-white):not(.link-black):not(.link-secondary)
-```
-
-3. **Document it** in this section with usage examples
+- Use utility classes in new modules (use override system)
 
 ## CSS Custom Property Override System
 
@@ -574,21 +592,47 @@ h1, h2, h3 {
 
 ### Common Use Cases
 
-**Use Case 1: Override Link Colors in Image Overlays**
+**Use Case 1: Header Navigation - Black Links** ✅ **IMPLEMENTED**
+```css
+/* header-clinical.module */
+.header {
+  --link-color: var(--color-text-primary);  /* Override to black for navigation */
+}
+
+/* All navigation links automatically inherit black color */
+.header .nav-menu-link {
+  /* Color comes from --link-color, no class needed */
+}
+```
+
+**Use Case 2: Footer Navigation - White Links** ✅ **IMPLEMENTED**
+```css
+/* footer-clinical.module */
+.site-footer {
+  --link-color: var(--color-text-inverse);  /* Override to white for dark background */
+}
+
+/* All footer links automatically inherit white color */
+.footer-menu-link {
+  /* Color comes from --link-color, no class needed */
+}
+```
+
+**Use Case 3: Override Link Colors in Image Overlays**
 ```css
 .image-card-overlay {
   --link-color: var(--color-text-inverse);  /* White links on dark background */
 }
 ```
 
-**Use Case 2: Override Heading Colors for Dark Sections**
+**Use Case 4: Override Heading Colors for Dark Sections**
 ```css
 .dark-section {
   --heading-color: var(--color-text-inverse);  /* White headings on dark background */
 }
 ```
 
-**Use Case 3: Override Button Styling in Special Sections**
+**Use Case 5: Override Button Styling in Special Sections**
 ```css
 .promo-section {
   --button-bg: var(--color-accent);
@@ -596,7 +640,7 @@ h1, h2, h3 {
 }
 ```
 
-**Use Case 4: Override Multiple Properties at Once**
+**Use Case 6: Override Multiple Properties at Once**
 ```css
 .inverted-section {
   --link-color: var(--color-text-inverse);
@@ -616,15 +660,20 @@ h1, h2, h3 {
 
 ### ✅ RESOLVED: Link Color Override System
 
-**Status:** ✅ Implemented and working - First implementation of CSS Custom Property Override System
+**Status:** ✅ Fully implemented and production ready
+- **Phase 1 (October 2025):** Core system implemented in `child.css`
+- **Phase 2 (October 2025):** Header and footer modules converted to use override system
 
 **What Was the Problem:**
-The original link color utility system (`.link-white`, `.link-black`, `.link-gray`) had specificity conflicts that made it unreliable. The root cause was the Typography Override section applying `color: var(--color-text-primary)` to too many elements, including:
-- `a` elements (links themselves)
-- `span` elements (text inside links)
-- `div`, `li`, `td`, `th` (other inline/nested elements)
+The original approach had multiple issues:
+1. **Utility class system** (`.link-white`, `.link-black`, `.link-gray`) had specificity conflicts
+2. **Nuclear specificity** in header module (repeated `[data-brand]` attributes 8x) was unmaintainable
+3. **Typography Override section** applied `color: var(--color-text-primary)` to too many elements:
+   - `a` elements (links themselves)
+   - `span` elements (text inside links)
+   - `div`, `li`, `td`, `th` (other inline/nested elements)
 
-This created a cascade conflict where nested elements inside links would inherit black color instead of the link color.
+This created cascade conflicts where nested elements inside links would inherit black color instead of the link color.
 
 **The Solution: CSS Custom Property Inheritance System**
 
@@ -688,6 +737,65 @@ body, p, button, input, textarea, select { ... }
 - ✅ Scales across multiple modules
 - ✅ Maintains centralized color management
 - ✅ Elements inside links properly inherit link color
+
+**Phase 2: Header and Footer Module Conversion**
+
+**Header Module Refactor (header-clinical.module):**
+The header module required a complete refactor to enable CSS Custom Property Override System:
+
+1. **Replaced HubSpot `{% menu %}` tag with manual loops:**
+   - `{% menu %}` auto-generates HTML, preventing custom class control
+   - Converted to `{% set main_menu = menu("main_navigation_clinical") %}`
+   - Manual loops with conditional logic for submenus and chevron icons
+   - Filter to show only top-level items: `{% if item.label and item.level == 1 %}`
+
+2. **Removed nuclear specificity selectors:**
+   ```css
+   /* Before: */
+   [data-brand="cellcolabsclinical"][data-brand="cellcolabsclinical"][data-brand="cellcolabsclinical"][data-brand="cellcolabsclinical"][data-brand="cellcolabsclinical"][data-brand="cellcolabsclinical"][data-brand="cellcolabsclinical"][data-brand="cellcolabsclinical"] .nav-menu-link {
+     color: #161616 !important;
+   }
+
+   /* After: */
+   .header {
+     --link-color: var(--color-text-primary);
+   }
+   ```
+
+3. **Fixed mobile menu toggle with event capture:**
+   - Mobile toggle conflicted with `template_child.js`
+   - Used `addEventListener(..., true)` for capture phase
+   - Added `e.stopImmediatePropagation()` to prevent other handlers
+
+4. **Results:**
+   - Reduced code from ~700 to ~565 lines
+   - Eliminated 8x repeated attribute selectors
+   - Clean, maintainable CSS Custom Property Override
+   - All navigation links (desktop, mobile, submenus) inherit correctly
+
+**Footer Module Conversion (footer-clinical.module):**
+Simpler conversion since footer already used manual `menu()` loops:
+
+1. **Removed `.link-white` utility classes from HTML:**
+   ```html
+   <!-- Before: -->
+   <a href="{{ item.url }}" class="footer-menu-link link-white">{{ item.label }}</a>
+
+   <!-- After: -->
+   <a href="{{ item.url }}" class="footer-menu-link">{{ item.label }}</a>
+   ```
+
+2. **Added CSS Custom Property Override:**
+   ```css
+   .site-footer {
+     --link-color: var(--color-text-inverse);  /* White links */
+   }
+   ```
+
+3. **Results:**
+   - No utility classes needed in HTML
+   - All footer links inherit white color automatically
+   - Consistent with header architecture
 
 **Implementation Date:** October 2025
 

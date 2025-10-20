@@ -30,7 +30,7 @@
             {% for item in menu_tree %}
             {% if item.label %}
             <li class="footer-menu-item">
-              <a href="{{ item.url }}" class="footer-menu-link link-white">{{ item.label }}</a>
+              <a href="{{ item.url }}" class="footer-menu-link">{{ item.label }}</a>
             </li>
             {% endif %}
             {% endfor %}
@@ -47,7 +47,7 @@
             {% for item in menu_tree %}
             {% if item.label %}
             <li class="footer-menu-item">
-              <a href="{{ item.url }}" class="footer-menu-link link-white">{{ item.label }}</a>
+              <a href="{{ item.url }}" class="footer-menu-link">{{ item.label }}</a>
             </li>
             {% endif %}
             {% endfor %}
@@ -65,7 +65,7 @@
             {% for item in menu_tree %}
             {% if item.label %}
             <li class="footer-menu-item">
-              <a href="{{ item.url }}" class="footer-menu-link link-white">{{ item.label }}</a>
+              <a href="{{ item.url }}" class="footer-menu-link">{{ item.label }}</a>
             </li>
             {% endif %}
             {% endfor %}
@@ -84,7 +84,7 @@
             {% for item in menu_tree %}
             {% if item.label %}
             <li class="footer-menu-item">
-              <a href="{{ item.url }}" class="footer-menu-link link-white">{{ item.label }}</a>
+              <a href="{{ item.url }}" class="footer-menu-link">{{ item.label }}</a>
             </li>
             {% endif %}
             {% endfor %}
@@ -123,6 +123,9 @@
   width: 100%;
   padding: var(--space-48, 48px) var(--space-24, 24px);
   color: var(--color-white, #ffffff);
+
+  /* Override link color to white for footer */
+  --link-color: var(--color-text-inverse);
 }
 
 .footer-container {
@@ -215,7 +218,7 @@
   text-align: left;
 }
 
-/* Footer menu link styling (.link-white utility handles color) */
+/* Footer menu link styling (color inherited from --link-color custom property) */
 .site-footer .footer-menu-link {
   font-family: var(--font-body, 'Inter', sans-serif) !important;
   font-size: var(--font-size-body, 16px) !important;

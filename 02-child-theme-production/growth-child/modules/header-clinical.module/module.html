@@ -1,10 +1,13 @@
 <!--
-can  templateType: module
+  templateType: module
   label: Header - Cellcolabs Clinical
   isAvailableForNewContent: false
 -->
 {# Retrieve translations for the template #}
 {% set template_translations = load_translations('../../templates/_locales', html_lang, 'en') %}
+
+{# Load main navigation menu #}
+{% set main_menu = menu("main_navigation_clinical") %}
 
 <header class="header site-header" data-brand="cellcolabsclinical">
 
@@ -23,24 +26,33 @@ can  templateType: module
 
         <!-- Desktop Menu -->
         <div class="nav-menu-desktop">
-          <div style="display: flex !important; align-items: center !important;">
-            {% menu "main_navigation_clinical"
-              id="main_navigation_clinical",
-              site_map_name="main_navigation_clinical",
-              overrideable=False,
-              root_type="site_root",
-              flyouts="true",
-              max_levels="2",
-              flow="horizontal",
-              menu_class="nav-menu-list",
-              item_class="nav-menu-item",
-              link_class="nav-menu-link",
-              active_class="nav-menu-item--active",
-              child_ul_class="nav-submenu",
-              child_li_class="nav-submenu-item",
-              child_a_class="nav-submenu-link"
-            %}
-          </div>
+          <ul class="nav-menu-list">
+            {% for item in main_menu %}
+              {# Only show top-level items with labels (skip root and submenu items) #}
+              {% if item.label and item.level == 1 %}
+              <li class="nav-menu-item{% if item.children %} has-submenu{% endif %}{% if item.activeBranch %} nav-menu-item--active{% endif %}">
+                <a href="{{ item.url }}" class="nav-menu-link">
+                  {{ item.label }}
+                  {% if item.children %}
+                    <svg class="nav-chevron-icon" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M2 2L6 6L10 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  {% endif %}
+                </a>
+
+                {% if item.children %}
+                  <ul class="nav-submenu">
+                    {% for child in item.children %}
+                      <li class="nav-submenu-item{% if child.activeBranch %} nav-submenu-item--active{% endif %}">
+                        <a href="{{ child.url }}" class="nav-submenu-link">{{ child.label }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
         </div>
 
         <!-- Mobile Menu Button - 6 dots (2x3 grid) per Figma -->
@@ -62,37 +74,56 @@ can  templateType: module
     </div>
 
     <!-- Mobile Menu -->
-    <div class="nav-menu-mobile" style="position: absolute !important; top: 100% !important; left: 0 !important; right: 0 !important; background-color: #ffffff !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important; max-height: calc(100vh - 80px) !important; overflow-y: auto !important; z-index: 999998 !important; display: none !important;">
+    <div class="nav-menu-mobile" style="position: absolute !important; top: 100% !important; left: 0 !important; right: 0 !important; background-color: #ffffff !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important; max-height: calc(100vh - 80px) !important; overflow-y: auto !important; z-index: 999998 !important;">
       <div style="padding: 24px !important;">
-        {% menu "main_navigation_clinical"
-          id="main_navigation_clinical_mobile",
-          site_map_name="main_navigation_clinical",
-          overrideable=False,
-          root_type="site_root",
-          flyouts="false",
-          max_levels="2",
-          flow="vertical",
-          menu_class="nav-mobile-list",
-          item_class="nav-mobile-item",
-          link_class="nav-mobile-link",
-          active_class="nav-mobile-item--active",
-          child_ul_class="nav-mobile-submenu",
-          child_li_class="nav-mobile-submenu-item",
-          child_a_class="nav-mobile-submenu-link"
-        %}
+        <ul class="nav-mobile-list">
+          {% for item in main_menu %}
+            {# Only show top-level items with labels (skip root and submenu items) #}
+            {% if item.label and item.level == 1 %}
+            <li class="nav-mobile-item{% if item.children %} has-submenu{% endif %}{% if item.activeBranch %} nav-mobile-item--active{% endif %}">
+              <a href="{{ item.url }}" class="nav-mobile-link{% if item.children %} has-children{% endif %}">
+                {{ item.label }}
+                {% if item.children %}
+                  <svg class="nav-chevron-icon" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 2L6 6L10 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                {% endif %}
+              </a>
+
+              {% if item.children %}
+                <ul class="nav-mobile-submenu">
+                  {% for child in item.children %}
+                    <li class="nav-mobile-submenu-item{% if child.activeBranch %} nav-mobile-submenu-item--active{% endif %}">
+                      <a href="{{ child.url }}" class="nav-mobile-submenu-link">{{ child.label }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
       </div>
     </div>
   </nav>
 
 </header>
 
-<!-- Inline Styles - MAXIMUM OVERRIDE POWER -->
 <style>
   /* Global font import */
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;450;500;550;600;650;700;750;800;900&display=swap');
 
-  /* STICKY HEADER - Must be in CSS block, not inline */
-  /* Apply to HubSpot wrapper since it's the parent container */
+  /* ==============================================
+     CSS CUSTOM PROPERTY OVERRIDE SYSTEM
+     ============================================== */
+  /* Set header link color override */
+  .header {
+    --link-color: var(--color-text-primary);  /* Black for navigation links */
+  }
+
+  /* ==============================================
+     STICKY HEADER
+     ============================================== */
   .hs_cos_wrapper_type_module:has(.header.site-header) {
     position: -webkit-sticky !important;
     position: sticky !important;
@@ -104,8 +135,10 @@ can  templateType: module
     background-color: #ffffff !important;
   }
 
-  /* DESKTOP MENU - FIGMA EXACT SPECIFICATIONS */
-  .header .nav-menu-desktop .hs-menu-wrapper > ul {
+  /* ==============================================
+     DESKTOP MENU - HORIZONTAL LAYOUT
+     ============================================== */
+  .header .nav-menu-desktop .nav-menu-list {
     display: flex !important;
     gap: 8px !important;
     list-style: none !important;
@@ -114,28 +147,18 @@ can  templateType: module
     align-items: center !important;
   }
 
-  .header .nav-menu-desktop .hs-menu-item {
+  .header .nav-menu-item {
     position: relative !important;
     margin: 0 !important;
   }
 
-  /* NUCLEAR MENU ITEM OVERRIDE - ALL POSSIBLE SELECTORS - MAXIMUM SPECIFICITY FOR FUTURE-PROOFING */
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a[role="menuitem"],
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item.hs-menu-depth-1 > a,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li > a,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper .hs-menu-item a,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-item > a,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop a,
-  html body .site-header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a,
-  html body .site-header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a,
-  html body .site-header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-item > a,
-  html body .site-header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop a {
-    font-family: 'Inter', sans-serif !important;
+  /* Desktop menu links - use --link-color custom property */
+  .header .nav-menu-desktop .nav-menu-link {
+    font-family: var(--font-body, 'Inter', sans-serif) !important;
     font-size: 16px !important;
-    font-weight: 500 !important;
+    font-weight: var(--font-weight-medium, 500) !important;
     line-height: 1 !important;
-    color: var(--color-text-primary, #161616) !important;
+    color: var(--link-color) !important;
     text-decoration: none !important;
     padding: 12px 16px !important;
     display: flex !important;
@@ -144,6 +167,11 @@ can  templateType: module
     transition: color 0.2s ease !important;
     background: transparent !important;
     border: none !important;
+  }
+
+  /* Desktop menu link hover - use brand color variable */
+  .header .nav-menu-desktop .nav-menu-link:hover {
+    color: var(--color-brand-500, #4f65be) !important;
   }
 
   /* Submenu chevron icon */
@@ -169,20 +197,19 @@ can  templateType: module
     vertical-align: middle;
   }
 
-  /* Ensure parent link properly centers children */
-  html body .header .nav-menu-desktop .hs-menu-item.has-submenu > a {
-    align-items: center !important;
-    gap: 4px !important;
-  }
-
   /* Rotate chevron when submenu is open */
-  .hs-menu-item.has-submenu.submenu-open .nav-chevron-icon {
+  .nav-menu-item.has-submenu.submenu-open .nav-chevron-icon,
+  .nav-mobile-item.has-submenu.submenu-open .nav-chevron-icon {
     transform: rotate(180deg);
   }
 
-  /* Desktop submenu positioning and styling */
-  html body .header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item .nav-submenu,
-  html body .header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item ul {
+  /* Rotate chevron on desktop hover */
+  .header .nav-menu-desktop .nav-menu-item.has-submenu:hover > .nav-menu-link .nav-chevron-icon {
+    transform: rotate(180deg);
+  }
+
+  /* Desktop submenu positioning */
+  .header .nav-menu-desktop .nav-submenu {
     position: absolute !important;
     top: 100% !important;
     left: 0 !important;
@@ -197,29 +224,25 @@ can  templateType: module
     z-index: 10000 !important;
   }
 
-  /* Show submenu on hover or when open class is added */
-  html body .header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item:hover > .nav-submenu,
-  html body .header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item:hover > ul,
-  html body .header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item.submenu-open > .nav-submenu,
-  html body .header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item.submenu-open > ul {
+  /* Show submenu on hover */
+  .header .nav-menu-desktop .nav-menu-item:hover > .nav-submenu,
+  .header .nav-menu-desktop .nav-menu-item.submenu-open > .nav-submenu {
     display: block !important;
   }
 
   /* Submenu items */
-  html body .header .nav-menu-desktop .hs-menu-wrapper .nav-submenu .nav-submenu-item,
-  html body .header .nav-menu-desktop .hs-menu-wrapper .hs-menu-item ul li {
+  .header .nav-submenu-item {
     margin: 0 !important;
     padding: 0 !important;
   }
 
-  /* Submenu links */
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper .nav-submenu .nav-submenu-link,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper .hs-menu-item ul li a {
-    font-family: 'Inter', sans-serif !important;
+  /* Submenu links - use --link-color */
+  .header .nav-menu-desktop .nav-submenu-link {
+    font-family: var(--font-body, 'Inter', sans-serif) !important;
     font-size: 14px !important;
-    font-weight: 450 !important;
+    font-weight: var(--font-weight-regular, 450) !important;
     line-height: 1.5 !important;
-    color: var(--color-text-primary, #161616) !important;
+    color: var(--link-color) !important;
     text-decoration: none !important;
     padding: 8px 16px !important;
     display: block !important;
@@ -229,51 +252,33 @@ can  templateType: module
   }
 
   /* Submenu link hover */
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper .nav-submenu .nav-submenu-link:hover,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper .hs-menu-item ul li a:hover {
+  .header .nav-menu-desktop .nav-submenu-link:hover {
     background-color: #f4f4f4 !important;
-    color: #4f65be !important;
+    color: var(--color-brand-500, #4f65be) !important;
   }
 
-  /* HOVER OVERRIDE - Clinical Blue */
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a:hover,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item > a[role="menuitem"]:hover,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li.hs-menu-item.hs-menu-depth-1 > a:hover,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper > ul > li > a:hover,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper .hs-menu-item a:hover,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-item > a:hover,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop a:hover,
-  html body .site-header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .site-navigation .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a:hover,
-  html body .site-header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-wrapper .hs-menu-item > a:hover,
-  html body .site-header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop .hs-menu-item > a:hover,
-  html body .site-header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-desktop a:hover {
-    color: #4f65be !important; /* Clinical Blue */
-  }
-
-  /* MOBILE MENU OVERRIDES - Target both custom classes and HubSpot classes */
-  html body .header .nav-menu-mobile .hs-menu-wrapper > ul,
-  html body .header .nav-menu-mobile .nav-mobile-list {
+  /* ==============================================
+     MOBILE MENU - VERTICAL LAYOUT
+     ============================================== */
+  .header .nav-menu-mobile .nav-mobile-list {
     list-style: none !important;
     margin: 0 !important;
     padding: 0 !important;
     display: block !important;
   }
 
-  /* Mobile menu items with submenus */
-  html body .header .nav-menu-mobile .hs-menu-item.has-submenu {
+  .header .nav-mobile-item {
     position: relative !important;
+    margin: 0 !important;
   }
 
-  /* Target all possible mobile menu link combinations */
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-mobile .hs-menu-item > a,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-mobile .nav-mobile-item > a,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-mobile .nav-mobile-link,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-mobile a {
-    font-family: 'Inter', sans-serif !important;
+  /* Mobile menu links - use --link-color */
+  .header .nav-menu-mobile .nav-mobile-link {
+    font-family: var(--font-body, 'Inter', sans-serif) !important;
     font-size: 16px !important;
-    font-weight: 450 !important;
+    font-weight: var(--font-weight-regular, 450) !important;
     line-height: 1.5 !important;
-    color: var(--color-text-primary, #161616) !important;
+    color: var(--link-color) !important;
     text-decoration: none !important;
     padding: 16px 24px !important;
     display: flex !important;
@@ -284,23 +289,18 @@ can  templateType: module
     background: transparent !important;
   }
 
-  /* Mobile menu hover - Clinical Blue */
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-mobile .hs-menu-item > a:hover,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-mobile .nav-mobile-item > a:hover,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-mobile .nav-mobile-link:hover,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-mobile a:hover {
-    color: #4f65be !important; /* Clinical Blue */
+  /* Mobile menu link hover */
+  .header .nav-menu-mobile .nav-mobile-link:hover {
+    color: var(--color-brand-500, #4f65be) !important;
   }
 
   /* Last menu item - no bottom border */
-  html body .header .nav-menu-mobile .hs-menu-item:last-child > a,
-  html body .header .nav-menu-mobile .nav-mobile-item:last-child > a {
+  .header .nav-menu-mobile .nav-mobile-item:last-child > .nav-mobile-link {
     border-bottom: none !important;
   }
 
   /* Mobile submenu - collapsed by default */
-  html body .header .nav-menu-mobile .nav-mobile-submenu,
-  html body .header .nav-menu-mobile .hs-menu-item ul {
+  .header .nav-menu-mobile .nav-mobile-submenu {
     list-style: none !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -311,26 +311,23 @@ can  templateType: module
   }
 
   /* Mobile submenu - expanded state */
-  html body .header .nav-menu-mobile .hs-menu-item.submenu-open .nav-mobile-submenu,
-  html body .header .nav-menu-mobile .hs-menu-item.submenu-open ul {
+  .header .nav-menu-mobile .nav-mobile-item.submenu-open .nav-mobile-submenu {
     max-height: 500px !important;
   }
 
   /* Mobile submenu items */
-  html body .header .nav-menu-mobile .nav-mobile-submenu .nav-mobile-submenu-item,
-  html body .header .nav-menu-mobile .hs-menu-item ul li {
+  .header .nav-mobile-submenu-item {
     margin: 0 !important;
     padding: 0 !important;
   }
 
-  /* Mobile submenu links */
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-mobile .nav-mobile-submenu .nav-mobile-submenu-link,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-mobile .hs-menu-item ul li a {
-    font-family: 'Inter', sans-serif !important;
+  /* Mobile submenu links - use --link-color */
+  .header .nav-menu-mobile .nav-mobile-submenu-link {
+    font-family: var(--font-body, 'Inter', sans-serif) !important;
     font-size: 14px !important;
-    font-weight: 450 !important;
+    font-weight: var(--font-weight-regular, 450) !important;
     line-height: 1.5 !important;
-    color: var(--color-text-primary, #161616) !important;
+    color: var(--link-color) !important;
     text-decoration: none !important;
     padding: 12px 24px 12px 40px !important;
     display: block !important;
@@ -340,71 +337,13 @@ can  templateType: module
   }
 
   /* Mobile submenu link hover */
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-mobile .nav-mobile-submenu .nav-mobile-submenu-link:hover,
-  html body .header[data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand][data-brand] .nav-menu-mobile .hs-menu-item ul li a:hover {
-    color: #4f65be !important;
+  .header .nav-menu-mobile .nav-mobile-submenu-link:hover {
+    color: var(--color-brand-500, #4f65be) !important;
   }
 
-  /* Mobile chevron icon (reuse desktop styles but with different rotation for mobile) */
-  .nav-menu-mobile .nav-chevron-icon {
-    width: 12px;
-    height: 8px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-    margin-top: 0;
-    margin-bottom: 0;
-    transition: transform 0.2s ease;
-    flex-shrink: 0;
-    align-self: center;
-    vertical-align: middle;
-  }
-
-  /* Ensure mobile parent link properly centers children */
-  html body .header .nav-menu-mobile .hs-menu-item.has-submenu > a {
-    align-items: center !important;
-  }
-
-  .nav-menu-mobile .hs-menu-item.submenu-open .nav-chevron-icon {
-    transform: rotate(180deg);
-  }
-
-  /* Ensure mobile menu container is visible when active */
-  html body .header .nav-menu-mobile.is-active {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    background: #ffffff !important;
-  }
-
-  /* Force mobile menu content to be visible */
-  html body .header .nav-menu-mobile.is-active .hs-menu-wrapper,
-  html body .header .nav-menu-mobile.is-active > div,
-  html body .header .nav-menu-mobile.is-active ul,
-  html body .header .nav-menu-mobile.is-active li {
-    display: block !important;
-    visibility: visible !important;
-  }
-
-  /* Mobile toggle states */
-  .header .nav-toggle[aria-expanded="true"] .nav-toggle-icon {
-    display: none !important;
-  }
-
-  .header .nav-toggle[aria-expanded="true"] .nav-toggle-close {
-    display: block !important;
-  }
-
-  /* Default display states - Mobile First */
-  .header .nav-menu-desktop {
-    display: none !important;
-  }
-
-  .header .nav-menu-mobile {
-    display: none !important;
-  }
-
+  /* ==============================================
+     MOBILE TOGGLE BUTTON
+     ============================================== */
   .header .nav-toggle {
     display: flex !important;
     position: absolute !important;
@@ -421,9 +360,53 @@ can  templateType: module
     height: 48px !important;
     align-items: center !important;
     justify-content: center !important;
+    cursor: pointer !important;
+    color: var(--color-text-primary, #161616) !important;
   }
 
-  /* Responsive Design - FIGMA BREAKPOINTS */
+  .header .nav-toggle:hover,
+  .header .nav-toggle:focus,
+  .header .nav-toggle:active {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Toggle icon states */
+  .header .nav-toggle[aria-expanded="true"] .nav-toggle-icon {
+    display: none !important;
+  }
+
+  .header .nav-toggle[aria-expanded="true"] .nav-toggle-close {
+    display: block !important;
+  }
+
+  /* SVG color */
+  .header .nav-toggle svg {
+    color: var(--color-text-primary, #161616) !important;
+    fill: currentColor !important;
+  }
+
+  /* ==============================================
+     RESPONSIVE BEHAVIOR
+     ============================================== */
+  /* Default: Hide desktop menu, show mobile toggle */
+  .header .nav-menu-desktop {
+    display: none !important;
+  }
+
+  .header .nav-menu-mobile {
+    display: none !important;
+  }
+
+  /* Mobile menu active state */
+  .header .nav-menu-mobile.is-active {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
   /* Mobile: 0-767px */
   @media (max-width: 767px) {
     .header .nav-container {
@@ -482,19 +465,15 @@ can  templateType: module
     .header .nav-menu-desktop {
       display: block !important;
     }
-    /* FORCE HIDE mobile elements on desktop */
-    .header .nav-toggle,
-    html body .header .nav-toggle,
-    html body .site-header .nav-toggle {
+    /* Force hide mobile elements on desktop */
+    .header .nav-toggle {
       display: none !important;
       visibility: hidden !important;
       opacity: 0 !important;
       pointer-events: none !important;
     }
     .header .nav-menu-mobile,
-    .header .nav-menu-mobile.is-active,
-    html body .header .nav-menu-mobile,
-    html body .header .nav-menu-mobile.is-active {
+    .header .nav-menu-mobile.is-active {
       display: none !important;
       visibility: hidden !important;
       opacity: 0 !important;
@@ -507,8 +486,12 @@ can  templateType: module
     }
   }
 
-  /* HubSpot Tools Menu Override */
-  .hs-tools-menu {
+  /* ==============================================
+     Z-INDEX MANAGEMENT
+     ============================================== */
+  .hs-tools-menu,
+  .hs-tools-menu.hs-collapsed,
+  .hs-tools-menu.hs-expanded {
     z-index: 999998 !important;
   }
 
@@ -516,69 +499,8 @@ can  templateType: module
     z-index: 2147483647 !important;
   }
 
-  /* Nuclear button style overrides */
-  html body .header .nav-toggle,
-  html body .header .nav-toggle:hover,
-  html body .header .nav-toggle:focus,
-  html body .header .nav-toggle:active,
-  html body .header .nav-toggle[aria-expanded="true"] {
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    width: 48px !important;
-    height: 48px !important;
-    color: #161616 !important;
-    fill: #161616 !important;
-    outline: none !important;
-    box-shadow: none !important;
-  }
-
-  /* SVG color fix */
-  html body .header .nav-toggle svg,
-  html body .header .nav-toggle:hover svg,
-  html body .header .nav-toggle:focus svg,
-  html body .header .nav-toggle:active svg,
-  html body .header .nav-toggle[aria-expanded="true"] svg {
-    color: #161616 !important;
-    fill: currentColor !important;
-  }
-
   .header .nav-menu-mobile {
     z-index: 999999 !important;
-  }
-
-  /* Mobile menu styling */
-  .nav-menu-mobile.is-active {
-    display: block !important;
-    background: #ffffff !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-  }
-
-  /* Additional HubSpot override selectors */
-  .hs-tools-menu.hs-collapsed,
-  .hs-tools-menu.hs-expanded {
-    z-index: 999998 !important;
-  }
-
-  /* FINAL CASCADE - Mobile Menu Active State */
-  .header .nav-menu-mobile.is-active,
-  html body .header .nav-menu-mobile.is-active,
-  html body .site-header .nav-menu-mobile.is-active,
-  html body .header .site-navigation .nav-menu-mobile.is-active,
-  html body .site-header .site-navigation .nav-menu-mobile.is-active,
-  .nav-menu-mobile.is-active {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    position: absolute !important;
-    top: 100% !important;
-    left: 0 !important;
-    right: 0 !important;
-    background-color: #ffffff !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-    z-index: 999998 !important;
   }
 
 </style>
@@ -587,41 +509,40 @@ can  templateType: module
 (function() {
   'use strict';
 
-  // Simple solid V chevron pointing down
-  const chevronDownSvg = `
-    <svg class="nav-chevron-icon" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2 2L6 6L10 2" stroke="#161616" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  `;
+  function initHeaderNavigation() {
+    // ===== MOBILE MENU TOGGLE =====
+    const navToggle = document.querySelector('.header .nav-toggle');
+    const mobileMenu = document.querySelector('.header .nav-menu-mobile');
 
-  function initSubmenuIndicators() {
-    // Desktop menu
-    const desktopMenuItems = document.querySelectorAll('.header .nav-menu-desktop .hs-menu-wrapper > ul > .hs-menu-item');
+    if (navToggle && mobileMenu) {
+      // Use capture phase to run BEFORE template_child.js handler
+      navToggle.addEventListener('click', function(e) {
+        // Stop other handlers from running
+        e.stopImmediatePropagation();
+        e.preventDefault();
 
-    desktopMenuItems.forEach(item => {
-      const submenu = item.querySelector('ul');
-      if (submenu) {
-        item.classList.add('has-submenu');
-        const link = item.querySelector(':scope > a');
-        if (link && !link.querySelector('.nav-chevron-icon')) {
-          link.insertAdjacentHTML('beforeend', chevronDownSvg);
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+        if (isExpanded) {
+          this.setAttribute('aria-expanded', 'false');
+          mobileMenu.classList.remove('is-active');
+        } else {
+          this.setAttribute('aria-expanded', 'true');
+          mobileMenu.classList.add('is-active');
         }
-      }
-    });
+      }, true); // Capture phase ensures our handler runs first
+    }
 
-    // Mobile menu
-    const mobileMenuItems = document.querySelectorAll('.header .nav-menu-mobile .hs-menu-wrapper > ul > .hs-menu-item');
+    // ===== MOBILE SUBMENU TOGGLE =====
+    const mobileMenuItems = document.querySelectorAll('.header .nav-mobile-item.has-submenu');
 
     mobileMenuItems.forEach(item => {
-      const submenu = item.querySelector('ul');
-      if (submenu) {
-        item.classList.add('has-submenu');
-        const link = item.querySelector(':scope > a');
-        if (link && !link.querySelector('.nav-chevron-icon')) {
-          link.insertAdjacentHTML('beforeend', chevronDownSvg);
+      const link = item.querySelector('.nav-mobile-link.has-children');
 
-          // Add click handler for mobile submenu toggle
-          link.addEventListener('click', function(e) {
+      if (link) {
+        link.addEventListener('click', function(e) {
+          // Only prevent default if this link has children
+          if (item.classList.contains('has-submenu')) {
             e.preventDefault();
             e.stopPropagation();
 
@@ -637,60 +558,33 @@ can  templateType: module
               });
               item.classList.add('submenu-open');
             }
-          });
+          }
+        });
+      }
+    });
+
+    // ===== CLOSE MOBILE MENU ON OUTSIDE CLICK =====
+    document.addEventListener('click', function(event) {
+      if (mobileMenu && mobileMenu.classList.contains('is-active')) {
+        const clickedInsideMenu = mobileMenu.contains(event.target);
+        const clickedToggle = navToggle && navToggle.contains(event.target);
+
+        if (!clickedInsideMenu && !clickedToggle) {
+          mobileMenu.classList.remove('is-active');
+          if (navToggle) {
+            navToggle.setAttribute('aria-expanded', 'false');
+          }
         }
       }
     });
   }
 
-  // Initialize on page load
+  // Initialize when DOM is ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSubmenuIndicators);
+    document.addEventListener('DOMContentLoaded', initHeaderNavigation);
   } else {
-    initSubmenuIndicators();
+    // DOM already loaded
+    initHeaderNavigation();
   }
-
-  // Re-initialize when mobile menu is toggled (in case menu is dynamically rendered)
-  const navToggle = document.querySelector('.header .nav-toggle');
-  if (navToggle) {
-    navToggle.addEventListener('click', function() {
-      setTimeout(initSubmenuIndicators, 100);
-    });
-  }
-
-  // Also observe for dynamic content changes
-  const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      if (mutation.addedNodes.length) {
-        initSubmenuIndicators();
-      }
-    });
-  });
-
-  const navMenuMobile = document.querySelector('.header .nav-menu-mobile');
-  if (navMenuMobile) {
-    observer.observe(navMenuMobile, { childList: true, subtree: true });
-  }
-
-  // Close mobile menu when clicking outside
-  document.addEventListener('click', function(event) {
-    const mobileMenu = document.querySelector('.header .nav-menu-mobile');
-    const navToggle = document.querySelector('.header .nav-toggle');
-
-    // Check if menu is open
-    if (mobileMenu && mobileMenu.classList.contains('is-active')) {
-      // Check if click is outside the mobile menu AND not on the toggle button
-      const clickedInsideMenu = mobileMenu.contains(event.target);
-      const clickedToggle = navToggle && navToggle.contains(event.target);
-
-      if (!clickedInsideMenu && !clickedToggle) {
-        // Close the menu
-        mobileMenu.classList.remove('is-active');
-        if (navToggle) {
-          navToggle.setAttribute('aria-expanded', 'false');
-        }
-      }
-    }
-  });
 })();
 </script>
