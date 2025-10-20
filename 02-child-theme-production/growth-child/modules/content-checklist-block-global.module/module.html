@@ -52,15 +52,15 @@
 /* Content Checklist Block Module Styles */
 
 .content-checklist-block {
-  padding: 0 var(--space-48); /* Vertical spacing controlled by DND section container */
+  padding: 0; /* Spacing controlled by DND section container */
   margin: 0;
   box-sizing: border-box;
 }
 
 .content-checklist-block .container {
-  max-width: 1460px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 16px; /* Standard horizontal padding */
   width: 100%;
   box-sizing: border-box;
 }
@@ -180,8 +180,8 @@
 
 /* Desktop responsive adjustments */
 @media (max-width: 1023px) {
-  .content-checklist-block {
-    padding: 0 var(--space-24); /* Vertical spacing controlled by DND section container */
+  .content-checklist-block .container {
+    padding: 0 var(--space-24); /* Horizontal padding for tablet */
   }
 
   .content-checklist-block .desktop-layout {
@@ -195,13 +195,8 @@
 
 /* Mobile breakpoint */
 @media (max-width: 767px) {
-  .content-checklist-block {
-    padding: 0 var(--space-24); /* Vertical spacing controlled by DND section container */
-    margin: 0;
-  }
-
   .content-checklist-block .container {
-    padding: 0;
+    padding: 0 var(--space-24); /* Horizontal padding for mobile */
   }
 
   /* Hide desktop layout */
@@ -230,9 +225,8 @@
 
 /* Small mobile adjustments */
 @media (max-width: 480px) {
-  .content-checklist-block {
-    padding: 0 var(--space-16); /* Vertical spacing controlled by DND section container */
-    margin: 0;
+  .content-checklist-block .container {
+    padding: 0 var(--space-16); /* Horizontal padding for small mobile */
   }
 
   .content-checklist-block .mobile-layout {

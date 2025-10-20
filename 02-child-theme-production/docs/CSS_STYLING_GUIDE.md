@@ -356,6 +356,343 @@ a:not(.button):not(.btn):not(.link-white):not(.link-black):not(.link-secondary)
 
 3. **Document it** in this section with usage examples
 
+## CSS Custom Property Override System
+
+### Overview
+
+The **CSS Custom Property Override System** is a scalable architecture for handling CSS overrides in modules without specificity conflicts. It uses CSS custom properties (CSS variables) as intermediary override points, allowing modules to customize global styles cleanly and maintainably.
+
+**Status:** ✅ Implemented and Production Ready (October 2025)
+
+### The Problem This Solves
+
+When working with HubSpot themes, modules often need to override global styles set in `child.css`:
+- ❌ **Specificity wars** - Using `!important` everywhere creates maintenance nightmares
+- ❌ **Utility class bloat** - Creating `.link-white`, `.link-black`, `.link-gray`, etc. is not scalable
+- ❌ **Cascade conflicts** - Nested elements inherit colors from wrong sources
+- ❌ **Module coupling** - Modules become dependent on specific global rule structures
+
+The CSS Custom Property Override System solves all of these issues with a three-part architecture.
+
+### The Three-Part Architecture
+
+**Part 1: Create Intermediary Override Variables**
+
+In `child.css` `:root`, add intermediary variables that sit between elements and brand colors:
+
+```css
+/* child.css - :root variables section */
+:root {
+  /* Brand colors (source of truth) */
+  --color-text-primary: #161616;
+  --color-text-link: #4F65BE;
+  --color-text-inverse: #ffffff;
+
+  /* Intermediary Override Variables */
+  --link-color: var(--color-text-link);        /* Link color override */
+  --heading-color: var(--color-text-primary);  /* Heading color override */
+  --button-bg: var(--button-primary-bg);       /* Button background override */
+  /* Add more as needed... */
+}
+```
+
+**Part 2: Apply Custom Properties to Elements**
+
+In `child.css` in the "CSS Custom Property Override System" section, apply these variables to global elements:
+
+```css
+/* child.css - CSS Custom Property Override System section */
+
+/***********************************************/
+/* CSS Custom Property Override System        */
+/***********************************************/
+/* This section applies intermediary override variables to elements.
+   Modules can override these variables without specificity conflicts.
+   Organized by element type for easy maintenance. */
+
+/* Links */
+a {
+  color: var(--link-color);
+  font-weight: var(--font-weight-medium);
+}
+
+[data-brand="cellcolabsclinical"] a:not(.button):not(.btn):not(.hs-button):not(button),
+[data-brand="cellcolabs"] a:not(.button):not(.btn):not(.hs-button):not(button) {
+  color: var(--link-color);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+}
+
+/* Buttons */
+.custom-button {
+  background-color: var(--button-bg);
+}
+
+/* Add more as needed... */
+```
+
+**Part 3: Modules Override Locally**
+
+In module CSS (within `module.html` `<style>` tags), modules set their own values for the intermediary variables:
+
+```css
+/* breadcrumb.module - module.html */
+.breadcrumb-navigation {
+  --link-color: var(--color-gray-600);  /* Override links to gray */
+}
+
+/* image-overlay.module - module.html */
+.image-overlay {
+  --link-color: var(--color-text-inverse);  /* Override links to white */
+  --heading-color: var(--color-text-inverse);  /* Override headings to white */
+}
+
+/* special-section.module - module.html */
+.special-section {
+  --button-bg: var(--color-brand-secondary);  /* Override button to secondary color */
+}
+```
+
+### Why This Architecture Works
+
+**CSS Inheritance + Cascade = Clean Overrides:**
+1. Intermediary variables are set at module container level
+2. Variables cascade down through all child elements
+3. Child elements use `var(--link-color)` which reads from closest parent
+4. No specificity conflicts - just clean inheritance
+5. Nested elements automatically inherit the override
+
+**Benefits:**
+- ✅ **No specificity wars** - Variables don't have specificity, they just cascade
+- ✅ **Works with any CSS property** - Colors, fonts, sizes, spacing, anything
+- ✅ **Scales infinitely** - Add new override points as needed
+- ✅ **Module independence** - Modules don't need to know global rule structure
+- ✅ **Maintains centralized control** - Brand colors still defined in one place
+- ✅ **Works with dual brand system** - Overrides work within any brand context
+- ✅ **Self-documenting** - Variable names make intent clear
+
+### When to Use This System
+
+**✅ Use CSS Custom Property Override System when:**
+- Module needs to override a global style from `child.css`
+- The override is for a CSS property that's set globally (links, headings, buttons, etc.)
+- You want the override to cascade through nested elements
+- Multiple modules need similar overrides (gray links, white text, etc.)
+- You want to avoid specificity conflicts
+
+**❌ Don't use this system when:**
+- Styling is module-specific and not overriding anything global
+- One-off styling that won't be reused
+- CSS property is not set globally in `child.css`
+
+### Decision Tree: Adding New Override Types
+
+**Step 1: Does the element have global styling in child.css?**
+- **No** → Style directly in module, no override system needed
+- **Yes** → Continue to Step 2
+
+**Step 2: Do multiple modules need to override this?**
+- **No** → Consider direct styling in module (but override system still works)
+- **Yes** → Continue to Step 3
+
+**Step 3: Should nested elements inherit the override?**
+- **No** → Use direct CSS rules with high specificity
+- **Yes** → Use CSS Custom Property Override System ✅
+
+**Example: Adding Button Color Override**
+
+1. **Add intermediary variable to `:root`:**
+```css
+/* child.css - :root */
+--button-bg: var(--button-primary-bg);
+--button-text: var(--button-primary-text);
+```
+
+2. **Apply to elements in Override System section:**
+```css
+/* child.css - CSS Custom Property Override System */
+.site-button,
+.hs-button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+}
+```
+
+3. **Modules override locally:**
+```css
+/* hero-section.module */
+.hero-section {
+  --button-bg: var(--color-brand-secondary);
+  --button-text: var(--color-text-inverse);
+}
+```
+
+### File Locations in child.css
+
+**Location 1: `:root` variables (lines ~110-125)**
+```css
+:root {
+  /* Brand Colors */
+  --color-text-primary: #161616;
+  --color-text-link: #4F65BE;
+
+  /* Intermediary Override Variables */
+  --link-color: var(--color-text-link);
+  --heading-color: var(--color-text-primary);
+  /* Add new intermediary variables here */
+}
+```
+
+**Location 2: CSS Custom Property Override System section (lines ~440-475)**
+```css
+/***********************************************/
+/* CSS Custom Property Override System        */
+/***********************************************/
+
+/* Links */
+a {
+  color: var(--link-color);
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: var(--heading-color);
+}
+
+/* Add new element applications here */
+```
+
+**Keep organized:**
+- Group related variables together in `:root`
+- Group related element applications in Override System section
+- Add comments explaining purpose of each override type
+- Document usage in this guide
+
+### Common Use Cases
+
+**Use Case 1: Override Link Colors in Image Overlays**
+```css
+.image-card-overlay {
+  --link-color: var(--color-text-inverse);  /* White links on dark background */
+}
+```
+
+**Use Case 2: Override Heading Colors for Dark Sections**
+```css
+.dark-section {
+  --heading-color: var(--color-text-inverse);  /* White headings on dark background */
+}
+```
+
+**Use Case 3: Override Button Styling in Special Sections**
+```css
+.promo-section {
+  --button-bg: var(--color-accent);
+  --button-text: var(--color-text-inverse);
+}
+```
+
+**Use Case 4: Override Multiple Properties at Once**
+```css
+.inverted-section {
+  --link-color: var(--color-text-inverse);
+  --heading-color: var(--color-text-inverse);
+  --text-color: var(--color-text-inverse);
+}
+```
+
+### Best Practices
+
+1. **Name intermediary variables clearly** - Use descriptive names like `--link-color`, not `--override-1`
+2. **Keep defaults in `:root`** - Default should point to standard brand color
+3. **Document in this guide** - Add usage examples when creating new override types
+4. **Test cascade** - Ensure nested elements inherit correctly
+5. **Group logically** - Keep related variables together in `:root` and Override System section
+6. **Don't over-use** - Only create overrides for properties that are actually overridden by modules
+
+### ✅ RESOLVED: Link Color Override System
+
+**Status:** ✅ Implemented and working - First implementation of CSS Custom Property Override System
+
+**What Was the Problem:**
+The original link color utility system (`.link-white`, `.link-black`, `.link-gray`) had specificity conflicts that made it unreliable. The root cause was the Typography Override section applying `color: var(--color-text-primary)` to too many elements, including:
+- `a` elements (links themselves)
+- `span` elements (text inside links)
+- `div`, `li`, `td`, `th` (other inline/nested elements)
+
+This created a cascade conflict where nested elements inside links would inherit black color instead of the link color.
+
+**The Solution: CSS Custom Property Inheritance System**
+
+Implemented a three-part solution:
+
+**1. Created Intermediary Override Variable** (child.css line ~118)
+```css
+:root {
+  --link-color: var(--color-text-link);  /* Intermediary variable */
+}
+```
+
+**2. Applied Custom Property to Links** (child.css lines ~450-460)
+```css
+/* Links */
+a {
+  color: var(--link-color);
+  font-weight: var(--font-weight-medium);
+}
+
+[data-brand="cellcolabsclinical"] a:not(.button):not(.btn):not(.hs-button):not(button),
+[data-brand="cellcolabs"] a:not(.button):not(.btn):not(.hs-button):not(button) {
+  color: var(--link-color);
+  font-weight: var(--font-weight-medium);
+}
+```
+
+**3. Cleaned Up Typography Override** (child.css lines ~367-378)
+Removed elements that should inherit naturally from `body`:
+```css
+/* Before: */
+body, p, a, button, input, textarea, select, div, span, li, td, th { ... }
+
+/* After: */
+body, p, button, input, textarea, select { ... }
+```
+
+**Why This Works:**
+- `span`, `div`, `li`, `td`, `th` now inherit color from their parent `<a>` element
+- `<a>` elements use `--link-color` custom property
+- Modules can override `--link-color` without specificity conflicts
+- No need for utility classes like `.link-gray`
+
+**Module Implementation Example:**
+```css
+/* breadcrumb.module */
+.breadcrumb-navigation {
+  --link-color: var(--color-gray-600);  /* Override to gray */
+}
+
+.breadcrumb-link {
+  font-size: 13px;
+  /* Color automatically inherited from --link-color */
+}
+```
+
+**Benefits:**
+- ✅ Avoids specificity wars entirely
+- ✅ Works with HubSpot's CSS loading order
+- ✅ Allows easy theming via variable changes
+- ✅ Scales across multiple modules
+- ✅ Maintains centralized color management
+- ✅ Elements inside links properly inherit link color
+
+**Implementation Date:** October 2025
+
+---
+
 ### Button Styling Checklist
 
 When creating or updating buttons:

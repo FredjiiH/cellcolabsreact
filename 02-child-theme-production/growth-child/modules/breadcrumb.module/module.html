@@ -9,7 +9,7 @@
       {# Home link (optional) #}
       {% if module.show_home_link %}
       <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <a href="/" class="breadcrumb-link link-gray" itemprop="item">
+        <a href="/" class="breadcrumb-link" itemprop="item">
           <span itemprop="name">Home</span>
         </a>
         <meta itemprop="position" content="1" />
@@ -30,7 +30,7 @@
           {% set segment_label = segment|replace('-', ' ')|title %}
 
           <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a href="{{ segment_url }}" class="breadcrumb-link link-gray" itemprop="item">
+            <a href="{{ segment_url }}" class="breadcrumb-link" itemprop="item">
               <span itemprop="name">{{ segment_label }}</span>
             </a>
             <meta itemprop="position" content="{{ position }}" />
@@ -61,6 +61,9 @@
   width: 100%;
   background-color: transparent;
   padding: 0; /* Spacing controlled by DND section container */
+
+  /* Override link color to gray for this module */
+  --link-color: var(--color-gray-600);
 }
 
 .breadcrumb-container {
@@ -85,29 +88,27 @@
   gap: var(--space-8, 8px);
 }
 
+/* Breadcrumb link styling - color inherited from --link-color variable */
 .breadcrumb-link {
   font-family: var(--font-body);
-  font-size: var(--font-size-body-small, 14px);
+  font-size: 13px;
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-normal);
   text-decoration: none;
   transition: color 0.2s ease;
-}
-
-.breadcrumb-link:hover {
-  text-decoration: underline;
+  /* Color handled by --link-color custom property set on .breadcrumb-navigation */
 }
 
 .breadcrumb-separator {
   font-family: var(--font-body);
-  font-size: var(--font-size-body-small, 14px);
+  font-size: 13px;
   color: var(--color-text-tertiary, #8D8D8D);
   user-select: none;
 }
 
 .breadcrumb-current {
   font-family: var(--font-body);
-  font-size: var(--font-size-body-small, 14px);
+  font-size: 13px;
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-normal);
   color: var(--color-text-tertiary, #8D8D8D) !important;
@@ -137,7 +138,7 @@
   .breadcrumb-link,
   .breadcrumb-separator,
   .breadcrumb-current {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .breadcrumb-list {

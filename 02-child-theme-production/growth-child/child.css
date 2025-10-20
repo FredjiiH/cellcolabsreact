@@ -107,6 +107,19 @@
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+  /* ============================================= */
+  /* Intermediary Override Variables              */
+  /* ============================================= */
+  /* These variables allow modules to override global styles
+     without specificity wars. Add new override variables here
+     as needed (on-demand, not proactively). */
+
+  --link-color: var(--color-text-link);        /* Link color override system */
+  /* Future intermediary variables (add as needed):
+     --button-text-color: ...
+     --heading-color: ...
+     --input-border-color: ... */
 }
 
 /* Tablet Font Sizes */
@@ -248,52 +261,6 @@
 }
 
 /***********************************************/
-/* Utility Classes                            */
-/***********************************************/
-
-/* White link utility - for links on dark backgrounds */
-.link-white,
-.link-white:link,
-.link-white:visited,
-.link-white:active,
-.link-white:hover,
-.link-white:focus {
-  color: var(--color-text-inverse, #ffffff) !important;
-  background-color: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-}
-
-/* Black link utility - for links that should be black instead of brand color */
-.link-black,
-.link-black:link,
-.link-black:visited,
-.link-black:active,
-.link-black:hover,
-.link-black:focus {
-  color: var(--color-text-primary, #161616) !important;
-  background-color: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-}
-
-/* Gray link utility - for links that should be gray instead of brand color */
-.link-gray,
-.link-gray:link,
-.link-gray:visited,
-.link-gray:active,
-.link-gray:focus {
-  color: var(--color-text-tertiary, #8D8D8D) !important;
-  background-color: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-}
-
-.link-gray:hover {
-  color: var(--color-text-secondary, #525252) !important;
-}
-
-/***********************************************/
 /* HubSpot Spacing System Integration        */
 /***********************************************/
 
@@ -395,18 +362,14 @@
 /***********************************************/
 
 /* Override Growth theme's hardcoded fonts with !important */
+/* Note: 'a' elements excluded - link colors managed by CSS Custom Property Override System */
+/* Note: 'span', 'div', 'li', 'td', 'th' removed - should inherit naturally from body/parent */
 body,
 p,
-a,
 button,
 input,
 textarea,
-select,
-div,
-span,
-li,
-td,
-th {
+select {
   font-family: var(--font-body) !important;
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
@@ -470,18 +433,43 @@ input[type="button"] {
   font-weight: var(--font-weight-medium);
 }
 
-/* Links */
+/***********************************************/
+/* CSS Custom Property Override System        */
+/***********************************************/
+/* This section applies intermediary override variables to elements.
+   Modules can override these variables without specificity conflicts.
+   Organized by element type for easy maintenance. */
+
+/* ============================================= */
+/* Links                                         */
+/* ============================================= */
 a {
-  color: var(--color-text-link);
+  color: var(--link-color);
   font-weight: var(--font-weight-medium);
 }
 
-/* Brand-scoped links with proper specificity - exclude buttons and utility classes */
-[data-brand="cellcolabsclinical"] a:not(.button):not(.btn):not(.hs-button):not(button):not(.link-white):not(.link-black):not(.link-gray),
-[data-brand="cellcolabs"] a:not(.button):not(.btn):not(.hs-button):not(button):not(.link-white):not(.link-black):not(.link-gray) {
-  color: var(--color-text-link) !important;
+/* Brand-scoped links - exclude buttons */
+[data-brand="cellcolabsclinical"] a:not(.button):not(.btn):not(.hs-button):not(button),
+[data-brand="cellcolabs"] a:not(.button):not(.btn):not(.hs-button):not(button) {
+  color: var(--link-color);
   font-weight: var(--font-weight-medium);
 }
+
+/* ============================================= */
+/* Buttons (Future)                              */
+/* ============================================= */
+/* Example for future button text color override:
+   button {
+     color: var(--button-text-color);
+   } */
+
+/* ============================================= */
+/* Headings (Future)                             */
+/* ============================================= */
+/* Example for future heading color override:
+   h2 {
+     color: var(--heading-color);
+   } */
 
 /* Ensure HubSpot modules use our fonts - exclude headings so they can use Barlow */
 .hs_cos_wrapper,
@@ -490,6 +478,76 @@ a {
 .dnd-module *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6),
 .widget-type-rich_text *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
   font-family: inherit !important;
+}
+
+/***********************************************/
+/* DEPRECATED: Legacy Link Color Utilities    */
+/***********************************************/
+/* ⚠️ DEPRECATED: These utilities are obsolete and kept only for backward compatibility.
+
+   Current usage:
+   - header-clinical.module (to be migrated)
+   - footer-clinical.module (to be migrated)
+
+   DO NOT use these classes in new modules!
+
+   Instead, use the CSS Custom Property Override System:
+
+   Example (instead of .link-white):
+   .your-module {
+     --link-color: var(--color-text-inverse);
+   }
+
+   Example (instead of .link-black):
+   .your-module {
+     --link-color: var(--color-text-primary);
+   }
+
+   Example (instead of .link-gray):
+   .your-module {
+     --link-color: var(--color-gray-600);
+   }
+
+   See CSS_STYLING_GUIDE.md for full documentation.
+   TODO: Remove after migrating header and footer modules. */
+
+/* White link utility - DEPRECATED */
+.link-white,
+.link-white:link,
+.link-white:visited,
+.link-white:active,
+.link-white:hover,
+.link-white:focus {
+  color: var(--color-text-inverse, #ffffff) !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* Black link utility - DEPRECATED */
+.link-black,
+.link-black:link,
+.link-black:visited,
+.link-black:active,
+.link-black:hover,
+.link-black:focus {
+  color: var(--color-text-primary, #161616) !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* Gray link utility - DEPRECATED */
+.link-gray,
+.link-gray:link,
+.link-gray:visited,
+.link-gray:active,
+.link-gray:hover,
+.link-gray:focus {
+  color: var(--color-gray-600, #A8A8A8) !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
 }
 
 /***********************************************/

@@ -140,12 +140,12 @@
         <div class="location-content location-content-active">
           <h3 class="location-title">{{ module.location1_title }}</h3>
           <div class="location-description">{{ module.location1_description }}</div>
-          <a href="{{ module.location1_link_url }}" class="location-link link-black">{{ module.location1_link_text }}</a>
+          <a href="{{ module.location1_link_url }}" class="location-link">{{ module.location1_link_text }}</a>
         </div>
         <div class="location-content">
           <h3 class="location-title">{{ module.location2_title }}</h3>
           <div class="location-description">{{ module.location2_description }}</div>
-          <a href="{{ module.location2_link_url }}" class="location-link link-black">{{ module.location2_link_text }}</a>
+          <a href="{{ module.location2_link_url }}" class="location-link">{{ module.location2_link_text }}</a>
         </div>
       </div>
     </div>
@@ -159,6 +159,9 @@
   padding: 0; /* Spacing controlled by DND section container */
   width: 100%;
   box-sizing: border-box;
+
+  /* Override link color to black for this module */
+  --link-color: var(--color-text-primary);
 }
 
 .locations-carousel-block-v2 .container {
@@ -206,6 +209,7 @@
   line-height: var(--line-height-normal);
   color: var(--color-gray-300, #525252) !important;
   text-align: center;
+  text-transform: uppercase;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -289,6 +293,7 @@
   width: 100%;
   border-radius: var(--space-8, 8px);
   overflow: hidden;
+  margin-top: var(--space-64, 64px); /* Spacing above carousel images */
 }
 
 .locations-carousel-block-v2 .location-carousel-active {
@@ -404,6 +409,7 @@
   width: 100%;
   display: flex;
   justify-content: flex-start;
+  margin-top: var(--space-64, 64px); /* Spacing below carousel images */
 }
 
 .locations-carousel-block-v2 .bottom-content-inner {
@@ -443,7 +449,7 @@
   margin: 0;
 }
 
-/* Location link - module-specific styling (color handled by .link-black utility) */
+/* Location link - color inherited from --link-color custom property */
 .locations-carousel-block-v2 .location-link {
   font-family: var(--font-body);
   font-size: var(--font-size-body);
@@ -482,8 +488,16 @@
     font-size: var(--font-size-body, 16px);
   }
 
+  .locations-carousel-block-v2 .location-carousel {
+    margin-top: var(--space-48, 48px); /* Tablet spacing above carousel */
+  }
+
   .locations-carousel-block-v2 .carousel-images {
     height: 500px;
+  }
+
+  .locations-carousel-block-v2 .bottom-content {
+    margin-top: var(--space-48, 48px); /* Tablet spacing below carousel */
   }
 
   .locations-carousel-block-v2 .bottom-content-inner {
@@ -530,6 +544,10 @@
     font-size: var(--font-size-body-small, 14px);
   }
 
+  .locations-carousel-block-v2 .location-carousel {
+    margin-top: var(--space-32, 32px); /* Mobile spacing above carousel */
+  }
+
   .locations-carousel-block-v2 .carousel-images {
     height: 400px;
   }
@@ -566,6 +584,10 @@
 
   .locations-carousel-block-v2 .carousel-arrow-next {
     right: var(--space-16, 16px);
+  }
+
+  .locations-carousel-block-v2 .bottom-content {
+    margin-top: var(--space-32, 32px); /* Mobile spacing below carousel */
   }
 
   .locations-carousel-block-v2 .bottom-content-inner {

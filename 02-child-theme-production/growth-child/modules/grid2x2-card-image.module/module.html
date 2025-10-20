@@ -25,7 +25,7 @@
                 {% if card.link_url.url.type is equalto "EMAIL_ADDRESS" %}
                   {% set href = "mailto:" + href %}
                 {% endif %}
-                <a href="{{ href }}" class="grid2x2-card-link link-white"
+                <a href="{{ href }}" class="grid2x2-card-link"
                    {% if card.link_url.open_in_new_tab %}target="_blank"{% endif %}
                    {% if card.link_url.no_follow %}rel="nofollow"{% endif %}>
                   {{ card.link_text or "Learn more" }} ↗
@@ -48,6 +48,9 @@
   padding: 0; /* Spacing controlled by DND section container */
   margin: 0;
   box-sizing: border-box;
+
+  /* Override link color to white for this module */
+  --link-color: var(--color-text-inverse);
 }
 
 .grid2x2-container {
@@ -143,7 +146,7 @@
   max-width: 400px;
 }
 
-/* Link styles - module-specific styling (color handled by .link-white utility) */
+/* Link styles - color inherited from --link-color custom property */
 .grid2x2-card-link {
   text-decoration: underline;
   text-underline-position: from-font;

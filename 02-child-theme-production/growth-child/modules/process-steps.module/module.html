@@ -47,6 +47,7 @@
     line-height: 1.35;
     color: var(--color-text-secondary, #525252);
     text-align: center;
+    text-transform: uppercase;
     white-space: nowrap;
     width: fit-content;
   }
@@ -84,7 +85,7 @@
     content: '';
     position: absolute;
     left: 32px;
-    top: 192px;
+    top: var(--line-top, 0px);
     width: 1px;
     height: var(--line-height, 500px);
     background-color: var(--color-gray-100, #262626);
@@ -97,7 +98,7 @@
     content: '';
     position: absolute;
     left: 32px;
-    top: 192px;
+    top: var(--line-top, 0px);
     width: 1px;
     height: var(--progress-line-height, 0px);
     background-color: var(--color-brand-900, #0f2047);
@@ -257,12 +258,10 @@
 
     .process-steps__content::before {
       left: 24px;
-      top: 48px;
     }
 
     .process-steps__content::after {
       left: 24px;
-      top: 48px;
     }
 
     .process-steps__step {
@@ -288,14 +287,6 @@
     .process-steps__content {
       padding-top: 0; /* Spacing controlled by DND section container */
       padding-bottom: 0; /* Spacing controlled by DND section container */
-    }
-
-    .process-steps__content::before {
-      top: 128px;
-    }
-
-    .process-steps__content::after {
-      top: 128px;
     }
 
     .process-steps__step {
@@ -356,26 +347,35 @@
       styleEl.id = 'process-steps-dynamic-styles';
       document.head.appendChild(styleEl);
 
-      // Set the line height dynamically to stop at last circle top
-      function setLineHeight() {
+      // Set the line starting position and height dynamically
+      function setLinePositionAndHeight() {
         const content = document.querySelector('.process-steps__content');
         if (!content || steps.length === 0) return;
 
+        const firstStep = steps[0];
+        const firstCircle = firstStep.querySelector('.process-steps__step-number');
         const lastStep = steps[steps.length - 1];
         const lastCircle = lastStep.querySelector('.process-steps__step-number');
-        if (!lastCircle) return;
+
+        if (!firstCircle || !lastCircle) return;
 
         const contentRect = content.getBoundingClientRect();
+        const firstCircleRect = firstCircle.getBoundingClientRect();
         const lastCircleRect = lastCircle.getBoundingClientRect();
 
-        // Determine line top offset based on breakpoint
-        const isMobile = window.innerWidth <= 767;
-        const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1023;
-        const lineTopOffset = isMobile ? 48 : (isTablet ? 128 : 192);
+        // Calculate line starting position (center of first circle)
+        const circleRadius = firstCircleRect.height / 2;
+        const lineTop = (firstCircleRect.top - contentRect.top) + circleRadius;
+        content.style.setProperty('--line-top', lineTop + 'px');
 
-        // Calculate distance from content top to last circle top, minus the line's top offset
-        const lineHeight = (lastCircleRect.top - contentRect.top - lineTopOffset);
+        // Calculate line height (from center of first circle to center of last circle)
+        // Both positions must be relative to content container
+        const lastCircleCenter = (lastCircleRect.top - contentRect.top) + (lastCircleRect.height / 2);
+        const lineHeight = lastCircleCenter - lineTop;
         content.style.setProperty('--line-height', lineHeight + 'px');
+
+        // Store line top for use in scroll calculations
+        content.dataset.lineTop = lineTop;
       }
 
       function checkStepActivation() {
@@ -400,7 +400,7 @@
         let progressLineHeight = 0;
 
         const contentRect = content.getBoundingClientRect();
-        const lineTopOffset = isMobile ? 48 : (isTablet ? 128 : 192);
+        const lineTopOffset = parseFloat(content.dataset.lineTop) || 0;
 
         // Progressive activation: activate all steps up to and including the one at trigger point
         steps.forEach((step, index) => {
@@ -476,9 +476,9 @@
         }
       }
 
-      // Set line height
-      setLineHeight();
-      window.addEventListener('resize', setLineHeight);
+      // Set line position and height
+      setLinePositionAndHeight();
+      window.addEventListener('resize', setLinePositionAndHeight);
 
       // Run on scroll
       window.addEventListener('scroll', checkStepActivation);
@@ -488,7 +488,7 @@
 
       // Run after a short delay to ensure layout is settled
       setTimeout(checkStepActivation, 100);
-      setTimeout(setLineHeight, 100);
+      setTimeout(setLinePositionAndHeight, 100);
     }
 
     // Initialize on DOM ready
