@@ -152,6 +152,88 @@ All modules have access to these CSS variables that automatically switch:
 #### Spacing
 - `var(--space-8)` through `var(--space-128)`
 
+## 🎨 Background Color Implementation (REQUIRED STANDARD)
+
+**IMPORTANT**: All modules that support background colors MUST use the Figma design system preset approach.
+
+### Background Color Dual-Field Pattern
+
+Modules with background color options must implement a two-field system:
+1. **Preset selector** - Dropdown with Figma variable names
+2. **Custom color picker** - Only visible when "Custom" is selected
+
+### Implementation in fields.json:
+
+```json
+{
+  "name": "background_color_preset",
+  "label": "Background Color",
+  "type": "choice",
+  "choices": [
+    ["none", "None (Transparent)"],
+    ["bg-white", "$bg-white"],
+    ["bg-beige", "$bg-beige"],
+    ["bg-blue", "$bg-blue"],
+    ["neutral-900", "neutral-900 (Light Gray)"],
+    ["neutral-0", "neutral-0 (Dark)"],
+    ["custom", "Custom Color"]
+  ],
+  "default": "none",
+  "help_text": "Select a Figma design system color or choose Custom for one-off colors"
+},
+{
+  "name": "background_color_custom",
+  "label": "Custom Background Color",
+  "type": "color",
+  "default": {
+    "color": "#FFFFFF",
+    "opacity": 100
+  },
+  "visibility": {
+    "controlling_field": "background_color_preset",
+    "controlling_value_regex": "custom"
+  }
+}
+```
+
+### Implementation in module.html:
+
+```html
+{# Background Color Logic - Map Figma presets to CSS variables #}
+{% set bg_preset = module.background_color_preset %}
+{% if bg_preset == "custom" %}
+  {% set bg_color = module.background_color_custom.color %}
+{% elif bg_preset == "bg-white" %}
+  {% set bg_color = "var(--color-bg-white, #FFFFFF)" %}
+{% elif bg_preset == "bg-beige" %}
+  {% set bg_color = "var(--color-bg-beige, #EDE9E1)" %}
+{% elif bg_preset == "bg-blue" %}
+  {% set bg_color = "var(--color-bg-blue, #E1EBF5)" %}
+{% elif bg_preset == "neutral-900" %}
+  {% set bg_color = "var(--color-gray-900, #F4F4F4)" %}
+{% elif bg_preset == "neutral-0" %}
+  {% set bg_color = "var(--color-gray-0, #161616)" %}
+{% else %}
+  {% set bg_color = "transparent" %}
+{% endif %}
+
+<section class="my-module" style="background-color: {{ bg_color }};">
+  <!-- Module content -->
+</section>
+```
+
+### Why This Standard?
+
+- ✅ Users see Figma variable names they reference in designs
+- ✅ Background colors automatically adapt per brand (`$bg-blue` changes)
+- ✅ Maintains custom color flexibility for edge cases
+- ✅ Centralized color management through CSS variables
+- ✅ Design system consistency across all modules
+
+**Reference Modules:**
+- `section-builder.module` - Full implementation
+- `content-checklist-block-global.module` - Full implementation
+
 ## 🔗 Link Field Implementation
 
 Always use HubSpot's `link` field type (not `url`):
@@ -198,6 +280,7 @@ Before deploying a new module:
 
 - [ ] NO theme field in fields.json
 - [ ] Uses CSS variables for all brand colors
+- [ ] **Background colors use Figma preset system** (if module supports backgrounds)
 - [ ] Responsive styles included
 - [ ] Link fields use `type: "link"` not `type: "url"`
 - [ ] Container max-width: 1460px with padding: 0 24px

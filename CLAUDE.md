@@ -219,21 +219,36 @@ Brand detection happens in `base.html` based on request domain:
 {{ require_css(get_public_template_url("../../css/marketplace-modules.css")) }}
 ```
 
-### Typography Scale
+### Typography Scale (Figma-Aligned)
 
-All font sizes automatically adjust across three breakpoints:
+All font sizes automatically adjust across three breakpoints and match the Figma design system:
 
 **Desktop (1024px+):**
-- Display: 80px, H1: 56px, H2: 48px, H3: 36px, H4: 16px
+- Display: 64px, H1: 56px, H2: 40px, H3: 28px, H4: 20px
 - Body Large: 18px, Body: 16px, Body Small: 14px
+- Eyebrow: 14px, Navigation: 14px
 
 **Tablet (768-1023px):**
 - Display: 48px, H1: 36px, H2: 32px, H3: 28px, H4: 16px
 - Body Large: 16px, Body: 16px, Body Small: 14px
+- Eyebrow: 14px, Navigation: 14px
 
 **Mobile (767px and below):**
-- Display: 40px, H1: 36px, H2: 32px, H3: 28px, H4: 16px
+- Display: 48px, H1: 36px, H2: 32px, H3: 28px, H4: 16px
 - Body Large: 16px, Body: 16px, Body Small: 14px
+- Eyebrow: 14px, Navigation: 14px
+
+**Line Heights:**
+- Display: 100% (1.0) with -2% letter-spacing
+- Headings (H1-H4): 115% (1.15)
+- Body text: 135% (1.35)
+- Buttons/Navigation: 100% (1.0)
+
+**Font Weights:**
+- Regular: 400 (Inter Variable)
+- Medium: 500 (used for headings in Barlow)
+- Semibold: 650
+- Bold: 700
 
 ### Button Styling
 
@@ -264,6 +279,56 @@ Global link colors managed in `child.css`:
 **Link Color Utilities:**
 - `.link-white` - White links on dark backgrounds
 - `.link-black` - Black links instead of brand color
+
+### Background Color System
+
+All modules with background color options use a **dual-field system** that combines Figma design system presets with custom color flexibility:
+
+**Available Figma Preset Colors:**
+- `$bg-white` - #FFFFFF (white background)
+- `$bg-beige` - #EDE9E1 (beige/cream background)
+- `$bg-blue` - #E1EBF5 (brand-colored background, adapts per brand)
+- `neutral-900` - #F4F4F4 (light gray)
+- `neutral-0` - #161616 (dark/black)
+- **Custom Color** - Allows one-off custom colors when needed
+
+**Implementation Pattern:**
+```json
+{
+  "name": "background_color_preset",
+  "label": "Background Color",
+  "type": "choice",
+  "choices": [
+    ["none", "None (Transparent)"],
+    ["bg-white", "$bg-white"],
+    ["bg-beige", "$bg-beige"],
+    ["bg-blue", "$bg-blue"],
+    ["neutral-900", "neutral-900 (Light Gray)"],
+    ["neutral-0", "neutral-0 (Dark)"],
+    ["custom", "Custom Color"]
+  ],
+  "help_text": "Select a Figma design system color or choose Custom for one-off colors"
+},
+{
+  "name": "background_color_custom",
+  "label": "Custom Background Color",
+  "type": "color",
+  "visibility": {
+    "controlling_field": "background_color_preset",
+    "controlling_value_regex": "custom"
+  }
+}
+```
+
+**Why This Approach:**
+- Users see Figma variable names matching the design system
+- Brand colors automatically adapt (e.g., `$bg-blue` changes per brand)
+- Custom color option maintains flexibility for edge cases
+- Centralized color management through CSS variables
+
+**Modules with Background Color System:**
+- Section Builder Module ✅
+- Content Checklist Block Global Module ✅
 
 📚 **For complete CSS architecture, button/link styling, form styling, and best practices, see:** [02-child-theme-production/docs/CSS_STYLING_GUIDE.md](./02-child-theme-production/docs/CSS_STYLING_GUIDE.md)
 

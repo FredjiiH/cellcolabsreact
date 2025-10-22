@@ -16,15 +16,38 @@
     "default": "single"
   },
   {
-    "id": "background_color",
-    "name": "background_color",
+    "id": "background_color_preset",
+    "name": "background_color_preset",
     "label": "Background Color",
+    "required": false,
+    "locked": false,
+    "type": "choice",
+    "choices": [
+      ["none", "None (Transparent)"],
+      ["bg-white", "$bg-white"],
+      ["bg-beige", "$bg-beige"],
+      ["bg-blue", "$bg-blue"],
+      ["neutral-900", "neutral-900 (Light Gray)"],
+      ["neutral-0", "neutral-0 (Dark)"],
+      ["custom", "Custom Color"]
+    ],
+    "default": "none",
+    "help_text": "Select a Figma design system color or choose Custom for one-off colors"
+  },
+  {
+    "id": "background_color_custom",
+    "name": "background_color_custom",
+    "label": "Custom Background Color",
     "required": false,
     "locked": false,
     "type": "color",
     "default": {
       "color": "#FFFFFF",
       "opacity": 100
+    },
+    "visibility": {
+      "controlling_field": "background_color_preset",
+      "controlling_value_regex": "custom"
     }
   },
   {

@@ -87,50 +87,193 @@ Theme module CSS is automatically included when the module is used (no manual lo
 
 ## Brand Variables and Responsive Typography
 
-### Typography Scale (Updated to Match Figma)
+### Typography Scale (Figma-Aligned)
 
-All font sizes automatically adjust across three breakpoints:
+All font sizes automatically adjust across three breakpoints and match the Figma design system exactly:
 
 **Desktop (1024px+):**
-- Display: 80px
-- H1: 56px
-- H2: 48px
-- H3: 36px
-- H4: 16px
+- Display: 64px (4rem)
+- H1: 56px (3.5rem)
+- H2: 40px (2.5rem)
+- H3: 28px (1.75rem)
+- H4: 20px (1.25rem)
 - Body Large: 18px
 - Body: 16px
 - Body Small: 14px
+- Eyebrow: 14px (0.875rem)
+- Navigation: 14px (0.875rem)
 
 **Tablet (768-1023px):**
-- Display: 48px
-- H1: 36px
-- H2: 32px
-- H3: 28px
-- H4: 16px
+- Display: 48px (3rem)
+- H1: 36px (2.25rem)
+- H2: 32px (2rem)
+- H3: 28px (1.75rem)
+- H4: 16px (1rem)
 - Body Large: 16px
 - Body: 16px
 - Body Small: 14px
 
 **Mobile (767px and below):**
-- Display: 40px
-- H1: 36px
-- H2: 32px
-- H3: 28px
-- H4: 16px
+- Display: 48px (3rem)
+- H1: 36px (2.25rem)
+- H2: 32px (2rem)
+- H3: 28px (1.75rem)
+- H4: 16px (1rem)
 - Body Large: 16px
 - Body: 16px
 - Body Small: 14px
+
+**Line Heights (Semantic System):**
+- Display: 100% (1.0) with -2% letter-spacing
+- Headings (H1-H4): 115% (1.15)
+- Body text: 135% (1.35)
+- Buttons/Navigation: 100% (1.0)
+
+**Font Weights:**
+- Regular: 400 (Inter Variable)
+- Medium: 500 (used for headings in Barlow)
+- Semibold: 650
+- Bold: 700
 
 ### Using Typography Variables
 
 ```css
 /* Heading uses responsive font size */
 .my-heading {
-  font-size: var(--font-size-h2); /* Auto-switches: 48px → 32px → 32px */
-  line-height: var(--line-height-tight, 1.15);
-  font-weight: var(--font-weight-medium, 580);
+  font-size: var(--font-size-h2); /* Auto-switches: 40px → 32px → 32px */
+  line-height: var(--line-height-heading); /* 1.15 = 115% */
+  font-weight: var(--font-weight-medium); /* 500 */
+  font-family: var(--font-heading); /* Barlow */
+}
+
+/* Body text with semantic line-height */
+.my-text {
+  font-size: var(--font-size-body); /* 16px */
+  line-height: var(--line-height-body); /* 1.35 = 135% */
+  font-weight: var(--font-weight-regular); /* 400 */
+  font-family: var(--font-body); /* Inter */
+}
+
+/* Display text with letter-spacing */
+.my-display {
+  font-size: var(--font-size-display); /* Auto-switches: 64px → 48px → 48px */
+  line-height: var(--line-height-display); /* 1.0 = 100% */
+  letter-spacing: var(--letter-spacing-display); /* -0.02em = -2% */
+  font-weight: var(--font-weight-medium); /* 500 */
+  font-family: var(--font-heading); /* Barlow */
 }
 ```
+
+## Background Color System
+
+All modules with background color options use a **dual-field system** that combines Figma design system presets with custom color flexibility.
+
+### Available Figma Preset Colors
+
+**Brand-Adaptive Background Colors:**
+- `$bg-white` - #FFFFFF (white background)
+- `$bg-beige` - #EDE9E1 (beige/cream background)
+- `$bg-blue` - #E1EBF5 (brand-colored background, adapts per brand)
+
+**Neutral Background Colors:**
+- `neutral-900` - #F4F4F4 (light gray)
+- `neutral-0` - #161616 (dark/black)
+
+**Custom Option:**
+- **Custom Color** - Allows one-off custom colors when needed
+
+### Dual-Field Implementation Pattern
+
+Modules with background color options implement a two-field system:
+
+**1. Preset Selector (fields.json):**
+```json
+{
+  "name": "background_color_preset",
+  "label": "Background Color",
+  "type": "choice",
+  "choices": [
+    ["none", "None (Transparent)"],
+    ["bg-white", "$bg-white"],
+    ["bg-beige", "$bg-beige"],
+    ["bg-blue", "$bg-blue"],
+    ["neutral-900", "neutral-900 (Light Gray)"],
+    ["neutral-0", "neutral-0 (Dark)"],
+    ["custom", "Custom Color"]
+  ],
+  "default": "none",
+  "help_text": "Select a Figma design system color or choose Custom for one-off colors"
+}
+```
+
+**2. Custom Color Picker (fields.json):**
+```json
+{
+  "name": "background_color_custom",
+  "label": "Custom Background Color",
+  "type": "color",
+  "default": {
+    "color": "#FFFFFF",
+    "opacity": 100
+  },
+  "visibility": {
+    "controlling_field": "background_color_preset",
+    "controlling_value_regex": "custom"
+  }
+}
+```
+
+**3. Background Color Logic (module.html):**
+```hubl
+{# Background Color Logic - Map Figma presets to CSS variables #}
+{% set bg_preset = module.background_color_preset %}
+{% if bg_preset == "custom" %}
+  {% set bg_color = module.background_color_custom.color %}
+{% elif bg_preset == "bg-white" %}
+  {% set bg_color = "var(--color-bg-white, #FFFFFF)" %}
+{% elif bg_preset == "bg-beige" %}
+  {% set bg_color = "var(--color-bg-beige, #EDE9E1)" %}
+{% elif bg_preset == "bg-blue" %}
+  {% set bg_color = "var(--color-bg-blue, #E1EBF5)" %}
+{% elif bg_preset == "neutral-900" %}
+  {% set bg_color = "var(--color-gray-900, #F4F4F4)" %}
+{% elif bg_preset == "neutral-0" %}
+  {% set bg_color = "var(--color-gray-0, #161616)" %}
+{% else %}
+  {% set bg_color = "transparent" %}
+{% endif %}
+
+<section class="my-module" style="background-color: {{ bg_color }};">
+  <!-- Module content -->
+</section>
+```
+
+### Why This Approach?
+
+✅ **Benefits:**
+- Users see Figma variable names matching the design system
+- Brand colors automatically adapt (e.g., `$bg-blue` changes per brand)
+- Custom color option maintains flexibility for edge cases
+- Centralized color management through CSS variables
+- Design system consistency across all modules
+
+### Modules with Background Color System
+
+- ✅ **Section Builder Module** - Full implementation
+- ✅ **Content Checklist Block Global Module** - Full implementation
+
+### CSS Variables in child.css
+
+Background color CSS variables are defined in `child.css`:
+
+```css
+/* Background Colors */
+--color-bg-white: #FFFFFF;
+--color-bg-beige: #EDE9E1;
+--color-bg-blue: #E1EBF5;  /* Brand-adaptive: Clinical = light blue, Cellcolabs = light green (future) */
+```
+
+**Note:** When Cellcolabs (green brand) is implemented, `--color-bg-blue` will be overridden in the brand-specific section to use a light green color for the Cellcolabs brand.
 
 ## Button and Link Styling Architecture
 
@@ -954,8 +1097,8 @@ form input[type='email'],
 form textarea {
   font-family: var(--font-body, 'Inter', sans-serif) !important;
   font-size: var(--font-size-body, 16px) !important;
-  font-weight: var(--font-weight-regular, 450) !important;
-  line-height: var(--line-height-normal, 1.5) !important;
+  font-weight: var(--font-weight-regular, 400) !important;
+  line-height: var(--line-height-body, 1.35) !important;
   color: var(--color-text-primary) !important;
   background-color: #ffffff !important;
   border: 1px solid var(--color-gray-300, #d1d1d1) !important;

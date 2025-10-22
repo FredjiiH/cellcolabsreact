@@ -6,11 +6,31 @@
     "default": "Excellence in every cell"
   },
   {
-    "name": "background_color",
+    "name": "background_color_preset",
     "label": "Background Color",
+    "type": "choice",
+    "choices": [
+      ["none", "None (Transparent)"],
+      ["bg-white", "$bg-white"],
+      ["bg-beige", "$bg-beige"],
+      ["bg-blue", "$bg-blue"],
+      ["neutral-900", "neutral-900 (Light Gray)"],
+      ["neutral-0", "neutral-0 (Dark)"],
+      ["custom", "Custom Color"]
+    ],
+    "default": "bg-blue",
+    "help_text": "Select a Figma design system color or choose Custom for one-off colors"
+  },
+  {
+    "name": "background_color_custom",
+    "label": "Custom Background Color",
     "type": "color",
     "default": {
       "color": "#BECFFF"
+    },
+    "visibility": {
+      "controlling_field": "background_color_preset",
+      "controlling_value_regex": "custom"
     }
   },
   {

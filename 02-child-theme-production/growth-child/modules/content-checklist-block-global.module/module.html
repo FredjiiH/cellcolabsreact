@@ -1,6 +1,30 @@
 <!-- Content Checklist Block Module -->
+
+{# Background Color Logic - Map Figma presets to CSS variables #}
+{# Backwards compatibility: Check if old background_color field exists #}
+{% if module.background_color and module.background_color.color %}
+  {% set bg_color = module.background_color.color %}
+{% else %}
+  {% set bg_preset = module.background_color_preset %}
+  {% if bg_preset == "custom" %}
+    {% set bg_color = module.background_color_custom.color %}
+  {% elif bg_preset == "bg-white" %}
+    {% set bg_color = "var(--color-bg-white, #FFFFFF)" %}
+  {% elif bg_preset == "bg-beige" %}
+    {% set bg_color = "var(--color-bg-beige, #EDE9E1)" %}
+  {% elif bg_preset == "bg-blue" %}
+    {% set bg_color = "var(--color-bg-blue, #E1EBF5)" %}
+  {% elif bg_preset == "neutral-900" %}
+    {% set bg_color = "var(--color-gray-900, #F4F4F4)" %}
+  {% elif bg_preset == "neutral-0" %}
+    {% set bg_color = "var(--color-gray-0, #161616)" %}
+  {% else %}
+    {% set bg_color = "transparent" %}
+  {% endif %}
+{% endif %}
+
 <section class="content-checklist-block"
-         style="background-color: {{ module.background_color.color }}; border-radius: {{ module.corner_radius }}px;">
+         style="background-color: {{ bg_color }}; border-radius: {{ module.corner_radius }}px;">
   <div class="container">
     <div class="content">
       <!-- Desktop Layout -->
