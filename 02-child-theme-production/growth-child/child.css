@@ -29,26 +29,37 @@
   /* Typography - Headings use Barlow, body uses Inter */
   --font-heading: 'Barlow', sans-serif;
   --font-body: 'Inter', sans-serif;
-  --font-weight-regular: 450;
+  --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 650;
   --font-weight-bold: 700;
 
-  /* Line Heights */
+  /* Line Heights - Figma Design System */
+  --line-height-display: 1.0;     /* 100% - Display text */
+  --line-height-heading: 1.15;    /* 115% - H1-H4 */
+  --line-height-body: 1.35;       /* 135% - Body text, links */
+  --line-height-button: 1.0;      /* 100% - Buttons, navigation */
+
+  /* Legacy line heights (kept for backwards compatibility) */
   --line-height-tight: 1.2;
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.7;
 
+  /* Letter Spacing */
+  --letter-spacing-display: -0.02em;  /* -2% tracking for Display */
+
   /* Responsive Font Sizes - Desktop (1024px+) */
-  --font-size-display-desktop: 5rem;      /* 80px */
+  --font-size-display-desktop: 4rem;      /* 64px */
   --font-size-h1-desktop: 3.5rem;         /* 56px */
-  --font-size-h2-desktop: 3rem;           /* 48px */
-  --font-size-h3-desktop: 2.25rem;        /* 36px */
-  --font-size-h4-desktop: 1rem;           /* 16px */
+  --font-size-h2-desktop: 2.5rem;         /* 40px */
+  --font-size-h3-desktop: 1.75rem;        /* 28px */
+  --font-size-h4-desktop: 1.25rem;        /* 20px */
   --font-size-body-large-desktop: 1.125rem; /* 18px */
   --font-size-body-medium-desktop: 1rem;    /* 16px */
   --font-size-body-small-desktop: 0.875rem; /* 14px */
   --font-size-button-desktop: 1rem;         /* 16px */
+  --font-size-eyebrow-desktop: 0.875rem;    /* 14px */
+  --font-size-nav-desktop: 0.875rem;        /* 14px */
 
   /* Responsive Font Sizes - Tablet (768px-1023px) */
   --font-size-display-tablet: 3rem;       /* 48px */
@@ -60,9 +71,11 @@
   --font-size-body-medium-tablet: 1rem;   /* 16px */
   --font-size-body-small-tablet: 0.875rem; /* 14px */
   --font-size-button-tablet: 1rem;        /* 16px */
+  --font-size-eyebrow-tablet: 0.875rem;   /* 14px */
+  --font-size-nav-tablet: 0.875rem;       /* 14px */
 
   /* Responsive Font Sizes - Mobile (767px and below) */
-  --font-size-display-mobile: 2.5rem;     /* 40px */
+  --font-size-display-mobile: 3rem;       /* 48px */
   --font-size-h1-mobile: 2.25rem;         /* 36px */
   --font-size-h2-mobile: 2rem;            /* 32px */
   --font-size-h3-mobile: 1.75rem;         /* 28px */
@@ -71,6 +84,8 @@
   --font-size-body-medium-mobile: 1rem;   /* 16px */
   --font-size-body-small-mobile: 0.875rem; /* 14px */
   --font-size-button-mobile: 1rem;        /* 16px */
+  --font-size-eyebrow-mobile: 0.875rem;   /* 14px */
+  --font-size-nav-mobile: 0.875rem;       /* 14px */
 
   /* Active Font Sizes (Mobile First) */
   --font-size-display: var(--font-size-display-mobile);
@@ -82,6 +97,8 @@
   --font-size-body: var(--font-size-body-medium-mobile);
   --font-size-body-small: var(--font-size-body-small-mobile);
   --font-size-button: var(--font-size-button-mobile);
+  --font-size-eyebrow: var(--font-size-eyebrow-mobile);
+  --font-size-nav: var(--font-size-nav-mobile);
 
   /* Grayscale System - Shared */
   --color-gray-0: #161616;
@@ -134,6 +151,8 @@
     --font-size-body: var(--font-size-body-medium-tablet);
     --font-size-body-small: var(--font-size-body-small-tablet);
     --font-size-button: var(--font-size-button-tablet);
+    --font-size-eyebrow: var(--font-size-eyebrow-tablet);
+    --font-size-nav: var(--font-size-nav-tablet);
   }
 }
 
@@ -149,6 +168,8 @@
     --font-size-body: var(--font-size-body-medium-desktop);
     --font-size-body-small: var(--font-size-body-small-desktop);
     --font-size-button: var(--font-size-button-desktop);
+    --font-size-eyebrow: var(--font-size-eyebrow-desktop);
+    --font-size-nav: var(--font-size-nav-desktop);
   }
 }
 
@@ -373,7 +394,7 @@ select {
   font-family: var(--font-body) !important;
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-normal);
+  line-height: var(--line-height-body);
   color: var(--color-text-primary);
 }
 
@@ -384,8 +405,8 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading) !important;
-  font-weight: var(--font-weight-bold) !important;
-  line-height: var(--line-height-tight);
+  font-weight: var(--font-weight-medium) !important;
+  line-height: var(--line-height-heading);
   color: var(--color-text-primary);
   margin-bottom: 1rem;
 }
@@ -400,27 +421,45 @@ h2 {
 
 h3 {
   font-size: var(--font-size-h3) !important;
-  font-weight: var(--font-weight-semibold) !important;
 }
 
 h4 {
   font-size: var(--font-size-h4) !important;
-  font-weight: var(--font-weight-semibold) !important;
-  line-height: var(--line-height-normal);
 }
 
 h5,
 h6 {
-  font-weight: var(--font-weight-semibold) !important;
+  font-weight: var(--font-weight-medium) !important;
 }
 
 /* Utility classes */
+.text-display,
+.display {
+  font-size: var(--font-size-display);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-display);
+  letter-spacing: var(--letter-spacing-display);
+}
+
 .text-large {
   font-size: var(--font-size-body-large);
+  line-height: var(--line-height-body);
 }
 
 .text-small {
   font-size: var(--font-size-body-small);
+  line-height: var(--line-height-body);
+}
+
+.text-eyebrow,
+.eyebrow {
+  font-size: var(--font-size-eyebrow);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* Buttons - Override Growth theme button fonts */
@@ -431,6 +470,7 @@ input[type="button"] {
   font-family: var(--font-body) !important;
   font-size: var(--font-size-button);
   font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-button);
 }
 
 /***********************************************/

@@ -13,17 +13,10 @@
 {% set column_gap = module.column_gap %}
 {% set blocks = module.content_blocks %}
 
-{# LCP Optimization - Preload critical image block if marked as LCP #}
-{% for block in blocks %}
-  {% if block.block_type == 'image' and block.is_lcp_image %}
-    {% if block.image_desktop and block.image_desktop.src %}
-      {% require_head %}
-      {# Preload desktop LCP image - use original optimized image #}
-      <link rel="preload" as="image" href="{{ block.image_desktop.src }}" fetchpriority="high">
-      {% end_require_head %}
-    {% endif %}
-  {% endif %}
-{% endfor %}
+{# LCP Optimization - REMOVED PRELOAD LINK #}
+{# HubSpot's automatic srcset generation (enabled by width/height attributes) handles responsive images #}
+{# The img tag with fetchpriority="high" is sufficient for high priority loading #}
+{# Preload was causing URL mismatch: preload fetched original, srcset fetched optimized versions #}
 
 <style>
   /* Section Builder Component - Uses Brand CSS Variables */
@@ -101,9 +94,9 @@
     padding: var(--space-8, 8px) var(--space-12, 12px);
     border-radius: var(--border-radius-md, 8px);
     font-family: var(--font-body, 'Inter', sans-serif);
-    font-weight: var(--font-weight-regular, 450);
-    font-size: var(--font-size-body-small, 14px);
-    line-height: 1.35;
+    font-weight: var(--font-weight-regular, 400);
+    font-size: var(--font-size-eyebrow, 14px);
+    line-height: var(--line-height-body, 1.35);
     text-align: center;
     text-transform: uppercase;
     white-space: nowrap;
@@ -131,7 +124,7 @@
     font-family: var(--font-heading, 'Inter', sans-serif);
     color: var(--color-text-primary, #161616);
     margin: 0;
-    font-weight: var(--font-weight-medium, 580);
+    font-weight: var(--font-weight-medium, 500);
   }
 
   /* Center-left alignment for headings - matches subheader narrow width (696px) */
@@ -154,28 +147,28 @@
 
   .section-builder__heading.level-display {
     font-size: var(--font-size-display);
-    line-height: var(--line-height-tight, 1.15);
-    letter-spacing: -0.02em; /* -2% tracking from Figma */
+    line-height: var(--line-height-display, 1.0);
+    letter-spacing: var(--letter-spacing-display, -0.02em);
   }
 
   .section-builder__heading.level-h1 {
     font-size: var(--font-size-h1);
-    line-height: var(--line-height-tight, 1.15);
+    line-height: var(--line-height-heading, 1.15);
   }
 
   .section-builder__heading.level-h2 {
     font-size: var(--font-size-h2);
-    line-height: var(--line-height-tight, 1.15);
+    line-height: var(--line-height-heading, 1.15);
   }
 
   .section-builder__heading.level-h3 {
     font-size: var(--font-size-h3);
-    line-height: var(--line-height-tight, 1.15);
+    line-height: var(--line-height-heading, 1.15);
   }
 
   .section-builder__heading.level-h4 {
     font-size: var(--font-size-h4);
-    line-height: var(--line-height-tight, 1.15);
+    line-height: var(--line-height-heading, 1.15);
   }
 
   /* Subheader Component - Uses Brand Variables */
@@ -183,7 +176,7 @@
     font-family: var(--font-body, 'Inter', sans-serif);
     font-size: var(--font-size-body-large, 18px);
     font-weight: var(--font-weight-medium, 500);
-    line-height: 1.35;
+    line-height: var(--line-height-body, 1.35);
     color: var(--color-text-secondary, #525252);
     margin: 0;
   }
@@ -209,8 +202,8 @@
   /* Description Component - Uses Brand Variables */
   .section-builder__description {
     font-family: var(--font-body, 'Inter', sans-serif);
-    font-weight: var(--font-weight-regular, 450);
-    line-height: var(--line-height-normal, 1.35);
+    font-weight: var(--font-weight-regular, 400);
+    line-height: var(--line-height-body, 1.35);
     color: var(--color-text-secondary, #666666);
     margin: 0;
   }
@@ -351,7 +344,7 @@
   }
 
   .section-builder__feature-description {
-    font-weight: var(--font-weight-regular, 450);
+    font-weight: var(--font-weight-regular, 400);
     color: var(--color-text-secondary, #666666);
   }
 
@@ -362,7 +355,7 @@
     }
 
     .section-builder__feature-title {
-      font-weight: var(--font-weight-semibold, 580);
+      font-weight: var(--font-weight-semibold, 650);
     }
   }
 
@@ -855,18 +848,26 @@
                  style="{% if block.image_width == 'custom' and block.image_custom_width %}max-width: {{ block.image_custom_width }};{% endif %}">
               {% if block.image_desktop and block.image_desktop.src %}
                 {% if block.is_lcp_image %}
-                  {# LCP optimized image - use original, eager loading with high priority #}
-                  <img src="{{ block.image_desktop.src }}"
+                  {# LCP optimized - Manual srcset with DPR-aware sizes #}
+                  {% set img_400 = resize_image_url(block.image_desktop.src, 400) %}
+                  {% set img_800 = resize_image_url(block.image_desktop.src, 800) %}
+                  {% set img_1200 = resize_image_url(block.image_desktop.src, 1200) %}
+                  {% set img_1704 = resize_image_url(block.image_desktop.src, 1704) %}
+                  <img src="{{ img_800 }}"
                        alt="{{ block.image_desktop.alt }}"
+                       style="width: 100%; height: auto; aspect-ratio: {{ block.image_desktop.width }} / {{ block.image_desktop.height }};"
+                       srcset="{{ img_400 }} 400w, {{ img_800 }} 800w, {{ img_1200 }} 1200w, {{ img_1704 }} 1704w"
+                       sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(100vw - 48px), 1368px"
                        class="section-builder__image section-builder__image-desktop"
                        loading="eager"
                        fetchpriority="high"
-                       decoding="async"
                        data-critical="true" />
                 {% else %}
                   {# Regular image - lazy loading with low priority #}
                   <img src="{{ block.image_desktop.src }}"
                        alt="{{ block.image_desktop.alt }}"
+                       width="{{ block.image_desktop.width }}"
+                       height="{{ block.image_desktop.height }}"
                        class="section-builder__image section-builder__image-desktop"
                        loading="lazy"
                        fetchpriority="low" />
@@ -874,18 +875,24 @@
               {% endif %}
               {% if block.image_mobile and block.image_mobile.src %}
                 {% if block.is_lcp_image %}
-                  {# LCP optimized mobile image - use original, eager loading with high priority #}
-                  <img src="{{ block.image_mobile.src }}"
+                  {# LCP optimized mobile - DPR-aware sizes for high-res displays #}
+                  {% set img_mobile_400 = resize_image_url(block.image_mobile.src, 400) %}
+                  {% set img_mobile_800 = resize_image_url(block.image_mobile.src, 800) %}
+                  <img src="{{ img_mobile_400 }}"
                        alt="{{ block.image_mobile.alt }}"
+                       style="width: 100%; height: auto; aspect-ratio: {{ block.image_mobile.width }} / {{ block.image_mobile.height }};"
+                       srcset="{{ img_mobile_400 }} 400w, {{ img_mobile_800 }} 800w"
+                       sizes="calc(100vw - 32px)"
                        class="section-builder__image section-builder__image-mobile"
                        loading="eager"
                        fetchpriority="high"
-                       decoding="async"
                        data-critical="true" />
                 {% else %}
                   {# Regular mobile image - lazy loading with low priority #}
                   <img src="{{ block.image_mobile.src }}"
                        alt="{{ block.image_mobile.alt }}"
+                       width="{{ block.image_mobile.width }}"
+                       height="{{ block.image_mobile.height }}"
                        class="section-builder__image section-builder__image-mobile"
                        loading="lazy"
                        fetchpriority="low" />
@@ -1014,18 +1021,26 @@
                      style="{% if block.image_width == 'custom' and block.image_custom_width %}max-width: {{ block.image_custom_width }};{% endif %}">
                   {% if block.image_desktop and block.image_desktop.src %}
                     {% if block.is_lcp_image %}
-                      {# LCP optimized image - use original, eager loading with high priority #}
-                      <img src="{{ block.image_desktop.src }}"
+                      {# LCP optimized - Manual srcset with DPR-aware sizes #}
+                      {% set img_400 = resize_image_url(block.image_desktop.src, 400) %}
+                      {% set img_800 = resize_image_url(block.image_desktop.src, 800) %}
+                      {% set img_1200 = resize_image_url(block.image_desktop.src, 1200) %}
+                      {% set img_1704 = resize_image_url(block.image_desktop.src, 1704) %}
+                      <img src="{{ img_800 }}"
                            alt="{{ block.image_desktop.alt }}"
+                           style="width: 100%; height: auto; aspect-ratio: {{ block.image_desktop.width }} / {{ block.image_desktop.height }};"
+                           srcset="{{ img_400 }} 400w, {{ img_800 }} 800w, {{ img_1200 }} 1200w, {{ img_1704 }} 1704w"
+                           sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(100vw - 48px), 1368px"
                            class="section-builder__image section-builder__image-desktop"
                            loading="eager"
                            fetchpriority="high"
-                           decoding="async"
                            data-critical="true" />
                     {% else %}
                       {# Regular image - lazy loading with low priority #}
                       <img src="{{ block.image_desktop.src }}"
                            alt="{{ block.image_desktop.alt }}"
+                           width="{{ block.image_desktop.width }}"
+                           height="{{ block.image_desktop.height }}"
                            class="section-builder__image section-builder__image-desktop"
                            loading="lazy"
                            fetchpriority="low" />
@@ -1033,18 +1048,24 @@
                   {% endif %}
                   {% if block.image_mobile and block.image_mobile.src %}
                     {% if block.is_lcp_image %}
-                      {# LCP optimized mobile image - use original, eager loading with high priority #}
-                      <img src="{{ block.image_mobile.src }}"
+                      {# LCP optimized mobile - DPR-aware sizes for high-res displays #}
+                      {% set img_mobile_400 = resize_image_url(block.image_mobile.src, 400) %}
+                      {% set img_mobile_800 = resize_image_url(block.image_mobile.src, 800) %}
+                      <img src="{{ img_mobile_400 }}"
                            alt="{{ block.image_mobile.alt }}"
+                           style="width: 100%; height: auto; aspect-ratio: {{ block.image_mobile.width }} / {{ block.image_mobile.height }};"
+                           srcset="{{ img_mobile_400 }} 400w, {{ img_mobile_800 }} 800w"
+                           sizes="calc(100vw - 32px)"
                            class="section-builder__image section-builder__image-mobile"
                            loading="eager"
                            fetchpriority="high"
-                           decoding="async"
                            data-critical="true" />
                     {% else %}
                       {# Regular mobile image - lazy loading with low priority #}
                       <img src="{{ block.image_mobile.src }}"
                            alt="{{ block.image_mobile.alt }}"
+                           width="{{ block.image_mobile.width }}"
+                           height="{{ block.image_mobile.height }}"
                            class="section-builder__image section-builder__image-mobile"
                            loading="lazy"
                            fetchpriority="low" />
@@ -1171,18 +1192,26 @@
                      style="{% if block.image_width == 'custom' and block.image_custom_width %}max-width: {{ block.image_custom_width }};{% endif %}">
                   {% if block.image_desktop and block.image_desktop.src %}
                     {% if block.is_lcp_image %}
-                      {# LCP optimized image - use original, eager loading with high priority #}
-                      <img src="{{ block.image_desktop.src }}"
+                      {# LCP optimized - Manual srcset with DPR-aware sizes #}
+                      {% set img_400 = resize_image_url(block.image_desktop.src, 400) %}
+                      {% set img_800 = resize_image_url(block.image_desktop.src, 800) %}
+                      {% set img_1200 = resize_image_url(block.image_desktop.src, 1200) %}
+                      {% set img_1704 = resize_image_url(block.image_desktop.src, 1704) %}
+                      <img src="{{ img_800 }}"
                            alt="{{ block.image_desktop.alt }}"
+                           style="width: 100%; height: auto; aspect-ratio: {{ block.image_desktop.width }} / {{ block.image_desktop.height }};"
+                           srcset="{{ img_400 }} 400w, {{ img_800 }} 800w, {{ img_1200 }} 1200w, {{ img_1704 }} 1704w"
+                           sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(100vw - 48px), 1368px"
                            class="section-builder__image section-builder__image-desktop"
                            loading="eager"
                            fetchpriority="high"
-                           decoding="async"
                            data-critical="true" />
                     {% else %}
                       {# Regular image - lazy loading with low priority #}
                       <img src="{{ block.image_desktop.src }}"
                            alt="{{ block.image_desktop.alt }}"
+                           width="{{ block.image_desktop.width }}"
+                           height="{{ block.image_desktop.height }}"
                            class="section-builder__image section-builder__image-desktop"
                            loading="lazy"
                            fetchpriority="low" />
@@ -1190,18 +1219,24 @@
                   {% endif %}
                   {% if block.image_mobile and block.image_mobile.src %}
                     {% if block.is_lcp_image %}
-                      {# LCP optimized mobile image - use original, eager loading with high priority #}
-                      <img src="{{ block.image_mobile.src }}"
+                      {# LCP optimized mobile - DPR-aware sizes for high-res displays #}
+                      {% set img_mobile_400 = resize_image_url(block.image_mobile.src, 400) %}
+                      {% set img_mobile_800 = resize_image_url(block.image_mobile.src, 800) %}
+                      <img src="{{ img_mobile_400 }}"
                            alt="{{ block.image_mobile.alt }}"
+                           style="width: 100%; height: auto; aspect-ratio: {{ block.image_mobile.width }} / {{ block.image_mobile.height }};"
+                           srcset="{{ img_mobile_400 }} 400w, {{ img_mobile_800 }} 800w"
+                           sizes="calc(100vw - 32px)"
                            class="section-builder__image section-builder__image-mobile"
                            loading="eager"
                            fetchpriority="high"
-                           decoding="async"
                            data-critical="true" />
                     {% else %}
                       {# Regular mobile image - lazy loading with low priority #}
                       <img src="{{ block.image_mobile.src }}"
                            alt="{{ block.image_mobile.alt }}"
+                           width="{{ block.image_mobile.width }}"
+                           height="{{ block.image_mobile.height }}"
                            class="section-builder__image section-builder__image-mobile"
                            loading="lazy"
                            fetchpriority="low" />

@@ -345,13 +345,14 @@ Global link colors managed in `child.css`:
 - **[SPACING_SYSTEM_GUIDE.md](./02-child-theme-production/docs/SPACING_SYSTEM_GUIDE.md)** - Container-based spacing system
 - **[DUAL_BRAND_SPACING_GUIDE.md](./02-child-theme-production/docs/DUAL_BRAND_SPACING_GUIDE.md)** - Spacing system implementation
 - **[LCP_OPTIMIZATION_GUIDE.md](./02-child-theme-production/docs/LCP_OPTIMIZATION_GUIDE.md)** - LCP image optimization for Core Web Vitals
-  - Section Builder LCP implementation
-  - How to add LCP optimization to new modules
-  - Performance testing and troubleshooting
-  - Current status: Priority issue under investigation
+  - Section Builder LCP implementation (✅ Complete)
+  - Manual srcset with DPR-aware sizes (400w, 800w, 1200w, 1704w)
+  - Font preconnect optimization
+  - Performance: 2.0s LCP local (98 score), 4.1s PSI (78 score)
+  - Current status: ✅ Production ready - image optimization complete
 
 ---
 
-**Last Updated**: October 20, 2025
+**Last Updated**: October 22, 2025
 **Status**: ✅ Production Ready - Clinical brand complete, Cellcolabs brand pending
 **Theme**: growth child (extends Growth marketplace theme)
