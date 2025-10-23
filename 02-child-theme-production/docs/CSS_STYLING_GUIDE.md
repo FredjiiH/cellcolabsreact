@@ -259,8 +259,11 @@ Modules with background color options implement a two-field system:
 
 ### Modules with Background Color System
 
-- ✅ **Section Builder Module** - Full implementation
-- ✅ **Content Checklist Block Global Module** - Full implementation
+- ✅ **Section Builder Module** - Full implementation with all brand colors
+- ✅ **Content Checklist Block Module** - Full implementation with all brand colors
+- ✅ **Grid 2x2 Card Image Module** - Full implementation with user-selectable text/eyebrow styles
+- ✅ **Image Card Overlay 3 Column Module** - Full implementation with user-selectable text/eyebrow styles
+- ✅ **Image Card Overlay 4 Column Module** - Full implementation with user-selectable text/eyebrow styles
 
 ### CSS Variables in child.css
 
@@ -274,6 +277,148 @@ Background color CSS variables are defined in `child.css`:
 ```
 
 **Note:** When Cellcolabs (green brand) is implemented, `--color-bg-blue` will be overridden in the brand-specific section to use a light green color for the Cellcolabs brand.
+
+## Brand Color System (Figma-Aligned)
+
+All brand colors from Figma are available as CSS variables for both brands, with full scalability for primary and secondary color palettes.
+
+### Color Structure
+
+**Primary Brand Colors** (5 shades):
+- `--color-brand-100`: Lightest brand color
+- `--color-brand-300`: Light brand color
+- `--color-brand-500`: Medium brand color (primary)
+- `--color-brand-700`: Dark brand color
+- `--color-brand-900`: Darkest brand color
+
+**Secondary Brand Colors** (5 shades):
+- `--color-brand-secondary-100`: Lightest secondary color
+- `--color-brand-secondary-300`: Light secondary color
+- `--color-brand-secondary-500`: Medium secondary color
+- `--color-brand-secondary-700`: Dark secondary color
+- `--color-brand-secondary-900`: Darkest secondary color
+
+### Cellcolabs Clinical (Blue Brand)
+
+```css
+[data-brand="cellcolabsclinical"] {
+  /* Primary Colors - Blue Scale */
+  --color-brand-100: #BECFFF;
+  --color-brand-300: #879ADF;
+  --color-brand-500: #4F65BE;
+  --color-brand-700: #2F4283;
+  --color-brand-900: #0F2047;
+
+  /* Secondary colors available for future use */
+}
+```
+
+### Cellcolabs AB (Green Brand)
+
+```css
+[data-brand="cellcolabs"] {
+  /* Primary Colors - Blue Scale */
+  --color-brand-100: #E1EBF5;
+  --color-brand-300: #C0CDDA;
+  --color-brand-500: #8CA2B7;
+  --color-brand-700: #2E5477;
+  --color-brand-900: #123250;
+
+  /* Secondary Colors - Yellow/Gold Scale */
+  --color-brand-secondary-100: #FCECAC;
+  --color-brand-secondary-300: #F6CE3C;
+  --color-brand-secondary-500: #CF9C27;
+  --color-brand-secondary-700: #694808;
+  --color-brand-secondary-900: #3D2D02;
+}
+```
+
+### Usage in Modules
+
+Modules can use brand colors knowing they'll automatically adapt to the current brand:
+
+```css
+.my-element {
+  background-color: var(--color-brand-500);  /* Primary brand color */
+  color: var(--color-brand-secondary-300);   /* Light secondary color */
+}
+```
+
+**Modules with Brand Color Options:**
+- ✅ Section Builder Module
+- ✅ Content Checklist Block Module
+- ✅ Grid 2x2 Card Image Module
+- ✅ Image Card Overlay 3 Column Module
+- ✅ Image Card Overlay 4 Column Module
+
+## Eyebrow Background Variables (Figma-Aligned)
+
+Centralized eyebrow styling ensures consistent "badge" or "tag" appearances across all modules, matching the Figma design system.
+
+### Eyebrow Variables
+
+```css
+/* Eyebrow Backgrounds (Figma Design System) */
+--color-eyebrow-bg-primary: rgba(22, 22, 22, 0.08);    /* Dark semi-transparent for light backgrounds */
+--color-eyebrow-bg-secondary: rgba(255, 255, 255, 0.12); /* White semi-transparent for dark/image backgrounds */
+```
+
+### When to Use Each Variant
+
+**Primary (`--color-eyebrow-bg-primary`):**
+- Light backgrounds (white, beige, light brand colors)
+- Neutral backgrounds
+- Solid color backgrounds
+
+**Secondary (`--color-eyebrow-bg-secondary`):**
+- Dark backgrounds
+- Image backgrounds
+- Overlay contexts
+- Always paired with backdrop-filter blur
+
+### Implementation Example
+
+```css
+.eyebrow {
+  padding: var(--space-8) var(--space-12);
+  border-radius: var(--border-radius-md);
+  text-transform: uppercase;
+  font-size: var(--font-size-eyebrow, 14px);
+}
+
+/* For light backgrounds */
+.eyebrow.variant-primary {
+  background-color: var(--color-eyebrow-bg-primary);
+  color: var(--color-text-secondary);
+}
+
+/* For dark/image backgrounds */
+.eyebrow.variant-secondary {
+  background-color: var(--color-eyebrow-bg-secondary);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--color-text-inverse);
+}
+```
+
+### Modules Using Eyebrow Variables
+
+All eyebrow implementations now use centralized variables:
+
+- ✅ **Eyebrow Block Module** - variant-inverted (primary), variant-glass (secondary)
+- ✅ **Section Builder Module** - variant-inverted (primary), variant-glass (secondary)
+- ✅ **Grid 2x2 Card Image Module** - user-selectable primary/secondary
+- ✅ **Image Card Overlay 3 Column Module** - user-selectable primary/secondary
+- ✅ **Image Card Overlay 4 Column Module** - user-selectable primary/secondary
+- ✅ **Locations Carousel Block V2 Module** - primary eyebrow
+- ✅ **Process Steps Module** - primary eyebrow
+
+### Benefits
+
+✅ **Single source of truth** - Update once in child.css, affects all eyebrows
+✅ **Figma alignment** - Exact match with design system
+✅ **Brand consistency** - Same values across both brands
+✅ **Easy maintenance** - No hunting through module CSS to update eyebrows
 
 ## Button and Link Styling Architecture
 

@@ -1,0 +1,109 @@
+[ {
+  "id" : "title",
+  "name" : "title",
+  "label" : "Section Title",
+  "required" : false,
+  "locked" : true,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Excellence in every cell"
+}, {
+  "id" : "background_color_preset",
+  "name" : "background_color_preset",
+  "label" : "Background Color",
+  "help_text" : "Select a Figma design system color or choose Custom for one-off colors",
+  "required" : false,
+  "locked" : true,
+  "display" : "select",
+  "choices" : [ [ "none", "None (Transparent)" ], [ "bg-white", "$bg-white" ], [ "bg-beige", "$bg-beige" ], [ "bg-blue", "$bg-blue" ], [ "neutral-900", "neutral-900 (Light Gray)" ], [ "neutral-0", "neutral-0 (Dark)" ], [ "custom", "Custom Color" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "bg-blue"
+}, {
+  "id" : "background_color_custom",
+  "name" : "background_color_custom",
+  "label" : "Custom Background Color",
+  "required" : false,
+  "locked" : true,
+  "visibility" : {
+    "controlling_field" : "background_color_preset",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "custom",
+    "property" : null,
+    "operator" : null,
+    "access" : null
+  },
+  "type" : "color",
+  "display_width" : null,
+  "default" : {
+    "color" : "#BECFFF"
+  }
+}, {
+  "id" : "corner_radius",
+  "name" : "corner_radius",
+  "label" : "Corner Radius (px)",
+  "required" : false,
+  "locked" : true,
+  "display" : "text",
+  "min" : 0,
+  "max" : 50,
+  "step" : 1,
+  "type" : "number",
+  "display_width" : null,
+  "default" : 16
+}, {
+  "id" : "items",
+  "name" : "items",
+  "label" : "Checklist Items",
+  "required" : false,
+  "locked" : true,
+  "occurrence" : {
+    "min" : 1,
+    "max" : 8,
+    "sorting_label_field" : null,
+    "default" : 4
+  },
+  "children" : [ {
+    "id" : "items.title",
+    "name" : "title",
+    "label" : "Item Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Feature title"
+  }, {
+    "id" : "items.description",
+    "name" : "description",
+    "label" : "Item Description",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Feature description text"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "title" : "Highest quality stem cells",
+    "description" : "GMP-certified and produced under the world's strictest safety standards."
+  }, {
+    "title" : "Personal health insights",
+    "description" : "In-depth biomarker testing gives you a clearer picture of your body and wellbeing."
+  }, {
+    "title" : "Continuous health monitoring",
+    "description" : "We follow your progress closely, supporting you throughout the journey."
+  }, {
+    "title" : "Expert medical care",
+    "description" : "A dedicated team of experienced doctors by your side."
+  } ]
+} ]

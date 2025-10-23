@@ -18,11 +18,26 @@ The Section Builder is a flexible multi-column layout module supporting 1-3 colu
 - Two columns (50/50, 60/40, 40/60)
 - Three columns
 
+### Background Color System
+
+The Section Builder supports Figma-aligned background colors using the dual-field preset system:
+
+**Preset Options:**
+- Background colors: White, Beige, Blue
+- Brand colors: 5 shades each of Primary (brand-100 to brand-900) and Secondary (brand-secondary-100 to brand-secondary-900)
+- Neutral colors: neutral-900 (light gray), neutral-0 (dark)
+- Custom color picker for one-off colors
+
+All colors automatically adapt to the current brand (Cellcolabs Clinical vs Cellcolabs AB).
+
 ### Content Block Types
 
 #### 1. Eyebrow
 Small label/badge above headings
 - **Variants:** Default, Inverted, Glass
+- **Styling:** Uses centralized eyebrow variables from child.css
+  - Inverted: `--color-eyebrow-bg-primary` (dark semi-transparent for light backgrounds)
+  - Glass: `--color-eyebrow-bg-secondary` (white semi-transparent for dark/image backgrounds)
 
 #### 2. Heading
 Responsive headings with multiple levels
@@ -143,6 +158,7 @@ A scroll-activated module displaying a step-by-step process with numbered circle
 ### Fields
 
 - **Eyebrow Text:** Optional label (e.g., "Process")
+  - Uses `--color-eyebrow-bg-primary` variable for consistent styling across all modules
 - **Heading:** Main section heading (H2)
 - **Subheader:** Supporting text (Body Large)
 - **Steps (repeater, 1-10 items):**
@@ -346,6 +362,388 @@ Team Cards Module:
 
 ---
 
+## Grid 2x2 Card Image Module
+
+A 2x2 grid displaying four image cards with eyebrows, headings, descriptions, and optional buttons. Supports both image backgrounds and solid background colors.
+
+### Status
+✅ **Production Ready**
+
+### Layout Structure
+
+**Desktop/Tablet (768px+):** 2x2 grid layout with 16px gap
+**Mobile (767px and below):** Single column stacked layout with 16px gap
+
+### Background Options
+
+Each card can use either:
+1. **Image Background** - Traditional card with image overlay
+2. **Background Color** - Solid color from Figma preset system with user-controlled text/eyebrow styles
+
+### Background Color System
+
+**Preset Options:**
+- Background colors: White, Beige, Blue
+- Brand colors: 5 shades each of Primary (brand-100 to brand-900) and Secondary (brand-secondary-100 to brand-secondary-900)
+- Neutral colors: neutral-900 (light gray), neutral-0 (dark)
+- Custom color picker for one-off colors
+
+**User-Controlled Styling (when using background color):**
+- **Text Color Style:** Primary (dark text) or Inverse (white text)
+- **Eyebrow Style:** Primary (dark semi-transparent) or Secondary (white semi-transparent)
+
+These fields only appear when a background color is selected (not images).
+
+### Fields
+
+**Per Card (4 cards total):**
+- **Background Option:**
+  - Background Color Preset (dropdown)
+  - Custom Background Color (color picker, shown when "Custom" selected)
+  - Image (fallback if no color selected)
+- **Text Color Style:** Primary or Inverse (conditional field)
+- **Eyebrow Style:** Primary or Secondary (conditional field)
+- **Eyebrow Text:** Optional badge text
+- **Title:** Card heading (H3)
+- **Description:** Rich text content
+- **Button Text:** Optional CTA text
+- **Button Link:** URL field with link picker
+
+### Features
+
+**Flexible Background System:**
+- All Figma colors available as presets
+- Automatic brand color adaptation
+- Custom color option for one-offs
+- Backwards compatible with existing image-based cards
+
+**User-Controlled Text Styling:**
+- No hardcoded light/dark logic
+- Users select appropriate text color for their background
+- Users select appropriate eyebrow style for their background
+- Future-proof as new colors are added
+
+**Card Structure:**
+- Eyebrow badge at top (optional)
+- H3 heading
+- Rich text description
+- Optional button CTA
+- Minimum height 540px (desktop), 400px (mobile)
+
+**Brand Variables:**
+- All typography, colors, spacing uses CSS variables
+- Fully responsive with automatic breakpoint adjustments
+
+### Typography
+
+**Eyebrow:**
+- Font: Body Small (14px)
+- Weight: Regular (400)
+- Transform: Uppercase
+- Color: Controlled by eyebrow style selection
+
+**Card Title:**
+- Font: H3 (36px desktop, 28px tablet/mobile)
+- Weight: Medium (500)
+- Line-height: 1.15
+- Color: Controlled by text color style selection
+
+**Card Description:**
+- Font: Body (16px)
+- Weight: Regular (400)
+- Line-height: 1.35
+- Color: Controlled by text color style selection
+
+### Usage Example
+
+```
+Card 1: Image Background
+- Image: team-photo.jpg
+- Eyebrow: "Our Team"
+- Title: "Expert Care"
+- Description: "Board-certified physicians..."
+
+Card 2: Brand Color Background
+- Background: brand-500 (Medium Brand)
+- Text Color Style: Inverse (white text)
+- Eyebrow Style: Secondary (white semi-transparent)
+- Title: "Advanced Technology"
+- Description: "State-of-the-art facilities..."
+```
+
+---
+
+## Image Card Overlay 3 Column Module
+
+A 3-column grid displaying image cards with eyebrows, headings, descriptions, and optional links. Supports both image backgrounds and solid background colors.
+
+### Status
+✅ **Production Ready**
+
+### Layout Structure
+
+**Desktop (1024px+):** 3-column grid with 16px gap
+**Tablet (768-1023px):** 2-column grid with 16px gap
+**Mobile (767px and below):** Single column stacked layout with 16px gap
+
+### Background Color System
+
+Same as Grid 2x2 Card Image Module:
+- Figma preset colors (background, brand, neutral)
+- Custom color option
+- User-controlled text and eyebrow styling
+- All colors brand-adaptive
+
+### Fields
+
+**Per Card (3 cards total):**
+- **Background Option:**
+  - Background Color Preset (dropdown)
+  - Custom Background Color (color picker, conditional)
+  - Image (fallback)
+- **Text Color Style:** Primary or Inverse (conditional)
+- **Eyebrow Style:** Primary or Secondary (conditional)
+- **Eyebrow Text:** Optional badge
+- **Title:** Card heading (H3)
+- **Description:** Rich text content
+- **Link Text:** Optional link text
+- **Link URL:** URL field with link picker
+
+### Features
+
+- Flexible background system (images or colors)
+- User-controlled text/eyebrow styling
+- 3-column responsive grid
+- Minimum height 480px per card
+- Optional link at bottom of each card
+- Brand variables for all styling
+
+### Differences from Grid 2x2
+
+- 3 cards instead of 4
+- 3-column layout (desktop) vs 2x2 grid
+- Links instead of buttons
+- Slightly shorter minimum height (480px vs 540px)
+
+---
+
+## Image Card Overlay 4 Column Module
+
+A 4-column grid displaying image cards with eyebrows, headings, descriptions, and optional links. Supports both image backgrounds and solid background colors.
+
+### Status
+✅ **Production Ready**
+
+### Layout Structure
+
+**Desktop (1024px+):** 4-column grid with 16px gap
+**Tablet (768-1023px):** 2-column grid with 16px gap
+**Mobile (767px and below):** Single column stacked layout with 16px gap
+
+### Background Color System
+
+Same as Grid 2x2 Card Image Module:
+- Figma preset colors (background, brand, neutral)
+- Custom color option
+- User-controlled text and eyebrow styling
+- All colors brand-adaptive
+
+### Fields
+
+**Per Card (4 cards total):**
+- **Background Option:**
+  - Background Color Preset (dropdown)
+  - Custom Background Color (color picker, conditional)
+  - Image (fallback)
+- **Text Color Style:** Primary or Inverse (conditional)
+- **Eyebrow Style:** Primary or Secondary (conditional)
+- **Eyebrow Text:** Optional badge
+- **Title:** Card heading (H3)
+- **Description:** Rich text content
+- **Link Text:** Optional link text
+- **Link URL:** URL field with link picker
+
+### Features
+
+- Flexible background system (images or colors)
+- User-controlled text/eyebrow styling
+- 4-column responsive grid
+- Minimum height 360px per card
+- Optional link at bottom of each card
+- Brand variables for all styling
+
+### Differences from 3 Column
+
+- 4 cards instead of 3
+- 4-column layout (desktop) vs 3-column
+- Shorter minimum height (360px vs 480px)
+- More compact card design for overview layouts
+
+---
+
+## Content Checklist Block Module
+
+A content block displaying a feature list with checkmarks, eyebrow, heading, and description. Supports Figma-aligned background colors.
+
+### Status
+✅ **Production Ready**
+
+### Layout Structure
+
+Single-column layout with:
+- Eyebrow badge (optional)
+- Heading (H2)
+- Description (rich text)
+- Feature list with checkmarks (up to 10 items)
+
+### Background Color System
+
+**Preset Options:**
+- Background colors: White, Beige, Blue
+- Brand colors: 5 shades each of Primary (brand-100 to brand-900) and Secondary (brand-secondary-100 to brand-secondary-900)
+- Neutral colors: neutral-900 (light gray), neutral-0 (dark)
+- Custom color picker for one-off colors
+
+**Backwards Compatibility:**
+- Checks for old `background_color` field first
+- Falls back to new preset system if old field doesn't exist
+- Ensures existing pages continue working
+
+### Fields
+
+- **Eyebrow Text:** Optional label
+- **Heading:** Main section heading (H2)
+- **Description:** Rich text content
+- **Background Color Preset:** Dropdown with Figma colors
+- **Custom Background Color:** Color picker (conditional, shown when "Custom" selected)
+- **Feature List Items (repeater, 1-10 items):**
+  - Feature Text (text)
+
+### Features
+
+**Checkmark List:**
+- Up to 10 feature items
+- Green checkmark icons
+- Responsive typography
+- Clean vertical spacing
+
+**Background System:**
+- All Figma preset colors available
+- Automatic brand adaptation
+- Custom color fallback
+- Transparent option supported
+
+**Brand Variables:**
+- All typography, colors, spacing uses CSS variables
+- Fully responsive design
+
+### Typography
+
+**Eyebrow:**
+- Font: Body Small (14px)
+- Weight: Regular (400)
+- Transform: Uppercase
+
+**Heading:**
+- Font: H2 (48px desktop, 32px tablet/mobile)
+- Weight: Medium (500)
+- Line-height: 1.15
+
+**Description:**
+- Font: Body (16px)
+- Weight: Regular (400)
+- Line-height: 1.35
+
+**Feature Items:**
+- Font: Body (16px)
+- Weight: Regular (400)
+- Color: Primary text
+
+### Usage Example
+
+```
+Eyebrow: "Benefits"
+Heading: "Why Choose Cellcolabs"
+Description: "Our comprehensive approach ensures..."
+Background: brand-100 (Lightest Brand)
+
+Features:
+- Board-certified physicians
+- State-of-the-art facilities
+- Personalized treatment plans
+- 24/7 patient support
+```
+
+---
+
+## Eyebrow Block Module
+
+A standalone eyebrow/badge component with multiple style variants and alignment options.
+
+### Status
+✅ **Production Ready**
+
+### Variants
+
+**Default:** Dark semi-transparent background on light backgrounds
+- Background: `--color-gray-900` (#F4F4F4)
+- Text: Secondary text color
+
+**Inverted:** Dark semi-transparent for light backgrounds (Figma-aligned)
+- Background: `--color-eyebrow-bg-primary` (rgba(22, 22, 22, 0.08))
+- Text: Secondary text color
+- Uses centralized variable
+
+**Glass:** White semi-transparent for dark/image backgrounds (Figma-aligned)
+- Background: `--color-eyebrow-bg-secondary` (rgba(255, 255, 255, 0.12))
+- Backdrop filter: blur(8px)
+- Text: Inverse text color (white)
+- Uses centralized variable
+
+### Alignment Options
+
+- **Left:** Aligned to left edge
+- **Left-Center:** Aligned left with 25% left padding (15% on mobile)
+- **Center:** Centered
+- **Right-Center:** Aligned right with 25% right padding (15% on mobile)
+- **Right:** Aligned to right edge
+
+### Fields
+
+- **Text:** Eyebrow content
+- **Variant:** Default, Inverted, or Glass
+- **Alignment:** Left, Left-Center, Center, Right-Center, or Right
+
+### Features
+
+**Centralized Styling:**
+- Uses shared eyebrow variables from child.css
+- Consistent with eyebrows in Section Builder, Process Steps, and other modules
+- Single source of truth for eyebrow backgrounds
+
+**Responsive Design:**
+- Alignment offsets reduce on mobile
+- Font size and padding use CSS variables
+- Auto-adjusts to breakpoints
+
+**Typography:**
+- Font: Body Small (14px)
+- Weight: Regular (400)
+- Transform: Uppercase
+- Line-height: 1.35
+
+### Usage
+
+Can be used standalone or within Section Builder for more control over eyebrow placement and alignment.
+
+```
+Text: "New Feature"
+Variant: Glass
+Alignment: Center
+```
+
+---
+
 ## Locations Carousel Block V2 Module
 
 A two-column section displaying location information with multi-image carousels per location. Supports tab navigation, auto-play, and mobile-specific images.
@@ -369,6 +767,7 @@ A two-column section displaying location information with multi-image carousels 
 
 **Global Settings:**
 - **Eyebrow Text:** Optional label (default: "Locations")
+  - Uses `--color-eyebrow-bg-primary` variable for consistent styling
 - **Main Title:** Section heading (default: "Stem cell therapy in the Bahamas")
 - **Main Description:** Rich text description
 - **Auto-play Image Carousel:** Boolean toggle for automatic image cycling
@@ -504,7 +903,7 @@ V1 limitations:
 
 ---
 
-**Last Updated**: October 15, 2025
+**Last Updated**: October 23, 2025
 **Maintained By**: Development Team
 
 ## Adding New Modules

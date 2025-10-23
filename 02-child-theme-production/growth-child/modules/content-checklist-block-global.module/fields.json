@@ -1,11 +1,13 @@
 [
   {
+    "id": "title",
     "name": "title",
     "label": "Section Title",
     "type": "text",
     "default": "Excellence in every cell"
   },
   {
+    "id": "background_color_preset",
     "name": "background_color_preset",
     "label": "Background Color",
     "type": "choice",
@@ -14,6 +16,16 @@
       ["bg-white", "$bg-white"],
       ["bg-beige", "$bg-beige"],
       ["bg-blue", "$bg-blue"],
+      ["brand-100", "$brand-100 (Lightest Brand)"],
+      ["brand-300", "$brand-300 (Light Brand)"],
+      ["brand-500", "$brand-500 (Medium Brand)"],
+      ["brand-700", "$brand-700 (Dark Brand)"],
+      ["brand-900", "$brand-900 (Darkest Brand)"],
+      ["brand-secondary-100", "$brand-secondary-100 (Lightest Secondary)"],
+      ["brand-secondary-300", "$brand-secondary-300 (Light Secondary)"],
+      ["brand-secondary-500", "$brand-secondary-500 (Medium Secondary)"],
+      ["brand-secondary-700", "$brand-secondary-700 (Dark Secondary)"],
+      ["brand-secondary-900", "$brand-secondary-900 (Darkest Secondary)"],
       ["neutral-900", "neutral-900 (Light Gray)"],
       ["neutral-0", "neutral-0 (Dark)"],
       ["custom", "Custom Color"]
@@ -22,6 +34,7 @@
     "help_text": "Select a Figma design system color or choose Custom for one-off colors"
   },
   {
+    "id": "background_color_custom",
     "name": "background_color_custom",
     "label": "Custom Background Color",
     "type": "color",
@@ -34,6 +47,7 @@
     }
   },
   {
+    "id": "corner_radius",
     "name": "corner_radius",
     "label": "Corner Radius (px)",
     "type": "number",

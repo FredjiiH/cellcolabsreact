@@ -8,11 +8,60 @@
   <div class="image-card-4col-container">
     <div class="image-card-4col-grid">
       {% for card in module.cards %}
+        {# Background Color Logic - Use color if set, otherwise use image #}
+        {% set bg_preset = card.background_color_preset %}
+        {% set using_bg_color = false %}
+        {% if bg_preset and bg_preset != "none" %}
+          {% set using_bg_color = true %}
+          {% if bg_preset == "custom" %}
+            {% set card_bg = "background-color: " + card.background_color_custom.color %}
+          {% elif bg_preset == "bg-white" %}
+            {% set card_bg = "background-color: var(--color-bg-white, #FFFFFF)" %}
+          {% elif bg_preset == "bg-beige" %}
+            {% set card_bg = "background-color: var(--color-bg-beige, #EDE9E1)" %}
+          {% elif bg_preset == "bg-blue" %}
+            {% set card_bg = "background-color: var(--color-bg-blue, #E1EBF5)" %}
+          {% elif bg_preset == "brand-100" %}
+            {% set card_bg = "background-color: var(--color-brand-100, #BECFFF)" %}
+          {% elif bg_preset == "brand-300" %}
+            {% set card_bg = "background-color: var(--color-brand-300, #879ADF)" %}
+          {% elif bg_preset == "brand-500" %}
+            {% set card_bg = "background-color: var(--color-brand-500, #4F65BE)" %}
+          {% elif bg_preset == "brand-700" %}
+            {% set card_bg = "background-color: var(--color-brand-700, #2F4283)" %}
+          {% elif bg_preset == "brand-900" %}
+            {% set card_bg = "background-color: var(--color-brand-900, #0F2047)" %}
+          {% elif bg_preset == "brand-secondary-100" %}
+            {% set card_bg = "background-color: var(--color-brand-secondary-100, #FCECAC)" %}
+          {% elif bg_preset == "brand-secondary-300" %}
+            {% set card_bg = "background-color: var(--color-brand-secondary-300, #F6CE3C)" %}
+          {% elif bg_preset == "brand-secondary-500" %}
+            {% set card_bg = "background-color: var(--color-brand-secondary-500, #CF9C27)" %}
+          {% elif bg_preset == "brand-secondary-700" %}
+            {% set card_bg = "background-color: var(--color-brand-secondary-700, #694808)" %}
+          {% elif bg_preset == "brand-secondary-900" %}
+            {% set card_bg = "background-color: var(--color-brand-secondary-900, #3D2D02)" %}
+          {% elif bg_preset == "neutral-900" %}
+            {% set card_bg = "background-color: var(--color-gray-900, #F4F4F4)" %}
+          {% elif bg_preset == "neutral-0" %}
+            {% set card_bg = "background-color: var(--color-gray-0, #161616)" %}
+          {% else %}
+            {% set card_bg = "background-image: url('" + card.image.src + "')" %}
+          {% endif %}
+        {% else %}
+          {% set card_bg = "background-image: url('" + card.image.src + "')" %}
+        {% endif %}
+
+        {# User-selected text and eyebrow styles (defaults: primary for both) #}
+        {% set text_style = card.text_color_style or "primary" %}
+        {% set eyebrow_style = card.eyebrow_style or "primary" %}
+
         <div class="image-card-4col-card">
-          <div class="image-card-4col-card-image" style="background-image: url('{{ card.image.src }}');">
-            <div class="image-card-4col-card-overlay">
-              {% if card.badge_text %}
-                <div class="image-card-4col-card-badge">{{ card.badge_text }}</div>
+          <div class="image-card-4col-card-image" style="{{ card_bg }};">
+            <div class="image-card-4col-card-overlay {% if using_bg_color %}has-bg-color text-{{ text_style }} eyebrow-{{ eyebrow_style }}{% else %}has-image{% endif %}">
+              {# Backwards compatibility: Check new field first, fall back to old field #}
+              {% if card.eyebrow_text or card.badge_text %}
+                <div class="image-card-4col-card-badge">{{ card.eyebrow_text or card.badge_text }}</div>
               {% endif %}
               {% if card.title %}
                 <h3 class="image-card-4col-card-title">{{ card.title }}</h3>
@@ -107,9 +156,24 @@
   text-align: center;
 }
 
+/* Remove overlay when using background color instead of image */
+.image-card-4col-card-overlay.has-bg-color {
+  background: transparent;
+}
+
+/* Text color styles - user controlled */
+.image-card-4col-card-overlay.text-primary .image-card-4col-card-title,
+.image-card-4col-card-overlay.text-primary .image-card-4col-card-description {
+  color: var(--color-text-primary, #161616);
+}
+
+.image-card-4col-card-overlay.text-inverse .image-card-4col-card-title,
+.image-card-4col-card-overlay.text-inverse .image-card-4col-card-description {
+  color: var(--color-text-inverse, #ffffff);
+}
+
 .image-card-4col-card-badge {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: var(--border-radius-md, 8px);
@@ -120,6 +184,23 @@
   line-height: 1.35;
   margin-bottom: var(--space-16, 16px);
   width: fit-content;
+  text-transform: uppercase;
+}
+
+/* Eyebrow styles - user controlled */
+.image-card-4col-card-overlay.eyebrow-primary .image-card-4col-card-badge {
+  background: var(--color-eyebrow-bg-primary);
+  color: var(--color-text-primary, #161616) !important;
+}
+
+.image-card-4col-card-overlay.eyebrow-secondary .image-card-4col-card-badge {
+  background: var(--color-eyebrow-bg-secondary);
+  color: var(--color-text-inverse, #ffffff) !important;
+}
+
+/* Default for images - white text and secondary eyebrow */
+.image-card-4col-card-overlay.has-image .image-card-4col-card-badge {
+  background: var(--color-eyebrow-bg-secondary);
   color: var(--color-text-inverse, #ffffff) !important;
 }
 
@@ -127,7 +208,6 @@
   font-size: var(--font-size-h3-tablet, 28px) !important; /* Use tablet H3 size (28px) for all breakpoints */
   line-height: 1.15 !important;
   margin: 0 0 var(--space-16, 16px) 0 !important;
-  color: var(--color-text-inverse, #ffffff) !important;
   text-align: center;
   max-width: 100%;
 }
@@ -135,9 +215,14 @@
 .image-card-4col-card-description {
   font-size: var(--font-size-body-small, 14px);
   margin: 0 0 var(--space-16, 16px) 0;
-  color: var(--color-text-inverse, #ffffff);
   text-align: center;
   max-width: 100%;
+}
+
+/* Default text color for images */
+.image-card-4col-card-overlay.has-image .image-card-4col-card-title,
+.image-card-4col-card-overlay.has-image .image-card-4col-card-description {
+  color: var(--color-text-inverse, #ffffff);
 }
 
 /* Link styles - color inherited from --link-color custom property */

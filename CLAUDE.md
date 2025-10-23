@@ -285,12 +285,13 @@ Global link colors managed in `child.css`:
 All modules with background color options use a **dual-field system** that combines Figma design system presets with custom color flexibility:
 
 **Available Figma Preset Colors:**
-- `$bg-white` - #FFFFFF (white background)
-- `$bg-beige` - #EDE9E1 (beige/cream background)
-- `$bg-blue` - #E1EBF5 (brand-colored background, adapts per brand)
-- `neutral-900` - #F4F4F4 (light gray)
-- `neutral-0` - #161616 (dark/black)
+- **Background colors:** `$bg-white`, `$bg-beige`, `$bg-blue`
+- **Brand colors (Primary):** `brand-100` through `brand-900` (5 shades: 100, 300, 500, 700, 900)
+- **Brand colors (Secondary):** `brand-secondary-100` through `brand-secondary-900` (5 shades: 100, 300, 500, 700, 900)
+- **Neutral colors:** `neutral-900` (light gray), `neutral-0` (dark)
 - **Custom Color** - Allows one-off custom colors when needed
+
+All brand colors automatically adapt between Cellcolabs Clinical (blue) and Cellcolabs AB (blue/yellow) brands.
 
 **Implementation Pattern:**
 ```json
@@ -327,8 +328,29 @@ All modules with background color options use a **dual-field system** that combi
 - Centralized color management through CSS variables
 
 **Modules with Background Color System:**
+- Section Builder Module ✅ (with brand colors)
+- Content Checklist Block Module ✅ (with brand colors)
+- Grid 2x2 Card Image Module ✅ (with brand colors + user-controlled text/eyebrow styling)
+- Image Card Overlay 3 Column Module ✅ (with brand colors + user-controlled text/eyebrow styling)
+- Image Card Overlay 4 Column Module ✅ (with brand colors + user-controlled text/eyebrow styling)
+
+**User-Controlled Text/Eyebrow Styling:**
+For image card modules with background colors (not images), users can select:
+- **Text Color Style:** Primary (dark) or Inverse (white)
+- **Eyebrow Style:** Primary (dark semi-transparent) or Secondary (white semi-transparent)
+
+This flexible system avoids hardcoded light/dark logic and remains future-proof as new colors are added.
+
+**Eyebrow Background Variables (Centralized):**
+All modules with eyebrows now use centralized CSS variables from `child.css`:
+- `--color-eyebrow-bg-primary`: rgba(22, 22, 22, 0.08) - Dark semi-transparent for light backgrounds
+- `--color-eyebrow-bg-secondary`: rgba(255, 255, 255, 0.12) - White semi-transparent for dark/image backgrounds
+
+**Modules Using Eyebrow Variables:**
+- Eyebrow Block Module ✅
 - Section Builder Module ✅
-- Content Checklist Block Global Module ✅
+- Process Steps Module ✅
+- Locations Carousel Block V2 Module ✅
 
 📚 **For complete CSS architecture, button/link styling, form styling, and best practices, see:** [02-child-theme-production/docs/CSS_STYLING_GUIDE.md](./02-child-theme-production/docs/CSS_STYLING_GUIDE.md)
 
@@ -340,12 +362,15 @@ All modules with background color options use a **dual-field system** that combi
    - Flexible multi-column layout (1-3 columns)
    - 8 content block types (eyebrow, heading, subheader, description, button, rich text, feature list, accordion)
    - Configurable spacing and padding
+   - Full brand color support
+   - Centralized eyebrow variables
 
 2. **Process Steps Module** ✅
    - Scroll-activated step-by-step display
    - Numbered circles with connecting line
    - Progressive scroll effects
    - Two-column layout (desktop/tablet), single column (mobile)
+   - Centralized eyebrow variables
 
 3. **Team Cards Module** ✅
    - Responsive grid (3-column → 2-column → 1-column)
@@ -360,18 +385,51 @@ All modules with background color options use a **dual-field system** that combi
    - References accordion
 
 5. **Grid 2x2 Card Image Module** ✅
-   - 2x2 grid with image cards and overlays
+   - 2x2 grid with image/color backgrounds
+   - Full brand color support (10 brand colors total)
+   - User-controlled text and eyebrow styling
+   - Optional button CTAs
 
-6. **Button Multi-Variant Module** ✅
-   - Multiple button styles (primary, secondary, outline)
+6. **Image Card Overlay 3 Column Module** ✅
+   - 3-column responsive grid
+   - Image/color backgrounds with full brand color support
+   - User-controlled text and eyebrow styling
+   - Optional link CTAs
 
-7. **Content Text Image Module** ✅
-   - Content sections with text and images
+7. **Image Card Overlay 4 Column Module** ✅
+   - 4-column responsive grid
+   - Image/color backgrounds with full brand color support
+   - User-controlled text and eyebrow styling
+   - Optional link CTAs
 
-8. **Eligibility Checker Module** ✅
-   - Multi-step eligibility flow
-   - GTM event tracking
-   - Optional HubSpot meeting scheduler integration
+8. **Content Checklist Block Module** ✅
+   - Feature list with checkmarks
+   - Full brand color support
+   - Eyebrow, heading, description
+   - Up to 10 feature items
+
+9. **Eyebrow Block Module** ✅
+   - Standalone eyebrow component
+   - 3 variants (Default, Inverted, Glass)
+   - 5 alignment options
+   - Centralized eyebrow variables
+
+10. **Locations Carousel Block V2 Module** ✅
+    - Two-column location display
+    - Multi-image carousel per location
+    - Tab navigation and auto-play
+    - Centralized eyebrow variables
+
+11. **Button Multi-Variant Module** ✅
+    - Multiple button styles (primary, secondary, outline)
+
+12. **Content Text Image Module** ✅
+    - Content sections with text and images
+
+13. **Eligibility Checker Module** ✅
+    - Multi-step eligibility flow
+    - GTM event tracking
+    - Optional HubSpot meeting scheduler integration
 
 📚 **For complete module specifications, fields, features, and usage guidelines, see:** [02-child-theme-production/docs/MODULE_CATALOG.md](./02-child-theme-production/docs/MODULE_CATALOG.md)
 
@@ -392,15 +450,25 @@ All modules with background color options use a **dual-field system** that combi
 - **[CSS_STYLING_GUIDE.md](./02-child-theme-production/docs/CSS_STYLING_GUIDE.md)** - Complete CSS architecture
   - CSS file structure and loading order
   - Brand variables and responsive typography
+  - Brand color system (Figma-aligned with 10 brand colors)
+  - Eyebrow background variables (centralized)
   - Button and link styling system
   - Link color override utilities
   - HubSpot form styling (complete system)
+  - Modules with background color systems
+  - Modules using eyebrow variables
 
 - **[MODULE_CATALOG.md](./02-child-theme-production/docs/MODULE_CATALOG.md)** - All custom module specifications
-  - Section Builder Module
-  - Process Steps Module
+  - Section Builder Module (with brand colors)
+  - Process Steps Module (with eyebrow variables)
   - Team Cards Module
   - Article with Table of Contents Module
+  - Grid 2x2 Card Image Module (with brand colors + flexible styling)
+  - Image Card Overlay 3 Column Module (with brand colors + flexible styling)
+  - Image Card Overlay 4 Column Module (with brand colors + flexible styling)
+  - Content Checklist Block Module (with brand colors)
+  - Eyebrow Block Module (with centralized variables)
+  - Locations Carousel Block V2 Module (with eyebrow variables)
   - Module development guidelines
 
 ### Supporting Documentation
@@ -418,6 +486,13 @@ All modules with background color options use a **dual-field system** that combi
 
 ---
 
-**Last Updated**: October 22, 2025
+**Last Updated**: October 23, 2025
 **Status**: ✅ Production Ready - Clinical brand complete, Cellcolabs brand pending
 **Theme**: growth child (extends Growth marketplace theme)
+
+**Recent Updates (October 23, 2025):**
+- ✅ Added full brand color system (10 colors: 5 primary + 5 secondary shades)
+- ✅ Implemented centralized eyebrow background variables
+- ✅ Updated 5 image card modules with brand colors and flexible text/eyebrow styling
+- ✅ Standardized eyebrow styling across all modules using centralized variables
+- ✅ Updated CSS_STYLING_GUIDE.md and MODULE_CATALOG.md with complete documentation

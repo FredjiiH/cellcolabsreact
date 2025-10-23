@@ -209,6 +209,10 @@
   --color-bg-beige: #EDE9E1;
   --color-bg-blue: #E1EBF5;
 
+  /* Eyebrow Backgrounds (Figma Design System) */
+  --color-eyebrow-bg-primary: rgba(22, 22, 22, 0.08);    /* Dark semi-transparent for light backgrounds */
+  --color-eyebrow-bg-secondary: rgba(255, 255, 255, 0.12); /* White semi-transparent for dark/image backgrounds */
+
   /* Border Colors */
   --color-border-light: #C6C6C6;
   --color-border-medium: #A8A8A8;
@@ -241,7 +245,21 @@
 
 /* Cellcolabs Brand (Green Theme) */
 [data-brand="cellcolabs"] {
-  /* Brand Colors */
+  /* Brand Colors - Primary (Blue scale from Figma) */
+  --color-brand-100: #E1EBF5;
+  --color-brand-300: #C0CDDA;
+  --color-brand-500: #8CA2B7;
+  --color-brand-700: #2E5477;
+  --color-brand-900: #123250;
+
+  /* Brand Colors - Secondary (Yellow/Gold scale from Figma) */
+  --color-brand-secondary-100: #FCECAC;
+  --color-brand-secondary-300: #F6CE3C;
+  --color-brand-secondary-500: #CF9C27;
+  --color-brand-secondary-700: #694808;
+  --color-brand-secondary-900: #3D2D02;
+
+  /* Legacy Brand Colors (keeping for backwards compatibility) */
   --color-primary: #00A651;      /* Green */
   --color-secondary: #004225;    /* Dark green */
   --color-accent: #F9D400;       /* Yellow */
@@ -258,6 +276,10 @@
   --color-bg-secondary: #F8F9FA;
   --color-bg-section: #F0F8F0;   /* Light green tint */
   --color-bg-dark: #004225;
+
+  /* Eyebrow Backgrounds (Figma Design System) */
+  --color-eyebrow-bg-primary: rgba(22, 22, 22, 0.08);    /* Dark semi-transparent for light backgrounds */
+  --color-eyebrow-bg-secondary: rgba(255, 255, 255, 0.12); /* White semi-transparent for dark/image backgrounds */
 
   /* Border Colors */
   --color-border-light: #E0E0E0;

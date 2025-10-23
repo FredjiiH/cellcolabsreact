@@ -1,0 +1,10 @@
+{
+  "global" : true,
+  "content_types" : [ "ANY" ],
+  "smart_type" : "NOT_SMART",
+  "host_template_types" : [ "ANY" ],
+  "module_id" : 281500736718,
+  "label" : "Content Checklist Block (Global)",
+  "icon" : "check-list",
+  "is_available_for_new_content" : true
+}

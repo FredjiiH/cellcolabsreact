@@ -22,6 +22,26 @@
   {% set bg_color = "var(--color-bg-beige, #EDE9E1)" %}
 {% elif bg_preset == "bg-blue" %}
   {% set bg_color = "var(--color-bg-blue, #E1EBF5)" %}
+{% elif bg_preset == "brand-100" %}
+  {% set bg_color = "var(--color-brand-100, #BECFFF)" %}
+{% elif bg_preset == "brand-300" %}
+  {% set bg_color = "var(--color-brand-300, #879ADF)" %}
+{% elif bg_preset == "brand-500" %}
+  {% set bg_color = "var(--color-brand-500, #4F65BE)" %}
+{% elif bg_preset == "brand-700" %}
+  {% set bg_color = "var(--color-brand-700, #2F4283)" %}
+{% elif bg_preset == "brand-900" %}
+  {% set bg_color = "var(--color-brand-900, #0F2047)" %}
+{% elif bg_preset == "brand-secondary-100" %}
+  {% set bg_color = "var(--color-brand-secondary-100, #FCECAC)" %}
+{% elif bg_preset == "brand-secondary-300" %}
+  {% set bg_color = "var(--color-brand-secondary-300, #F6CE3C)" %}
+{% elif bg_preset == "brand-secondary-500" %}
+  {% set bg_color = "var(--color-brand-secondary-500, #CF9C27)" %}
+{% elif bg_preset == "brand-secondary-700" %}
+  {% set bg_color = "var(--color-brand-secondary-700, #694808)" %}
+{% elif bg_preset == "brand-secondary-900" %}
+  {% set bg_color = "var(--color-brand-secondary-900, #3D2D02)" %}
 {% elif bg_preset == "neutral-900" %}
   {% set bg_color = "var(--color-gray-900, #F4F4F4)" %}
 {% elif bg_preset == "neutral-0" %}
@@ -125,12 +145,12 @@
   }
 
   .section-builder__eyebrow.variant-inverted {
-    background-color: rgba(22, 22, 22, 0.05);
+    background-color: var(--color-eyebrow-bg-primary);
     color: var(--color-text-secondary, #666666);
   }
 
   .section-builder__eyebrow.variant-glass {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--color-eyebrow-bg-secondary);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     color: var(--color-text-inverse, #ffffff);

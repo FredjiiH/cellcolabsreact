@@ -31,9 +31,9 @@
         "default": "Card description text"
       },
       {
-        "id": "badge_text",
-        "name": "badge_text",
-        "label": "Badge Text",
+        "id": "eyebrow_text",
+        "name": "eyebrow_text",
+        "label": "Eyebrow Text",
         "required": false,
         "locked": false,
         "type": "text",
@@ -49,6 +49,87 @@
         "default": {
           "src": "https://cdn2.hubspot.net/hubfs/placeholder-image.jpg",
           "alt": "Card image"
+        }
+      },
+      {
+        "id": "background_color_preset",
+        "name": "background_color_preset",
+        "label": "Background Color (Alternative to Image)",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["none", "None (Use Image)"],
+          ["bg-white", "$bg-white"],
+          ["bg-beige", "$bg-beige"],
+          ["bg-blue", "$bg-blue"],
+          ["brand-100", "$brand-100 (Lightest Brand)"],
+          ["brand-300", "$brand-300 (Light Brand)"],
+          ["brand-500", "$brand-500 (Medium Brand)"],
+          ["brand-700", "$brand-700 (Dark Brand)"],
+          ["brand-900", "$brand-900 (Darkest Brand)"],
+          ["brand-secondary-100", "$brand-secondary-100 (Lightest Secondary)"],
+          ["brand-secondary-300", "$brand-secondary-300 (Light Secondary)"],
+          ["brand-secondary-500", "$brand-secondary-500 (Medium Secondary)"],
+          ["brand-secondary-700", "$brand-secondary-700 (Dark Secondary)"],
+          ["brand-secondary-900", "$brand-secondary-900 (Darkest Secondary)"],
+          ["neutral-900", "neutral-900 (Light Gray)"],
+          ["neutral-0", "neutral-0 (Dark)"],
+          ["custom", "Custom Color"]
+        ],
+        "default": "none",
+        "help_text": "Use a background color instead of an image. Select a Figma design system color or choose Custom."
+      },
+      {
+        "id": "background_color_custom",
+        "name": "background_color_custom",
+        "label": "Custom Background Color",
+        "required": false,
+        "locked": false,
+        "type": "color",
+        "default": {
+          "color": "#FFFFFF",
+          "opacity": 100
+        },
+        "visibility": {
+          "controlling_field": "background_color_preset",
+          "controlling_value_regex": "custom"
+        }
+      },
+      {
+        "id": "text_color_style",
+        "name": "text_color_style",
+        "label": "Text Color Style (when using background color)",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["primary", "Primary (Dark text)"],
+          ["inverse", "Inverse (White text)"]
+        ],
+        "default": "primary",
+        "help_text": "Choose text color for title and description when using background color",
+        "visibility": {
+          "controlling_field": "background_color_preset",
+          "controlling_value_regex": "^(?!none$).*"
+        }
+      },
+      {
+        "id": "eyebrow_style",
+        "name": "eyebrow_style",
+        "label": "Eyebrow Style (when using background color)",
+        "required": false,
+        "locked": false,
+        "type": "choice",
+        "choices": [
+          ["primary", "Primary (Dark semi-transparent bg)"],
+          ["secondary", "Secondary (White semi-transparent bg)"]
+        ],
+        "default": "primary",
+        "help_text": "Choose eyebrow style when using background color",
+        "visibility": {
+          "controlling_field": "background_color_preset",
+          "controlling_value_regex": "^(?!none$).*"
         }
       },
       {
