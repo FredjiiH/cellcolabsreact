@@ -109,30 +109,33 @@
       const currentBrand = document.querySelector('[data-brand]')?.getAttribute('data-brand') || 'cellcolabsclinical';
       brandSelector.value = currentBrand;
 
-      // Handle brand switching
+      // Handle brand switching - reload page with query parameter
       brandSelector.addEventListener('change', function() {
         const selectedBrand = this.value;
 
-        // Update all elements with data-brand attribute
-        document.querySelectorAll('[data-brand]').forEach(el => {
-          el.setAttribute('data-brand', selectedBrand);
-        });
+        // Get current URL and update/add brand query parameter
+        const url = new URL(window.location.href);
+        url.searchParams.set('brand', selectedBrand);
 
-        // Update body class for global brand switching
-        document.body.setAttribute('data-brand', selectedBrand);
+        // Reload page with brand parameter
+        window.location.href = url.toString();
 
-        // Update header and nav specifically
-        const header = document.querySelector('.site-header');
-        const nav = document.querySelector('.site-navigation');
-        if (header) header.setAttribute('data-brand', selectedBrand);
-        if (nav) nav.setAttribute('data-brand', selectedBrand);
-
-        console.log('Brand switched to:', selectedBrand);
+        console.log('Switching brand to:', selectedBrand);
       });
 
-      // Hide brand switcher on published sites (only show in editor)
-      if (window.location.hostname !== 'preview.hs-sites.com' &&
-          !window.location.hostname.includes('hubspot')) {
+      // Show brand switcher only in preview/staging environments
+      // Hide on production domains (cellcolabs.com and cellcolabsclinical.com)
+      const hostname = window.location.hostname;
+      const isProduction = hostname === 'cellcolabs.com' ||
+                          hostname === 'www.cellcolabs.com' ||
+                          hostname === 'cellcolabsclinical.com' ||
+                          hostname === 'www.cellcolabsclinical.com';
+
+      const isPreviewOrStaging = hostname.includes('hs-sites') ||
+                                 hostname.includes('hubspot') ||
+                                 hostname.includes('sandbox');
+
+      if (!isPreviewOrStaging || isProduction) {
         brandSwitcher.style.display = 'none';
       }
     }

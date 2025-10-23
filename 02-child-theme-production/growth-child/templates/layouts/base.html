@@ -36,13 +36,29 @@
 {{ require_css(get_public_template_url("../../css/standard-modules.css")) }}
 {{ require_css(get_public_template_url("../../css/marketplace-modules.css")) }}
   </head>
-  {# Set global brand based on domain #}
+  {# Set global brand based on domain and query parameter #}
   {% set global_brand = "cellcolabsclinical" %}
-  {% if request.domain == "cellcolabs.com" %}
+
+  {# Check domain (production and staging) #}
+  {% if request.domain == "cellcolabs.com" or "cellcolabs-ab" in request.domain %}
     {% set global_brand = "cellcolabs" %}
   {% endif %}
 
+  {# Allow brand override via query parameter for preview (e.g., ?brand=cellcolabs) #}
+  {% if request.query_dict.brand %}
+    {% set global_brand = request.query_dict.brand %}
+  {% endif %}
+
   <body data-brand="{{ global_brand }}">
+    {# Brand Preview Selector - Only visible in preview/staging environments #}
+    <div id="brand-switcher" style="position: fixed; top: 90px; right: 10px; z-index: 10000; background: rgba(22, 22, 22, 0.9); padding: 12px 16px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: var(--font-body, 'Inter', sans-serif);">
+      <label for="brand-selector" style="color: #ffffff; font-size: 14px; font-weight: 500; margin-right: 8px;">Preview Brand:</label>
+      <select id="brand-selector" style="padding: 6px 12px; border-radius: 4px; border: 1px solid #525252; background: #ffffff; font-size: 14px; cursor: pointer;">
+        <option value="cellcolabsclinical">Cellcolabs Clinical (Blue)</option>
+        <option value="cellcolabs">Cellcolabs AB (Green)</option>
+      </select>
+    </div>
+
     <div class="body-wrapper {{ builtin_body_classes }}">
       {% block header %}
         {% if global_brand == "cellcolabs" %}
