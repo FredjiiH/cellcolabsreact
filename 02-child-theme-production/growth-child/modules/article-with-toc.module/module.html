@@ -269,14 +269,9 @@
     .article-toc {
       flex: none;
       padding: 0;
-      position: -webkit-sticky;
-      position: sticky;
-      top: 72px;
-      align-self: flex-start;
+      position: static;
       width: 100%;
-      background-color: var(--color-bg-primary, #FFFFFF);
       padding-bottom: var(--space-16, 16px);
-      z-index: 10;
       margin-bottom: var(--space-32, 32px);
     }
 
@@ -426,31 +421,31 @@
 
       if (tocLinks.length === 0 || sections.length === 0) return;
 
-      // Scroll spy - highlight active section in TOC
-      function updateActiveTOCLink() {
-        const scrollPosition = window.scrollY + 100; // Offset for better UX
-
-        let currentSection = null;
-
-        sections.forEach(section => {
-          const sectionTop = section.offsetTop;
-          const sectionBottom = sectionTop + section.offsetHeight;
-
-          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            currentSection = section.id;
-          }
-        });
-
-        // Update active state on TOC links
-        tocLinks.forEach(link => {
-          const sectionId = link.getAttribute('data-section-id');
-          if (sectionId === currentSection) {
-            link.classList.add('is-active');
-          } else {
-            link.classList.remove('is-active');
-          }
-        });
-      }
+      // Scroll spy - DISABLED for mobile (all links remain in inactive state)
+      // function updateActiveTOCLink() {
+      //   const scrollPosition = window.scrollY + 100; // Offset for better UX
+      //
+      //   let currentSection = null;
+      //
+      //   sections.forEach(section => {
+      //     const sectionTop = section.offsetTop;
+      //     const sectionBottom = sectionTop + section.offsetHeight;
+      //
+      //     if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+      //       currentSection = section.id;
+      //     }
+      //   });
+      //
+      //   // Update active state on TOC links
+      //   tocLinks.forEach(link => {
+      //     const sectionId = link.getAttribute('data-section-id');
+      //     if (sectionId === currentSection) {
+      //       link.classList.add('is-active');
+      //     } else {
+      //       link.classList.remove('is-active');
+      //     }
+      //   });
+      // }
 
       // Smooth scroll to section on TOC link click
       tocLinks.forEach(link => {
@@ -520,14 +515,10 @@
         });
       }
 
-      // Run scroll spy on scroll
-      window.addEventListener('scroll', updateActiveTOCLink);
-
-      // Run on load
-      updateActiveTOCLink();
-
-      // Run after short delay
-      setTimeout(updateActiveTOCLink, 100);
+      // Scroll spy disabled - all TOC links remain in inactive state
+      // window.addEventListener('scroll', updateActiveTOCLink);
+      // updateActiveTOCLink();
+      // setTimeout(updateActiveTOCLink, 100);
     }
 
     // Initialize on DOM ready
