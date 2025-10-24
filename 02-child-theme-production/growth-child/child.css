@@ -11,7 +11,7 @@
 :root {
   /* Container Width System - Aligns with Figma and HubSpot */
   --container-max-width: 1440px;  /* Figma design frame width */
-  --content-max-width: 1400px;     /* HubSpot theme setting for content */
+  --content-max-width: 1136px;     /* Figma-aligned visual content width (152px margins on desktop) */
   --nav-max-width: 1440px;         /* Navigation container width */
 
   /* Spacing System - Maps to HubSpot's UI settings */
@@ -649,24 +649,25 @@ body .body-wrapper .container-fluid > .row-fluid {
 /* Remove duplicate - now handled above with better targeting */
 
 /* Responsive Design System Spacing for HubSpot Modules */
-@media (min-width: 768px) {
+/* Updated Oct 2025 to match Figma grid specs exactly */
+@media (min-width: 768px) and (max-width: 1023px) {
   .dnd-section .row-fluid,
   .dnd-row .row-fluid {
-    padding: 0 var(--space-24) !important; /* Tablet: 24px */
+    padding: 0 var(--space-16) !important; /* Tablet: 16px each side = 736px content (768px - 32px) */
   }
 }
 
 @media (min-width: 1024px) {
   .dnd-section .row-fluid,
   .dnd-row .row-fluid {
-    padding: 0 var(--space-32) !important; /* Desktop: 32px */
+    padding: 0 !important; /* Desktop: No horizontal padding - 1136px content, 152px margins */
   }
 }
 
 @media (min-width: 1441px) {
   .dnd-section .row-fluid,
   .dnd-row .row-fluid {
-    padding: 0 var(--space-48) !important; /* Wide: 48px - matches design system */
+    padding: 0 !important; /* Wide: No horizontal padding - 1136px content, larger margins */
   }
 }
 

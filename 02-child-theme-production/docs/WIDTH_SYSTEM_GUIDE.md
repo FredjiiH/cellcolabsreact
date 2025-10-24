@@ -14,7 +14,7 @@ HubSpot's Growth theme and various module types apply inconsistent width constra
 
 ## The Solution: Nuclear Width Override
 
-We implemented a "nuclear" CSS override approach that forces ALL sections to respect our design system's 1400px maximum width.
+We implemented a "nuclear" CSS override approach that forces ALL sections to respect our design system's 1136px maximum content width, matching the Figma design specifications exactly.
 
 ### Why "Nuclear"?
 
@@ -36,14 +36,21 @@ The term "nuclear" refers to the aggressive, all-encompassing nature of our CSS 
 
 ## Implementation Details
 
-### Core CSS Rules (child.css lines 946-968)
+### Core CSS Rules
 
+**CSS Variable (child.css line 14):**
 ```css
-/* ABSOLUTE MAXIMUM WIDTH ENFORCEMENT */
-body .body-wrapper [class*="row-fluid"] {
-  max-width: var(--content-max-width) !important; /* 1400px */
-  margin-left: auto !important;
-  margin-right: auto !important;
+--content-max-width: 1136px; /* Figma-aligned visual content width (152px margins on desktop) */
+```
+
+**Universal Width Override (child.css lines 558-563):**
+```css
+/* Only target content-level row-fluid elements, not page containers */
+.dnd-section .row-fluid,
+.dnd-row .row-fluid {
+  max-width: var(--content-max-width) !important; /* 1136px */
+  margin: 0 auto !important;
+  padding: 0 var(--space-16) !important; /* Mobile: 16px */
 }
 
 /* Exception: nested row-fluids in columns should use parent width */
@@ -53,15 +60,39 @@ body .body-wrapper [class*="span"] .row-fluid {
 }
 ```
 
-### Responsive Breakpoints
+**Responsive Padding (child.css lines 652-676):**
+```css
+/* Tablet: 16px padding each side */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .dnd-section .row-fluid,
+  .dnd-row .row-fluid {
+    padding: 0 var(--space-16) !important;
+  }
+}
 
-| Breakpoint | Container Max | Content Max | Padding |
-|------------|---------------|-------------|---------|
-| Mobile (<768px) | 100% | 100% | 16px |
-| Tablet (768-1023px) | 100% | 100% | 24px |
-| Desktop (1024-1440px) | 1400px | 1400px | 32px |
-| Wide (1441-1919px) | 1440px | 1400px | 48px |
-| Ultra-wide (≥1920px) | 1440px | 1400px | 48px |
+/* Desktop & Wide: No horizontal padding (margins create spacing) */
+@media (min-width: 1024px) {
+  .dnd-section .row-fluid,
+  .dnd-row .row-fluid {
+    padding: 0 !important;
+  }
+}
+```
+
+### Responsive Breakpoints (Updated Oct 2025 - Figma-Aligned)
+
+| Breakpoint | Viewport | Content Width | Left/Right Margins | Padding |
+|------------|----------|---------------|-------------------|---------|
+| Mobile (≤767px) | 375px | 343px | 16px each | 16px via .dnd-module |
+| Tablet (768-1023px) | 768px | 736px | 16px each | 16px each side |
+| Desktop (1024-1440px) | 1440px | 1136px | 152px each | 0 (margins only) |
+| Wide (≥1441px) | Variable | 1136px | Auto (centered) | 0 (margins only) |
+
+**Key Changes:**
+- Desktop content width reduced from 1400px to **1136px** to match Figma
+- Desktop margins increased from ~20px to **152px each side**
+- Tablet padding reduced from 24px to **16px** to match Figma grid
+- Desktop/wide screens use **no horizontal padding** - spacing created by margin: auto
 
 ## Module Development Guidelines
 
@@ -107,9 +138,21 @@ When adding new modules or sections:
 
 ### 1. Width Verification
 ```javascript
-// Run in browser console
-const widths = [...document.querySelectorAll('.row-fluid')].map(el => parseInt(getComputedStyle(el).width));
-console.log('Max width:', Math.max(...widths), widths.filter(w => w > 1450).length > 0 ? '❌ Issues' : '✅ Good');
+// Run in browser console to verify all modules align at 1136px
+const modules = [
+  { name: 'Navigation', selector: '.nav-container' },
+  { name: 'Grid 2x2', selector: '.grid2x2-container' },
+  { name: 'Section Builder', selector: '.section-builder' },
+  { name: 'Footer', selector: '.footer-container' }
+];
+
+modules.forEach(({ name, selector }) => {
+  const el = document.querySelector(selector);
+  if (el) {
+    const width = el.offsetWidth;
+    console.log(`${name}: ${width}px ${width === 1136 ? '✅' : '❌'}`);
+  }
+});
 ```
 
 ### 2. Alignment Check
@@ -166,15 +209,23 @@ console.log('Max width:', Math.max(...widths), widths.filter(w => w > 1450).leng
 
 To change the maximum content width:
 
-1. Update CSS variables in child.css:
+1. Update CSS variables in child.css (line 14):
 ```css
 :root {
-  --content-max-width: 1400px; /* Change this value */
+  --content-max-width: 1136px; /* Change this value */
 }
 ```
 
-2. Test across all pages and module types
-3. Update this documentation
+2. **No padding changes needed** - The system uses `margin: 0 auto` to center content and create margins automatically
+
+3. Test across all pages and module types
+
+4. Verify header uses the variable:
+```html
+<div class="nav-container" style="max-width: var(--content-max-width) !important; ...">
+```
+
+5. Update this documentation
 
 ## Related Documentation
 
@@ -184,6 +235,31 @@ To change the maximum content width:
 
 ---
 
-**Last Updated**: September 26, 2025
-**Status**: ✅ Active and Working
+**Last Updated**: October 24, 2025
+**Status**: ✅ Active and Working - Figma-Aligned
 **Applies To**: All pages using "growth child" theme
+
+## Recent Updates (October 2025)
+
+### Figma Grid Alignment
+Updated the entire width system to match Figma design specifications:
+
+**Desktop (1440px viewport):**
+- Visual content width: **1136px** (previously 1400px)
+- Left/right margins: **152px each** (previously ~20px)
+- No horizontal padding on row-fluids (previously 32px each side)
+
+**Tablet (768px viewport):**
+- Visual content width: **736px** (768px - 32px margins)
+- Left/right margins: **16px each** (previously 24px padding)
+
+**Mobile (375px viewport):**
+- Visual content width: **343px** (375px - 32px margins)
+- Left/right margins: **16px each** (unchanged)
+
+**Benefits:**
+- ✅ Matches Figma grid system exactly
+- ✅ Consistent 152px margins on desktop create more focused, readable content
+- ✅ All modules (custom, default, marketplace) align perfectly at 1136px
+- ✅ Header navigation uses CSS variable for automatic adjustment
+- ✅ Single variable change (`--content-max-width`) updates entire site
